@@ -1,4 +1,21 @@
 1. retrywhen 怎么理解：
 
 
-2.
+2. okhttp 拦截器： 应用层拦截器+ 网络层拦截器  {osi七层协议}  https://www.jianshu.com/p/d04b463806c8
+              自定义拦截器 Interceptor
+                  |         |
+              RetryAndFollowInterceptor（失败重试）
+                 |          |
+               BridgeInterceptor（请求和响应转换）
+ request          |          |       response
+              CacheInterceptor （缓存）
+                  |          |
+              ConnectIeterceptor(与服务器建立连接)
+                 |          |
+              NeworkInterceptor （）
+                 |          |
+               CallServerInterceptor （数据传输）
+ 除了 自定义拦截器，和 NetworkInterceptor， 其他的都是okhttp系统的拦截器；
+
+ 3. okhttp  cancle tag  怎么使用。。。
+

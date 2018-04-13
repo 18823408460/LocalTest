@@ -8,6 +8,7 @@ import com.unisrobot.localtest.threadPool.ThreadPoolMgr;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -78,6 +79,18 @@ public class Okhttp3Mgr {
                 // 通过构造者模式先设置后build生成的方式。
                 OkHttpClient.Builder builder = new OkHttpClient.Builder();
                 okHttpClient = builder.connectTimeout(3000, TimeUnit.MILLISECONDS)
+                        .addInterceptor(new Interceptor() { // applicationcen 层拦截器
+                                @Override
+                                public Response intercept(Chain chain) throws IOException {
+                                        return null;
+                                }
+                        })
+                        .addNetworkInterceptor(new Interceptor() { // network层拦截器
+                                @Override
+                                public Response intercept(Chain chain) throws IOException {
+                                        return null;
+                                }
+                        })
                         .readTimeout(3000, TimeUnit.MILLISECONDS)
                         .writeTimeout(3000, TimeUnit.MILLISECONDS)
                         .build();
