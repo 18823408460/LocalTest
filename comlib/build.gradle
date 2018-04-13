@@ -15,6 +15,15 @@ android {
 
     }
 
+
+    lintOptions {
+        abortOnError false
+    }
+
+    compileOptions {
+        encoding "UTF-8"
+    }
+
     buildTypes {
         release {
             minifyEnabled false

@@ -3,6 +3,7 @@ if (isBuildModule.toBoolean()) {
 } else {
     apply plugin: 'com.android.library'
 }
+apply plugin: 'com.jakewharton.butterknife'
 
 
 android {
@@ -38,6 +39,13 @@ android {
         }
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
+    compileOptions {
+        encoding "UTF-8"
+    }
 }
 
 dependencies {
@@ -50,4 +58,7 @@ dependencies {
 
     compile rootProject.ext.dependencies["router"]
     annotationProcessor rootProject.ext.dependencies["router-compiler"]
+    implementation rootProject.ext.dependencies["butterknife"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+
 }

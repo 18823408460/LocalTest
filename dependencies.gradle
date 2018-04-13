@@ -1,4 +1,5 @@
 def routerVersion = "0.2.3"
+def butterknifeVersion = "8.5.1"
 
 project.ext {
 
@@ -10,7 +11,10 @@ project.ext {
 
 
     dependencies = [
-            "router"         : "com.baronzhang.android:router:${routerVersion}",
-            "router-compiler": "com.baronzhang.android:router-compiler:${routerVersion}",
+            "router"              : "com.baronzhang.android:router:${routerVersion}",
+            "router-compiler"     : "com.baronzhang.android:router-compiler:${routerVersion}",
+
+            "butterknife"         : "com.jakewharton:butterknife:${butterknifeVersion}",
+            "butterknife-compiler": "com.jakewharton:butterknife-compiler:${butterknifeVersion}",
     ]
 }
