@@ -4,8 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LocalTest.iml" filepath="$PROJECT_DIR$/LocalTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/comlib/comlib.iml" filepath="$PROJECT_DIR$/comlib/comlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/firstmodule/firstmodule.iml" filepath="$PROJECT_DIR$/firstmodule/firstmodule.iml" />
+=======
+>>>>>>> 984fe776e477fb0333f248ff57e9b4c0d011c4ec
     </modules>
   </component>
 </project>
