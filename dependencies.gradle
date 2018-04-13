@@ -1,0 +1,16 @@
+def routerVersion = "0.2.3"
+
+project.ext {
+
+    android = [
+            versoinCode: 1.0,
+            versionName: "1.0"
+    ]
+
+
+
+    dependencies = [
+            "router"         : "com.baronzhang.android:router:${routerVersion}",
+            "router-compiler": "com.baronzhang.android:router-compiler:${routerVersion}",
+    ]
+}

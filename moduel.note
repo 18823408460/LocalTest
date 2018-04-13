@@ -1,0 +1,10 @@
+1. 在 gradle.properties 添加模块控制字段
+
+2. 资源前缀
+
+3. manifest debug  release
+
+4. activity 路由
+
+5. 依赖 统一版本管理。。
+
