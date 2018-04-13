@@ -7,11 +7,14 @@ import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.unisrobot.localtest.R;
 import com.unisrobot.localtest.robot.Sensor.SensorManager;
 
 import java.security.SecureRandom;
+import java.util.concurrent.TimeUnit;
 
 import javax.crypto.spec.IvParameterSpec;
 
@@ -31,6 +34,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import rx.functions.Action1;
 
 /**
  * Created by Administrator on 2018/4/11.
@@ -55,16 +59,17 @@ public class RxActivity extends Activity {
                 setContentView(R.layout.activity_rx);
                 ButterKnife.bind(this);
                 SensorManager.getSensorManager();
+
         }
 
         @OnClick(R.id.button7)
         public void test() {
 //                RxMgr.getOkHttpMgr().test3();
-                Rx2Mgr.getOkHttpMgr().testSchedule();
+                Rx2Mgr.getOkHttpMgr().testRepeatWhen1();
 //                textConn();
         }
 
-        private void alibaba(){
+        private void alibaba() {
 //                SecureRandom
 //                IvParameterSpec
         }

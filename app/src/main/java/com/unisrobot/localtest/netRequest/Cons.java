@@ -14,4 +14,8 @@ public class Cons {
 
         public static final String baseUrl = "http://95558js.faqrobot.cn/token/getToken?";
         public static final String base = "http://95558js.faqrobot.cn";
+
+        // https://api.douban.com/v2/movie/top250?start=0&count=1
+        public static final String baseDouban = "https://api.douban.com" ;
+
 }

@@ -56,7 +56,7 @@ public class Okhttp3Mgr {
 
         private static final String TAG = "Okhttp3Mgr";
 
-        private static Okhttp3Mgr okHttpMgr;
+        private volatile  static Okhttp3Mgr okHttpMgr;
 
         private OkHttpClient okHttpClient;
 

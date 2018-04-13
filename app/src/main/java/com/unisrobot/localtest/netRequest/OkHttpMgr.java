@@ -27,7 +27,7 @@ public class OkHttpMgr {
 
         private static final String TAG = "OkHttpMgr";
 
-        private static OkHttpMgr okHttpMgr;
+        private volatile static OkHttpMgr okHttpMgr;
 
         private OkHttpClient okHttpClient;
 

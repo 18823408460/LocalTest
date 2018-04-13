@@ -11,18 +11,16 @@ import retrofit.Retrofit;
  * Created by Administrator on 2018/4/11.
  * <p>
  * 由移动支付Square公司贡献
- *
+ * <p>
  * 1. 缺点是在Retrofit 1.x中没有直接取消正在进行中任务的方法。如果你想做这件事必须手动杀死，而这并不好实现
- *    在2.0的基础上添加了该功能
- *
- *
+ * 在2.0的基础上添加了该功能
  */
 // Retrofit是从 1.0.0 -- 2.0.0beta2.0 ,之后改名为 Retrofit2，内部做了很大的修改。
 
 // Retrofit 内部是用Okhttp
 public class RetrofitMgr {
 
-        private static RetrofitMgr retrofitMgr;
+        private volatile static RetrofitMgr retrofitMgr;
 
         private Retrofit retrofit;
 
@@ -39,7 +37,7 @@ public class RetrofitMgr {
 
         private RetrofitMgr() {
                 retrofit = new Retrofit.Builder()
-                        .baseUrl(Cons.base)
+                        .baseUrl(Cons.baseDouban)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
         }

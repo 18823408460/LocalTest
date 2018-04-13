@@ -6,6 +6,9 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+import com.unisrobot.localtest.robot.S;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //        String[] questions = {"你好", "上海今天的天气", "今天的股市怎么样","你叫什么名字","how are you ","1加1等于几"};
-        String[] questions = {"你好", "发票申领", "税务申报", "税务办理"};
+        String[] questions = {"你好", "发票申领", "税务申报", "税务办理", "你叫什么名字", "上海今天的天气"};
 
         private int count;
 
@@ -76,12 +79,12 @@ public class MainActivity extends AppCompatActivity {
                                 // run: {"errorCode":0,"message":"success","data":{"content":"你好，很高兴为您服务！","similarity":1.0,"relatedQuestions":[]}}
                                 //  run: null
                                 String ask = askClient.ask(Url, cnonce, askPayload);
-                                Log.e(TAG, "Q: " + question);
-                                Log.e(TAG, "A: " + ask);
+                                parse(ask, question);
                                 lock++;
                         }
                 }).start();
         }
+
         @OnClick(R.id.no)
         public void no() {
                 final String question = "第二个";
@@ -95,8 +98,7 @@ public class MainActivity extends AppCompatActivity {
                                 // run: {"errorCode":0,"message":"success","data":{"content":"你好，很高兴为您服务！","similarity":1.0,"relatedQuestions":[]}}
                                 //  run: null
                                 String ask = askClient.ask(Url, cnonce, askPayload);
-                                Log.e(TAG, "Q: " + question);
-                                Log.e(TAG, "A: " + ask);
+                                parse(ask, question);
                                 lock++;
                         }
                 }).start();
@@ -116,10 +118,22 @@ public class MainActivity extends AppCompatActivity {
                                 // run: {"errorCode":0,"message":"success","data":{"content":"你好，很高兴为您服务！","similarity":1.0,"relatedQuestions":[]}}
                                 //  run: null
                                 String ask = askClient.ask(Url, cnonce, askPayload);
-                                Log.e(TAG, "Q: " + question);
-                                Log.e(TAG, "A: " + ask);
+                                parse(ask, question);
                                 lock++;
                         }
                 }).start();
+        }
+
+        private void parse(String ask, String question) {
+                Gson gson = new Gson();
+                S s = gson.fromJson(ask, S.class);
+                String content = s.getData().getContent();
+                if (content.contains("（此处只可输入序号）")) {
+                        int i = content.indexOf("（");
+                        int j = content.indexOf("）");
+                        Log.e(TAG, "parse: i=" + i + "   j=" + j);
+                }
+                Log.e(TAG, "Q: " + question);
+                Log.e(TAG, "s: " + s);
         }
 }

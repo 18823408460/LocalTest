@@ -52,6 +52,26 @@ public class NetRequestActivity extends Activity {
                 testRetrofit();
         }
 
+        private void testRetrofitf(){
+                ApiService apiService = RetrofitMgr.getRetrofitMgr().getApiService();
+                Call<String> moiveInfo = apiService.getMoiveInfo();
+                moiveInfo.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Response<String> response, Retrofit retrofit) {
+                                boolean success = response.isSuccess();
+                                if (success){
+                                        String body = response.body();
+                                        Log.e(TAG, "onResponse: "+body );
+                                }
+                        }
+
+                        @Override
+                        public void onFailure(Throwable t) {
+                                Log.e(TAG, "onFailure: "+t.toString() );
+                        }
+                });
+        }
+
         private void testRetrofit(){
                 ApiService apiService = RetrofitMgr.getRetrofitMgr().getApiService();
                 Call<Reponse> token = apiService.getToken();

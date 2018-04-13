@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ThreadPoolMgr {
 
-        private static ThreadPoolMgr threadPoolMgr;
+        private volatile static ThreadPoolMgr threadPoolMgr;
 
         private ExecutorService executorService;
 

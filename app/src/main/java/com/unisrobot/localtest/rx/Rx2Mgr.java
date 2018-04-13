@@ -9,6 +9,7 @@ import com.unisrobot.localtest.threadPool.ThreadPoolMgr;
 import org.reactivestreams.Subscriber;
 
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
@@ -117,6 +118,128 @@ public class Rx2Mgr {
                 });
         }
 
+        public void testOnErrorReturn() {
+                Observable.create(new ObservableOnSubscribe<String>() {
+                        @Override
+                        public void subscribe(ObservableEmitter<String> e) throws Exception {
+                                Log.e(TAG, "subscribe: ");
+                                e.onNext("1111");
+                                e.onNext("2222");
+                                e.onError(new Throwable("error")); // 一旦出错，下面的不再执行，但是这个Throwable，用下面的替换
+                                e.onNext("4444");
+                        }
+                }).onErrorReturn(new Function<Throwable, String>() {
+                        @Override
+                        public String apply(Throwable throwable) throws Exception {
+                                return "3333";
+                        }
+                }).subscribe(new Consumer<String>() {
+                        @Override
+                        public void accept(String s) throws Exception {
+                                Log.e(TAG, "accept: " + s);
+                        }
+                });
+        }
+
+        public void testOnErrorResumeNext() {
+//                Observable.create(new ObservableOnSubscribe<String>() {
+//                        @Override
+//                        public void subscribe(ObservableEmitter<String> e) throws Exception {
+//                                Log.e(TAG, "subscribe: ");
+//                                e.onNext("1111");
+//                                e.onNext("2222");
+//                                e.onError(new Throwable("error")); // 一旦出错，下面的不再执行，但是这个Throwable，用下面的替换,下面的obs会继续发射数据
+//                                e.onNext("4444");
+//                        }
+//                }).onErrorResumeNext(new Observable<String>() {
+//                        @Override
+//                        protected void subscribeActual(Observer<? super String> observer) {
+//                                //observer.onNext("3333");
+//                        }
+//                }).subscribe(new Consumer<String>() {
+//                        @Override
+//                        public void accept(String s) throws Exception {
+//                                Log.e(TAG, "accept: " + s);
+//                        }
+//                });
+//                Observable.create(new ObservableOnSubscribe<String>() {
+//                        @Override
+//                        public void subscribe(ObservableEmitter<String> e) throws Exception {
+//                                Log.e(TAG, "subscribe: ");
+//                                e.onNext("1111");
+//                                e.onNext("2222");
+//                                e.onError(new Throwable("error")); // 一旦出错，下面的不再执行，但是这个Throwable，用下面的替换
+//                                e.onNext("4444");
+//                        }
+//                }).onErrorResumeNext(new Function<Throwable, ObservableSource<? extends String>>() {
+//                        @Override
+//                        public ObservableSource<? extends String> apply(Throwable throwable) throws Exception {
+//                                Log.e(TAG, "apply: "+throwable.toString() );
+//                                return Observable.just("333");
+//                        }
+//                }).subscribe(new Consumer<String>() {
+//                        @Override
+//                        public void accept(String s) throws Exception {
+//                                Log.e(TAG, "accept: " + s);
+//                        }
+//                });
+
+                Observable.create(new ObservableOnSubscribe<String>() {
+                        @Override
+                        public void subscribe(ObservableEmitter<String> e) throws Exception {
+                                Log.e(TAG, "subscribe: ");
+                                e.onNext("1111");
+                                e.onNext("2222");
+                                e.onError(new Throwable("error")); // 一旦出错，下面的不再执行，但是这个Throwable，用下面的替换
+                                e.onNext("4444");
+                        }
+                }).onErrorReturnItem("33333333")
+                        .subscribe(new Consumer<String>() {
+                                @Override
+                                public void accept(String s) throws Exception {
+                                        Log.e(TAG, "accept: " + s);
+                                }
+                        });
+        }
+
+        private boolean error = true;
+
+        public void testRetry1() {
+                Observable.create(new ObservableOnSubscribe<String>() {
+                        @Override
+                        public void subscribe(ObservableEmitter<String> e) throws Exception {
+                                e.onNext("1111");
+                                e.onNext("2222");
+                                if (error) {
+//                                        error = false;
+                                        e.onError(new Throwable("333")); //一旦出错，将会重新订阅
+                                }
+                                e.onNext("4444");
+                        }
+                }).retry(3).subscribe(new Observer<String>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                                Log.e(TAG, "onSubscribe: ");
+                        }
+
+                        @Override
+                        public void onNext(String s) {
+                                Log.e(TAG, "onNext: " + s);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) { // 超过重试次数，才会回调这里
+                                Log.e(TAG, "onError: " + e);
+                        }
+
+                        @Override
+                        public void onComplete() {
+                                Log.e(TAG, "onComplete: ");
+                        }
+                });
+        }
+
+
         public void test3() {
                 Observable.create(new ObservableOnSubscribe<String>() {
                         @Override
@@ -149,6 +272,81 @@ public class Rx2Mgr {
                         }
                 });
         }
+
+
+        /**
+         * retry
+         */
+        public void testRetry() {
+                Observable.create(new ObservableOnSubscribe<String>() {
+                        @Override
+                        public void subscribe(ObservableEmitter<String> e) throws Exception {
+                                Log.e(TAG, "subscribe: ");
+                                e.onNext("hello");
+                        }
+                }).repeat(1)
+                        .subscribe(new Consumer<String>() {
+                                @Override
+                                public void accept(String s) throws Exception {
+                                        Log.e(TAG, "accept: " + s);
+                                }
+                        });
+        }
+
+        public void testRepeatWhen1() {
+                Observable.create(new ObservableOnSubscribe<String>() {
+                        @Override
+                        public void subscribe(ObservableEmitter<String> e) throws Exception {
+                                e.onNext("hello");
+                                e.onError(new Throwable("error"));
+                                e.onComplete();
+                        }
+                }).repeatWhen(new Function<Observable<Object>, ObservableSource<?>>() {
+                        @Override
+                        public ObservableSource<?> apply(Observable<Object> objectObservable) throws Exception {
+                                Log.e(TAG, "apply: ");
+                                SystemClock.sleep(2000);
+                                return Observable.just("111", "222"); //这里发送的数据没用？？？？？
+//                                return null;
+                        }
+                }).subscribe(new Observer<String>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                                Log.e(TAG, "onSubscribe: ");
+                        }
+
+                        @Override
+                        public void onNext(String s) {
+                                Log.e(TAG, "onNext: " + s);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                                Log.e(TAG, "onError: " + e);
+                        }
+
+                        @Override
+                        public void onComplete() {
+                                Log.e(TAG, "onComplete: ");
+                        }
+                });
+        }
+
+        public void repeatWhen2() {
+                Observable.range(1, 4).repeatWhen(new Function<Observable<Object>, ObservableSource<?>>() {
+                        @Override
+                        public ObservableSource<?> apply(Observable<Object> objectObservable) throws Exception {
+                                Log.e(TAG, "apply: obj====" + objectObservable);
+                                return Observable.interval(3, TimeUnit.SECONDS);
+                        }
+                }).subscribe(new Consumer<Integer>() {
+                        @Override
+                        public void accept(Integer integer) throws Exception {
+                                Log.e(TAG, "accept: " + integer);
+                        }
+                });
+        }
+
 
         public void test4() {
                 // Func改名成Function，Func2改名成BiFunction，Func3 - Func9 改名成 Function3 - Function9，FuncN 由 Function<Object[], R> 取代
@@ -264,9 +462,6 @@ public class Rx2Mgr {
                 });
         }
 
-        //                        .subscribeOn(Schedulers.io())//这句话加不加，对 subscribe，apply 有很大影响(这句是说让所有的 Observable运行在io()线程，所以
-        //多个 Observable可能就在同一个io中执行了，，他会覆盖Observable自己设置的属性)
-//                        .observeOn(Schedulers.io()) //这句话加不加，对 accept有很大的影响，
         public void testZip() {
                 Log.e(TAG, "testZip: ");
                 final Observable<Integer> observable = Observable.create(new ObservableOnSubscribe<Integer>() {
@@ -309,11 +504,11 @@ public class Rx2Mgr {
 
 
         /**
-         *  subscribeOn() 指定的是上游发送事件的线程, observeOn() 指定的是下游接收事件的线程.
-
-         多次指定上游的线程只有第一次指定的有效, 也就是说多次调用subscribeOn() 只有第一次的有效, 其余的会被忽略.
-
-         多次指定下游的线程是可以的, 也就是说每调用一次observeOn() , 下游的线程就会切换一次
+         * subscribeOn() 指定的是上游发送事件的线程, observeOn() 指定的是下游接收事件的线程.
+         * <p>
+         * 多次指定上游的线程只有第一次指定的有效, 也就是说多次调用subscribeOn() 只有第一次的有效, 其余的会被忽略.
+         * <p>
+         * 多次指定下游的线程是可以的, 也就是说每调用一次observeOn() , 下游的线程就会切换一次
          */
         public void testSchedule() {
                 Observable.create(new ObservableOnSubscribe<String>() {
@@ -366,4 +561,6 @@ public class Rx2Mgr {
 
          observeOn()是用来指定下游observer回调发生的线程
          */
+
+
 }
