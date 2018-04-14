@@ -1,11 +1,12 @@
 package com.unisrobot.localtest.netRequest;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.unisrobot.localtest.netRequest.bean.ApiService;
-import com.unisrobot.localtest.netRequest.bean.Reponse;
 
-import retrofit.Call;
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 /**
  * Created by Administrator on 2018/4/11.
@@ -37,8 +38,10 @@ public class RetrofitMgr {
 
         private RetrofitMgr() {
                 retrofit = new Retrofit.Builder()
-                        .baseUrl(Cons.baseDouban)
+                        .baseUrl(Cons.base)
+                        //.client(new OkHttpClient.Builder().build()) //这里可加可不加？？？？
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
         }
 
