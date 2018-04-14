@@ -9,14 +9,18 @@ import android.widget.Button;
 import com.unisrobot.localtest.R;
 import com.unisrobot.localtest.netRequest.bean.ApiService;
 import com.unisrobot.localtest.netRequest.bean.Reponse;
+import com.unisrobot.localtest.netRequest.bean.ResponseData;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by Administrator on 2018/4/11.
@@ -25,6 +29,7 @@ import retrofit.Retrofit;
 public class NetRequestActivity extends Activity {
 
         private static final String TAG = "NetRequestActivity";
+
         @BindView(R.id.button2)
         Button button2;
 
@@ -49,47 +54,63 @@ public class NetRequestActivity extends Activity {
 
         @OnClick(R.id.button2)
         public void okhttpSyn() {
-                testRetrofit();
+                testRestrofitObs();
         }
 
-        private void testRetrofitf(){
+        private void testRestrofitObs() {
                 ApiService apiService = RetrofitMgr.getRetrofitMgr().getApiService();
-                Call<String> moiveInfo = apiService.getMoiveInfo();
-                moiveInfo.enqueue(new Callback<String>() {
+                apiService.getTokenObs().subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<ResponseData>() {
+                                @Override
+                                public void accept(ResponseData responseData) throws Exception {
+                                        Log.e(TAG, "accept: " + responseData);
+                                }
+                        });
+        }
+
+        private void testRetrofitf() {
+                ApiService apiService = RetrofitMgr.getRetrofitMgr().getApiService();
+                Call<ResponseData> moiveInfo = apiService.getToken();
+                moiveInfo.enqueue(new Callback<ResponseData>() {
                         @Override
-                        public void onResponse(Response<String> response, Retrofit retrofit) {
-                                boolean success = response.isSuccess();
-                                if (success){
-                                        String body = response.body();
-                                        Log.e(TAG, "onResponse: "+body );
+                        public void onResponse(Call<ResponseData> call, Response<ResponseData> response) {
+                                boolean success = response.isSuccessful();
+                                if (success) {
+                                        String body = response.body().toString();
+                                        Log.e(TAG, "onResponse: " + body);
+                                }
+                                else {
+                                        Log.e(TAG, "onResponse: error");
                                 }
                         }
 
                         @Override
-                        public void onFailure(Throwable t) {
-                                Log.e(TAG, "onFailure: "+t.toString() );
+                        public void onFailure(Call<ResponseData> call, Throwable t) {
+                                Log.e(TAG, "onFailure: " + t.toString());
                         }
                 });
+
         }
 
-        private void testRetrofit(){
-                ApiService apiService = RetrofitMgr.getRetrofitMgr().getApiService();
-                Call<Reponse> token = apiService.getToken();
-                token.enqueue(new Callback<Reponse>() {
-                        @Override
-                        public void onResponse(Response<Reponse> response, Retrofit retrofit) {
-                                boolean success = response.isSuccess();
-                                if (success){
-                                        Reponse body = response.body();
-                                        Log.e(TAG, "onResponse: "+body );
-                                }
-                        }
-
-                        @Override
-                        public void onFailure(Throwable t) {
-                                Log.e(TAG, "onFailure: "+t.toString() );
-                        }
-                });
+        private void testRetrofit() {
+//                ApiService apiService = RetrofitMgr.getRetrofitMgr().getApiService();
+//                Call<Reponse> token = apiService.getToken();
+//                token.enqueue(new Callback<Reponse>() {
+//                        @Override
+//                        public void onResponse(Response<Reponse> response, Retrofit retrofit) {
+//                                boolean success = response.isSuccess();
+//                                if (success){
+//                                        Reponse body = response.body();
+//                                        Log.e(TAG, "onResponse: "+body );
+//                                }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Throwable t) {
+//                                Log.e(TAG, "onFailure: "+t.toString() );
+//                        }
+//                });
         }
 
         @OnClick(R.id.button3)

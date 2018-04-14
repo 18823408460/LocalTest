@@ -33,7 +33,12 @@ dependencies {
     }
     // 这个最终可以放到 module 中去
     compile project(':comlib')
+<<<<<<< HEAD
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+=======
+
+   // implementation fileTree(include: ['*.jar'], dir: 'libs')
+>>>>>>> 10f3ddc9b5cf9e7383abbec5bf3f2152bedcdabe
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
@@ -42,19 +47,35 @@ dependencies {
     //implementation files('libs/ask-sdk-1.0-SNAPSHOT.jar')
     implementation rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+<<<<<<< HEAD
     provided 'com.squareup.okhttp:okhttp:2.7.5'
+=======
+
+    compile 'com.squareup.okhttp:okhttp:2.7.5'
+>>>>>>> 10f3ddc9b5cf9e7383abbec5bf3f2152bedcdabe
     provided 'com.squareup.okhttp3:okhttp:3.10.0'
     //Retrofit
-    provided 'com.squareup.retrofit:retrofit:1.9.0'
-    provided 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
-    provided 'com.squareup.okio:okio:1.14.0'
+//    provided 'com.squareup.retrofit:retrofit:1.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0-RC3'
+//    provided 'com.squareup.okio:okio:1.14.0'
+
+    compile 'com.squareup.retrofit2:retrofit:2.0.1'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.1'
+
     // Rxjava2
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.0.7'
     //    // Rxjava
     //    compile 'io.reactivex:rxandroid:1.2.0'
     //    compile 'io.reactivex:rxjava:1.1.5'
+<<<<<<< HEAD
     provided files('libs/ask-sdk-1.0-SNAPSHOT.jar')
+=======
+
+    //provided files('libs/ask-sdk-1.0-SNAPSHOT.jar')
+
+>>>>>>> 10f3ddc9b5cf9e7383abbec5bf3f2152bedcdabe
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
     compile 'com.android.support:multidex:1.0.1'
     compile rootProject.ext.dependencies["router"]

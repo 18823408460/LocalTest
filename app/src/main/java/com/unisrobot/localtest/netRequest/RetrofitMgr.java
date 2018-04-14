@@ -1,11 +1,20 @@
 package com.unisrobot.localtest.netRequest;
 
-import com.unisrobot.localtest.netRequest.bean.ApiService;
-import com.unisrobot.localtest.netRequest.bean.Reponse;
+import android.util.Log;
 
-import retrofit.Call;
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.unisrobot.localtest.netRequest.bean.ApiService;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 /**
  * Created by Administrator on 2018/4/11.
@@ -35,10 +44,47 @@ public class RetrofitMgr {
                 return retrofitMgr;
         }
 
+        private static final String TAG = "NetRequestActivity";
+
         private RetrofitMgr() {
+                OkHttpClient build = new OkHttpClient.Builder()
+                        // 在这个拦截器中，可判断reponse，如果错误，可以重试，也可以重定向后重试（切换IP）
+//                        .addInterceptor(new Interceptor() {
+//                        @Override
+//                        public Response intercept(Chain chain) throws IOException {
+//                                Log.e(TAG, "app  intercept: start" + Thread.currentThread().getName());
+//                                Request request = chain.request();
+//                                Log.e(TAG, "app  intercept: start  =" + request);
+//                                Response proceed = null ;
+//                                try {
+//                                         proceed = chain.proceed(request);
+//                                        Log.e(TAG, "app  intercept: end =" + proceed);
+//                                }catch (Exception e){
+//                                        Log.e(TAG, "app  intercept: Exception =" +e);
+//                                        throw  new IOException(e);
+//                                }
+//                                return proceed;
+//                        }
+//                }).addNetworkInterceptor(new Interceptor() {
+//                        @Override
+//                        public Response intercept(Chain chain) throws IOException {
+//                                Log.e(TAG, "network  intercept: " + Thread.currentThread().getName());
+//                                Request request = chain.request();
+//                                Log.e(TAG, "network  intercept: " + request);
+//                                Response proceed = chain.proceed(request);
+//                                Log.e(TAG, "network  intercept: end = " + proceed);
+//                                return proceed;
+//                        }
+//                })
+                        .connectTimeout(3, TimeUnit.SECONDS)
+                        .readTimeout(3,TimeUnit.SECONDS)
+                        .writeTimeout(3,TimeUnit.SECONDS)
+                        .build();
                 retrofit = new Retrofit.Builder()
-                        .baseUrl(Cons.baseDouban)
+                        .baseUrl(Cons.base)
+                        .client(build) //这里可加可不加？？？？
                         .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
         }
 

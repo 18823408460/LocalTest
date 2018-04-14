@@ -22,7 +22,12 @@ import butterknife.OnClick;
  * library中要使用最新的butterknife，，所有的id用R2 来代替。
  */
 public class FirstMuduleMainActivity extends Activity {
+        // 传递的参数通过注解获取
 
+        /**
+         * getIntent().getIntExtra("intParam", 0);
+         * getIntent().getData().getQueryParameter("preActivity"); 取代这种获取方式
+         */
         private static final String TAG = "FirstMuduleMainActivity";
 
         @Inject("cityId")
@@ -45,11 +50,7 @@ public class FirstMuduleMainActivity extends Activity {
                 setContentView(R.layout.first_module_activity_main);
                 ButterKnife.bind(this);
 
-                // 传递的参数通过注解获取
-                /**
-                 * getIntent().getIntExtra("intParam", 0);
-                 * getIntent().getData().getQueryParameter("preActivity"); 取代这种获取方式
-                 */
+
                 RouterInjector.inject(this);
 
                 Log.e(TAG, "onCreate: cityid === " + cityId);
