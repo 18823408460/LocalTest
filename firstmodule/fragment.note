@@ -1,0 +1,14 @@
+0. fragment是在android3.0才开始添加的。 如果要在 低于 android3.0 的 手机中使用，就必须用 v4 包中 Fragment，
+（同时 必须 继承 FragmentActivity，通过getSupportFragmentManager()获取FragmentManager对象）
+
+1. fragment  的加载方式：
+动态加载：
+静态加载：
+
+2 .
+
+
+-------------------------------------------------------------------------------------------------------------------
+1. v4： 是为了兼容最低是 android1.6 的版本
+   v7： 是为了兼容最低是 android2.1 的版本
+   v7：是为了兼容最低是 android3.2 的版本

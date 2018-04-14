@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/first_module_style"
         tools:replace="android:label">
-        <activity android:name=".FirstMuduleMainActivity">
+        <activity android:name=".fragmentD.FirstModuleDFragmentPager">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -20,5 +20,6 @@
                     android:scheme="router" />
             </intent-filter>
         </activity>
+
     </application>
 </manifest>
