@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Status bar color-->
+    <color name="first_module_statusColor">#ff0000</color>
+    <!-- toolBar color -->
+    <color name="first_module_toolBarColor">#0000ff</color>
+    <!--EditText,RadioButton,CheckBox color-->
+    <color name="first_module_editColor">#FD87A9</color>
+    <!--Window color-->
+    <color name="first_module_widowColor">#ffffff</color>
+</resources>

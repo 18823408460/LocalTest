@@ -5,7 +5,7 @@
 
     <TextView
         android:gravity="center"
-        android:text="@string/loading"
+        android:text="@string/first_module_loading"
         android:id="@+id/first_module_dialog_loading_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

@@ -3,11 +3,33 @@
     <!-- Base application theme. -->
     <style name="first_module_style" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">false</item>
     </style>
 
-    <style name="first_module_loadingdialog" parent="ThemeOverlay.AppCompat.Dialog" >
+    <style name="first_module_loadingdialog" parent="ThemeOverlay.AppCompat.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowFrame">@null</item>
+    </style>
+
+    <style name="first_module_AppTheme_base" parent="Theme.AppCompat">
+        <!--将ActionBar隐藏,这里使用ToolBar-->
+        <item name="windowActionBar">false</item>
+        <!-- 使用 API Level 22以上编译的话，要拿掉前綴字 -->
+        <item name="windowNoTitle">true</item>
+        <!--colorPrimaryDark对应状态栏的颜色-->
+        <item name="colorPrimaryDark">@color/first_module_statusColor</item>
+        <!--colorPrimary 对应ToolBar的颜色-->
+        <item name="colorPrimary">@color/first_module_toolBarColor</item>
+        <!--colorAccent 对应EditText编辑时、RadioButton选中、CheckBox等选中时的颜色。-->
+        <item name="colorAccent">@color/first_module_editColor</item>
+        <!--窗口的颜色-->
+        <item name="android:windowBackground">@color/first_module_widowColor</item>
+    </style>
+
+    <style name="first_module_text" parent="TextAppearance.AppCompat.Widget.TextView.SpinnerItem">
+        <item name="android:textSize">40dp</item>
+        <item name="android:textColor">#ff0000</item>
     </style>
 </resources>

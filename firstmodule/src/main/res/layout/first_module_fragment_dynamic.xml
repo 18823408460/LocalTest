@@ -6,7 +6,8 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="@string/dynamictv"
+        android:textColor="#ff0000"
+        android:text="@string/first_module_dynamictv"
         android:id="@+id/first_module_tv_dynamic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

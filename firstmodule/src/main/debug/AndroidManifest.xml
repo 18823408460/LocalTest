@@ -11,15 +11,17 @@
         android:supportsRtl="true"
         android:theme="@style/first_module_style"
         tools:replace="android:label">
-        <activity android:name=".fragmentD.FirstModuleDFragmentPager">
+        <activity android:name=".FirstMuduleMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <data
                     android:host="com.unisrobot.firstmodule.firstmudulemainactivity"
                     android:scheme="router" />
             </intent-filter>
         </activity>
-
     </application>
+
 </manifest>

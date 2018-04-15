@@ -1,6 +1,21 @@
 <resources>
     <string name="first_module_app_name">FirstModule</string>
-    <string name="static_fragment">这是静态fragment</string>
-    <string name="dynamictv">动态添加 fragment</string>
-    <string name="loading">正在加载中，请稍后</string>
+    <string name="first_module_static_fragment">这是静态fragment</string>
+    <string name="first_module_dynamictv">动态添加 fragment</string>
+    <string name="first_module_loading">正在加载中，请稍后</string>
+    <string name="first_module_back">返回</string>
+    <string name="first_module_show">显示</string>
+    <string name="first_module_custom_btn">自定义按钮</string>
+    <string name="first_module_firstshow">首页</string>
+    <string name="first_module_action_edit">编辑</string>
+    <string name="first_module_action_share">分享</string>
+    <string name="first_module_action_more">更多</string>
+    <string name="first_module_drawmainshow">抽屉布局主界面</string>
+    <string name="first_module_navigation_drawer_open">打开</string>
+    <string name="first_module_navigation_drawer_close">关闭</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications1">back</string>
 </resources>
