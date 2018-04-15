@@ -23,6 +23,14 @@ import java.util.List;
  * Created by WEI on 2018/4/15.
  */
 
+/**
+ *  刷新框架：
+ *
+ *  MaterialRefreshLayout
+ *
+ *  XRefreshView
+ */
+
 public class RefreshActivity extends AppCompatActivity {
     MaterialRefreshLayout materialRefreshLayout;
     RecyclerView recyclerView;

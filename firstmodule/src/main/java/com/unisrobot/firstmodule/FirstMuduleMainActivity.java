@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.baronzhang.android.router.RouterInjector;
 import com.baronzhang.android.router.annotation.inject.Inject;
+import com.unisrobot.firstmodule.dialog.BottomDialogFragment;
 import com.unisrobot.firstmodule.dialog.LoadingDialogFragment;
 
 import butterknife.BindView;
@@ -40,13 +41,13 @@ public class FirstMuduleMainActivity extends AppCompatActivity {
     Button firstModuleButton;
 
     boolean flag = false;
-    LoadingDialogFragment loadingDialogFragment;
+    BottomDialogFragment loadingDialogFragment;
 
     @OnClick(R2.id.first_module_button)
     public void testBtn() {
 //                Toast.makeText(this, "show butterknife", Toast.LENGTH_SHORT).show();
         if (!flag) {
-            loadingDialogFragment = new LoadingDialogFragment();
+            loadingDialogFragment = new BottomDialogFragment();
             loadingDialogFragment.show(getSupportFragmentManager(), "tag");
         } else {
             loadingDialogFragment.dismiss();

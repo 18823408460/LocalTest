@@ -5,8 +5,6 @@ package com.unisrobot.localtest.robot.Sensor;
  */
 
 public interface SensorReceiver {
-        public abstract void onError(Throwable p1);
-
-
-        public abstract void onReceived(SensorEvent p1);
+    void onError(Throwable p1);
+    void onReceived(SensorEvent p1);
 }
