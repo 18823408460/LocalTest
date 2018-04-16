@@ -9,9 +9,9 @@
         android:icon="@mipmap/first_module_ic_launcher"
         android:label="@string/first_module_app_name"
         android:supportsRtl="true"
-        android:theme="@style/first_module_style"
+        android:theme="@style/first_module_AppTheme_base"
         tools:replace="android:label">
-        <activity android:name=".FirstMuduleMainActivity">
+        <activity android:name=".lottie.LottieActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
