@@ -153,7 +153,7 @@ public class VerticalProgress extends View {
                 drawMethod2(canvas);
 
         }
-
+        private float startX, startY ;
         @Override
         public boolean onTouchEvent(MotionEvent event) {
                 switch (event.getAction()) {
@@ -166,6 +166,8 @@ public class VerticalProgress extends View {
                                 Log.e(TAG, "onTouchEvent: outRadio =" + (outRadio*outRadio));
                                 if ((a*a + b*b )< (outRadio*outRadio)){
                                         Log.e(TAG, "onTouchEvent:  int circor------------------" );
+                                        startX = event.getX() ;
+                                        startY = event.getY() ;
                                 }
                                 return  true;
                         case MotionEvent.ACTION_UP:
@@ -173,9 +175,14 @@ public class VerticalProgress extends View {
                                 break;
                         case MotionEvent.ACTION_MOVE:
                                 Log.e(TAG, "onTouchEvent: action_move"+event.getX() + "  " +event.getRawX());
+                                float x = event.getX();
+                                float y = event.getY();
+                                diffY = y - startY;
+                                invalidate();
                                 break;
                 }
-                return super.onTouchEvent(event);
+//                return super.onTouchEvent(event);
+                return true ;
         }
 
         private int radio = barWidth / 2;
