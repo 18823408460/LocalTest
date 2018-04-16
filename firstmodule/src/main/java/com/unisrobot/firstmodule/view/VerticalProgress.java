@@ -159,7 +159,15 @@ public class VerticalProgress extends View {
                 switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
                                 Log.e(TAG, "onTouchEvent: action_down" +event.getX() + "  " +event.getRawX());
-                                break;
+                                Log.e(TAG, "onTouchEvent: action_down  centerX=" +centerX + "  centerY=" +centerY);
+                                float a = Math.abs(event.getX() - centerX);
+                                float b = Math.abs(event.getY() - (inbottom));
+                                Log.e(TAG, "onTouchEvent: a*a+ b*b =" + (a*a)+(b*b));
+                                Log.e(TAG, "onTouchEvent: outRadio =" + (outRadio*outRadio));
+                                if ((a*a + b*b )< (outRadio*outRadio)){
+                                        Log.e(TAG, "onTouchEvent:  int circor------------------" );
+                                }
+                                return  true;
                         case MotionEvent.ACTION_UP:
                                 Log.e(TAG, "onTouchEvent: action_up" +event.getX() + "  " +event.getRawX());
                                 break;
