@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/action_edit"
+        android:id="@+id/first_module_action_edit"
         android:icon="@mipmap/first_module_ic_launcher"
         android:orderInCategory="80"
         android:title="@string/first_module_action_edit"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_share"
+        android:id="@+id/first_module_action_share"
         android:icon="@mipmap/first_module_ic_launcher_round"
         android:orderInCategory="90"
         android:title="@string/first_module_action_share"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_overflow"
+        android:id="@+id/first_module_action_overflow"
         android:icon="@mipmap/first_module_ic_launcher"
         android:orderInCategory="100"
         android:title="@string/first_module_action_more"

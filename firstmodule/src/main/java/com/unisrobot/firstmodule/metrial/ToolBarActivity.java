@@ -68,19 +68,31 @@ public class ToolBarActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 int itemId = item.getItemId();
-                switch (itemId) {
-                    case R.id.action_edit:
-                        mToast.setText("click edit");
-                        break;
-                    case R.id.action_share:
-                        mToast.setText("click share");
-                        break;
-                    case R.id.action_overflow:
-                        popUpMyOverflow();
-                        return true;
+                if (R.id.first_module_action_edit == itemId){
+                    mToast.setText("click edit");
                 }
+                else if (R.id.first_module_action_share == itemId) {
+                    mToast.setText("click share");
+                }else if (R.id.first_module_action_overflow == itemId){
+                    popUpMyOverflow();
+                    return true;
+                }
+
                 mToast.show();
                 return true;
+//                switch (itemId) {
+//                    case R.id.first_module_action_edit:
+//                        mToast.setText("click edit");
+//                        break;
+//                    case R.id.first_module_action_share:
+//                        mToast.setText("click share");
+//                        break;
+//                    case R.id.first_module_action_overflow:
+//                        popUpMyOverflow();
+//                        return true;
+//                }
+//                mToast.show();
+//                return true;
             }
         });
 
@@ -169,17 +181,17 @@ public class ToolBarActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ll_item1:
-                mToast.setText("哈哈");
-                break;
-            case R.id.ll_item2:
-                mToast.setText("呵呵");
-                break;
-            case R.id.ll_item3:
-                mToast.setText("嘻嘻");
-                break;
-        }
+//        switch (v.getId()) {
+//            case R.id.ll_item1:
+//                mToast.setText("哈哈");
+//                break;
+//            case R.id.ll_item2:
+//                mToast.setText("呵呵");
+//                break;
+//            case R.id.ll_item3:
+//                mToast.setText("嘻嘻");
+//                break;
+//        }
         //点击PopWindow的item后,关闭此PopWindow
         if (null != mPopupWindow && mPopupWindow.isShowing()) {
             mPopupWindow.dismiss();

@@ -1,0 +1,9 @@
+1. library 使用 butterknife问题
+
+
+// 打开library中的R.java，发现确实如此，每一个资源ID都没有被声明为final：
+2. switch{
+    case R.id.e:
+    break ;
+  }
+  // 改成 if else ；
