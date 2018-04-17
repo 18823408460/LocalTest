@@ -23,7 +23,6 @@ import com.unisrobot.firstmodule.utils.ScreenUtil;
  */
 
 public class VerticalProgress extends View {
-
         private static final String TAG = "VerticalProgress";
 
         private int barWidth;
@@ -174,10 +173,10 @@ public class VerticalProgress extends View {
                                 Log.e(TAG, "onTouchEvent: action_up" +event.getX() + "  " +event.getRawX());
                                 break;
                         case MotionEvent.ACTION_MOVE:
-                                Log.e(TAG, "onTouchEvent: action_move"+event.getX() + "  " +event.getRawX());
                                 float x = event.getX();
                                 float y = event.getY();
-                                diffY = y - startY;
+                                diffY = y + startY;
+                                Log.e(TAG, "onTouchEvent: action_move = "+diffY);
                                 invalidate();
                                 break;
                 }

@@ -11,6 +11,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieComposition;
 import com.airbnb.lottie.LottieImageAsset;
 import com.unisrobot.firstmodule.R;
+import com.unisrobot.firstmodule.view.SideBar;
 import com.unisrobot.firstmodule.view.VerticalProgress;
 
 /**
@@ -49,6 +50,6 @@ public class LottieActivity extends AppCompatActivity {
 //                        }
 //                });
 
-                setContentView(new VerticalProgress(this));
+                setContentView(new SideBar(this));
         }
 }

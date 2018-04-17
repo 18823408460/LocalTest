@@ -1,0 +1,61 @@
+git clone git@192.168.9.151:src.git
+
+
+
+
+1. git branch -a 获取所有的分支
+
+2. git status  获取当前修改更新状态
+
+3. git checkout dev 切换分支
+
+4. git add/commit/push 
+
+5. git checkout -b name 创建分支。。。
+
+6. git add . -v （.---当前目录  -v 回显）
+
+7. git commit -m "commit msg......."  提交
+
+8. git merge dev3 （首先切换到主干下，然后将dev3合并）
+
+9. git push/pull origin master (origin = 服务器的仓库别名， master = 分支的名字)
+  git push --set-upstream origin shanghaiyongxiao  =   git push origin shanghaiyongxiao
+  （首次创建的分支在本地，首先要通过上面两种方式push 到 server，然后才可以提交代码）
+	
+
+   
+     git checkout -t origin/shanmeiguoji
+
+
+10. git log -p 10 查看提交记录
+
+11. 查看服务端的配置信息：
+   git config --list 
+
+
+
+864174810
+
+
+
+
+
+git clean -df 
+
+。。。。。。。。。。。。
+git checkout --.
+git pull
+git clean -df 
+git clean -f 
+git checkout dev切换分支
+
+
+
+
+设置别名。。。
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+
