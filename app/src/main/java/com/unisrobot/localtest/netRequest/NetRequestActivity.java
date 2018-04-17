@@ -10,6 +10,7 @@ import com.unisrobot.localtest.R;
 import com.unisrobot.localtest.netRequest.bean.ApiService;
 import com.unisrobot.localtest.netRequest.bean.Reponse;
 import com.unisrobot.localtest.netRequest.bean.ResponseData;
+import com.unisrobot.localtest.rx.RxBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +22,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import rx.Observable;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.functions.Action1;
+import rx.subjects.Subject;
 
 /**
  * Created by Administrator on 2018/4/11.
@@ -50,11 +56,36 @@ public class NetRequestActivity extends Activity {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_netrequest);
                 ButterKnife.bind(this);
+
+                Subscription subscribe = RxBus.getDefault().toObservable(String.class).subscribe(new Action1<String>() {
+                        @Override
+                        public void call(String s) {
+                                Log.e(TAG, "call: " + s);
+                        }
+                });
         }
 
         @OnClick(R.id.button2)
         public void okhttpSyn() {
-                testRestrofitObs();
+                testRxBus();
+        }
+
+        private void testRxBus() {
+
+                for (int i = 0; i < 5; i++) {
+                        final int finalI = i;
+                        new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                        RxBus.getDefault().post("value=" + finalI + "  name=" + Thread.currentThread().getName());
+                                }
+                        }).start();
+                }
+//                boolean unsubscribed = subscribe.isUnsubscribed();
+//                if (!unsubscribed){
+//                     subscribe.unsubscribe();
+//                }
+
         }
 
         private void testRestrofitObs() {
