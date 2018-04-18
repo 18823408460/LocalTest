@@ -23,26 +23,19 @@ import java.util.List;
  */
 
 public class WifiUtilMgr {
-
         private static final String TAG = "WifiUtilMgr";
-
         private String ssid; // 当前连接的ssid
-
         private String pwd;
-
         private static volatile WifiUtilMgr wifiUtilMgr;
-
         private Handler handler;
-
         private Runnable conRunnable;
-
         private Context context;
 
         private enum WifiType {
                 WIFICIPHER_WEP(1),
                 WIFICIPHER_NOPASS(2),
-                WIFICIPHER_WPA(3);
-
+                WIFICIPHER_WPA(3),
+                WIFICIPHER_NOT_EXIST(4);
                 private int mState = 1;
 
                 WifiType(int i) {
@@ -139,22 +132,19 @@ public class WifiUtilMgr {
                                         if (capabilities.contains("WPA") || capabilities.contains("wpa")) {
                                                 Log.e(TAG, "wpa");
                                                 return WifiType.WIFICIPHER_WPA;
-                                        }
-                                        else if (capabilities.contains("WEP") || capabilities.contains("wep")) {
+                                        } else if (capabilities.contains("WEP") || capabilities.contains("wep")) {
                                                 Log.e(TAG, "wep");
                                                 return WifiType.WIFICIPHER_WEP;
-                                        }
-                                        else {
+                                        } else {
                                                 Log.e(TAG, "no");
                                                 return WifiType.WIFICIPHER_NOPASS;
                                         }
-                                }
-                                else {
+                                } else {
                                         return WifiType.WIFICIPHER_NOPASS;
                                 }
                         }
                 }
-                return WifiType.WIFICIPHER_NOPASS;
+                return WifiType.WIFICIPHER_NOT_EXIST;
         }
 
         public void startScan() {
@@ -164,11 +154,11 @@ public class WifiUtilMgr {
                 handler.post(new Runnable() {
                         @Override
                         public void run() {
-                                Log.e(TAG, "run: scanResults start " );
+                                Log.e(TAG, "run: scanResults start ");
                                 wifiManager.startScan();
                                 //在 android 6.0 上，如果没有打开 gps，获取wifi列表为 null 。。。
                                 List<ScanResult> scanResults = wifiManager.getScanResults();
-                                Log.e(TAG, "scanResults: "+scanResults );
+                                Log.e(TAG, "scanResults: " + scanResults);
                         }
                 });
         }
@@ -233,6 +223,10 @@ public class WifiUtilMgr {
                         Log.e(TAG, "connect: wifi is close");
                         return false;
                 }
+                if (Type == WifiType.WIFICIPHER_NOT_EXIST) {
+                        Log.e(TAG, "connect: not find net ,please checkout net");
+                        return false;
+                }
 
                 // 状态变成WIFI_STATE_ENABLED的时候才能执行下面的语句
                 while (wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLING) {
@@ -240,8 +234,7 @@ public class WifiUtilMgr {
                                 // 为了避免程序一直while循环，让它睡个100毫秒在检测……
                                 Thread.currentThread();
                                 Thread.sleep(100);
-                        }
-                        catch (InterruptedException ie) {
+                        } catch (InterruptedException ie) {
                         }
                 }
                 // 查看以前是否也配置过这个网络
@@ -255,7 +248,7 @@ public class WifiUtilMgr {
                 // 设置为true,使其他的连接断开
                 boolean mConnectConfig = wifiManager.enableNetwork(netID, true);
                 wifiManager.saveConfiguration();
-                Log.e(TAG, ".................connectting.................Type="+Type);
+                Log.e(TAG, ".................connectting.................Type=" + Type);
                 return mConnectConfig;
         }
 
@@ -288,7 +281,7 @@ public class WifiUtilMgr {
                 intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
                 intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
                 intentFilter.addAction(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION);
-                intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+                //intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
                 context.registerReceiver(wifiBR, intentFilter);
         }
 
@@ -296,8 +289,7 @@ public class WifiUtilMgr {
                 if (wifiBR != null) {
                         try {
                                 context.unregisterReceiver(wifiBR);
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
 
                         }
                 }
@@ -313,8 +305,7 @@ public class WifiUtilMgr {
                                 int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
                                 String state = wifiState == WifiManager.WIFI_STATE_DISABLED ? "关闭" : "打开";
                                 Log.e(TAG, "onReceive: wifi state=" + state);
-                        }
-                        else if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)) {//网络状态== 连接/断开。。。
+                        } else if (WifiManager.NETWORK_STATE_CHANGED_ACTION.equals(action)) {//网络状态== 连接/断开。。。
                                 NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
                                 NetworkInfo.State state = info.getState();
                                 switch (state) {
@@ -343,16 +334,15 @@ public class WifiUtilMgr {
                                                 Log.e(TAG, "onReceive: CONNECTING state ==" + detailedState);
                                                 break;
                                 }
-                        }
-                        else if (WifiManager.SUPPLICANT_STATE_CHANGED_ACTION.equals(action)) {
+                        } else if (WifiManager.SUPPLICANT_STATE_CHANGED_ACTION.equals(action)) {
                                 int error = intent.getIntExtra(WifiManager.EXTRA_SUPPLICANT_ERROR, 0);
                                 switch (error) {
                                         case WifiManager.ERROR_AUTHENTICATING:
                                                 Log.e(TAG, "onReceive:  password is error !");
                                                 break;
                                 }
-                        }else if (WifiManager.SCAN_RESULTS_AVAILABLE_ACTION.equals(action)){
-                                Log.e(TAG, "onReceive: ....SCAN_RESULTS_AVAILABLE_ACTION....." );
+                        } else if (WifiManager.SCAN_RESULTS_AVAILABLE_ACTION.equals(action)) {
+                                Log.e(TAG, "onReceive: ....SCAN_RESULTS_AVAILABLE_ACTION.....");
                         }
                 }
         }
