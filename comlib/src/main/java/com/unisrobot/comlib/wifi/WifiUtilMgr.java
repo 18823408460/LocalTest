@@ -166,6 +166,7 @@ public class WifiUtilMgr {
                         public void run() {
                                 Log.e(TAG, "run: scanResults start " );
                                 wifiManager.startScan();
+                                //在 android 6.0 上，如果没有打开 gps，获取wifi列表为 null 。。。
                                 List<ScanResult> scanResults = wifiManager.getScanResults();
                                 Log.e(TAG, "scanResults: "+scanResults );
                         }
@@ -287,6 +288,7 @@ public class WifiUtilMgr {
                 intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
                 intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
                 intentFilter.addAction(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION);
+                intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
                 context.registerReceiver(wifiBR, intentFilter);
         }
 
@@ -349,6 +351,8 @@ public class WifiUtilMgr {
                                                 Log.e(TAG, "onReceive:  password is error !");
                                                 break;
                                 }
+                        }else if (WifiManager.SCAN_RESULTS_AVAILABLE_ACTION.equals(action)){
+                                Log.e(TAG, "onReceive: ....SCAN_RESULTS_AVAILABLE_ACTION....." );
                         }
                 }
         }
