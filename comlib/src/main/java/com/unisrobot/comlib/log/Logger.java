@@ -12,7 +12,7 @@ public final class Logger {
   public static final int ERROR = 6;
   public static final int ASSERT = 7;
 
-  private static Printer printer = new LoggerPrinter();
+  private static Printer printer = new PrinterIml();
 
   private Logger() {
     //no instance
