@@ -21,6 +21,9 @@ import butterknife.OnClick;
  * Created by Administrator on 2018/4/18.
  */
 
+
+//    StackTraceElement 打印堆栈信息
+
 public class WifiTestActivity extends AppCompatActivity {
 
         @BindView(R.id.btn_connet_xiaomi)
@@ -46,6 +49,8 @@ public class WifiTestActivity extends AppCompatActivity {
                 //把log存到本地
                 Logger.addLogAdapter(new DiskLogAdapter(TxtFormatStrategy.newBuilder().
                         tag(getString(R.string.app_name)).build(getPackageName(), getString(R.string.app_name))));
+
+
         }
 
         @OnClick(R.id.btn_connet_xiaomi)
