@@ -25,7 +25,7 @@ import static com.unisrobot.comlib.log.Logger.VERBOSE;
 import static com.unisrobot.comlib.log.Logger.WARN;
 
 
-class PrinterIml implements Printer {
+class PrinterImpl implements Printer {
 
         /**
          * It is used for json pretty print
