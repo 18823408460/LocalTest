@@ -50,7 +50,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".netRequest.NetRequestActivity">
+        <activity android:name=".WifiTestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

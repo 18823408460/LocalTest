@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">LocalTest</string>
+    <string name="connect_xiaomi">连接小米</string>
+    <string name="connect_my">连接uurobot</string>
+    <string name="getssid">获取ssid</string>
 </resources>
