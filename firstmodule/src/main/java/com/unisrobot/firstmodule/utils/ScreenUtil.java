@@ -1,14 +1,38 @@
 package com.unisrobot.firstmodule.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.Display;
 
 /**
  * Created by WEI on 2018/4/14.
  */
 
 public class ScreenUtil {
+
+    /**
+     * 获取屏幕密度，不推荐使用了了
+     * @param activity
+     * @return
+     */
+    public static int getwindth(Activity activity){
+        return activity.getWindowManager().getDefaultDisplay().getWidth();
+    }
+
+    public static int getwindth1(Activity activity){
+        Display defaultDisplay = activity.getWindowManager().getDefaultDisplay();
+        DisplayMetrics dm = new DisplayMetrics();
+        defaultDisplay.getMetrics(dm);
+        float density = dm.density; // 屏幕密度（像素比例：0.75/1.0/1.5/2.0）-逻辑像素密度
+        int densityDPI = dm.densityDpi; // 屏幕密度（每寸像素：120/160/240/320）- 屏幕像素密度
+        int screenWidthDip = dm.widthPixels; // 屏幕宽（dip，如：320dip）
+        int screenHeightDip = dm.heightPixels; // 屏幕宽（dip，如：533dip）
+        int screenWidth = (int) (dm.widthPixels * density + 0.5f); // 屏幕宽（px，如：720px）
+        int screenHeight = (int) (dm.heightPixels * density + 0.5f); // 屏幕高（px，如：1280px）
+        return screenWidth;
+    }
 
     public static int getwindth(Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
@@ -21,6 +45,10 @@ public class ScreenUtil {
         int heightPixels = displayMetrics.heightPixels;
         return heightPixels;
     }
+
+
+
+
 
     /**
      * dp转px

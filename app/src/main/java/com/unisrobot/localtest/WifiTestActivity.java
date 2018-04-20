@@ -44,6 +44,7 @@ public class WifiTestActivity extends AppCompatActivity {
                 ButterKnife.bind(this);
                 wifiUtilMgr = WifiUtilMgr.getWifiUtilMgr(this);
                 wifiUtilMgr.startScan();
+
 //                Logger.addLogAdapter(new AndroidLogAdapter(PrettyFormatStrategy.newBuilder().
 //                        tag(getString(R.string.app_name)).build()));
                 //把log存到本地
