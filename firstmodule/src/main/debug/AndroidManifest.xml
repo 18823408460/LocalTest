@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/first_module_AppTheme_base"
         tools:replace="android:label">
-        <activity android:name=".memoryLeak.MemoryLeakActivity">
+        <activity android:name=".allTextview.AutoCompleteTextViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

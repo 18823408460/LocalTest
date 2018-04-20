@@ -21,7 +21,7 @@ import com.unisrobot.firstmodule.utils.ScreenUtil;
 /**
  * Created by Administrator on 2018/4/16.
  */
-
+// 仿高德导航全程 进度条。。
 public class VerticalProgress extends View {
         private static final String TAG = "VerticalProgress";
 
