@@ -1,0 +1,5 @@
+在软件eclipse下的Help->InstallNew Software->中，在Work with中点击Add。
+
+添加 Name——"Kepler" repository；
+
+Location——http://download.eclipse.org/releases/kepler，如下图所示：
