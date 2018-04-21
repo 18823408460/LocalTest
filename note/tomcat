@@ -3,3 +3,23 @@
 添加 Name——"Kepler" repository；
 
 Location——http://download.eclipse.org/releases/kepler，如下图所示：
+
+1. 
+java web后台开发跟手机APP后台 区别：
+	基本上一样的，ssh也可以为手机APP开发后台。其实对于后台开发来说原理都差不多。
+	只不过app的后台开发和web不一样的地方在于传输数据格式不一样，一般来说web访问后返回的是一个html页面，少部分是json格式；
+	而一般app的后台开发大部分直接传json格式数据（也有不是json格式的，看项目的选择，但一般来说都是json），少部分会直接返回html5的页面。
+　　还有一个不同点在于登录验证和数据加密，一般web是使用session验证登录状态，而app则使用token来验证登录状态
+（token是自己定义的一个和用户ID相关的加密字符串，传入后台后从数据库查询用户信息）。还有如果对安全性要求较高，
+app传输数据时可能会对数据进行加密，而web一般没有这一步，web的加密一般是使用https。
+　　至于说android和ios的开发环境不一样那是指的app开发，和后台无关。app的后台和java web的后台没有本质区别。
+app的一个后台可以即提供给android，也可以同时提供给iOS，它就是把app提交的数据处理后插入数据库和从数据库查出数据处理后传给app
+
+
+
+2. 如何将javaee的项目发布到tomcat的webApp下面
+影响：很明显项目并没有自动部署到Tomcat的Webapps中而是部署在了别的容器中。
+在内置浏览器中输入http://localhost:8080 /webDemo/login.jsp可正常打开。但在外部浏览器上打开http://localhost:8080时确没有出现所期望的小猫画面。
+
+原因：原因eclipse 不像MyEclipse默认将项目部署到tomcat安装目录下的webapps中，而默认部署到工作目录下
+的.metadata/.plugins /org.eclipse.wst.server.core/tmp1/wtpwebapps中，tmp1文件夹里面存放着该项目的信息。

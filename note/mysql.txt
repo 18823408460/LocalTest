@@ -1,0 +1,29 @@
+1. 以管理员 打开 命令行 ：
+   mysql -h主机地址 -u用户名 -p用户密码
+
+   mysql -u root -p （默认的密码是123456）
+ 
+   如果mysql 服务没有起来，在 计算机-管理-服务，手动启动
+
+
+2.
+   show databases ;显示所有的创建的数据库
+   drop   databases  name ； 删除name 数据库
+   CREATE DATABASE 库名
+
+    use database name ;// 进入name数据库，
+    show tables ； 显示当前数据库中所有的tables
+
+
+3.jdbc 相关的操作：
+
+》 各种数据库对应的jar包
+》各种数据库对应的驱动类名和URL格式
+
+create table student(
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(100) ,
+   age VARCHAR(40) ,
+   sex VARCHAR(40) ,
+   PRIMARY KEY ( id )
+);
