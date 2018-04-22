@@ -18,4 +18,5 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_notifications1">back</string>
+    <string name="first_module_search">搜索</string>
 </resources>

@@ -149,7 +149,7 @@ public class VerticalProgress extends View {
         protected void onDraw(Canvas canvas) {
                 super.onDraw(canvas);
 
-                drawMethod2(canvas);
+                drawMethod1(canvas);
 
         }
         private float startX, startY ;
