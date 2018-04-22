@@ -1,0 +1,49 @@
+1. tomcat 的目录结构：
+
+    webapps: web项目发布目录
+    work: jsp生成的servlet存放这里 （jsp的生命周期）
+
+2. WEB-INF 目录： 安全目录，浏览器客户端无法访问，这样服务器可以访问。。
+
+ 客户端==服务器怎么区分？？？
+
+3.动态网页技术：
+  jsp： 
+  .net:
+  php:
+
+4. jsp 页面的构成元素：（每一个.jsp文件为一个jsp页面。。 jsp中可以只有脚本，这样就==servlet）
+  》指令元素： 
+    page：
+    include：
+    tablib：
+
+  》静态内容：html。。    
+ 
+  》注释：html注释， jsp注释，  jsp脚本注释
+
+  》脚本：在jsp中要  执行   的java代码；<% java代码 %>
+  》jsp声明：在jsp中定义变量或方法 <%! java代码 %>
+  》jsp表达式: <% = 表达式 %> 表达式不以；结束 。 表达式可以调用jsp声明
+
+5. jsp页面的声明周期：
+   
+   当浏览器client 访问 jsp页面时，tomcat首先判断这个 jsp页面是否第一次加载。
+如果是第一次，tomcat首先根据jsp生成对应的servlet（在work目录）文件(.java)，并
+生成字节码文件(.class).同时执行里面的jspInit（）；
+如果不是第一次，则直接单用.class 中的 jspService（）处理client请求。。每一个请求
+，jspService中都会创建一个线程。（多线程）。。（可以查看生成的.java文件）
+
+
+6. jsp内置对象：不需要new，直接可以使用（9大内置对象）
+》out
+》request
+》response
+》session
+》application
+》Page，pageConext，exception，config
+
+7.
+请求重定向：
+
+请求转发：

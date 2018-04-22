@@ -27,3 +27,20 @@ create table student(
    sex VARCHAR(40) ,
    PRIMARY KEY ( id )
 );
+
+4. jdbc连接数据库，数据库连接池C3P0，
+
+
+5. 数据库框架 Mybatis
+   Hibernate是一个著名的对象关系映射框架，使得Java程序员可以随心所欲的使用对象编程思维来操纵数据库
+
+SSH（Struts，Spring，Hibernate） Struts进行流程控制，Spring进行业务流转，Hibernate进行数据库操作的封装
+
+Ajax 即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），是指一种创建交互式网页应用的网页开发技术
+{
+  没有ajax之前，网页中提交表单后要刷新，必须重新加载所有数据然后页面整体刷新。。而ajax则可以做到局部异步刷新。
+}
+
+
+6.
+
