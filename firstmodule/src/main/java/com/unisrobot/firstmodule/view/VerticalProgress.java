@@ -21,7 +21,7 @@ import com.unisrobot.firstmodule.utils.ScreenUtil;
 /**
  * Created by Administrator on 2018/4/16.
  */
-// 仿高德导航全程 进度条。。
+// 仿高德导航全程 进度条。。 拖动还有问题
 public class VerticalProgress extends View {
         private static final String TAG = "VerticalProgress";
 
@@ -126,7 +126,7 @@ public class VerticalProgress extends View {
                 });
                 valueAnimator.setDuration(10 * 1000);
                 valueAnimator.setRepeatCount(10000);
-                valueAnimator.start();
+                //valueAnimator.start();
         }
 
         private int padding = 12;
@@ -175,7 +175,8 @@ public class VerticalProgress extends View {
                         case MotionEvent.ACTION_MOVE:
                                 float x = event.getX();
                                 float y = event.getY();
-                                diffY = y + startY;
+//                                diffY = y + startY;
+                                diffY = y ;
                                 Log.e(TAG, "onTouchEvent: action_move = "+diffY);
                                 invalidate();
                                 break;
@@ -197,6 +198,7 @@ public class VerticalProgress extends View {
                 canvas.drawRect(outleft, outtop, outright, outbottom, outPaint);
                 canvas.drawArc(outleft, outtop - outRadio, outright, outtop + outRadio, 0, -180, false, outPaint);
                 canvas.drawArc(outleft, outbottom - outRadio, outright, outbottom + outRadio, 0, 180, false, outPaint);
+
                 canvas.drawRect(inleft, intop, inright, inbottom - diffY, innterPaint);
                 canvas.drawArc(inleft, intop - innerRadio, inright, intop + innerRadio, 0, -180, false, innterPaint);
                 canvas.drawArc(inleft, (inbottom - innerRadio) - diffY, inright, (inbottom + innerRadio) - diffY, 0, 180, false, innterPaint);
