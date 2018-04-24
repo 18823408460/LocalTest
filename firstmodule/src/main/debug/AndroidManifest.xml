@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.unisrobot.firstmodule">
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <application
         android:name=".FirstMoudleMainApp"
         android:allowBackup="true"
@@ -11,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/first_module_AppTheme_base"
         tools:replace="android:label">
-        <activity android:name=".fragmentD.FirstModuleDFragmentPager">
+        <activity android:name=".editprogram.EditprogramActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
