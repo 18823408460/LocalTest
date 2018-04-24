@@ -7,6 +7,9 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by WEI on 2018/4/14.
  */
@@ -19,14 +22,16 @@ import android.view.ViewGroup;
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
     private String[] titles = {"天九", "地八", "人七", "和五"};//构造传递给fragment用于不同显示内容的参数
+    private List<Fragment> list ;
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public ViewPagerAdapter(FragmentManager fm, List<Fragment> fragmentList) {
         super(fm);
+        this.list = fragmentList ;
     }
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = DynamicFragment.newInstance("这是第" + position + "个 Framgent 。。。。");
+        Fragment fragment = this.list.get(position);
 
         return fragment;
     }

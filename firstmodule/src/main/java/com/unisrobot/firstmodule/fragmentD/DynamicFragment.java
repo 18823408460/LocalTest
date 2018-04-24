@@ -20,6 +20,7 @@ import com.unisrobot.firstmodule.dialog.LoadingDialog;
 public class DynamicFragment extends Fragment {
     private static final String TAG = "DynamicFragment";
     private Context context;
+
     /**
      * rootView是否初始化标志，防止回调函数在rootView为空的时候触发
      */
@@ -132,6 +133,10 @@ public class DynamicFragment extends Fragment {
         } else {
             //showLoadingDialog();
         }
+    }
+
+    public void setAdapter(){
+        Log.e(TAG, "setAdapter: " );
     }
 
     private LoadingDialog loadingDialog;
