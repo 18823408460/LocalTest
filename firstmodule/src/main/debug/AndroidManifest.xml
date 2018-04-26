@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/first_module_AppTheme_base"
         tools:replace="android:label">
-        <activity android:name=".editprogram.EditprogramActivity"
+        <activity android:name=".editprogram.ViewGroupActivity"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
