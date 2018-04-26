@@ -3,6 +3,9 @@ package com.unisrobot.firstmodule.editprogram;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +17,9 @@ import com.unisrobot.firstmodule.R;
  * Created by Administrator on 2018/4/26.
  */
 
+/**
+ * padding 还没有实现。。
+ */
 public class NinePhoneViewGroup extends ViewGroup {
         private static final String TAG = "NinePhoneViewGroup";
 
@@ -37,21 +43,21 @@ public class NinePhoneViewGroup extends ViewGroup {
         @Override
         protected void onLayout(boolean changed, int l, int t, int r, int b) {
                 int childCount = getChildCount();
-               // Log.e(TAG, "onLayout: ======= childCount=" + childCount);
-               // Log.e(TAG, "onLayout: ======= childWidth=" + childWidth + "   childHeight=" + childHeight);
-                int left=0, top=0 ;
+                // Log.e(TAG, "onLayout: ======= childCount=" + childCount);
+                // Log.e(TAG, "onLayout: ======= childWidth=" + childWidth + "   childHeight=" + childHeight);
+                int left = 0, top = 0;
 
                 for (int i = 0; i < childCount; i++) {
                         View childAt = getChildAt(i);
-                        if (i % 3== 0){
-                                left =0 ;
-                                top = (i/3)*childHeight ;
-                        }else {
-                                left = childWidth*(i%3) ;
+                        if (i % 3 == 0) { //第一个
+                                left = hSpace;
+                                top = (i / 3) * childHeight;
+                        } else {
+                                left = childWidth * (i % 3)+ (i % 3+1)*hSpace;
                         }
-                       // Log.e(TAG, "onLayout: left="+left + "   top="+top);
-                        childAt.layout(left,top,left+childWidth,top+childHeight);
-                        Log.e(TAG, "onLayout: count=" + count + "     i="+i + "   tag="+childAt.getTag() + "    childCount="+childCount);
+                        // Log.e(TAG, "onLayout: left="+left + "   top="+top);
+                        childAt.layout(left, top, left + childWidth, top + childHeight);
+                        Log.e(TAG, "onLayout: count=" + count + "     i=" + i + "   tag=" + childAt.getTag() + "    childCount=" + childCount);
                         if (i == (childCount - 1) && count < mixNum) {
                                 childAt.setBackgroundResource(R.drawable.btn_radio_off);
                                 childAt.setOnClickListener(new OnClickListener() {
@@ -68,7 +74,7 @@ public class NinePhoneViewGroup extends ViewGroup {
         }
 
 
-        private int hSpace = 10, vSpace = 10;
+        private int hSpace = 100, vSpace = 100;
         private int childWidth, childHeight;
 
         @Override
@@ -80,26 +86,26 @@ public class NinePhoneViewGroup extends ViewGroup {
                 int modeHeight = MeasureSpec.getMode(heightMeasureSpec);
                 int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
                 // wrap_content , 一开始的取值为全屏= mathc_parent
-                Log.e(TAG, "onMeasure: sizeWidth="+sizeWidth + "   sizeHeight="+sizeHeight);
+                Log.e(TAG, "onMeasure: sizeWidth=" + sizeWidth + "   sizeHeight=" + sizeHeight);
                 int childCount = getChildCount();
-                childWidth = sizeWidth / 3;
+                childWidth = (sizeWidth -hSpace*4) / 3;
                 childHeight = childWidth;
 
                 int lastWidth = sizeWidth;
                 int lastHeight = sizeHeight;
                 if (childCount < 3) {
-                        lastWidth = childCount * childWidth;
-                        lastHeight = childHeight ;
-                }else {
-                        int diff = (childCount%3==0?0:1);
-                        lastHeight = (childCount/3+diff)*childHeight;
+                        lastWidth = childCount * childWidth+( (childCount+1)*hSpace );
+                        lastHeight = childHeight;
+                } else {
+                        int diff = (childCount % 3 == 0 ? 0 : 1);
+                        lastHeight = (childCount / 3 + diff) * childHeight;
                 }
                 setMeasuredDimension(modeWidth == MeasureSpec.EXACTLY ? sizeWidth : lastWidth,
                         modeHeight == MeasureSpec.EXACTLY ? sizeHeight : lastHeight);
-//                setMeasuredDimension(300,300);
+                //                setMeasuredDimension(300,300);
 
                 // 这个必须去掉
-               // super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+                // super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         }
 
@@ -117,11 +123,10 @@ public class NinePhoneViewGroup extends ViewGroup {
         }
 
         private static final int mixNum = 9;
-        private int count=0;
+        private int count = 0;
 
         private void addPhone() {
-                if (count < mixNum) {
-                        count++;
+                if (count < (mixNum - 1)) {
                         View view = new View(getContext());
                         view.setBackgroundResource(R.drawable.jog_tab_left_confirm_red);
                         addView(view);
@@ -129,10 +134,22 @@ public class NinePhoneViewGroup extends ViewGroup {
                         // 下面两个方法为啥都要调用
                         requestLayout();
                         invalidate();
-                }else if (count == mixNum){
-                        Log.e(TAG, "addPhone: =====================");
-                        View childAt = getChildAt(mixNum-1);
+                } else if (count == (mixNum - 1)) {
+                        View childAt = getChildAt(mixNum - 1);
                         childAt.setBackgroundResource(R.drawable.jog_tab_left_confirm_red);
+                        requestLayout();
+                        invalidate();
+                        Log.e(TAG, "addPhone: =========================");
                 }
+                count++;
+        }
+
+        @Override
+        protected void dispatchDraw(Canvas canvas) {
+                Log.e(TAG, "dispatchDraw: " );
+                Paint paint = new Paint();
+                paint.setColor(Color.RED);
+                canvas.drawCircle(getWidth()/2,getHeight()/2,200,paint);
+                super.dispatchDraw(canvas);
         }
 }
