@@ -1,0 +1,1 @@
+ffmpeg -i xi.avi  -r 10 -ss 00:00:00 -t 00:00:03 ai_%3d.jpg

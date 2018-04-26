@@ -24,9 +24,23 @@
         android:layout_marginLeft="100dp"
         android:textSize="30dp"
         android:textColor="@color/material_green"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="100dp"
         android:text="hello"
         android:id="@+id/tv_drag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <com.unisrobot.firstmodule.editprogram.AutoNextLineLinearlayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:id="@+id/ll_drap"
+        android:background="@color/material_blue"
+        android:layout_height="match_parent">
+        <!--<Button-->
+            <!--android:text="sdfsdfsdfsd"-->
+            <!--android:layout_margin="20dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+    </com.unisrobot.firstmodule.editprogram.AutoNextLineLinearlayout>
 </LinearLayout>
