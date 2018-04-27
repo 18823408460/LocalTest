@@ -44,7 +44,7 @@ public class PathMenuViewGroup extends ViewGroup {
         private void initData() {
                 ScreenWindth = ScreenUtil.getwindth(getContext());
                 ScreenHeight = ScreenUtil.getheight(getContext());
-                width = ScreenWindth / 3;
+                width = ScreenWindth / 2;
                 originate = Originate.LEFT_BOTTOM;
                 paint = new Paint();
                 paint.setColor(Color.RED);
@@ -53,13 +53,14 @@ public class PathMenuViewGroup extends ViewGroup {
         @Override
         protected void onLayout(boolean changed, int l, int t, int r, int b) {
                 int childCount = getChildCount();
-                Log.e(TAG, "onLayout:  childCount==="+childCount );
+                Log.e(TAG, "onLayout:  l==="+l + "   t="+t + "    r="+r  + "   b="+b );
                 for (int i = 0; i < childCount; i++) {
                         if (i==0){
                                 View childAt = getChildAt(0);
-                                int width = childAt.getWidth();
-                                int height = childAt.getHeight();
-                                childAt.layout(0,ScreenHeight-height,width,ScreenHeight);
+                                int width = childAt.getMeasuredWidth();
+                                int height = childAt.getMeasuredHeight();
+                                Log.e(TAG, "onLayout:      width="+width +"   height="+height);
+                                childAt.layout(0,0,width,height);
                         }
                 }
 
@@ -78,20 +79,25 @@ public class PathMenuViewGroup extends ViewGroup {
 
                 int realH = 0, realW = 0;
                 int childCount = getChildCount();
+                measureChildren(widthMeasureSpec,heightMeasureSpec);
                 Log.e(TAG, "onMeasure: childCount====" + childCount);
                 for (int i = 0; i < childCount; i++) {
                         View childView = getChildAt(i);
 
                 }
 
+               // setMeasuredDimension(1000,1000);
                 setMeasuredDimension(modeW == MeasureSpec.EXACTLY ? sizeW : width, modeH == MeasureSpec.EXACTLY ? sizeH : width);
         }
 
         @Override
         protected void dispatchDraw(Canvas canvas) {
                 Log.e(TAG, "dispatchDraw: originate = "+originate );
+                Log.e(TAG, "dispatchDraw: ScreenHeight = "+ScreenHeight + "   width="+width );
                 if (originate == Originate.LEFT_BOTTOM) {
-                        canvas.drawRect(0, ScreenHeight - width, width, ScreenHeight, paint);
+                        Log.e(TAG, "dispatchDraw: -----------------" );
+//                        canvas.drawRect(0, ScreenHeight - width, width, ScreenHeight, paint);
+                        canvas.drawRect(0, 0, width, width, paint);
                 }
                 super.dispatchDraw(canvas);
         }

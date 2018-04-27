@@ -102,6 +102,8 @@ public class TwoWavaView extends View implements Runnable {
                 this.mWavePaint.setAntiAlias(true);
                 this.mWavePaint.setStyle(Paint.Style.FILL);
                 this.mWavePaint.setColor(WAVE_PAINT_COLOR);
+
+                // 抗锯齿的处理。。。。
                 this.mDrawFilter = new PaintFlagsDrawFilter(0, 3);
         }
 

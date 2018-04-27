@@ -18,6 +18,6 @@ public class ViewGroupActivity extends Activity {
 //                setContentView(R.layout.first_module_activity_viewgroup);
 //                setContentView(new CircleMenu(this));
 
-                setContentView(R.layout.first_module_activity_wave);
+                setContentView(R.layout.first_module_activity_pathmenu);
         }
 }
