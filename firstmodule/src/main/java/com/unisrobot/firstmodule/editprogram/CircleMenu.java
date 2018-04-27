@@ -11,9 +11,6 @@ import android.view.MotionEvent;
 import android.view.View;
 /**
  * 自定义圆形的方向布局
- *
- * @author 樊列龙
- * @since 2014-06-07
  */
 public class CircleMenu extends View {
 

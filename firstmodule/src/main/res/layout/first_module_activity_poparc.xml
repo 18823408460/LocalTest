@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.unisrobot.firstmodule.editprogram.PopArcViewGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_gravity="center_vertical"
+        android:clickable="false"
+        android:paddingLeft="16dp"
+        android:paddingRight="32dp"
+        android:text="Menu Item #1"
+        android:textColor="#FF393F4A"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_gravity="center_vertical"
+        android:clickable="false"
+        android:paddingLeft="16dp"
+        android:paddingRight="32dp"
+        android:text="Menu Item #2"
+        android:textColor="#FF393F4A"
+        android:textSize="16sp" />
+</com.unisrobot.firstmodule.editprogram.PopArcViewGroup>

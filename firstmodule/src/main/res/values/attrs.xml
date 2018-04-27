@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="first_module_ArrowRectangleView">
+        <attr name="first_module_arrow_width" format="dimension" />
+        <attr name="first_module_arrow_height" format="dimension" />
+        <attr name="first_module_arrow_offset" format="dimension" />
+        <attr name="first_module_radius" format="dimension" />
+        <attr name="first_module_background_color" format="color" />
+        <attr name="first_module_shadow_color" format="color" />
+        <attr name="first_module_shadow_thickness" format="dimension" />
+    </declare-styleable>
+
+
+    <attr name="first_module_peakValue" format="dimension" />
+    <attr name="first_module_speedOne" format="integer" />
+    <attr name="first_module_speedTwo" format="integer" />
+    <attr name="first_module_waveColor" format="color" />
+
+    <declare-styleable name="first_module_DoubleWaveView">
+        <attr name="first_module_peakValue" />
+        <attr name="first_module_waveColor" />
+        <attr name="first_module_speedOne" />
+        <attr name="first_module_speedTwo" />
+        <attr name="first_module_waveHeight" />
+    </declare-styleable>
+
+</resources>

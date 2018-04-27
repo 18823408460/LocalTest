@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.unisrobot.firstmodule.editprogram.TwoWavaSurfaceView
+        android:id="@+id/waveView_study"
+        android:layout_width="match_parent"
+        android:background="@android:color/darker_gray"
+        android:layout_height="600px"
+        android:layout_alignParentBottom="true"
+        app:first_module_peakValue="100px"
+        app:first_module_speedOne="10"
+        app:first_module_speedTwo="6"
+        app:first_module_waveColor="#00ffff"
+        app:first_module_waveHeight="500px" />
+</RelativeLayout>
