@@ -8,4 +8,8 @@
     <color name="first_module_editColor">#FD87A9</color>
     <!--Window color-->
     <color name="first_module_widowColor">#ffffff</color>
+
+    <color name="first_module_qing">#0091d6</color>
+
+    <color name="first_module_zi">#F9babc</color>
 </resources>
