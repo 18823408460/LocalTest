@@ -1,5 +1,6 @@
 package com.unisrobot.firstmodule.editprogram;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,6 +9,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Toast;
 
 import com.unisrobot.firstmodule.R;
@@ -18,6 +21,8 @@ import com.unisrobot.firstmodule.utils.ScreenUtil;
  */
 
 public class PathMenuViewGroup extends ViewGroup {
+        private View viewOne;
+
         public PathMenuViewGroup(Context context) {
                 this(context, null);
         }
@@ -53,6 +58,8 @@ public class PathMenuViewGroup extends ViewGroup {
                 Log.e(TAG, "initData: viewGroupWidth====" + viewGroupWidth);
         }
 
+        private int radio;
+
         @Override
         protected void onLayout(boolean changed, int l, int t, int r, int b) {
                 int childCount = getChildCount();
@@ -69,15 +76,19 @@ public class PathMenuViewGroup extends ViewGroup {
                                 childAt.setOnClickListener(new OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                                v.setBackgroundResource(R.drawable.first_module_drawable_circle_green);
+                                                // v.setBackgroundResource(R.drawable.first_module_drawable_circle_green);
+                                                startAnim(v);
                                                 Log.e(TAG, "onClick: ====================");
                                         }
                                 });
                         } else {
                                 View childAt = getChildAt(i);
+                                if (i == 1) {
+                                        viewOne = childAt;
+                                }
                                 int width = childAt.getMeasuredWidth();
                                 int height = childAt.getMeasuredHeight();
-                                int radio = Math.min(width, height) / 2;
+                                radio = Math.min(width, height) / 2;
                                 arcWidth = viewGroupWidth - radio;
                                 double viewAngle = angle * i * Math.PI / 180;
                                 Log.e(TAG, "onLayout: viewAngle===" + viewAngle);
@@ -88,6 +99,10 @@ public class PathMenuViewGroup extends ViewGroup {
                                 // 相对当前viewGroup的位置，不用管屏幕
                                 int localY = viewGroupWidth - y;
                                 childAt.setTag(i - 1);
+                                if (i == 1) {
+                                        endX = localX + radio;
+                                        endY = localY + radio;
+                                }
                                 childAt.layout(localX - radio, localY - radio, localX + radio, localY + radio);
                                 childAt.setOnClickListener(new OnClickListener() {
                                         @Override
@@ -100,6 +115,20 @@ public class PathMenuViewGroup extends ViewGroup {
                         }
                 }
 
+        }
+
+        private int endX, endY;
+
+        private void startAnim(final View homeView) {
+                RotateAnimation rotateAnimation = new RotateAnimation(0, 360, homeView.getPivotX(), homeView.getPivotY());
+                rotateAnimation.setDuration(1500);
+                rotateAnimation.setFillAfter(true);
+                homeView.startAnimation(rotateAnimation);
+
+                TranslateAnimation translateAnimation = new TranslateAnimation(0, radio,viewGroupWidth,viewGroupWidth - radio );
+                translateAnimation.setDuration(1500);
+                translateAnimation.setFillAfter(true);
+                viewOne.startAnimation(translateAnimation);
         }
 
 
@@ -124,8 +153,8 @@ public class PathMenuViewGroup extends ViewGroup {
                         realW += measuredWidth;
                         realH += measuredHeight;
                 }
-                realW += 100;
-                realH += 100;
+                //                realW += 100;
+                //                realH += 100;
                 if (modeW != MeasureSpec.EXACTLY) {
                         Log.e(TAG, "onMeasure: exactly-------------");
                         viewGroupWidth = realW;
@@ -133,8 +162,6 @@ public class PathMenuViewGroup extends ViewGroup {
                 // setMeasuredDimension(1000,1000);
                 setMeasuredDimension(modeW == MeasureSpec.EXACTLY ? sizeW : viewGroupWidth, modeH == MeasureSpec.EXACTLY ? sizeH : viewGroupWidth);
         }
-
-
 
 
         @Override

@@ -1,1 +1,1 @@
-include ':app', ':firstmodule', ':comlib'
+include ':app', ':firstmodule', ':comlib', ':javaread'

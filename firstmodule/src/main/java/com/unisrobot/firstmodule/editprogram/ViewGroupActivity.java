@@ -15,9 +15,10 @@ public class ViewGroupActivity extends Activity {
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
-//                setContentView(R.layout.first_module_activity_viewgroup);
-//                setContentView(new CircleMenu(this));
+                //                setContentView(R.layout.first_module_activity_viewgroup);
+                //                setContentView(new CircleMenu(this));
 
-                setContentView(R.layout.first_module_activity_pathmenu);
+                //                setContentView(R.layout.first_module_activity_pathmenu);
+                setContentView(R.layout.first_module_activity_remoteview);
         }
 }

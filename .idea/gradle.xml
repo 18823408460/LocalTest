@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/comlib" />
             <option value="$PROJECT_DIR$/firstmodule" />
+            <option value="$PROJECT_DIR$/javaread" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
