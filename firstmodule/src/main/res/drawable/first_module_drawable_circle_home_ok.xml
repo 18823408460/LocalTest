@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns="http://schemas.android.com/apk/res/android">
+    <item drawable="@drawable/first_module_home_press" state_pressed="true" />
+    <item drawable="@drawable/first_module_home_normal" />
+</selector>

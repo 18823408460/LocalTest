@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.unisrobot.firstmodule.R;
+import com.unisrobot.firstmodule.view.DrawBitampView;
 
 
 /**
@@ -19,6 +20,7 @@ public class ViewGroupActivity extends Activity {
                 //                setContentView(new CircleMenu(this));
 
                 //                setContentView(R.layout.first_module_activity_pathmenu);
-                setContentView(R.layout.first_module_activity_remoteview);
+//                setContentView(R.layout.first_module_activity_remoteview);
+                setContentView(new DrawBitampView(this));
         }
 }
