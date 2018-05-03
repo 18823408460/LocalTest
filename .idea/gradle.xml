@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/comlib" />
             <option value="$PROJECT_DIR$/firstmodule" />
             <option value="$PROJECT_DIR$/javaread" />
+            <option value="$PROJECT_DIR$/robothead" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/comlib/comlib.iml" filepath="$PROJECT_DIR$/comlib/comlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/firstmodule/firstmodule.iml" filepath="$PROJECT_DIR$/firstmodule/firstmodule.iml" />
       <module fileurl="file://$PROJECT_DIR$/javaread/javaread.iml" filepath="$PROJECT_DIR$/javaread/javaread.iml" />
+      <module fileurl="file://$PROJECT_DIR$/robothead/robothead.iml" filepath="$PROJECT_DIR$/robothead/robothead.iml" />
     </modules>
   </component>
 </project>
