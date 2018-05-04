@@ -20,7 +20,7 @@ public class ViewGroupActivity extends Activity {
                 //                setContentView(new CircleMenu(this));
 
                 //                setContentView(R.layout.first_module_activity_pathmenu);
-                setContentView(R.layout.first_module_activity_remoteview);
+                setContentView(R.layout.first_module_activity_drawpath);
 //                setContentView(new DrawBitampView(this));
 //                setContentView(R.layout.first_module_activity_btn);
 //                setContentView(new RemoteView(this));

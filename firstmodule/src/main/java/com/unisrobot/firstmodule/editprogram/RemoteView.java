@@ -3,10 +3,8 @@ package com.unisrobot.firstmodule.editprogram;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.support.annotation.Nullable;
@@ -47,15 +45,30 @@ public class RemoteView extends View {
     private void initData() {
         paint = new Paint();
         paint.setAntiAlias(true);
-        paint.setStrokeWidth(8);
+//        paint.setStrokeWidth(8);
 
-        paint.setColor(Color.CYAN);
+        paint.setColor(Color.parseColor("#6A7185"));
         paintFlagsDrawFilter = new PaintFlagsDrawFilter(0, 3);
         // 是否填充，是否连接圆心  要区分
-        paint.setStyle(Paint.Style.STROKE);
+        paint.setStyle(Paint.Style.FILL);
         screenWidth = ScreenUtil.getwindth(getContext());
         screenHeight = ScreenUtil.getheight(getContext());
+
+        bitmapLeft = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_left_normal);
+        bitmapLeftPress = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_left_press);
+        bitmapRight = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_right_normal);
+        bitmapRightPress = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_right_press);
+        bitmapUp = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_up_normal);
+        bitmapUpPress = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_up_press);
+        bitmapDown = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_down_normal);
+        bitmapDownPress = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_down_press);
+        bitmapHome = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_home_press);
+        innerRadio = bitmapHome.getWidth()/2;
+        outRadio = bitmapLeft.getWidth();
     }
+
+    private int innerRadio,outRadio;
+    Bitmap bitmapLeft, bitmapLeftPress, bitmapRight, bitmapRightPress, bitmapUp, bitmapUpPress, bitmapDown,bitmapDownPress, bitmapHome;
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -74,52 +87,38 @@ public class RemoteView extends View {
     protected void onDraw(Canvas canvas) {
         int width = getWidth();
         centerX = centerY = width / 2;
-        int angle = (360 - padAngle * 4) / 4;
-        int startAngle = angle / 2;
-
-        Bitmap bitmapLeft = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_left_normal);
-        Bitmap bitmapLeftPress = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_left_press);
-        Bitmap bitmapRight = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_right_normal);
-        Bitmap bitmapUp = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_up_normal);
-        Bitmap bitmapDown = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_down_normal);
-        Bitmap bitmapHome = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_home_press);
-
-        Matrix matrix = new Matrix();
-        matrix.setTranslate(centerX - bitmapLeft.getWidth() / 2, centerY - bitmapLeft.getHeight() / 2);
-        BitmapShader bitmapShader = new BitmapShader(bitmapLeft, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP);
-        bitmapShader.setLocalMatrix(matrix);
+        canvas.drawCircle(centerX,centerY,outRadio+padAngle*3,paint);
 
         if (!leftPress) {
             canvas.drawBitmap(bitmapLeft, centerX - bitmapLeft.getWidth() - padAngle, centerY - bitmapLeft.getHeight() / 2, paint);
         } else {
             canvas.drawBitmap(bitmapLeftPress, centerX - bitmapLeftPress.getWidth() - padAngle, centerY - bitmapLeftPress.getHeight() / 2, paint);
         }
+        if (!rightPress) {
+            canvas.drawBitmap(bitmapRight, centerX + padAngle, centerY - bitmapRight.getHeight() / 2, paint);
+        } else {
+            canvas.drawBitmap(bitmapRightPress, centerX + padAngle, centerY - bitmapRight.getHeight() / 2, paint);
+        }
 
-        canvas.drawBitmap(bitmapRight, centerX + padAngle, centerY - bitmapRight.getHeight() / 2, paint);
-        canvas.drawBitmap(bitmapUp, centerX - bitmapUp.getWidth() / 2, centerY - bitmapUp.getHeight() - padAngle, paint);
-        canvas.drawBitmap(bitmapDown, centerX - bitmapDown.getWidth() / 2, centerY + padAngle, paint);
+        if (!upPress){
+            canvas.drawBitmap(bitmapUp, centerX - bitmapUp.getWidth() / 2, centerY - bitmapUp.getHeight() - padAngle, paint);
+        }else {
+            canvas.drawBitmap(bitmapUpPress, centerX - bitmapUp.getWidth() / 2, centerY - bitmapUp.getHeight() - padAngle, paint);
+        }
 
-        Log.e(TAG, "onDraw: " + getWidth() + "   " + getHeight());
-        Log.e(TAG, "onDraw: bitmap" + bitmapLeft.getWidth() + "   " + bitmapLeft.getHeight());
-
-
-//        canvas.drawCircle(centerX, centerY, 60, paint);
+        if (!downPress){
+            canvas.drawBitmap(bitmapDown, centerX - bitmapDown.getWidth() / 2, centerY + padAngle, paint);
+        }else {
+            canvas.drawBitmap(bitmapDownPress, centerX - bitmapDown.getWidth() / 2, centerY + padAngle, paint);
+        }
         canvas.drawBitmap(bitmapHome, centerX - bitmapHome.getWidth() / 2, centerY - bitmapHome.getHeight() / 2, paint);
-//        for (int i = 0; i < 4; i++) {
-//            paint.setColor(colors[i]);
-//            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_ten);
-//            Matrix matrix = new Matrix();
-//            matrix.setTranslate(centerX - radio, centerY - radio);
-//            BitmapShader bitmapShader = new BitmapShader(bitmap, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP);
-//            bitmapShader.setLocalMatrix(matrix);
-//            paint.setShader(bitmapShader);
-//            canvas.setDrawFilter(paintFlagsDrawFilter);
-//            canvas.drawArc(rectf, startAngle + padAngle * i + angle * i, angle, false, paint);
-//        }
     }
 
     private static final String TAG = "RemoteView";
     private boolean leftPress = false;
+    private boolean rightPress = false;
+    private boolean upPress = false;
+    private boolean downPress = false;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -129,17 +128,39 @@ public class RemoteView extends View {
                 Log.e(TAG, "onTouchEvent:ACTION_DOWN :  x= " + event.getX() + "   y=" + event.getY());
                 float x = event.getX();
                 float y = event.getY();
-                if ( x < centerX   &&   ( y>x && y<(getHeight()-x)   )) {
+                float diffx = Math.abs(x-centerX);
+                float diffy = Math.abs(y-centerY);
+                Log.e(TAG, "onTouchEvent: sqrt1======="+innerRadio + "  outRadio="+outRadio );
+                double sqrt = Math.sqrt(diffx * diffx + diffy * diffy);
+                Log.e(TAG, "onTouchEvent: sqrt======="+sqrt );
+                if (sqrt< innerRadio || sqrt>outRadio){
+                    Log.e(TAG, "onTouchEvent: in.................................");
+                    return false;
+                }
+                if (x < centerX && (y > x && y < (getHeight() - x))) {
                     leftPress = true;
                     invalidate();
                     Log.e(TAG, "onTouchEvent: 11111111111111111");
-                }else if( x> centerX && (  y>x &&  y<(getHeight()-x)      )  ){
+                } else if (x > centerX && (y < x && y > (getWidth() - x))) {
                     Log.e(TAG, "onTouchEvent: 333333333333333333");
+                    rightPress = true;
+                    invalidate();
+                } else if (y < centerY && (x > y && x < (getWidth() - y))) {
+                    Log.e(TAG, "onTouchEvent: 2222222222222");
+                    upPress = true;
+                    invalidate();
+                }else if (y > centerY && (x < y && x > (getWidth() - y))) {
+                    Log.e(TAG, "onTouchEvent: 4444444444444444");
+                    downPress = true;
+                    invalidate();
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 Log.e(TAG, "onTouchEvent: ACTION_UP  :  x= " + event.getX() + "   y=" + event.getY());
                 leftPress = false;
+                rightPress = false;
+                upPress = false;
+                downPress = false;
                 invalidate();
                 break;
 
