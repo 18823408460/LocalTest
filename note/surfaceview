@@ -1,0 +1,24 @@
+1.     surfaceview,  绘制圆角
+
+： draw， 背景
+ https://blog.csdn.net/minyou_1314/article/details/50971866
+类SurfaceHolder,可以把它当成surface的控制器，用来操纵surface
+surfaceview的核心在于提供了两个线程：UI线程和渲染线程。
+
+
+
+ texuturnview , 绘制圆角
+
+ GLsurfaceview
+
+2.  surfaceview 应该用默认的线程 还是 自定义线程 绘制
+
+3. surfaceview 采用双线程 绘制 动画（一个解码，一个show）。。。
+https://blog.csdn.net/listening_music/article/details/6860786
+
+4. 帧动画-- 用 surfaceview代替，bitmap怎么缓存
+
+
+再例举一些使用场景，假设我要画一个视图他和用户有交互，那么用View还是SurfaceView？
+
+像这样的情况就比较推荐用View因为要有Touch事件，用View更合适。而0交互的那些场景用用SurfaceView对性能会有一定的帮助，接下来用例子来具体描述如何用SurfaceView

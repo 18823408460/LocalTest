@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * Created by Administrator on 2018/5/5.
  */
-
+// 类SurfaceHolder,可以把它当成surface的控制器，用来操纵surface
 public class CameraActivity extends AppCompatActivity {
         private static final String TAG = "CameraActivity";
         @Override
@@ -28,7 +28,7 @@ public class CameraActivity extends AppCompatActivity {
                         @Override
                         public void surfaceCreated(SurfaceHolder holder) {
                                 Log.e(TAG, "surfaceCreated: ");
-                                cameraSurface.setWillNotDraw(false);
+                                //cameraSurface.setWillNotDraw(false);
                         }
 
                         @Override

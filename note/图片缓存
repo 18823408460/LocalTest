@@ -1,0 +1,17 @@
+网上有很多人使用软引用加载图片的多 ，但是现在已经不再推荐使用这种方式了，
+（1）因为从 Android 2.3 (API Level 9)开始，垃圾回收器会更倾向于回收持有软引用或弱引用的对象，
+     这让软引用和弱引用变得不再可靠。
+（2）另外，Android 3.0 (API Level 11)中，图片的数据会存储在本地的内存当中，
+     因而无法用一种可预见的方式将其释放，这就有潜在的风险造成应用程序的内存溢出并崩溃，
+所以我这里用得是LruCache来缓存图片，当存储Image的大小大于LruCache设定的值，系统自动释放内存，
+这个类是3.1版本中提供的，如果你是在更早的Android版本中开发，则需要导入android-support-v4的jar包
+
+https://blog.csdn.net/gf771115/article/details/30269159
+
+》private Map<String, SoftReference<Bitmap>> imageMap
+                                            = new HashMap<String, SoftReference<Bitmap>>();
+
+string == 图片路径 / url / String.valueOf(resId);
+
+
+》private LruCache<String, Bitmap> mMemoryCache;

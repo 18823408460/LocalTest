@@ -46,15 +46,31 @@ public class CameraSurface extends SurfaceView   {
         }
 
         private static final String TAG = "CameraSurface";
+//        @Override
+//        protected void onDraw(Canvas canvas) {
+//                int min = Math.min(getWidth(), getHeight());
+////                canvas.drawCircle(getWidth()/2,getHeight()/2,min/2,paint);
+//                Log.e(TAG, "onDraw: "+ getWidth()+ "     " +getHeight());
+//                Path path = new Path();
+//                path.addCircle(getWidth()/2,getHeight()/2,min/2, Path.Direction.CCW);
+//                canvas.clipPath(path, Region.Op.REPLACE);
+//                super.onDraw(canvas);
+//        }
+
+
         @Override
-        protected void onDraw(Canvas canvas) {
+        public void draw(Canvas canvas) {
+
                 int min = Math.min(getWidth(), getHeight());
 //                canvas.drawCircle(getWidth()/2,getHeight()/2,min/2,paint);
-                Log.e(TAG, "onDraw: "+ getWidth()+ "     " +getHeight());
+                Log.e(TAG, "draw.....: " + getWidth() + "     " + getHeight());
                 Path path = new Path();
-                path.addCircle(getWidth()/2,getHeight()/2,min/2, Path.Direction.CCW);
+                path.addCircle(getWidth() / 2, getHeight() / 2, min / 2-50, Path.Direction.CCW);
                 canvas.clipPath(path, Region.Op.REPLACE);
-                super.onDraw(canvas);
 
+                // 这个不出来？？？
+                canvas.drawCircle(getWidth()/2,getHeight()/2, min/2+10,paint);
+                // 这个必须放在后面。。
+                super.draw(canvas);
         }
 }
