@@ -15,7 +15,6 @@ import java.lang.ref.SoftReference;
 public class BitmapLruCache {
     private static volatile BitmapLruCache bitmapLruCache;
     private LruCache<String, Bitmap> lruCache;
-    // 两种方式的区别：
     private LruCache<String, SoftReference<Bitmap>> lruCacheSoft;
 
     public static BitmapLruCache getBitmapLruCache() {
@@ -56,6 +55,23 @@ public class BitmapLruCache {
             lruCache.put(String.valueOf(resId), bitmap);
         } else {
             lruCache.put(String.valueOf(resId), bitmap);
+        }
+    }
+
+    public void putBitmap(int key,Bitmap bitmap1) {
+        Bitmap bitmap = lruCache.get(String.valueOf(key));
+        if (bitmap == null) {
+            lruCache.put(String.valueOf(key), bitmap1);
+            Log.e("AnimSurfaceActivity", "putBitmap: " );
+        }
+    }
+
+    public void getBitmap(int key) {
+        Bitmap bitmap = lruCache.get(String.valueOf(key));
+        if (bitmap != null) {
+            Log.e("AnimSurfaceActivity", "getBitmap from cache =="+key );
+        }else {
+            Log.e("AnimSurfaceActivity", "getBitmap is null ");
         }
     }
 

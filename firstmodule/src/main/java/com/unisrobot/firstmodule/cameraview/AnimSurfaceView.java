@@ -14,6 +14,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.unisrobot.firstmodule.R;
+import com.unisrobot.firstmodule.utils.BitmapUtil;
 
 /**
  * Created by WEI on 2018/5/6.
@@ -23,9 +24,10 @@ public class AnimSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private static final String TAG = "AnimSurfaceView";
     private SurfaceHolder surfaceHolder;
     private boolean threadAlive;
-    private int[] bitmaps = {R.drawable.first_module_one, R.drawable.first_module_two, R.drawable.first_module_three,
-            R.drawable.first_module_four, R.drawable.first_module_five, R.drawable.first_module_six, R.drawable.first_module_seven,
-            R.drawable.first_module_eight, R.drawable.first_module_nine, R.drawable.first_module_ten, R.drawable.first_module_elven};
+    private int[] bitmaps = {/*R.drawable.first_module_one, R.drawable.first_module_two, R.drawable.first_module_three,*/
+            R.drawable.first_module_four, R.drawable.first_module_five,R.drawable.first_module_left_normal,R.drawable.first_module_right_normal,
+            /*R.drawable.first_module_six, R.drawable.first_module_seven,
+            R.drawable.first_module_eight, R.drawable.first_module_nine, R.drawable.first_module_ten, R.drawable.first_module_elven*/};
 
     public AnimSurfaceView(Context context) {
         this(context, null);
@@ -82,16 +84,25 @@ public class AnimSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         Log.e(TAG, "run: onDraw end");
     }
 
-    private int frameRate = 34; //帧率
+    private int defaultSize = 500 ;
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int modeW = MeasureSpec.getMode(widthMeasureSpec);
+        int sizeW = MeasureSpec.getSize(widthMeasureSpec);
+
+        setMeasuredDimension(modeW==MeasureSpec.EXACTLY?sizeW:defaultSize,modeW==MeasureSpec.EXACTLY?sizeW:defaultSize);
+    }
+
+    private int frameRate = 14; //帧率
 
     private void doDraw() {
         Canvas canvas = surfaceHolder.lockCanvas();//从Surface中取出一块矩形区域进行刷新
         try {
             //每次绘制之前要 清楚屏幕
-//            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);        // 清除屏幕
-//            canvas.drawColor(Color.BLACK);
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);        // 清除屏幕
+            canvas.drawColor(Color.BLACK); // 这里设置背景
             drawBitmaps(canvas);
-            Thread.sleep(1000);
+            Thread.sleep(1000/frameRate);
         }catch (InterruptedException e) {
             e.printStackTrace();
             threadAlive  = false ;
@@ -119,6 +130,9 @@ public class AnimSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         if (bitmap != null){
             int width = bitmap.getWidth();
             int height = bitmap.getHeight();
+            if (width>600){
+                bitmap = BitmapUtil.zoomBitmap1(bitmap, 400, 400);
+            }
             Log.e(TAG, "drawBitmaps: drawBitmap......width="+width + "   height="+height );
             canvas.drawBitmap(bitmap,100,100,paint);
         }
