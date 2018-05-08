@@ -1,5 +1,6 @@
 package com.unisrobot.firstmodule.cameraview;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -47,9 +48,21 @@ public class AnimSurfaceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        testMatrix();
+        testCanvas();
 
     }
+
+
+    public void onClick(View view){
+        startActivity(new Intent(this,ChildActivity.class));
+    }
+
+
+    private void testCanvas(){
+        setContentView(R.layout.first_module_activity_canvas);
+    }
+
+
 
     int number = 1000;
 
@@ -69,6 +82,12 @@ public class AnimSurfaceActivity extends AppCompatActivity {
             BitmapLruCache.getBitmapLruCache().getBitmap(i);
         }
     }
+
+
+    private void testRotateAnim(){
+        setContentView(R.layout.first_module_activity_roateanim);
+    }
+
 
     private void testMatrix(){
         setContentView(R.layout.first_module_activity_matrix);

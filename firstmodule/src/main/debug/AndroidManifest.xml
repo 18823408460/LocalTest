@@ -25,6 +25,8 @@
                     android:scheme="router" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".cameraview.ChildActivity"/>
     </application>
 
 </manifest>

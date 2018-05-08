@@ -54,7 +54,7 @@ public class MatrixView extends View {
                 bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_left_normal);
         }
 
-        private int defaultSize;
+        private int defaultSize = 2000;
 
         @Override
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -85,11 +85,17 @@ public class MatrixView extends View {
 
                 canvas.drawBitmap(bitmap,viewCenterX-bitmapcenterX, viewCenterY-bitmapcenterY,null);
 
-                matrix.setTranslate(viewCenterX-bitmapcenterX,viewCenterY-bitmapcenterY);
+//                matrix.setTranslate(viewCenterX-bitmapcenterX,viewCenterY-bitmapcenterY);
                // matrix.preRotate(90);//默认是以当前view 的左上角为旋转中心
-                matrix.postRotate(90,viewCenterX,viewCenterY);
-                canvas.drawBitmap(bitmap,matrix,null);
+//                matrix.postRotate(90,bitmapcenterX,bitmapcenterY);//这些坐标都是相对view 而言的,所以这样旋转是错误的
 
+//                matrix.postRotate(90,viewCenterX,viewCenterY);
+
+                //一旦出现set，前面所有的对matrix 的设置被清空
+                matrix.setRotate(180,viewCenterX,viewCenterY);
+                matrix.postTranslate(100,100);
+
+                canvas.drawBitmap(bitmap,matrix,null);
                 canvas.drawPoint(viewCenterX, viewCenterY, paint);
 
 
