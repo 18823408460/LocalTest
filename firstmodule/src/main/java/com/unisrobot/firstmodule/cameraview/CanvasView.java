@@ -37,11 +37,21 @@ public class CanvasView extends View {
         @Override
         protected void onDraw(Canvas canvas) {
 //                drawTest(canvas);
-
+                canvas.save();
                 canvas.drawRect(new Rect(0, 0, 100, 100), paint);
                 canvas.translate(100, 100);
                 canvas.drawRect(new Rect(0, 0, 100, 100), paint);
 
+                canvas.rotate(45);
+//                canvas.translate(300, 300);
+                canvas.drawRect(new Rect(0, 0, 100, 100), paint);
+                canvas.translate(300,300);
+                canvas.drawRect(new Rect(0, 0, 100, 100), paint);
+                canvas.restore(); //restore 后，画布的原点  恢复到 左上角-
+
+                paint.setColor(Color.RED);
+                canvas.translate(300,0);
+                canvas.drawRect(new Rect(0, 0, 100, 100), paint);
         }
 
         private void drawTest(Canvas canvas) {

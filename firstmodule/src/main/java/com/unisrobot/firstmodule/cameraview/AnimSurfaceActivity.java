@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Trace;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -44,12 +45,26 @@ public class AnimSurfaceActivity extends AppCompatActivity {
     int index ;
     private Bitmap[] bitmap;
 
+    private static final float hightBattery = 24.8f;// 最高电压
 
+    private static final float lowBattery = 18f;// 最低电压
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        testCanvas();
+        testRuleView();
+    }
 
+    private void testRuleView(){
+        setContentView(new TimerView(this));
+    }
+
+    public static int getUnChargingPer(float battery) {
+        float diff = 0.0f;
+        diff = (battery - lowBattery) / (hightBattery - lowBattery);
+        if (diff >= 1) {
+            diff = 1;
+        }
+        return (int) (diff * 100);
     }
 
 
@@ -69,14 +84,16 @@ public class AnimSurfaceActivity extends AppCompatActivity {
     private static final String TAG = "AnimSurfaceActivity";
     private void testdecodeResource(){
         bitmap = new Bitmap[number];
+        Trace.beginSection("decodeBitmap");
         for (int i = 0; i < number; i++)
         {
             Log.e(TAG, "测试第" + (i+1) + "张图片");
-            Bitmap bitm = BitmapFactory.decodeResource(getResources(), R.drawable.first_module_home_normal);
+            bitmap[i]= BitmapFactory.decodeResource(getResources(), R.drawable.first_module_home_normal); // 测试第153张图片 OOM
+//            bitmap[i] = BitmapFactory.decodeStream(getResources().openRawResource(+R.drawable.first_module_home_normal)); // 测试第467张图片
 //            BitmapFactory.decodeStream()
-            BitmapLruCache.getBitmapLruCache().putBitmap(i,bitm);
+//            BitmapLruCache.getBitmapLruCache().putBitmap(i,bitm);
         }
-
+        Trace.endSection();
         for (int i = 0; i < number; i++)
         {
             BitmapLruCache.getBitmapLruCache().getBitmap(i);
