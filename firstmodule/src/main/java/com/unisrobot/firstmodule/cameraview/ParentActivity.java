@@ -14,9 +14,9 @@ public class ParentActivity extends Activity {
         protected static HandlerThread handlerThread;
         protected static Handler handler;
 
-
-
-        protected static Runnable runnable ;
+        protected volatile String data = "init";
+        protected  Data datatest ;
+        protected static MyRunnable runnable ;
 
 
 
@@ -26,6 +26,18 @@ public class ParentActivity extends Activity {
         protected void onCreate(@Nullable Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
 
+        }
+
+        public class MyRunnable implements Runnable{
+                public Activity activity ;
+                public MyRunnable(Activity activity) {
+                        this.activity =activity;
+                }
+
+                @Override
+                public void run() {
+
+                }
         }
 
 

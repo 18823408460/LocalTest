@@ -7,28 +7,34 @@ import android.os.HandlerThread;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
+
+import com.unisrobot.firstmodule.R;
 
 /**
  * Created by Administrator on 2018/5/8.
  */
 
 public class ChildActivity extends ParentActivity {
-        private volatile String data = "init";
+
         private static final String TAG = "ChildActivity";
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
+                setContentView(R.layout.first_module_activity_child);
                 Log.e(TAG, "onCreate: " + this);
                 data = "onCreate";
-
+                datatest = new Data();
+                datatest.setStr("oncreate");
                 //testHandler();
 
                 if (runnable == null) {
-                        runnable = new Runnable() {
+                        runnable = new MyRunnable(this) {
                                 @Override
                                 public void run() {
-                                        Log.e(TAG, " run     " + data);
+                                        Log.e(TAG, " run     " + data + "   activity="+ activity);
+                                        Log.e(TAG, " run     " + datatest.getStr() + "   datatest="+datatest);
                                 }
                         };
                         new Thread(runnable).start();
@@ -38,7 +44,10 @@ public class ChildActivity extends ParentActivity {
                 }
         }
 
-
+        public void setValue(View view){
+                datatest.setStr("setValue");
+                new Thread(runnable).start();
+        }
 
 
         @Override
@@ -46,6 +55,7 @@ public class ChildActivity extends ParentActivity {
                 super.onDestroy();
                 Log.e(TAG, "onDestroy: " + this);
                 data = "onDestroy";
+                datatest.setStr("onDestroy");
         }
 
         private void testHandler() {
