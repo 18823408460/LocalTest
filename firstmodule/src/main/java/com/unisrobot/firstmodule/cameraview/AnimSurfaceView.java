@@ -56,7 +56,7 @@ public class AnimSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-
+        Log.e(TAG, "surfaceCreated: " );
     }
 
     @Override
@@ -71,7 +71,7 @@ public class AnimSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         threadAlive = false;
-        drawThread.interrupt();
+//        drawThread.interrupt();
         Log.e(TAG, "surfaceDestroyed: ");
     }
 
@@ -93,25 +93,34 @@ public class AnimSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         setMeasuredDimension(modeW==MeasureSpec.EXACTLY?sizeW:defaultSize,modeW==MeasureSpec.EXACTLY?sizeW:defaultSize);
     }
 
-    private int frameRate = 14; //帧率
+    private int frameRate = 1000; //帧率
 
     private void doDraw() {
-        Canvas canvas = surfaceHolder.lockCanvas();//从Surface中取出一块矩形区域进行刷新
+        Canvas  canvas = null ;
         try {
+            canvas = surfaceHolder.lockCanvas();//从Surface中取出一块矩形区域进行刷新
             //每次绘制之前要 清楚屏幕
+
+            // 这里可能   NullPointerException ， 在退出的时候
             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);        // 清除屏幕
             canvas.drawColor(Color.BLACK); // 这里设置背景
             drawBitmaps(canvas);
             Thread.sleep(1000/frameRate);
         }catch (InterruptedException e) {
             e.printStackTrace();
+            Log.e(TAG, "doDraw: e1="+e );
             threadAlive  = false ;
         } catch (Exception e){
-
+            Log.e(TAG, "doDraw: e2="+e );
         }finally {
             //    java.lang.IllegalArgumentException: canvas object must be the same instance that was previously returned by lockCanvas
             if (canvas != null) {
-                surfaceHolder.unlockCanvasAndPost(canvas);
+                try {
+                    surfaceHolder.unlockCanvasAndPost(canvas);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "doDraw: e3===="+e );
+                }
             }
         }
     }
@@ -125,8 +134,8 @@ public class AnimSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private int index ;
     private void drawBitmaps(Canvas canvas) {
         Log.e(TAG, "drawBitmaps: decodeStart");
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), bitmaps[index++ % bitmaps.length]);
-        Log.e(TAG, "drawBitmaps: decodeEnd");
+        Bitmap bitmap = BitmapFactory.decodeStream(getResources().openRawResource(bitmaps[index++ % bitmaps.length]));
+        Log.e(TAG, "drawBitmaps: decodeEnd"); //100ms
         if (bitmap != null){
             int width = bitmap.getWidth();
             int height = bitmap.getHeight();

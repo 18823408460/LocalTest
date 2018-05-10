@@ -105,6 +105,7 @@ public class TimerView extends View {
                 canvas.drawLine(startX, startY, endSecondX, endSecondY, timePaint);
 
                 //canvas.save();
+                int roateAngle ;
                 for (int i = 0; i < 60; i++) {
                         if (i%5==0){
                                 float endKeduX = (float) (startX + viewRadio * Math.cos(startAngle   * Math.PI / 180));
@@ -116,6 +117,7 @@ public class TimerView extends View {
                                 float textW = textPaint.measureText(text);
                                 Paint.FontMetrics fontMetrics = textPaint.getFontMetrics();
                                 float textH = fontMetrics.ascent + fontMetrics.descent; // 这个才是字体高度计算的正确方法
+
                                 canvas.drawText(text,startKeduX - textW/2,startKeduY - textH +10,textPaint);
                         }else {
                                 float endKeduX = (float) (startX + viewRadio * Math.cos(startAngle * Math.PI / 180));

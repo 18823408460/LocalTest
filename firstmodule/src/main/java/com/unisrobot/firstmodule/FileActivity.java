@@ -1,6 +1,7 @@
 package com.unisrobot.firstmodule;
 
 import android.app.Activity;
+import android.content.ContentProvider;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
