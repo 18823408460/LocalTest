@@ -2,10 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.unisrobot.firstmodule">
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application
         android:name=".FirstMoudleMainApp"
         android:allowBackup="true"
@@ -14,8 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/first_module_AppTheme_base"
         tools:replace="android:label">
-        <activity android:name=".cameraview.AnimSurfaceActivity"
-            >
+        <activity android:name=".contentProvider.ContentProviderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +28,19 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".cameraview.ChildActivity"/>
+        <activity android:name=".cameraview.ChildActivity" />
+
+        <provider
+            android:name=".contentProvider.AppContentProvider"
+            android:authorities="com.unisrobot.firstmodule" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.unisrobot.firstmodule.fileProvider">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/first_module_filepath" />
+        </provider>
     </application>
 
 </manifest>

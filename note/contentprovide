@@ -1,1 +1,10 @@
-FileProvider, ContentProvider
+FileProvider,    ContentProvider,Loader- 自定义loader
+
+1. 作为四大组件之一，ContentProvider不但可以在程序内部数据交流，还可以在不同应用程序之间进行数据交流
+
+2 .FileProvider extends ContentProvider {}
+利用FileProvider建立文件分享,
+为了将文件安全地从我们的应用程序共享给其它应用程序，唯一一种安全的方法就是将文件的URI传输给目标应用并授予该URI临时权限.
+因为这权限是对于接收URI的目标应用有效,并且是临时的,会自动失效,所以这种方式是安全的
+
+Android可以用FileProvider中的getUriForFile()来获取文件的URI
