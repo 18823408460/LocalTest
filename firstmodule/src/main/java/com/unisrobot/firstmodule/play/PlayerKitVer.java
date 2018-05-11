@@ -16,13 +16,16 @@ import java.util.List;
 
 public class PlayerKitVer {
         private static final int play = 1;
+        private static final int playRunnable = 2;
         private PlayHandler playHandler;
         private List<PlayItem> playItemList;
         private IPlayEnd iPlayEnd;
+        private PlayItem playItem;
         private int playItemIndex = -1;
         private PlayState playState = PlayState.STOP;
         private static final String TAG = "PlayerKitVer";
         private HandlerThread handlerThread;
+        private boolean isStartPlay = false;
 
         class PlayHandler extends Handler {
                 public PlayHandler(Looper looper) {
@@ -34,17 +37,37 @@ public class PlayerKitVer {
                         switch (msg.what) {
                                 case play:
                                         PlayerKitVer playerKitVer = PlayerKitVer.this;
-                                        synchronized (playerKitVer) {
+                                        synchronized (PlayerKitVer.this) {
                                                 playerKitVer.playItemIndex++;
+                                                Log.e(TAG, "handleMessage: playItemIndex=" + playItemIndex);
+                                                Log.e(TAG, "handleMessage: playItemList.size()=" + playItemList.size());
                                                 if (playerKitVer.playItemList != null && playerKitVer.playItemIndex < playerKitVer.playItemList.size()) {
-                                                        PlayItem playItem = playerKitVer.playItemList.get(playItemIndex);
+                                                        playItem = playerKitVer.playItemList.get(playItemIndex);
                                                         play(playItem);
                                                 } else {
+                                                        playState = PlayState.STOP;
                                                         playerKitVer.playItemIndex = -1;
                                                         if (iPlayEnd != null) {
                                                                 iPlayEnd.onPlayEnd();
                                                         }
                                                 }
+                                        }
+                                        break;
+                                case playRunnable:
+                                        if (playItem != null) {
+                                                Runnable nextRun = playItem.getNextRun();
+                                                if (nextRun != null) {
+                                                        Log.e(TAG, "handleMessage: start run");
+                                                        nextRun.run();
+                                                        Log.e(TAG, "handleMessage: end run");
+                                                }
+
+                                                //这里不加可以吗？
+                                                if (PlayState.STOP == playState) {
+                                                        Log.e(TAG, "handleMessage: state stop===");
+                                                        return;
+                                                }
+                                                sendEmptyMessage(play);
                                         }
                                         break;
                         }
@@ -65,22 +88,31 @@ public class PlayerKitVer {
                         this.playItemList = playItems;
                         Log.e(TAG, "playItems: send  start play msg");
                         playHandler.sendEmptyMessage(play);
+                        isStartPlay = true;
                 }
         }
 
+        public PlayState getPlayState() {
+                return playState;
+        }
+
+        // 这里假设是在主线程执行。。
         public void stop() {
                 synchronized (this) {
-                        Log.e(TAG, "stop: ");
-                        this.playState = PlayState.STOP;
-                        if (handlerThread != null) {
+                        Log.e(TAG, "stop..........." + Thread.currentThread().getName());
+                        if (handlerThread != null && isStartPlay) {
+                                handlerThread.interrupt();
                                 Log.e(TAG, "stop: runnable................");
                         }
+                        Log.e(TAG, "stop: start ....................");
+                        this.playState = PlayState.STOP;
                         this.playItemIndex = -1;
                         this.iPlayEnd = null;
                         if (this.playItemList != null) {
                                 this.playItemList.clear();
                         }
                         playHandler.removeCallbacksAndMessages(null);
+                        Log.e(TAG, "stop: end ....................");
                 }
 
         }
@@ -99,34 +131,21 @@ public class PlayerKitVer {
                 if (type == ContentType.TEXT) {
                         this.playState = PlayState.TEXT_PLAYING;
                         Log.e(TAG, "play: text start====" + content);
-                        try {
-                                Thread.sleep(10000);
-                        } catch (InterruptedException e) {
-                                e.printStackTrace();
-                                Log.e(TAG, "play: e=" + e);
-                        }
+
                         Log.e(TAG, "play: text end=====" + content);
-                        if (nextRun != null) {
-                                nextRun.run();
-                                Log.e(TAG, "play: run-----end");
-                        }
-                        playHandler.sendEmptyMessage(play);
+
+                        //方法一
+                        //                        if (nextRun != null){
+                        //                                nextRun.run();
+                        //                        }
+                        // 方法二 ， 和方法一的区别是什么？？？？
+                        playHandler.sendEmptyMessage(playRunnable);
 
                 } else {
                         this.playState = PlayState.MUSIC_PLAYING;
                         Log.e(TAG, "play: sound start====" + content);
-                        try {
-                                Thread.sleep(10000);
-                        } catch (InterruptedException e) {
-                                e.printStackTrace();
-                                Log.e(TAG, "play: e=" + e);
-                        }
                         Log.e(TAG, "play: text sound=end====" + content);
-                        if (nextRun != null) {
-                                nextRun.run();
-                                Log.e(TAG, "play: run-----end");
-                        }
-                        playHandler.sendEmptyMessage(play);
+                        playHandler.sendEmptyMessage(playRunnable);
                 }
         }
 }

@@ -61,12 +61,12 @@ public class AnimSurfaceActivity extends AppCompatActivity {
         protected void onCreate(@Nullable Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
 
-                testRunnalb();
+                testRunnable();
         }
 
 
 
-        private void testRunnalb() {
+        private void testRunnable() {
                 setContentView(R.layout.first_module_activity_ruunable);
                 Button button = findViewById(R.id.btn_runnable);
                 button.setOnClickListener(new View.OnClickListener() {
@@ -77,12 +77,7 @@ public class AnimSurfaceActivity extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                                 Log.e("PlayerKitVer", "run: 第三个 " + Thread.currentThread().getName());
-                                                try {
-                                                        Thread.sleep(10000);
-                                                } catch (InterruptedException e) {
-                                                        e.printStackTrace();
-                                                        Log.e("PlayerKitVer", "play: e="+e );
-                                                }
+                                                SystemClock.sleep(10000);
                                         }
                                 });
                                 List<PlayItem> playItems = new ArrayList<>();
@@ -90,7 +85,7 @@ public class AnimSurfaceActivity extends AppCompatActivity {
                                 playerKitVer.playItems(playItems, new IPlayEnd() {
                                         @Override
                                         public void onPlayEnd() {
-                                                Log.e("PlayerKitVer", "----end0---------");
+                                                Log.e("PlayerKitVer", "----end00000000000---------");
                                         }
                                 });
                         }
@@ -98,25 +93,27 @@ public class AnimSurfaceActivity extends AppCompatActivity {
                 PlayItem playItem = new PlayItem(ContentType.TEXT, "第一个", new Runnable() {
                         @Override
                         public void run() {
-                                Log.e("PlayerKitVer", "run: 第一个 " + Thread.currentThread().getName());
+                                Log.e("PlayerKitVer", "run: 第一个 start sleep" + Thread.currentThread().getName());
                                 try {
                                         Thread.sleep(10000);
                                 } catch (InterruptedException e) {
                                         e.printStackTrace();
-                                        Log.e("PlayerKitVer", "play: e="+e );
+                                        Log.e("PlayerKitVer", "run: e===" + e);
                                 }
+                                Log.e("PlayerKitVer", "run: 第一个 end sleep" + Thread.currentThread().getName());
                         }
                 });
-                PlayItem playItem2 = new PlayItem(ContentType.TEXT, "第二个", new Runnable() {
+                PlayItem playItem2 = new PlayItem(ContentType.TEXT, "第2个", new Runnable() {
                         @Override
                         public void run() {
+                                Log.e("PlayerKitVer", "run: 第2个 start sleep" + Thread.currentThread().getName());
                                 try {
                                         Thread.sleep(10000);
                                 } catch (InterruptedException e) {
                                         e.printStackTrace();
-                                        Log.e("PlayerKitVer", "play: e="+e );
+                                        Log.e("PlayerKitVer", "run: 222e===" + e);
                                 }
-                                Log.e("PlayerKitVer", "run: 第二个 ");
+                                Log.e("PlayerKitVer", "run: 第2个 end sleep" + Thread.currentThread().getName());
                         }
                 });
                 List<PlayItem> playItems = new ArrayList<>();

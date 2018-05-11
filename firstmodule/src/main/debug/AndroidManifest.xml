@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/first_module_AppTheme_base"
         tools:replace="android:label">
-        <activity android:name=".contentProvider.ContentProviderActivity">
+        <activity android:name=".cameraview.AnimSurfaceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,19 +28,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".cameraview.ChildActivity" />
+        <!--<activity android:name=".cameraview.ChildActivity" />-->
 
         <provider
             android:name=".contentProvider.AppContentProvider"
             android:authorities="com.unisrobot.firstmodule" />
 
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.unisrobot.firstmodule.fileProvider">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/first_module_filepath" />
-        </provider>
+        <!--<provider-->
+            <!--android:name="android.support.v4.content.FileProvider"-->
+            <!--android:grantUriPermissions="true"-->
+            <!--android:authorities="com.unisrobot.firstmodule.fileProvider">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+                <!--android:resource="@xml/first_module_filepath" />-->
+        <!--</provider>-->
     </application>
 
 </manifest>

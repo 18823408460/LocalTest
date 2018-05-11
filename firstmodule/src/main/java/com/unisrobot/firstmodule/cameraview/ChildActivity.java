@@ -25,6 +25,7 @@ public class ChildActivity extends ParentActivity {
                 setContentView(R.layout.first_module_activity_child);
                 Log.e(TAG, "onCreate: " + this);
                 data = "onCreate";
+                Log.e(TAG, "onCreate: "+android.os.Process.myPid() );
                 datatest = new Data();
                 datatest.setStr("oncreate");
                 //testHandler();
