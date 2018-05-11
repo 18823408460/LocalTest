@@ -27,4 +27,19 @@ public class McuMsgTypeConstant {
          * 透传消息
          */
         public static final int Msg_ActionFinish =  0xB1;
+
+        /**
+         * 动作执行完毕
+         */
+        public static final int ActionFinish = 0xB1;
+
+        /**
+         * 超声波响应数据
+         */
+        public static final int CsbDataResponse = 0xB1;
+
+        /**
+         * 电量信息
+         */
+        public static final int PowerInfo = 0xB3;
 }

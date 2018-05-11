@@ -9,23 +9,15 @@ package com.unisrobot.robothead.constant;
  */
 public class CmdConstant {
 
-        /**
-         * 发送动作控制消息
-         */
-        public static final int ActionCrl =  0xB1;
+    /**
+     * 发送动作控制消息
+     */
+    public static final int ActionCrl = 0xB1;
 
-        /**
-         * 发送透传消息
-         */
-        public static final int TouChuan =  0xB2;
+    /**
+     * 发送透传消息
+     */
+    public static final int TouChuan = 0xB2;
 
-        /**
-         * 动作执行完毕
-         */
-        public static final int ActionFinish = 0xB1;
 
-        /**
-         * 超声波响应数据
-         */
-        public static final int CsbDataResponse = 0xB1;
 }

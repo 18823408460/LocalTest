@@ -15,7 +15,7 @@ public abstract class McuResponsePacket<T> implements Packet {
         /**
          * 对于透传消息，需要用到消息ID
          */
-        protected int seqID;
+        public int seqID;
         private static int seqIDAchor = 0;
 
         protected abstract T decodeContent(byte[] data);
