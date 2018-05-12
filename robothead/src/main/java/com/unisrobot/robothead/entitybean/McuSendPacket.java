@@ -13,7 +13,7 @@ import com.unisrobot.robothead.util.PacketUtil;
  * <p>
  * 命令码 + 数据
  */
-public abstract class McuSendPacket implements Packet {
+public abstract class McuSendPacket extends Packet {
         private static final String TAG = "McuSendPacket";
         public int getSeqID() {
                 return seqID;
@@ -22,7 +22,6 @@ public abstract class McuSendPacket implements Packet {
         /**
          * 对于透传消息，需要用到消息ID
          */
-        private int seqID;
         private static int seqIDAchor = 0;
 
         protected abstract byte[] getContent();
@@ -40,7 +39,7 @@ public abstract class McuSendPacket implements Packet {
         @Override
         public byte[] encodeBytes() {
                 byte[] content = getContent();
-                Log.e(TAG, "encodeBytes: "+ PacketUtil.bytesToHex(content));
+               // Log.e(TAG, "encodeBytes: "+ PacketUtil.bytesToHex(content));
                 int msgType = getMsgType();
                 byte[] datas = new byte[content.length + 1];
                 datas[0] = (byte) msgType;

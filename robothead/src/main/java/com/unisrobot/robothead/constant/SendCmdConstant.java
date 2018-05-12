@@ -7,17 +7,17 @@ package com.unisrobot.robothead.constant;
 /**
  * 给mcu发送消息，相关的消息常量类
  */
-public class CmdConstant {
+public class SendCmdConstant {
 
     /**
      * 发送动作控制消息
      */
-    public static final int ActionCrl = 0xB1;
+    public static final int ActionCrl = 0x0D;
 
     /**
      * 发送透传消息
      */
-    public static final int TouChuan = 0xB2;
+    public static final int TouChuan = 0x13;
 
 
 }

@@ -11,11 +11,10 @@ import com.unisrobot.robothead.entitybean.Packet;
  * <p>
  * 命令码 + 数据
  */
-public abstract class McuResponsePacket<T> implements Packet {
+public abstract class McuResponsePacket<T> extends Packet {
         /**
          * 对于透传消息，需要用到消息ID
          */
-        public int seqID;
         private static int seqIDAchor = 0;
 
         protected abstract T decodeContent(byte[] data);

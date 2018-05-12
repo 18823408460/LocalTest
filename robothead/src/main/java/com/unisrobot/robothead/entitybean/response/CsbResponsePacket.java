@@ -18,7 +18,7 @@ public class CsbResponsePacket extends McuResponsePacket<String> {
 
         @Override
         protected String decodeContent(byte[] data) {
-                Log.e(TAG, "decodeContent: " + PacketUtil.bytesToHex(data));
+                //Log.e(TAG, "decodeContent: " + PacketUtil.bytesToHex(data));
                 int index = 0 ;
                 int csb1 = ((data[index++]) << 8) | (data[index++] & 0xff); // base - left leg - front
                 int csb2 = ((data[index++]) << 8) | (data[index++] & 0xff); // base - right leg - front

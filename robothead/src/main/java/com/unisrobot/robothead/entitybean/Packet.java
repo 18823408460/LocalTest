@@ -4,14 +4,14 @@ package com.unisrobot.robothead.entitybean;
  * Created by Administrator on 2018/5/11.
  */
 
-public interface Packet {
-
+public abstract class Packet {
+        public int seqID;
         /**
          * 数据包编码成 byte数组
          *
          * @return
          */
-        byte[] encodeBytes();
+        public abstract byte[] encodeBytes();
 
         /**
          * 从byte数组解码成数据包
@@ -19,5 +19,5 @@ public interface Packet {
          * @param rawData
          * @return
          */
-        Packet decodeBytes(byte[] rawData);
+        public  abstract Packet decodeBytes(byte[] rawData);
 }

@@ -5,14 +5,9 @@ package com.unisrobot.robothead.constant;
  */
 
 /**
- *
+ * mcu发送过来的 cmd 。。
  */
-public class McuMsgTypeConstant {
-        /**
-         * 超声波消息
-         */
-        public static final int Msg_CSB = 0xB1;
-
+public class RevCmdConstant {
         /**
          * 手臂故障消息
          */
@@ -21,7 +16,7 @@ public class McuMsgTypeConstant {
         /**
          * 透传消息
          */
-        public static final int Msg_TouChuan =  0xB2;
+        public static final int Msg_TouChuan =  0x84;
 
         /**
          * 透传消息
@@ -41,5 +36,5 @@ public class McuMsgTypeConstant {
         /**
          * 电量信息
          */
-        public static final int PowerInfo = 0xB3;
+        public static final int PowerInfo = 0x90;
 }

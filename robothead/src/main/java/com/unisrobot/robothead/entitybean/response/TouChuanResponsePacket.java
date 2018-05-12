@@ -21,7 +21,6 @@ public class TouChuanResponsePacket extends McuResponsePacket<TouChuanMsgBean> {
         seqID = ((data[0] & 0xff) << 8) | (data[1] & 0x0ff);
         packetType = data[2] & 0xff;
         if (TouChuanMsgConstant.Request == packetType) {
-            Log.e(TAG, "decodeContent Request: sepId=====" + seqID);
             int msgType = ((data[3] & 0xff) << 8) | (data[4] & 0x0ff);
             byte[] msgDatas = new byte[data.length - 5];
             System.arraycopy(data, 5, msgDatas, 0, data.length - 5);

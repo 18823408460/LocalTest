@@ -5,4 +5,8 @@ package com.unisrobot.robothead.constant;
  */
 
 public class Error {
+        /**
+         * 没有应答
+         */
+        public static final int NO_ACK = 0;
 }

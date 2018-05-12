@@ -3,7 +3,7 @@ package com.unisrobot.robothead.entitybean.send;
 import android.util.Log;
 
 import com.unisrobot.robothead.bean.TouChuanMsgBean;
-import com.unisrobot.robothead.constant.CmdConstant;
+import com.unisrobot.robothead.constant.SendCmdConstant;
 import com.unisrobot.robothead.constant.TouChuanMsgConstant;
 import com.unisrobot.robothead.entitybean.McuSendPacket;
 import com.unisrobot.robothead.util.PacketUtil;
@@ -20,6 +20,7 @@ public class TouChuanRequestPacket extends McuSendPacket {
     private TouChuanMsgBean touChuanMsgBean;
 
     public TouChuanRequestPacket(TouChuanMsgBean touChuanMsgBean) {
+        super();
         this.touChuanMsgBean = touChuanMsgBean;
     }
 
@@ -40,12 +41,12 @@ public class TouChuanRequestPacket extends McuSendPacket {
         datas[index++] = (byte) (msgType & 0xff);
 
         System.arraycopy(msgData.getBytes(), 0, datas, 5, length);
-        Log.e(TAG, "getContent: " + PacketUtil.bytesToHex(datas));
+        //Log.e(TAG, "getContent: " + PacketUtil.bytesToHex(datas));
         return datas;
     }
 
     @Override
     protected int getMsgType() {
-        return CmdConstant.TouChuan;
+        return SendCmdConstant.TouChuan;
     }
 }

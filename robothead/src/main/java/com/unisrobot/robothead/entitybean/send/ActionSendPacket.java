@@ -1,6 +1,6 @@
 package com.unisrobot.robothead.entitybean.send;
 
-import com.unisrobot.robothead.constant.CmdConstant;
+import com.unisrobot.robothead.constant.SendCmdConstant;
 import com.unisrobot.robothead.entitybean.McuSendPacket;
 
 /**
@@ -47,6 +47,6 @@ public class ActionSendPacket extends McuSendPacket {
 
         @Override
         protected int getMsgType() {
-                return CmdConstant.ActionCrl;
+                return SendCmdConstant.ActionCrl;
         }
 }
