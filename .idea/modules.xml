@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/LocalTest.iml" filepath="$PROJECT_DIR$/LocalTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/comlib/comlib.iml" filepath="$PROJECT_DIR$/comlib/comlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/designMode/designMode.iml" filepath="$PROJECT_DIR$/designMode/designMode.iml" />
       <module fileurl="file://$PROJECT_DIR$/firstmodule/firstmodule.iml" filepath="$PROJECT_DIR$/firstmodule/firstmodule.iml" />
       <module fileurl="file://$PROJECT_DIR$/javaread/javaread.iml" filepath="$PROJECT_DIR$/javaread/javaread.iml" />
       <module fileurl="file://$PROJECT_DIR$/robothead/robothead.iml" filepath="$PROJECT_DIR$/robothead/robothead.iml" />
