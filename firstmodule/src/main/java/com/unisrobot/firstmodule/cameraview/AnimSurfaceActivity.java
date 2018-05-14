@@ -52,18 +52,29 @@ public class AnimSurfaceActivity extends AppCompatActivity {
                 R.drawable.first_module_eight, R.drawable.first_module_nine, R.drawable.first_module_ten, R.drawable.first_module_elven};
         int index;
         private Bitmap[] bitmap;
-
+        public static final byte EVENT_CSB_RESPONSE = (byte) 0x96;
         private static final float hightBattery = 24.8f;// 最高电压
 
         private static final float lowBattery = 18f;// 最低电压
         PlayerKitVer playerKitVer = new PlayerKitVer();
+
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
 
-                testRunnable();
-        }
+                //                testAnimSurface();
 
+                byte aa = (byte) 0x96;
+                int bb = (byte) (0x96 & 0xff);//  先是十六进制 转 byte，超过0x7F即为负值，（但是int始终为+，，所以两者比较时，要注意）
+                System.out.println("aa===" + aa);
+                System.out.println("bb===" + bb);
+                System.out.println("EVENT_CSB_RESPONSE===" + EVENT_CSB_RESPONSE);
+                if (EVENT_CSB_RESPONSE == aa) {
+                        System.out.println("------------------1");
+                } else {
+                        System.out.println("--------------0");
+                }
+        }
 
 
         private void testRunnable() {
@@ -72,7 +83,7 @@ public class AnimSurfaceActivity extends AppCompatActivity {
                 button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                                Log.e("PlayerKitVer", "onClick: -----------------------------------------------------" );
+                                Log.e("PlayerKitVer", "onClick: -----------------------------------------------------");
                                 PlayItem playItem = new PlayItem(ContentType.TEXT, "第三个", new Runnable() {
                                         @Override
                                         public void run() {
