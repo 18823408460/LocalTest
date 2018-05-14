@@ -7,17 +7,15 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
-import com.unisrobot.robothead.bean.TouChuanMsgBean;
-import com.unisrobot.robothead.constant.TouChuanMsgConstant;
-import com.unisrobot.robothead.core.UARTManager;
-import com.unisrobot.robothead.entitybean.Packet;
-import com.unisrobot.robothead.entitybean.ProtocolPacket;
-import com.unisrobot.robothead.entitybean.response.PowerResponsePacket;
-import com.unisrobot.robothead.entitybean.send.ActionSendPacket;
-import com.unisrobot.robothead.entitybean.send.TouChuanRequestPacket;
-import com.unisrobot.robothead.entitybean.send.TouChuanAckPacket;
-import com.unisrobot.robothead.interfaces.ISendListener;
-import com.unisrobot.robothead.util.PacketUtil;
+import com.unisrobot.robothead.uart.bean.TouChuanMsgBean;
+import com.unisrobot.robothead.uart.constant.TouChuanMsgConstant;
+import com.unisrobot.robothead.uart.core.UARTManager;
+import com.unisrobot.robothead.uart.entitybean.Packet;
+import com.unisrobot.robothead.uart.entitybean.ProtocolPacket;
+import com.unisrobot.robothead.uart.entitybean.send.ActionSendPacket;
+import com.unisrobot.robothead.uart.entitybean.send.TouChuanRequestPacket;
+import com.unisrobot.robothead.uart.interfaces.ISendListener;
+import com.unisrobot.robothead.uart.util.PacketUtil;
 
 /**
  * Created by Administrator on 2018/5/3.

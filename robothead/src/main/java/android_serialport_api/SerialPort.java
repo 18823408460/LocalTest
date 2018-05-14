@@ -17,7 +17,7 @@ package android_serialport_api;
 
 import android.util.Log;
 
-import com.unisrobot.robothead.constant.ProtocolConstant;
+import com.unisrobot.robothead.uart.constant.ProtocolConstant;
 
 import java.io.DataInputStream;
 import java.io.File;
