@@ -1,0 +1,25 @@
+1. ++a不是 原子操作，但是我们可以使用原子变量来处理：  AtomicInt....
+
+2. 线程安全带来的 性能问题：
+
+2. 对于每一个 可变状态变量，如果多个线程操作，需要考虑同步
+
+4. Boolean类型的操作是同步的。
+
+5. boolean flag = false ;
+
+、、Thread
+   while(flag){
+    a++ ;                 -------->
+   }
+
+   if(flag){  // 这是编译器做的优化处理，，导致 flag对Thread不可见。。。可以加 volatile
+    while(true){
+     a++ ;
+      }
+   }
+
+6. 为避免死锁和数据破坏，不要在 同步方法内部调用外部方法：
+   synchronizer void data(){
+           next() ;
+   }

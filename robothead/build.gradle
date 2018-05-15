@@ -41,3 +41,20 @@ configurations.all {
     // gradle编译错误：Conflict with dependency com.android.support:support-annotations,Resolved versions for app (26.1.0) and test app (27.1.1) differ
     resolutionStrategy.force  'com.android.support:support-annotations:26.1.0'
 }
+
+
+task clearJar(type: Delete) {
+    delete 'build/libs/mySdk.jar'////这行表示如果你已经打过一次包了，再进行打包则把原来的包删掉
+    delete 'build/libs/'////这行表示如果你已经打过一次包了，再进行打包则把原来的包删掉
+}
+
+task makeJar(type: Copy) {
+    from('build/intermediates/bundles/release/') //这行表示要打包的文件的路径，根据下面的内容，其实是该路径下的classes.jar
+    from('build/source/aidl/debug/')
+    into('build/libs/') //这行表示打包完毕后包的生成路径，也就是生成的包存在哪
+    include('classes.jar') //看到这行，如果你对分包有了解的话，你就可以看出来这行它只是将一些类打包了
+    include('libs/*.jar') //看到这行，如果你对分包有了解的话，你就可以看出来这行它只是将一些类打包了
+    rename ('classes.jar', 'mySdk.jar')
+}
+
+makeJar.dependsOn(clearJar, build)
