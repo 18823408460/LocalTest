@@ -1,6 +1,7 @@
 package com.unisrobot.robothead;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.unisrobot.robothead.uart.entitybean.send.ActionSendPacket;
 import com.unisrobot.robothead.uart.entitybean.send.TouChuanRequestPacket;
 import com.unisrobot.robothead.uart.interfaces.ISendListener;
 import com.unisrobot.robothead.uart.util.PacketUtil;
+import com.unisrobot.robothead.voice.VoiceService;
 
 /**
  * Created by Administrator on 2018/5/3.
@@ -40,6 +42,9 @@ public class RobotMainActivity extends Activity {
                 msgHandler.setState(normalChatState);
 
                 msgHandler.handlerVoiceMsg();
+
+                Intent intent = new Intent(this, VoiceService.class);
+                startService(intent);
         }
 
         private void testInt() {

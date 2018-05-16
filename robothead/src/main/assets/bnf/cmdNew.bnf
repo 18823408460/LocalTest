@@ -1,0 +1,507 @@
+#BNF+IAT 1.0 UTF-8;
+!grammar command;
+
+//声明槽
+!slot <robotName>;
+!slot <operate>;
+!slot <position>;
+!slot <device>;
+!slot <question>;
+!slot <who>;
+!slot <whose>;
+!slot <want>;
+!slot <measure>;
+!slot <health>;
+!slot <action>;
+!slot <actionGeneral>;
+!slot <towards>;
+!slot <exit>;
+!slot <lastVoice>;
+!slot <volume>;
+!slot <volumeSize>;
+!slot <adjust>;
+!slot <volumeGeneral>;
+!slot <to>;
+!slot <danceCmd>;
+!slot <danceName>;
+!slot <dance>;
+!slot <danceGeneral>;
+!slot <App>;
+!slot <can>;
+!slot <chat>;
+!slot <phrase>;
+!slot <let>;
+!slot <become>;
+!slot <color>;
+!slot <scene>;
+!slot <dynamicCmd>;
+!slot <Power>;
+!slot <Shuai>;
+!slot <KeAi>;
+!slot <WanMei>;
+!slot <Ku>;
+!slot <XiHuan>;
+!slot <Ai>;
+!slot <Chong>;
+!slot <Dou>;
+!slot <Guai>;
+!slot <Meng>;
+!slot <Dai>;
+!slot <PaoNiu>;
+!slot <YouCai>;
+!slot <CongMing>;
+!slot <LiHai>;
+!slot <Sorry>;
+!slot <DaoQian>;
+!slot <ForGive>;
+!slot <greetHead>;
+!slot <greet>;
+!slot <greetTail>;
+!slot <AddHead>;
+!slot <Add>;
+!slot <AddTail>;
+!slot <say>;
+!slot <some>;
+!slot <Language>;
+!slot <give>;
+!slot <compare>;
+!slot <digit>;
+!slot <exe>;
+!slot <tone>;
+!slot <identity>;
+!slot <help>;
+!slot <page>;
+!slot <danceAction>;
+!slot <quantifier>;
+!slot <dance2>;
+!slot <volumeName>;
+!slot <volumeAction>;
+!slot <power>;
+!slot <help2>;
+!slot <powerGeneral>;
+!slot <setup>;
+!slot <network>;
+!slot <map>;
+!slot <bluetooth>;
+!slot <robotId>;
+!slot <servicePhone>;
+!slot <help3>;
+!slot <startPage>;
+!slot <faceRecognition>;
+!slot <faceRecognition2>;
+!slot <faceRegister>;
+!slot <faceRegister2>;
+!slot <objectRecognition>;
+!slot <chat2>;
+!slot <shoppingGuide>;
+!slot <guide>;
+!slot <office>;
+!slot <usher>;
+!slot <preside>;
+!slot <remoteVideo>;
+!slot <radioStation>;
+!slot <play>;
+!slot <radio>;
+!slot <smartHome>;
+!slot <smartHealthcare>;
+!slot <unisThings>;
+!slot <shensihead>;
+!slot <doormen>;
+!slot <doormenDescribe>;
+!slot <advisory>;
+!slot <advisoryDescribe>;
+!slot <have2>;
+!slot <advisoryJD>;
+!slot <routeGuide>;
+!slot <goodGuide>;
+!slot <goodGuideInfo>;
+!slot <showmanship>;
+!slot <pavilion>;
+!slot <pathGuide>;
+!slot <vipGuide>;
+!slot <attendance>;
+!slot <thingsControl>;
+!slot <trainPresenter>;
+!slot <meeting>;
+!slot <remoteSubstitute>;
+!slot <doorkeeper>;
+!slot <advisoryQuantifier>;
+!slot <shutdown>;
+!slot <confirm>;
+!slot <unConfirm>;
+//开始规则
+!start <callStart>;
+
+//具体的规则
+<callStart>:
+(<operate>[<color>][<position>]<device>[<lastVoice>])
+|([<robotName>][<can>]<question>[<lastVoice>])
+|([<robotName>][<can>]<chat>[<lastVoice>])
+|([<who>][<want>][<measure>]<health>[<lastVoice>])
+|([<robotName>][<towards>]<action>[<lastVoice>])
+|([<robotName>]<actionGeneral>[<lastVoice>])
+|([<robotName>]<exit>[<lastVoice>])
+|([<let>][<volume>][<adjust>][<become>][<volumeSize>][<lastVoice>])
+|([<volume>][<adjust>][<adjust>][<volumeSize>][<lastVoice>])
+|([<adjust>][<volumeSize>][<volume>][<lastVoice>])
+|([<robotName>]<volumeGeneral>[<lastVoice>])
+|([<robotName>][<to>][<danceCmd>][<danceName>][<dance>][<lastVoice>])
+|([<robotName>]<danceGeneral>[<lastVoice>])
+|([<operate>]<App>[<lastVoice>])
+|(<phrase>[<lastVoice>])
+//|([<compare>][<digit>][<digit>][<digit>][<digit>][<digit>][<digit>][<digit>][<digit>][<measure>])
+|(<device>[<can>][<color>][<lastVoice>])
+|([<robotName>][<can>][<scene>][<lastVoice>])
+|([<robotName>][<can>][<exe>][<dynamicCmd>][<lastVoice>])
+|([<let>]<device>[<adjust>][<become>]<color>)
+
+//|([<robotName>][<can>]<Shuai>[<lastVoice>])
+//|([<robotName>][<can>]<KeAi>[<lastVoice>])
+//|([<robotName>][<can>]<WanMei>[<lastVoice>])
+//|([<robotName>][<can>]<Ku>[<lastVoice>])
+//|([<robotName>][<can>]<XiHuan>[<lastVoice>])
+//|([<robotName>][<can>]<Ai>[<lastVoice>])
+//|([<robotName>][<can>]<Chong>[<lastVoice>])
+//|([<robotName>][<can>]<Dou>[<lastVoice>])
+//|([<robotName>][<can>]<Guai>[<lastVoice>])
+//|([<robotName>][<can>]<Meng>[<lastVoice>])
+//|([<robotName>][<can>]<Dai>[<lastVoice>])
+//|([<robotName>][<can>]<PaoNiu>[<lastVoice>])
+//|([<robotName>][<can>]<CongMing>[<lastVoice>])
+//|([<robotName>][<can>]<LiHai>[<lastVoice>])
+//|([<robotName>][<can>]<Sorry>[<lastVoice>])
+//|([<robotName>][<can>]<DaoQian>[<lastVoice>])
+
+|([<robotName>][<to>][<operate>]<Power>[<lastVoice>])
+|([<robotName>][<to>][<say>][<some>][<Language>][<lastVoice>][<lastVoice>])
+//|([<robotName>][<to>][<AddHead>][<Add>][<AddTail>][<lastVoice>][<lastVoice>])
+|([<robotName>][<greetHead>][<greet>][<greetTail>][<lastVoice>])
+|([<give>][<who>]<actionGeneral>)
+|([<robotName>][<help>]<danceAction>[<quantifier>]<dance2>[<page>][<tone>])
+|([<robotName>]<volumeName><volumeAction>[<tone>])
+|([<robotName>]<volumeGeneral>[<tone>])
+|([<robotName>][<help2>]<power>[<tone>])
+|([<robotName>][<have2>]<powerGeneral>[<tone>])
+|([<robotName>][<help2>][<setup>]<network>[<setup>][<tone>])
+|([<robotName>][<help3>]<robotId>[<tone>])
+|([<robotName>][<help2>][<setup>]<map>[<setup>][<tone>])
+|([<robotName>][<help2>][<setup>]<bluetooth>[<setup>][<tone>])
+|([<robotName>][<help3>]<robotId>[<tone>])
+|([<robotName>][<help3>]<servicePhone>[<tone>])
+|([<robotName>][<help2>][<startPage>]<faceRecognition>[<page>][<tone>])
+|([<robotName>]<faceRecognition2>[<tone>])
+|([<robotName>][<help2>][<startPage>]<faceRegister>[<page>][<tone>])
+|([<robotName>]<faceRegister2>[<tone>])
+|([<robotName>][<help2>][<startPage>]<objectRecognition>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<chat2>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<shoppingGuide>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<guide>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<office>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<usher>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<preside>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<remoteVideo>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<radioStation>[<page>][<tone>])
+|([<robotName>][<help2>][<play>]<radio>[<tone>])
+//|([<robotName>][<help2>][<startPage>]<smartHome>[<page>][<tone>])
+//|([<robotName>][<help2>][<startPage>]<smartHealthcare>[<page>][<tone>])
+//|([<robotName>][<help2>][<startPage>]<unisThings>[<page>][<tone>])
+//|([<robotName>][<help2>][<startPage>]<shensihead>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<doormen>[<page>][<tone>])
+|([<robotName>][<help2>]<doormen>[<doormenDescribe>][<identity>][<tone>])
+|([<robotName>][<help2>][<startPage>]<advisory>[<page>][<tone>])
+//|([<robotName>][<help2>]<advisory>[<advisoryQuantifier>][<advisory>][<tone>])
+//|([<robotName>][<have2>][<advisoryQuantifier>]<advisory>[<help2>][<advisoryJD>][<advisory>][<tone>])
+|([<robotName>][<help2>][<startPage>]<goodGuide>[<page>][<tone>])
+|([<robotName>][<help3>]<goodGuide>[<goodGuideInfo>][<tone>])
+|([<robotName>][<help2>][<startPage>]<routeGuide>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<showmanship>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<pavilion>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<pathGuide>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<vipGuide>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<attendance>[<page>][<tone>])
+//|([<robotName>][<help2>][<startPage>]<thingsControl>[<page>][<tone>])
+//|([<robotName>][<help2>][<startPage>]<trainPresenter>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<meeting>[<page>][<tone>])
+//|([<robotName>][<help2>][<startPage>]<remoteSubstitute>[<page>][<tone>])
+|([<robotName>][<help2>][<startPage>]<doorkeeper>[<page>][<tone>])
+|([<robotName>][<help2>]<shutdown>[<tone>])
+|([<robotName>]<confirm>[<shutdown>][<tone>])
+|([<robotName>]<unConfirm>[<shutdown>][<tone>])
+;
+
+//新增本地对话命令词---以下中文命名，太多了，没有这么多词汇
+<Shuai>:超帅|知道自己很帅|有没有人说过你很帅|帅;
+<KeAi>:可爱|太可爱|好可爱|真是个可爱的家伙;
+<WanMei>:完美|简直是完美|越来越完美;
+<Ku>:酷|真是太酷|酷毙|挺酷的|怎么这么酷|特别的酷;
+<XiHuan>:喜欢你|讨人喜欢;
+<Ai>:爱你|好爱你;
+<Chong>:是不是太宠你|看把你宠的|你都被宠坏|不能太宠着你|被我宠坏;
+<Dou>:逗你的|逗你玩|逗你|只是逗你玩的|刚刚逗你的别当真;
+<Guai>:今天真乖|挺乖的|好乖;
+<Meng>:好萌|真是萌萌哒|萌呆|萌呆呆|萌萌的;
+<Dai>:好呆|呆萌呆萌|呆|呆子|你看起来好呆;
+<PaoNiu>:很会撩妹|很会泡妞|简直是撩妹达人|撩妹挺有一手|撩妹有什么诀窍|怎么撩妹|怎么泡妞;
+<YouCai>:有才|才华横溢;
+<CongMing>:聪明|聪明的家伙|越来越聪明|挺聪明;
+<LiHai>:厉害;
+<Sorry>:对不起|很抱歉;
+<DaoQian>:向你道歉;
+<ForGive>:原谅我|我错了原谅我;
+
+<exe>:介绍|执行|游览|开始|进入|进行|去|到|回|找|带我去;
+
+//跟首长打招呼
+<greetHead>:跟|向|给|问;
+<greet>:首长;
+<greetTail>:好|个好|问个好|问好|握手|握个手|打招呼|打个招呼;
+
+//方言
+<say>:说|讲|那说|那讲|那你会说|那你会讲;
+<some>:些|一些|几句|两句|点|句;
+<Language>:方言|英文|英语;
+
+//计算
+<AddHead>:我问你|请问|请告诉我|告诉我|问你;
+<Add>:231加987;
+<AddTail>:是几|等于多少|是多少|等于多少;
+
+//电量相关
+<Power>:电量|当前电量|能量|当前能量|设备信息|关机|我要关机|还有多少电|当前电量值是多少|你的电量|确认|取消;
+
+//常用的普通聊天---问答式
+<question>:男孩还是女孩|做家务|干活|几岁|多大|走路|扫地|有什么功能|长大|多高|多重|身高|喜欢什么|做什么|喜欢吃什么|煮饭|是女孩|是男孩
+|家在哪|来自哪里|叫什么名字|是谁|从哪里来|腿|脚|认识我|叫什么|叫啥|爱好;
+
+//常用的普通聊天---通用的聊天
+<chat>://长得真好看|厉害|表演一个节目|自我介绍|笨|笨蛋|胆小|一直都这么胆小|胆小鬼|没用|没用的东西|没用的家伙
+//|饭桶|土|没见过你这么土的|土包子|土鳖|好脏|身子太脏|脏的没法看|小矮子|太矮了|矮肥圆|减肥|再不减肥我看不下去|臭美
+//|一天到晚都在臭美|有什么好臭美的|做梦|就爱做白日梦|嘚瑟|整天就知道嘚瑟|在嘚瑟什么|鄙视你|从心底里鄙视你
+//|放屁|说什么屁话|屁|只会吹牛|吹牛|吹牛大王|烦死我|麻烦死|烦|烦人精|大麻烦|简直就是胡闹|胡闹
+//|再胡闹我要收拾你了|矫情|矫情个什么劲|矫情一个我看看|奇葩|一个疯子|疯子|看你就是欠扁|欠揍|欠打
+//|可恶|太可恶|没见过你这么可恶的家伙|可恶的家伙|太糊涂|糊涂蛋|糊涂鬼|糊涂虫|好棒|这么棒|最棒
+//|好棒|牛|太牛|牛逼|厉害|这么厉害|发觉你很幽默|太幽默|这么幽默|幽默|有趣|好像很会撩妹|是不是特别会泡妞
+//|撩妹挺有一手|聪明|太聪明|你越来越聪明|太有才|才华横溢|太勇敢|勇敢|那么勇敢|爱学习|很喜欢学习|喜欢学习的孩子
+//|自信|发觉你很自信|总是一副自信的样子|有没有人说过你很帅|帅|超帅|帅气|太可爱|可爱|好可爱|可以这么可爱
+//|酷|太酷|酷毙了|挺酷的|很喜欢跳舞
+//|给我跳支舞|跳舞给我看|我们来玩个游戏|要不要和我玩游戏|想和我玩游戏|有哪些爱好|的爱好是什么|什么爱好|玩游戏|我要玩游戏
+//|给我讲个笑话|会不会讲笑话|快给我讲个笑话|讲个笑话轻松一下|我想听个笑话|只是逗你玩而已|刚刚逗你的啦，别当真
+//|只是逗你玩的|我这是逗你玩|今天真乖|不错哟，很乖|乖|真乖|呆萌呆萌|呆|这么呆|呆子|是不是太宠你|看把你宠|你都被宠坏
+//|吃货|喜欢吃什么|爱吃的食物是什么|整天就想着吃吃吃|饿了|不饿|好像又饿|这么开心|遇到什么开心事|看起来很开心
+//|每天都很快乐的样子|这么快乐|快乐|早上好|早|晚安|好梦|一个人时无聊|一个人无聊|一个人都在干什么|一个人的时候寂寞
+//|孤独|有没有感到很孤独|有没有感到孤独|无聊的时候会干什么|我不在的时候你无聊|是不是伤心|为什么伤心|伤心|可怜
+//|都不能回家，好可怜|可怜的孩子|可怜|让我失望|令我失望|想EVA|最近有没有和EVA通话|EVA最近还好
+//|你的女朋友好像挺漂亮|女朋友|想家|离开我|有一天你是不是会离开|有没有想过离开地球|今天怎么这么沉默
+//|沉默|今天很安静|大懒虫|懒|这么懒|这么黏我|太黏人|黏人的家伙|黏人鬼|太皮|太顽皮|又调皮|真是顽皮的家伙|这么顽皮
+//|需要反省一下|好好反省|自己反省去|自己去反省|还不反省一下自己|太任性|任性|没见过你这么任性|生气|别生气|快消消气
+//|好像很不爽|在不爽什么|看起来很不爽|哪里得罪你|是不是得罪你|不该误会你|好像误会你|真不想误会你|不好意思|干嘛叹气
+//|在叹什么气|为什么叹气|哎呀，你还叹气|是不是忘了什么重要的事|健忘|有没有什么遗憾的事|有什么让你很遗憾
+//|有遗憾的事|好像很少有烦恼|烦恼|要不要把你的烦恼说给我听|梦想|梦想是什么|什么梦想|不想理你|不理你|懒得理你|不管你
+//|现在不想管你|懒得管你|还想不想我管你|管不了你|要把你扔掉|把你扔进垃圾堆了|真想把你扔得远远的|罚你不能吃饭|必须要罚你
+//|不罚你不行|该罚|安静|能不能安静会|我担心你|真让人担心|让我担心|很让人担心你知道|才不想担心你|讨厌你|让人讨厌|好讨厌
+//|让我觉得讨厌|让我感到讨厌|笨|是一个笨蛋|笨蛋|这么笨|笨蛋一个|没见过你这么笨|为什么这么笨|真的是太笨了|不想要你
+//|不要你|不跟你玩|不想跟你玩|跟你玩没有意思|不好玩|跟你友尽|咱俩友尽|友尽于此|
+版本号|系统版本号
+|学校|打广告|场馆|商场|银行|饭店|基本参数
+|认识优友|功能表演|场景应用|人工智能|优友个性|多模态人机交互系统
+|视觉智能互动系统|室内定位巡航系统|室内定位
+|情绪情感系统|行业应用|远场声控对话|多传感集成定位导航|人脸识别|场馆导览|商城导购|人脸属性|互动同声
+|餐饮服务|广告媒体|银行服务|教育教学|普通话|河南话|英语|四川话|粤语
+|我比你猜|我逼你猜|演技大考验|演员自我修养|UU电台|优友电台|又有电台|友友电台|我要拍照|我不拍了|拍照|智能提醒|茄子|拍个照片
+|退出拍照|返回|放回
+|看看我是谁|我是谁|你认识我吗|你认识我|打开人脸识别|关闭人脸识别
+|石头剪刀布|优友学舌|音乐盒
+|武术|表演一个武术|表演个武术
+|去哪里|喜欢谁|爱谁|自由度展示|你可以去哪里
+|娱乐模式|打开娱乐模式|关闭娱乐模式|贵宾指引|接待贵宾|招待客人|贵宾带路
+|进入|考勤模式|打卡|物体识别|退下|滚|你从哪来|你来自何方|二维码
+|声音调大|声音调小|音量调大|音量调小|现代舞|打开物体识别|关闭物体识别|这是啥|这是什么|同意|不同意|正确|不正确
+|是|好|需要|好的|可以|不用|不需要|不要|哪些任务|执行|多少任务|什么任务
+//|早安|昨晚我睡的咋样|昨晚我睡的怎么样|昨晚我睡的怎样|我要吃早餐|我去上班了|我回家了|咱家冰箱里有什么菜|冰箱里有什么菜
+//|晚安|打开窗帘|把窗帘打开|拉开窗帘|把窗帘拉开|关闭窗帘|把窗帘关闭|拉上窗帘|把窗帘拉上|把空调打开|打开空调|开启空调|把空调关闭
+//|关闭空调|关掉空调|把空调关掉|打开空调上下摆风|打开空调左右摆风|让空调上下摆风|让空调左右摆风|空调开启制冷模式|空调切换到制冷模式|空调开启除湿模式
+//|空调开启送风模式|空调开启制热模式|空调切换到自动模式|空调切换到除湿模式|空调切换到制热模式|空调调节到高速|空调切换到高速|空调调节到低速
+//|空调调节到中速|空调调节到强力|空调调节到睡眠|空调切换到高速|空调切换到低速|空调切换到中速|空调切换到强力|空调切换到睡眠|空调切换到睡眠
+//|帮我把卧室的灯打开|帮我把客厅的灯打开|帮我把灯打开|帮我把卧室的灯关上|帮我把客厅的灯关上|帮我把灯关上
+//|把空气净化器打开|打开空气净化器|把空气净化器关上|关上空气净化器|开启空气净化器睡眠模式|打开空气净化器睡眠模式|扫地机器人把地板打扫一下|扫地机器人打扫一下地板|扫地机器人停止打扫|扫地机器人停止清扫
+//|扫地机器人去充电|我要吃早餐|我回来了|来点音乐|早上好
+|添加模式|进入主持模式|退出主持模式|迎宾模式|开始迎宾|导购模式|导购|优惠活动|打折|售卖宣传|吆喝|吆喝东西|叫卖
+|打开地图|关闭地图|迎宾接待|门童接待|退出导览模式|展示自己|展示一下自己|展示一下你自己|个人秀|秀自己|秀一下|酒店预订|打开酒店预订|我要酒店预订
+|跟我走|开始人体追踪|打开人体追踪|启动人体追踪|不跟了|关闭人体追踪|退出人体追踪|停止人体追踪|视频播放
+|今天有啥事|今天有啥好玩的|今天有啥新闻|今天有啥新鲜事|播放今天的新闻|今天有什么事|今天有什么事啊|今天有什么好玩的|今天有什么新闻|今天有什么新鲜事
+|最近有啥事|最近有啥好玩的|最近有啥新闻|最近有啥新鲜事|播放最近的新闻|最近有什么事|最近有什么事啊|最近有什么好玩的|最近有什么新闻|最近有什么新闻
+;
+
+//我比你猜软件的相关的成语
+<phrase>:大摇大摆|左顾右盼|开怀大笑|无法无天|一五一十|抓耳挠腮|摇头晃脑|捶胸顿足|进退两难|左右开弓
+|三头六臂|眼冒金星|一饮而尽|垂头丧气|指手画脚|抱头痛哭|摇头摆尾|上天入地;
+
+//打开或关闭app相关
+<App>:人脸识别|人脸追踪|地图|健康管理|家庭健康|健康中心|健康医疗;
+
+//音量设置相关
+<volume>:声音|音量|音调|优友;
+<volumeSize>:大|小|低|高|最大|最小|大一点|小一点|高一点|低一点|最高|最大;
+<adjust>:调|变|最|点|一点|调到|变到|增|减|放|调整|增加|减小;
+<volumeGeneral>:大声点|小声点|大点声|小点声|再小点|再大点|再小一点|再大一点|再高一点|再低一点|安静点|好吵;
+
+
+//和动作相关
+<robotName>:优友|你|优友你|我|优友我|优优;
+<towards>:向|看|往|到|去|在|是;
+<action>:前走|前进|后退|左转|左边|右转|右边|走两步|走俩步|走几步|后转|转过身来|停|停止|停下来|进境|入境|进关
+|入关|过关|过境|左看|右看|唱歌|跳舞|坐船|坐车|搭车
+|乘飞机|乘车|乘船|坐飞机|坐火车|坐高铁;
+<actionGeneral>:转圈|转个圈|转一圈|跳舞|跳个舞|跳支舞|动起来|三连拍|摇头|再摇摇头|转过身来|敬礼|敬个礼|握手|握个手|转过来|握握手|礼毕;
+<scene>:开门|我回来|来客人|客人来|我鼻子不舒服|调下灯光|调节灯光|调整灯光|我出门|我们走|我走|温度怎么样|温度多少|现在温度多少;
+
+
+//跳舞相关
+<to>:给我|给我们|给大家|为我们|为大家|为我|帮我;
+<give>:给|帮|跟|向|为|对;
+<danceCmd>:跳个|来个|跳一个|来一个|来一首歌|唱一首歌;
+<danceName>:小苹果|华尔兹|现代的|优雅的|蓝色多瑙河|广场舞|接地气的|最炫民族风|炫酷的|杰克逊|龙拳;
+<dance>:舞蹈|舞|舞曲;
+<danceGeneral>:随便跳|随便跳个舞|你还会跳什么|你还会什么舞|换一个|跳个别的|再跳一个|再来一个|继续跳不要停;
+
+//和健康医疗相关
+<who>:我|什么人|什么旅客|谁|哪些人|你|他|首长|领导|美女|我们|他们|大家|优友|优优|你们;
+<whose>:我的|你的|他的|谁的|我们的|他们的|大家的|你们的;
+<want>:想|想要|要;
+<measure>:测|测量|元|美元|人民币|港币|港元|澳币;
+<health>:体重|体温|血糖|血氧含量|脂肪|血压|温度;
+
+//退出命令词
+<exit>:不说|再见|拜拜|不想说|不玩了|退出|返回|停|停下来|不要说话|停止说话|不许说话|不说了|不想和你说了;
+//语气词
+<lastVoice>:了|呢|么|吧|吗|啦|哦|呀|哟|呢你|吧你|啊你|咯|唉|嘛|你|呐|没|没啊|了啊|了么|哎|哈|有没有|为什么|点|好|噢|儿
+|好吗|好嘛|一点|点儿
+;
+<can>:会|能|是|是个|可以|有|做|做个|的|真|真是|真是个|真的|就|就是|就像|就是个|这个|也|该|得|别
+|太|个|怎么|最|好|发现|能不能|想|有没有|为什么|点|好|要|有没有|没有|变|帮|帮我|帮忙|叫|长的|长得|怎么这么
+|好像|是不是|老|真是太|发现你|定义|不能|不可以|不可|要|需要
+;
+//和智能家居相关
+<let>:让|把|使;
+<become>:调为|变成|变为|调节为|调整为|调成|变|为|到|成|至|是|叫;
+<color>:蓝色|红色|绿色|白色|黄色|紫色;
+<operate>:打开|关闭|查询|启动|查询一下;
+<position>:厨房|卧室|阳台|客厅;
+<device>:灯|的灯|空调|电视|风扇|热水壶|冰箱|温湿度|门|加湿器;
+
+<digit>:一|二|三|四|五|六|七|八|九|十|零|百|千|万|兆|亿|多少;
+<compare>:大于|等于|小于|高于|低于;
+//感叹词
+<tone>:儿|了|什么|吗|卖吗|吧|呗|啥|哦|呢|么|好吗|有没有|有没|来|过来|能不能|行不行|能吗|能行吗|能不|行不|可以
+|可以吗|可不可以|可以不|我|有|不|嗯|恩|行|子|啦|啊|唉|哎|哇|呀|噢|喔|呵|呵呵|嘿|吖|吆|哎哟|哎呀|哎哟喂|哎吆喂
+|哪|呐|咩|咳|咯|喽|咧|嘞|啵|罢|哩|啰|嘛|呃|欸|耶|嘢|勒|谢谢|谢啦;
+
+//身份
+<identity>:领导|老板|客人|老师|主任|警官|经理|总监|主管;
+<help>:劳烦|劳驾|麻烦|请|带我|帮我|替我|为我|给我|给大家|代我|跟我|给领导|运行|启动|开启|启用|进入|使用|开始|打开|执行|进行|调用;
+<page>:功能|系统|模式|状态|软件|程序|应用|软体|模块|页面|界面;
+
+//舞蹈表演
+<danceAction>:跳|表演;
+<quantifier>:个|一个|一支;
+<dance2>:舞|舞蹈;
+
+//音量调节
+<volumeName>:声音|音量;
+<volumeAction>:调大|调高|变大|好小|太小了|调小|调低|变小|太大了|好大|调到最大|最大|调到最小|最小|最高|最低|调到最高|调到最低|增大|减小;
+
+//电量查询
+<power>:查询电量|电量查询;
+<powerGeneral>:多少电|多少电量|多少能量|你饿了吗;
+<help2>:我|能|想|要|想要|需要|须要|希望|渴望|要求|请求|带我|帮我|替我|为我|给我|给大家|代我|跟我;
+
+<setup>:设置|更换|切换|打开;
+<network>:网络|联网|WIFI|歪富挨;
+
+<map>:地图;
+<bluetooth>:蓝牙;
+<robotId>:机器人ID|二维码;
+<servicePhone>:客服|客服电话;
+<help3>:我|能|想|要|想要|需要|须要|希望|渴望|要求|请求|知道|查看|看|了解;
+
+<startPage>:运行|启动|开启|启用|进入|使用|开始|打开|执行|进行|调用;
+<faceRecognition>:人脸识别;
+<faceRecognition2>:看看我是谁|你认识我吗|我是谁|他是谁|这人是谁;
+<faceRegister>:人脸注册|注册人脸;
+<faceRegister2>:记住我是谁;
+
+<objectRecognition>:物体识别;
+
+//打开主框架中的模式
+<chat2>:聊天|聊聊天;
+<shoppingGuide>:导购|商场|卖场|卖东西;
+<guide>:导览模式;
+<office>:办公模式;
+<usher>:迎宾模式;
+<preside>:主持|主持人;
+<remoteVideo>:远程视频;
+<radioStation>:UU电台|优优电台;
+<play>:听|播|播放|讲;
+<radio>:相声|评书|童话故事|故事|京剧;
+<smartHome>:智能家居;
+<smartHealthcare>:智慧医疗;
+<unisThings>:紫光物联;
+<shensihead>:神思云脑;
+
+//门童
+<doormen>:迎宾|门童|接待|招呼|迎接;
+<doormenDescribe>:一下|我的|这位;
+
+//咨询问答
+<advisory>:咨询|问|询问|问询|问问题|解答|回答|问题|疑问|咨询问答|被解答;
+<advisoryQuantifier>:一个|一些|几个|很多;
+<advisoryDescribe>:问题|疑问|被解答|解答;
+<have2>:有|还有;
+<advisoryJD>:问一下;
+
+//问路指引
+<routeGuide>:地点询问|问路指引|问路;
+
+//商品导购
+<goodGuide>:商品导购|买|了解|介绍;
+<goodGuideInfo>:这个|一个|商品|东西|产品|信息;
+
+//促销揽客
+<showmanship>:促销揽客|叫卖|吆喝|宣传|广告|卖广告;
+
+//场馆介绍
+<pavilion>:场馆介绍|导览|导游;
+
+//路径指引
+<pathGuide>:路径指引|带路|问路;
+
+//贵宾指引
+<vipGuide>:贵宾导引|接待贵宾|招待客人|贵宾带路;
+
+//门禁打开
+<attendance>:考勤|打卡|签到|签退;
+
+//物联智控
+<thingsControl>:物联智控;
+
+//培训
+<trainPresenter>:培训主持|培训|上课|教学;
+
+//会议
+<meeting>:远程会议|会议|开会;
+
+//远程替身
+<remoteSubstitute>:远程替身|人员替身;
+
+//门卫
+<doorkeeper>:门卫|访客登记|人员登记;
+
+//关机
+<shutdown>:关机|自动关机;
+//确定关机
+<confirm>:是|是的|好|好的|需要|确定|确认;
+//不确定关机
+<unConfirm>:不是|不用|不要|不需要|不确认|取消;
+
+
+

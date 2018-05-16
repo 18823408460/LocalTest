@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.unisrobot.robothead">
 
-    <application>
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <application android:name=".MainApp">
         <activity
-            android:name=".RobotMainActivity"
+            android:name=".voice.VoiceActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -15,7 +15,19 @@
 
         </activity>
 
-        <service android:name=".voice.VoiceService" />
+        <service android:name=".voice.VoiceService">
+            <intent-filter>
+                <action android:name="com.unisrobot.robothead.voiceservice" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name=".voice.receiver.GlobalCmdReciever">
+            <intent-filter>
+                <action android:name="action.wifi" />
+                <action android:name="action.text" />
+            </intent-filter>
+
+        </receiver>
     </application>
 
 </manifest>

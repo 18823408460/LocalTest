@@ -1,0 +1,5 @@
+1. attr:  样式的最小单位
+   style: 一系列 attr的集合，作用于 view
+   Theme: 和 style类似，但作用于 Activity或是整个App；
+
+2.
