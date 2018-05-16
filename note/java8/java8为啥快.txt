@@ -1,0 +1,10 @@
+1. 将 jdk1.7 改为 jdk1.8 即可使用jdk8
+
+2.HashMap： 加载因子(扩容)，
+》jdk1.7: 数组+链表
+》jdk1.8: 数组+链表+红黑树
+
+
+3.ConcurrentHaskMap: 并发因子 ---》 CRS算法
+
+4.Jvm结构的调整：
