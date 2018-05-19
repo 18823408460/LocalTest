@@ -23,7 +23,7 @@ public class Lambda2 {
                 System.out.println(employee);
 
                 //
-                Concruct concruct1 = Employee::new;
+                Concruct concruct1 = Employee::new; //自动找到对应的构造
                 Employee employee1 = concruct1.get("11");
                 System.out.println(employee1);
 

@@ -58,12 +58,8 @@ public class RxMain {
 
         @Test
         public void test2() {
-                PublishSubject.create(new ObservableOnSubscribe<String>() {
-                        @Override
-                        public void subscribe(ObservableEmitter<String> e) throws Exception {
-                               e.onNext("");
-                        }
-                }).subscribe();
+                PublishSubject.create(   (e) -> e.onNext("ehllo"))
+                        .subscribe();
 
         }
 }
