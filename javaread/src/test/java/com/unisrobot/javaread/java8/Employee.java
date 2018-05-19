@@ -9,9 +9,11 @@ public class Employee {
         private int age    ;
 
         public Employee() {
+                System.out.println("-----null-------------");
         }
 
         public Employee(String name, int age) {
+
                 this.name = name;
                 this.age = age;
         }
@@ -53,6 +55,14 @@ public class Employee {
                 int result = name != null ? name.hashCode() : 0;
                 result = 31 * result + age;
                 return result;
+        }
+
+        @Override
+        public String toString() {
+                return "Employee{" +
+                        "name='" + name + '\'' +
+                        ", age=" + age +
+                        '}';
         }
 
         public void setName(String name) {

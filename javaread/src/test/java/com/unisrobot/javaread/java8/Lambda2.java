@@ -6,6 +6,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
@@ -16,11 +17,22 @@ public class Lambda2 {
 
 
         @Test
-        public void test2(){
+        public void test2() {
+                Concruct concruct = (x) -> new Employee(x);
+                Employee employee = concruct.get("hello");
+                System.out.println(employee);
+
+                //
+                Concruct concruct1 = Employee::new;
+                Employee employee1 = concruct1.get("11");
+                System.out.println(employee1);
+
+                Supplier<Employee> supplier = Employee::new;
+                Employee employee2 = supplier.get();
+                System.out.println(employee2);
+
 
         }
-
-
 
 
         @Test
@@ -53,6 +65,7 @@ public class Lambda2 {
                 Stream<Integer> iterate = Stream.iterate(1, (x) -> x + 2);
                 iterate.limit(20)
                         .skip(3)
+                        .distinct() // 通过hashcode 的 equals 来判断的
                         .forEach(out::println);
         }
 }
