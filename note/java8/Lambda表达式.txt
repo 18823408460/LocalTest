@@ -17,5 +17,58 @@
 
 
 2. 
+方法引用，构造引用 ：
+
+
+3. Stream 的 产生：
+》Collection
+》Arrays
+》Stream.of
+》无限流：
+
+4.Stream 的中间操作：
+》 reduce： 规约，对集合中每一个元素进行类似的累加操作
+》 排序： 自然排序和 自定义排序
+》 分组：
+》 
+
+
+5.如果一个大任务要下载，可以通过下面几种方法来实现：
+》单线程
+》传统的多线程
+》jdk7的Fork/Join框架： 将大任务不断的递归划分成小任务，ForkJoinTask，ForkJoinPool
+》jdk8的并行流
+
+6.Optional《T》 容器类： jdk8 为了很好的解决 空指针异常，引入了这个容器类
+
+
+7.接口中 默认方法(子类可以不需要实现) 和 静态方法：
+
+》如果一个类继承一个父类和实现一个接口，而接口中的默认方法和父类的一个
+方法相同，则默认调用父类的。优先
+
+8.新的时间API：
+
+》传统的API： Date，Calendar，不好用，线程不安全( 测试代码  )
+
+》新的API：java.time.*，LocalDateTime，LocalDate，LocalTime，Instant，DateTimeFormatter，
+
+9. 改进注解？？
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
