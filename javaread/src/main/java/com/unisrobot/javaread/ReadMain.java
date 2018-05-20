@@ -1,6 +1,10 @@
 package com.unisrobot.javaread;
 
 import java.io.File;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by Administrator on 2018/4/28.
@@ -19,7 +23,35 @@ public class ReadMain {
                 }else {
                         System.out.println("--------------0");
                 }
+                test();
         }
+
+
+        private static void test(){
+                ExecutorService executorService = Executors.newFixedThreadPool(2);
+                executorService.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                                while (true){
+                                        System.out.println("thread alice");
+                                        try {
+                                                Thread.sleep(2000);
+                                        } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                                System.out.println("interutped");
+                                        }
+                                }
+                        }
+                });
+                TimerTask timerTask = new TimerTask() {
+                        @Override
+                        public void run() {
+                                executorService.shutdownNow();
+                        }
+                };
+                new Timer().schedule(timerTask,5000);
+        }
+
 
         private static void read() {
                 String path = "F:\\svn\\策划\\dqq\\U05E教育机器人\\00-U05E情绪情感系统\\U05E本体-动画合集\\心碎";

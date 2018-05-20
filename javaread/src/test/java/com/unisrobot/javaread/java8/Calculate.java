@@ -7,4 +7,8 @@ package com.unisrobot.javaread.java8;
 @FunctionalInterface
 public interface Calculate {
          int get(int value);
+
+         default void hello(){
+                 System.out.println("helloo.........");
+         }
 }
