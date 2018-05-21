@@ -23,5 +23,5 @@
 : Sychronized ,Object.wait
 : Lock .   Condition.await
 
-8.线程交替执行：
+8.线程交替执行 , 利用 Condition， lock 完成：
 
