@@ -1,0 +1,27 @@
+1.    可见性 +  原子性,
+
+要保证原子性：可以使用同步，但是同步效率低
+
+
+ 2. java8 中 添加 CAS(Compare and Swaped) 算法，无锁同步,,
+ jdk中很多的 原子变量 都是使用 CAS算法//(  CAS算法是 硬件对 同步的支持》。。)
+
+ 3.HashMap： 线程不安全
+   HashTable: 线程安全-- sychronized,锁整个hash表
+
+   ConcurrentHashMap ： 有 16个 Segment, 每个Segment 有个 hash表,表中是一个个链表
+   它采用的是 锁分段机制，，，每个 Segment you单独的锁， 并且是采用 CAS算法: AtomicInteger...
+
+4. CopyAndWriteList: 每次写入时，都会重新复制一个list，然后在进行add操作，，，所以当 add多次时，效率会很低,,
+
+5. CountDownLatch: 闭锁，在完成某些运算时，只有当其他的线程运算完毕，它才会继续往下执行。。
+比如 A,B,C,D  四项费用的总和计算，，可以用多个线程去同时计算。。。每个线程计算完毕，将 CountDownLatch.lockdown。。他相当于信号量...
+
+6. jdk1.5  显示锁： Lock，，，，需要收到调用上锁，然后调用释放锁，（finally 中执行....）
+
+7. 生产者和 消费者： (多个消费者和 生产者) 带来的问题，货物已满还在生产，货物缺少还去获取。。。
+: Sychronized ,Object.wait
+: Lock .   Condition.await
+
+8.线程交替执行：
+
