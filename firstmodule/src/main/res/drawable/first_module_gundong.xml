@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--material design 新增的特性， 涟漪效果-波浪效果 -->
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-
-    android:color="@color/material_blue">
-
-
-</ripple>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#ff0000" />
+    <corners android:radius="5dp" />
+</shape>

@@ -1,1 +1,1 @@
-include ':app', ':firstmodule', ':comlib', ':javaread', ':robothead', ':designMode'
+include ':app', ':firstmodule', ':comlib', ':javaread', ':robothead', ':designMode', ':BaseFrame'

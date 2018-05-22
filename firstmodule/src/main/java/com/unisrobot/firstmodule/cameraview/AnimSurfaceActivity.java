@@ -29,6 +29,10 @@ import java.util.List;
  */
 
 public class AnimSurfaceActivity extends AppCompatActivity {
+//        String dry = "dry" + index;
+//        Bitmap bitmap = BitmapFactory.decodeStream(getContext().getResources().openRawResource(
+//                getContext().getResources().getIdentifier(dry, "mipmap", "")));
+
         ImageView imageView;
         private int[] bitmaps = {R.drawable.first_module_one, R.drawable.first_module_two, R.drawable.first_module_three,
                 R.drawable.first_module_four, R.drawable.first_module_five, R.drawable.first_module_six, R.drawable.first_module_seven,

@@ -2,4 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+
+    <!--android:scrollbarThumbVertical="@drawable/first_module_gundong"-->
+    <android.support.v7.widget.RecyclerView
+        android:scrollbarSize="4dp"
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical= "@drawable/first_module_gundong"
+
+        android:id="@+id/first_module_grid_recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>
