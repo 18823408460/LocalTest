@@ -12,4 +12,6 @@
     <string name="check_people">检测人体...</string>
     <string name="tv_smartdoctor_one_tip">找不到你啦!\n快离我近点!</string>
     <string name="tv_smartdoctor_two_tip">检测体温，请将体温放在\n体温传感器上，保持三秒</string>
+    <string name="low_shao_range">\>39</string>
+    <string name="low_shao_tip">低烧</string>
 </resources>

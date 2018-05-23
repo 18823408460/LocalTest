@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <com.uurobot.baseframe.view.SurfaceViewAnim
+        android:id="@+id/surfaceview_smartdoctor_three"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <com.uurobot.baseframe.view.TemptureShowLayout
+        android:width="wrap_content"
+        android:height="wrap_content"
+        app:temptureShowLayout_image_tem="@drawable/low_shao"
+        app:temptureShowLayout_tem_range="@string/low_shao_range"
+        app:temptureShowLayout_tem_range_tip="@string/low_shao_tip" />
 
-    </LinearLayout>
+    <com.uurobot.baseframe.view.TemptureShowLayout
+        android:width="wrap_content"
+        android:height="wrap_content"
+        app:temptureShowLayout_image_tem="@drawable/low_shao"
+        app:temptureShowLayout_tem_range="@string/low_shao_range"
+        app:temptureShowLayout_tem_range_tip="@string/low_shao_tip" />
+
+    <com.uurobot.baseframe.view.TemptureShowLayout
+        android:width="wrap_content"
+        android:height="wrap_content"
+        app:temptureShowLayout_image_tem="@drawable/low_shao"
+        app:temptureShowLayout_tem_range="@string/low_shao_range"
+        app:temptureShowLayout_tem_range_tip="@string/low_shao_tip" />
 </RelativeLayout>

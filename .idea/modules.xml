@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BaseFrame/BaseFrame.iml" filepath="$PROJECT_DIR$/BaseFrame/BaseFrame.iml" />
+      <module fileurl="file://F:\githubRep\LocalTest\LocalTest\BaseFrame\BaseFrame.iml" filepath="F:\githubRep\LocalTest\LocalTest\BaseFrame\BaseFrame.iml" />
       <module fileurl="file://$PROJECT_DIR$/LocalTest.iml" filepath="$PROJECT_DIR$/LocalTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/comlib/comlib.iml" filepath="$PROJECT_DIR$/comlib/comlib.iml" />

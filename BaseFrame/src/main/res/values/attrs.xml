@@ -3,12 +3,7 @@
     <declare-styleable name="temptureShowLayout">
         <attr name="image_tem" format="reference" />
         <attr name="tem_range" format="string" />
-        <attr name="tem_range_color" format="color" />
-        <attr name="tem_range_size" format="dimension" />
-
-        <attr name="tem_tip" format="string" />
-        <attr name="tem_tip_color" format="color" />
-        <attr name="tem_tip_size" format="dimension" />
+        <attr name="tem_range_tip" format="string" />
     </declare-styleable>
 
 </resources>
