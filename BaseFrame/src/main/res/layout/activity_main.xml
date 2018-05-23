@@ -10,38 +10,48 @@
 
 
     <FrameLayout
+        android:id="@+id/fl_layout_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/layout_bottom"
+        android:layout_above="@id/rg_layout_bottom"
         android:layout_below="@id/layout_head"
-        android:background="#ff0000" />
+        android:background="@android:color/white" />
 
     <RadioGroup
-        android:padding="2dp"
-        android:id="@+id/layout_bottom"
+        android:background="@color/normal_bk"
+        android:id="@+id/rg_layout_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="2dp">
 
         <RadioButton
+            android:id="@+id/rb_common"
             style="@style/bottom_button_tag"
             android:drawableTop="@drawable/tree"
+            android:tag="0"
             android:text="常用" />
 
         <RadioButton
+            android:id="@+id/rb_thirdpart"
             style="@style/bottom_button_tag"
             android:drawableTop="@drawable/tree"
-            android:text="常用" />
+            android:tag="1"
+            android:text="第三方" />
 
         <RadioButton
+            android:id="@+id/rb_custom"
             style="@style/bottom_button_tag"
             android:drawableTop="@drawable/tree"
-            android:text="常用" />
+            android:tag="2"
+            android:text="自定义" />
 
         <RadioButton
+            android:id="@+id/rb_other"
             style="@style/bottom_button_tag"
             android:drawableTop="@drawable/tree"
-            android:text="常用" />
+            android:tag="3"
+            android:text="其他" />
     </RadioGroup>
 </RelativeLayout>

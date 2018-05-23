@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="normal_bk">#63B3DD</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="red">#FF0000</color>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/img_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/activity_smartdoctor_step1" />
+
+    <TextView
+        style="@style/tv_smartdoctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/img_one"
+        android:layout_centerHorizontal="true"
+        android:text="@string/check_people" />
+
+    <TextView
+        android:gravity="center"
+        android:layout_above="@id/img_one"
+        android:layout_toRightOf="@id/img_one"
+        android:text="@string/tv_smartdoctor_one_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/activity_smartdoctor_one_tv" />
+</RelativeLayout>

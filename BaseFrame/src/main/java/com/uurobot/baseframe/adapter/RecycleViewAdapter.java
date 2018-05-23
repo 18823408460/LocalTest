@@ -1,0 +1,95 @@
+package com.uurobot.baseframe.adapter;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.uurobot.baseframe.R;
+import com.uurobot.baseframe.activitys.SmartDoctorActivity;
+import com.uurobot.baseframe.dialog.SurFaceViewDialog;
+
+import java.util.List;
+
+/**
+ * Created by Administrator on 2018/5/23.
+ */
+
+public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+        private List<String> stringList;
+        private static final String TAG = RecycleViewAdapter.class.getSimpleName();
+        private FragmentManager fragmentManager;
+        private Context mContext;
+
+        public void upDateStringList(List<String> stringList) {
+                this.stringList = stringList;
+                notifyDataSetChanged();
+        }
+
+        public RecycleViewAdapter(List<String> stringList, FragmentManager fragmentManager) {
+                this.stringList = stringList;
+                this.fragmentManager = fragmentManager;
+        }
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+                mContext = parent.getContext();
+                LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+                View itemView = layoutInflater.inflate(R.layout.layout_recycleview_item, parent, false);
+                RecycleViewHolder recycleViewHolder = new RecycleViewHolder(itemView);
+                return recycleViewHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+                if (holder instanceof RecycleViewHolder) {
+                        TextView textView = ((RecycleViewHolder) holder).textView;
+                        textView.setText(stringList.get(position));
+                        textView.setClickable(true);
+                        textView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                        handlerItemClick(position);
+                                }
+                        });
+                }
+        }
+
+        private void handlerItemClick(int position) {
+                Log.d(TAG, "handlerItemClick: " + position);
+                switch (position) {
+                        case 0:
+                                handlerItemOne();
+                                break;
+                        case 1:
+                                handlerItemTwo();
+                                break;
+                }
+        }
+
+        /**
+         * 智慧医生
+         */
+        private void handlerItemTwo() {
+                mContext.startActivity(new Intent(mContext, SmartDoctorActivity.class));
+        }
+
+        /**
+         * 智慧苗圃
+         */
+        private void handlerItemOne() {
+                SurFaceViewDialog surFaceViewDialog = new SurFaceViewDialog();
+                surFaceViewDialog.show(fragmentManager, null);
+        }
+
+        @Override
+        public int getItemCount() {
+                return stringList.size();
+        }
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/activity_smartdoctor_bk">
+
+    <include
+        android:id="@+id/layout_smartdoctor_head"
+        layout="@layout/activity_smartdoctor_head" />
+
+    <FrameLayout
+        android:id="@+id/fl_smartdoctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_smartdoctor_head"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>
