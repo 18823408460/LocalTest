@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:background="@drawable/bk_circle_tip_normal"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_centerVertical="true"
+        android:id="@+id/img_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:src="@drawable/measure_error" />
+
+    <TextView
+        android:id="@+id/tv_smartdoctor_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_toRightOf="@id/img_error"
+        android:gravity="center"
+        android:padding="4dp" />
+</RelativeLayout>

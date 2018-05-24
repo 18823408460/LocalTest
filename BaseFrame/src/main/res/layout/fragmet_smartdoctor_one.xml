@@ -10,6 +10,12 @@
         android:layout_centerInParent="true"
         android:background="@drawable/activity_smartdoctor_step1" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/activity_smartdoctor_center" />
+
     <TextView
         style="@style/tv_smartdoctor"
         android:layout_width="wrap_content"

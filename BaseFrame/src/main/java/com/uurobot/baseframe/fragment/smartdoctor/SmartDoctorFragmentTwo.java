@@ -1,14 +1,12 @@
 package com.uurobot.baseframe.fragment.smartdoctor;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.base.BaseFragment;
-import com.uurobot.baseframe.dialog.SmartDoctorDialog;
 
 /**
  * Created by Administrator on 2018/5/23.

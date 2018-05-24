@@ -78,8 +78,8 @@ public class SurfaceViewAnim extends SurfaceView implements SurfaceHolder.Callba
 
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
-                threadAlive = false;
-                Log.d(TAG, "surfaceDestroyed: ");
+                    threadAlive = false;
+                    Log.d(TAG, "surfaceDestroyed: ");
         }
 
         private boolean startDraw = true ;
@@ -115,14 +115,14 @@ public class SurfaceViewAnim extends SurfaceView implements SurfaceHolder.Callba
                         Log.e(TAG, "doDraw: e2=" + e);
                 } finally {
                         //    java.lang.IllegalArgumentException: canvas object must be the same instance that was previously returned by lockCanvas
-                        if (canvas != null) {
+//                        if (canvas != null) {
                                 try {
                                         surfaceHolder.unlockCanvasAndPost(canvas);
                                 } catch (Exception e) {
                                         e.printStackTrace();
                                         Log.e(TAG, "doDraw: e3====" + e);
                                 }
-                        }
+//                        }
                 }
         }
 

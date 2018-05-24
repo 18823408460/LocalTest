@@ -2,8 +2,8 @@ package com.uurobot.baseframe.activitys;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -11,7 +11,8 @@ import android.widget.Button;
 
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.base.BaseFragment;
-import com.uurobot.baseframe.dialog.SmartDoctorDialog;
+import com.uurobot.baseframe.dialog.SmartDoctorNormalDialog;
+import com.uurobot.baseframe.dialog.SmartDoctorUpDialog;
 import com.uurobot.baseframe.fragment.smartdoctor.SmartDoctorFragmentOne;
 import com.uurobot.baseframe.fragment.smartdoctor.SmartDoctorFragmentThree;
 import com.uurobot.baseframe.fragment.smartdoctor.SmartDoctorFragmentTwo;
@@ -76,18 +77,17 @@ public class SmartDoctorActivity extends BaseActivity implements View.OnClickLis
                                 break;
                         case R.id.btn_head_help:
                                 if (this.fromFragment instanceof SmartDoctorFragmentOne) {
-                                        SmartDoctorDialog smartDoctorDialog = SmartDoctorDialog.getInstance("检测人体", R.drawable.bk_circle_tip_up);
+                                        DialogFragment smartDoctorDialog = SmartDoctorUpDialog.getInstance("检测人体");
                                         smartDoctorDialog.show(getSupportFragmentManager(), null);
 
                                 } else if (this.fromFragment instanceof SmartDoctorFragmentTwo) {
-                                        SmartDoctorDialog smartDoctorDialog = SmartDoctorDialog.
-                                                getInstance(" 检测失败，请重新检测!", R.drawable.bk_circle_tip_check_error);
-
+                                        DialogFragment smartDoctorDialog = SmartDoctorNormalDialog.
+                                                getInstance(" 检测失败，请重新检测!");
                                         smartDoctorDialog.show(getSupportFragmentManager(), null);
-                                } else if (this.fromFragment instanceof SmartDoctorFragmentThree) {
 
-                                        SmartDoctorDialog smartDoctorDialog = SmartDoctorDialog.
-                                                getInstance("身体棒棒的，成绩\n杠杠的", R.drawable.bk_circle_tip_up);
+                                } else if (this.fromFragment instanceof SmartDoctorFragmentThree) {
+                                        DialogFragment smartDoctorDialog = SmartDoctorUpDialog.
+                                                getInstance("身体棒棒的，成绩\n杠杠的");
                                         smartDoctorDialog.show(getSupportFragmentManager(), null);
                                 }
                                 break;

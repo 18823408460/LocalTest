@@ -52,11 +52,10 @@
 
     <TextView
         android:id="@+id/tv_wenshizaipei"
-        android:layout_width="210dp"
+        android:layout_width="194dp"
         android:layout_height="70dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="100dp"
+        android:layout_above="@id/ll_layout_wenshidu"
+        android:layout_alignLeft="@id/ll_layout_wenshidu"
         android:background="@drawable/bk_wenshizaipei"
         android:drawableLeft="@drawable/tree"
         android:drawablePadding="10dp"
@@ -68,10 +67,12 @@
         android:textSize="20dp" />
 
     <LinearLayout
-        android:layout_width="210dp"
+        android:id="@+id/ll_layout_wenshidu"
+        android:layout_width="194dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/tv_wenshizaipei"
-        android:layout_below="@id/tv_wenshizaipei"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/bk_wenshizaipei"
         android:orientation="vertical">
@@ -97,9 +98,9 @@
                 <TextView
                     android:id="@+id/tv_shidu1"
                     style="@style/tv_wenshidu"
-                    android:layout_marginTop="6dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
                     android:text="@string/shidu" />
 
                 <TextView
@@ -152,9 +153,9 @@
                 <TextView
                     android:id="@+id/tv_wendu1"
                     style="@style/tv_wenshidu"
-                    android:layout_marginTop="6dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
                     android:text="@string/wendu" />
 
                 <TextView
