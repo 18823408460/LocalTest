@@ -98,7 +98,7 @@ public class SurFaceViewDialog extends DialogFragment implements View.OnClickLis
                                 dismiss();
                                 break;
                         case R.id.btn_switch:
-                                surfaceViewAnim.updateAnim(eAnimTypes[index++ % eAnimTypes.length]);
+                                surfaceViewAnim.updateAnim(eAnimTypes[index++ % eAnimTypes.length-3]);
                                 break;
                         case R.id.btn_setShidu:
                                 setshiDu(DataUtils.floatTranslate((float) Math.random()));

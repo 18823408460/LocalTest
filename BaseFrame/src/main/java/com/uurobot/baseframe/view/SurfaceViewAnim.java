@@ -144,6 +144,7 @@ public class SurfaceViewAnim extends SurfaceView implements SurfaceHolder.Callba
                         float y = (float) (getHeight() * 1.0 / bitmap.getHeight());
                         matrix.setScale(x, y);
                         canvas.drawBitmap(bitmap, matrix, null);
+//                        canvas.drawBitmap(bitmap,0,0,null);
                 }
         }
 

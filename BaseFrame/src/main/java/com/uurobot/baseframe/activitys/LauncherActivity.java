@@ -12,7 +12,7 @@ import com.uurobot.baseframe.R;
  * Created by Administrator on 2018/5/22.
  */
 // AppCompatActivity   java.lang.IllegalStateException: You need to use a Theme.AppCompat theme
-public class LauncherActivity extends AppCompatActivity {
+public class LauncherActivity extends BaseActivity {
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);

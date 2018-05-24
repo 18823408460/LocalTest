@@ -23,7 +23,7 @@ import java.util.List;
  * Created by Administrator on 2018/5/23.
  */
 
-public class SmartDoctorActivity extends FragmentActivity implements View.OnClickListener {
+public class SmartDoctorActivity extends BaseActivity implements View.OnClickListener {
         private List<BaseFragment> baseFragmentList;
         private BaseFragment fromFragment;
 
@@ -40,7 +40,7 @@ public class SmartDoctorActivity extends FragmentActivity implements View.OnClic
                 baseFragmentList.add(new SmartDoctorFragmentOne());
                 baseFragmentList.add(new SmartDoctorFragmentTwo());
                 baseFragmentList.add(new SmartDoctorFragmentThree());
-                switchFragment(fromFragment, baseFragmentList.get(2));
+                switchFragment(fromFragment, baseFragmentList.get(0));
         }
 
         private void switchFragment(Fragment fromFragment, BaseFragment toFragment) {

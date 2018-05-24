@@ -25,7 +25,7 @@ import java.util.List;
  * Created by Administrator on 2018/5/22.
  */
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
         private static final String TAG = "MainActivity";
         private RadioGroup radioGroup;
         private Fragment fromFragment;

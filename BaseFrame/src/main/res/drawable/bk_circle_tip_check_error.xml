@@ -4,10 +4,10 @@
     <item android:drawable="@drawable/bk_circle_tip_normal" />
     <item
         android:drawable="@drawable/measure_error"
-        android:top="9dp"
-        android:right="9dp"
-        android:bottom="9dp"
-        android:left="9dp"
+        android:top="2dp"
+        android:right="2dp"
+        android:bottom="2dp"
+        android:left="2dp"
         android:gravity="left" />
 
 </layer-list>
