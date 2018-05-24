@@ -87,8 +87,7 @@ public class SurFaceViewDialog extends DialogFragment implements View.OnClickLis
                 setStyle(STYLE_NORMAL, R.style.fragmentDialog);
         }
 
-        private EAnimType[] eAnimTypes = new EAnimType[]{EAnimType.Dry, EAnimType.DryWet, EAnimType.HighDry, EAnimType.HighDryWet
-                , EAnimType.Moist, EAnimType.MoistWet};
+        private EAnimType[] eAnimTypes = EAnimType.values();
         private int index;
 
         @Override
@@ -105,7 +104,7 @@ public class SurFaceViewDialog extends DialogFragment implements View.OnClickLis
                                 setshiDu(DataUtils.floatTranslate((float) Math.random()));
                                 break;
                         case R.id.btn_setWendu:
-                                setWenDu(DataUtils.floatTranslate((float) (Math.random()*20)));
+                                setWenDu(DataUtils.floatTranslate((float) (Math.random() * 20)));
                                 break;
                 }
         }

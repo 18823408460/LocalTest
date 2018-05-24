@@ -49,4 +49,33 @@ public class AnimIds {
                 , R.drawable.moist_wet35, R.drawable.moist_wet36, R.drawable.moist_wet37, R.drawable.moist_wet38, R.drawable.moist_wet38
                 , R.drawable.moist_wet40, R.drawable.moist_wet41, R.drawable.moist_wet42, R.drawable.moist_wet43, R.drawable.moist_wet44
                 , R.drawable.moist_wet45, R.drawable.moist_wet46};
+
+        public static final int LowShao[] = {
+                R.drawable.low0, R.drawable.low1, R.drawable.low2, R.drawable.low3, R.drawable.low4, R.drawable.low5
+                , R.drawable.low6, R.drawable.low7, R.drawable.low8, R.drawable.low9, R.drawable.low10, R.drawable.low11
+                , R.drawable.low12, R.drawable.low13, R.drawable.low14, R.drawable.low15, R.drawable.low16, R.drawable.low17
+                , R.drawable.low18, R.drawable.low19, R.drawable.low20, R.drawable.low21, R.drawable.low22, R.drawable.low23
+                , R.drawable.low24, R.drawable.low25, R.drawable.low26
+        };
+
+        public static final int LowWen[] = {
+                R.drawable.low_temp0, R.drawable.low_temp1, R.drawable.low_temp2, R.drawable.low_temp3, R.drawable.low_temp4
+                , R.drawable.low_temp5, R.drawable.low_temp6, R.drawable.low_temp7, R.drawable.low_temp8, R.drawable.low_temp9
+                , R.drawable.low_temp10, R.drawable.low_temp11, R.drawable.low_temp12, R.drawable.low_temp13, R.drawable.low_temp14
+                , R.drawable.low_temp15, R.drawable.low_temp16, R.drawable.low_temp17, R.drawable.low_temp18, R.drawable.low_temp19
+                , R.drawable.low_temp20, R.drawable.low_temp21, R.drawable.low_temp22, R.drawable.low_temp23, R.drawable.low_temp24
+                , R.drawable.low_temp25, R.drawable.low_temp26, R.drawable.low_temp27, R.drawable.low_temp28, R.drawable.low_temp29
+                , R.drawable.low_temp30, R.drawable.low_temp31, R.drawable.low_temp32, R.drawable.low_temp33, R.drawable.low_temp34
+        };
+
+        public static final int HighShao[] = {
+                R.drawable.high_fever0, R.drawable.high_fever1, R.drawable.high_fever2, R.drawable.high_fever3, R.drawable.high_fever4,
+                R.drawable.high_fever5, R.drawable.high_fever6
+                , R.drawable.high_fever7, R.drawable.high_fever8, R.drawable.high_fever9, R.drawable.high_fever10, R.drawable.high_fever11,
+                R.drawable.high_fever12
+                , R.drawable.high_fever13, R.drawable.high_fever14, R.drawable.high_fever15, R.drawable.high_fever16, R.drawable.high_fever17
+                , R.drawable.high_fever18, R.drawable.high_fever19, R.drawable.high_fever20, R.drawable.high_fever21, R.drawable.high_fever22
+                , R.drawable.high_fever23, R.drawable.high_fever24, R.drawable.high_fever25, R.drawable.high_fever26, R.drawable.high_fever27
+                , R.drawable.high_fever28, R.drawable.high_fever29, R.drawable.high_fever30
+        };
 }

@@ -37,6 +37,7 @@ public class CommonFragment extends BaseFragment {
                 ArrayList<String> arrayList = new ArrayList<>();
                 arrayList.add("智慧苗圃");
                 arrayList.add("智慧医生");
+                arrayList.add("播放视频");
                 recycleViewAdapter = new RecycleViewAdapter(arrayList, getFragmentManager());
                 recyclerView.addItemDecoration(new RecycleViewItemDivide(15));
                 recyclerView.setAdapter(recycleViewAdapter);

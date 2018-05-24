@@ -6,9 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.widget.Button;
 
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.base.BaseFragment;
+import com.uurobot.baseframe.dialog.SmartDoctorDialog;
 import com.uurobot.baseframe.fragment.smartdoctor.SmartDoctorFragmentOne;
 import com.uurobot.baseframe.fragment.smartdoctor.SmartDoctorFragmentThree;
 import com.uurobot.baseframe.fragment.smartdoctor.SmartDoctorFragmentTwo;
@@ -20,7 +23,7 @@ import java.util.List;
  * Created by Administrator on 2018/5/23.
  */
 
-public class SmartDoctorActivity extends FragmentActivity {
+public class SmartDoctorActivity extends FragmentActivity implements View.OnClickListener {
         private List<BaseFragment> baseFragmentList;
         private BaseFragment fromFragment;
 
@@ -37,7 +40,7 @@ public class SmartDoctorActivity extends FragmentActivity {
                 baseFragmentList.add(new SmartDoctorFragmentOne());
                 baseFragmentList.add(new SmartDoctorFragmentTwo());
                 baseFragmentList.add(new SmartDoctorFragmentThree());
-                switchFragment(fromFragment, baseFragmentList.get(0));
+                switchFragment(fromFragment, baseFragmentList.get(2));
         }
 
         private void switchFragment(Fragment fromFragment, BaseFragment toFragment) {
@@ -56,6 +59,38 @@ public class SmartDoctorActivity extends FragmentActivity {
         }
 
         private void initView() {
+                Button btn_back = findViewById(R.id.btn_head_back);
+                Button btn_help = findViewById(R.id.btn_head_help);
+                btn_back.setOnClickListener(this);
+                btn_help.setOnClickListener(this);
+        }
 
+        int index = 0;
+
+        @Override
+        public void onClick(View v) {
+                int id = v.getId();
+                switch (id) {
+                        case R.id.btn_head_back:
+                                switchFragment(fromFragment, baseFragmentList.get(index++ % baseFragmentList.size()));
+                                break;
+                        case R.id.btn_head_help:
+                                if (this.fromFragment instanceof SmartDoctorFragmentOne) {
+                                        SmartDoctorDialog smartDoctorDialog = SmartDoctorDialog.getInstance("检测人体", R.drawable.bk_circle_tip_up);
+                                        smartDoctorDialog.show(getSupportFragmentManager(), null);
+
+                                } else if (this.fromFragment instanceof SmartDoctorFragmentTwo) {
+                                        SmartDoctorDialog smartDoctorDialog = SmartDoctorDialog.
+                                                getInstance(" 检测失败，请重新检测!", R.drawable.bk_circle_tip_check_error);
+
+                                        smartDoctorDialog.show(getSupportFragmentManager(), null);
+                                } else if (this.fromFragment instanceof SmartDoctorFragmentThree) {
+
+                                        SmartDoctorDialog smartDoctorDialog = SmartDoctorDialog.
+                                                getInstance("身体棒棒的，成绩\n杠杠的", R.drawable.bk_circle_tip_up);
+                                        smartDoctorDialog.show(getSupportFragmentManager(), null);
+                                }
+                                break;
+                }
         }
 }

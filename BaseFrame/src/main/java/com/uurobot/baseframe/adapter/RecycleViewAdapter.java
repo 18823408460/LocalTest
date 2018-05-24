@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.activitys.SmartDoctorActivity;
+import com.uurobot.baseframe.activitys.VideoPlayActivity;
 import com.uurobot.baseframe.dialog.SurFaceViewDialog;
 
 import java.util.List;
@@ -70,7 +71,14 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         case 1:
                                 handlerItemTwo();
                                 break;
+                        case 2:
+                                handlerItemThree();
+                                break;
                 }
+        }
+
+        private void handlerItemThree() {
+                mContext.startActivity(new Intent(mContext, VideoPlayActivity.class));
         }
 
         /**

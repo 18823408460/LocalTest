@@ -7,26 +7,53 @@
     <com.uurobot.baseframe.view.SurfaceViewAnim
         android:id="@+id/surfaceview_smartdoctor_three"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:orderOnTop="true"
+        app:type="lowShao" />
+
+    <include
+        layout="@layout/layout_smartdoctor_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="296dp"
+        android:layout_marginTop="110dp" />
+
 
     <com.uurobot.baseframe.view.TemptureShowLayout
-        android:width="wrap_content"
-        android:height="wrap_content"
-        app:temptureShowLayout_image_tem="@drawable/low_shao"
-        app:temptureShowLayout_tem_range="@string/low_shao_range"
-        app:temptureShowLayout_tem_range_tip="@string/low_shao_tip" />
+        android:id="@+id/high_shao"
+        style="@style/layout_tempture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="70dp"
+        android:layout_marginTop="20dp"
+        app:image_tem="@drawable/high_shao"
+        app:tem_range="@string/high_shao_range"
+        app:tem_range_tip="@string/high_shao_tip" />
+
 
     <com.uurobot.baseframe.view.TemptureShowLayout
-        android:width="wrap_content"
-        android:height="wrap_content"
-        app:temptureShowLayout_image_tem="@drawable/low_shao"
-        app:temptureShowLayout_tem_range="@string/low_shao_range"
-        app:temptureShowLayout_tem_range_tip="@string/low_shao_tip" />
+        android:id="@+id/low_shao"
+        style="@style/layout_tempture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/high_shao"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="10dp"
+        app:image_tem="@drawable/low_shao"
+        app:tem_range="@string/low_shao_range"
+        app:tem_range_tip="@string/low_shao_tip" />
 
     <com.uurobot.baseframe.view.TemptureShowLayout
-        android:width="wrap_content"
-        android:height="wrap_content"
-        app:temptureShowLayout_image_tem="@drawable/low_shao"
-        app:temptureShowLayout_tem_range="@string/low_shao_range"
-        app:temptureShowLayout_tem_range_tip="@string/low_shao_tip" />
+        android:id="@+id/low_wen"
+        style="@style/layout_tempture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/low_shao"
+        android:layout_marginEnd="62dp"
+        android:layout_marginTop="10dp"
+        app:image_tem="@drawable/low_wen"
+        app:tem_range="@string/low_wen_range"
+        app:tem_range_tip="@string/low_wen_tip" />
+
+
 </RelativeLayout>

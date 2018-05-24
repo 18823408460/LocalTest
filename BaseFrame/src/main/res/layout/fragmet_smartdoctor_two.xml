@@ -11,10 +11,12 @@
         android:src="@drawable/activity_smartdoctor_two_center" />
 
     <TextView
-        android:text="@string/tv_smartdoctor_two_tip"
         style="@style/tv_smartdoctor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
         android:layout_above="@id/img_smartdoctor_two"
-        android:layout_toRightOf="@id/img_smartdoctor_two" />
+        android:layout_toRightOf="@id/img_smartdoctor_two"
+        android:background="@drawable/bk_circle_tip_down"
+        android:text="@string/tv_smartdoctor_two_tip" />
 </RelativeLayout>

@@ -32,12 +32,14 @@ public class TemptureShowLayout extends LinearLayout {
     public TemptureShowLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initData(attrs);
+        setOrientation(VERTICAL);
         initView();
     }
 
     private void initView() {
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-        View view = layoutInflater.inflate(R.layout.layout_tempture_show, null);
+//        View view = layoutInflater.inflate(R.layout.layout_tempture_show, null);
+        View view = layoutInflater.inflate(R.layout.layout_tempture_show, this);
         ImageView imageView = view.findViewById(R.id.img_layout_tempeture);
         TextView textView_rang = view.findViewById(R.id.tv_range);
         TextView textView_rang_tip = view.findViewById(R.id.tv_range_tip);

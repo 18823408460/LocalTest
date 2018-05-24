@@ -6,4 +6,18 @@
         <attr name="tem_range_tip" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="SurfaceViewAnim">
+        <attr name="type">
+            <enum name="dry" value="0" />
+            <enum name="dryWet" value="1" />
+            <enum name="highDry" value="2" />
+            <enum name="highDryWet" value="3" />
+            <enum name="moist" value="4" />
+            <enum name="moistWet" value="5" />
+            <enum name="lowShao" value="6" />
+            <enum name="lowWen" value="7" />
+            <enum name="highShao" value="8" />
+        </attr>
+        <attr name="orderOnTop" format="boolean" />
+    </declare-styleable>
 </resources>

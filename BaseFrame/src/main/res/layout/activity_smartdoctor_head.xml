@@ -5,6 +5,7 @@
     android:padding="10dp">
 
     <Button
+        android:id="@+id/btn_head_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -18,6 +19,7 @@
         android:text="@string/smartdoctor" />
 
     <Button
+        android:id="@+id/btn_head_help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
