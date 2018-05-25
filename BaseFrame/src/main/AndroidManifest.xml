@@ -23,5 +23,8 @@
         <activity
             android:name=".activitys.VideoPlayActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".activitys.ImageAnimActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

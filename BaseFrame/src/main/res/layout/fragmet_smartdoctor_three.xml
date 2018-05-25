@@ -4,10 +4,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.uurobot.baseframe.view.SurfaceViewAnim
+    <com.uurobot.baseframe.view.AnimImageView
         android:id="@+id/surfaceview_smartdoctor_three"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:orderOnTop="true"
         app:type="lowShao" />
 

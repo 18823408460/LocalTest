@@ -26,6 +26,7 @@ import com.uurobot.baseframe.utils.EAnimType;
 public class SurfaceViewAnim extends SurfaceView implements SurfaceHolder.Callback, Runnable {
         private static final String TAG = SurfaceViewAnim.class.getSimpleName();
         private volatile boolean threadAlive;
+        private volatile boolean canDraw;
         private int frameRate = 16; //帧率
         private SurfaceHolder surfaceHolder;
         private Thread drawThread;
@@ -52,7 +53,7 @@ public class SurfaceViewAnim extends SurfaceView implements SurfaceHolder.Callba
                 boolean aBoolean = typedArray.getBoolean(R.styleable.SurfaceViewAnim_orderOnTop, false);
                 EAnimType[] values = EAnimType.values();
                 eAnimType = values[anInt];
-                Log.e(TAG, "initTypeVuale:  int= " + anInt + "  type=" + eAnimType + "  aBoolean="+aBoolean);
+                Log.e(TAG, "initTypeVuale:  int= " + anInt + "  type=" + eAnimType + "  aBoolean=" + aBoolean);
 
                 // 下面两句话，才能使背景透明，不然是个黑色
                 setZOrderOnTop(aBoolean);
@@ -66,33 +67,36 @@ public class SurfaceViewAnim extends SurfaceView implements SurfaceHolder.Callba
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
-
+                Log.e(TAG, "surfaceCreated: ");
         }
 
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
                 threadAlive = true;
+                canDraw = true;
                 drawThread = new Thread(this, "drawThread");
                 drawThread.start();
         }
 
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
-                    threadAlive = false;
-                    Log.d(TAG, "surfaceDestroyed: ");
-        }
-
-        private boolean startDraw = true ;
-
-        public void setStartDraw(boolean startDraw) {
-                this.startDraw = startDraw;
+                Log.e(TAG, "surfaceDestroyed: start--------");
+                synchronized (this) {
+                        threadAlive = false;
+                        canDraw = false;
+                        Log.e(TAG, "surfaceDestroyed: -----------end");
+                }
         }
 
         @Override
         public void run() {
                 Log.e(TAG, "run: onDraw start");
                 while (threadAlive && !Thread.interrupted()) {
-                        doDraw();
+                        synchronized (this) {
+                                if (canDraw) {
+                                        doDraw();
+                                }
+                        }
                 }
                 Log.e(TAG, "run: onDraw end");
         }
@@ -115,25 +119,27 @@ public class SurfaceViewAnim extends SurfaceView implements SurfaceHolder.Callba
                         Log.e(TAG, "doDraw: e2=" + e);
                 } finally {
                         //    java.lang.IllegalArgumentException: canvas object must be the same instance that was previously returned by lockCanvas
-//                        if (canvas != null) {
-                                try {
-                                        surfaceHolder.unlockCanvasAndPost(canvas);
-                                } catch (Exception e) {
-                                        e.printStackTrace();
-                                        Log.e(TAG, "doDraw: e3====" + e);
-                                }
-//                        }
+                        //  if (canvas != null) {
+                        try {
+                                surfaceHolder.unlockCanvasAndPost(canvas);
+                                Log.e(TAG, "doDraw: unlockCanvasAndPost success");
+                        } catch (Exception e) {
+                                e.printStackTrace();
+                                Log.e(TAG, "doDraw: e3====" + e);
+                        }
+                        //  }
                 }
         }
 
         public void updateAnim(EAnimType eAnimType) {
+                index = 0;
                 this.eAnimType = eAnimType;
         }
 
         private void drawBitmaps(Canvas canvas) {
                 //Log.e(TAG, "drawBitmaps: decodeStart=== " + eAnimType);
                 int bitmapRes = 0;
-                bitmapRes = getBitmapRes(bitmapRes);
+                bitmapRes = AnimIds.getBitmapRes(index++, eAnimType);
                 Bitmap bitmap = null;
                 bitmap = BitmapFactory.decodeStream(getContext().getResources().openRawResource(bitmapRes));
                 //Log.e(TAG, "drawBitmaps: decodeEnd"); //100ms
@@ -144,38 +150,9 @@ public class SurfaceViewAnim extends SurfaceView implements SurfaceHolder.Callba
                         float y = (float) (getHeight() * 1.0 / bitmap.getHeight());
                         matrix.setScale(x, y);
                         canvas.drawBitmap(bitmap, matrix, null);
-//                        canvas.drawBitmap(bitmap,0,0,null);
+                        //                        canvas.drawBitmap(bitmap,0,0,null);
                 }
         }
 
-        private int getBitmapRes(int bitmapRes) {
-                if (eAnimType.equals(EAnimType.Dry)) {
-                        bitmapRes = AnimIds.Dry[index++ % AnimIds.Dry.length];
 
-                } else if (eAnimType.equals(EAnimType.DryWet)) {
-                        bitmapRes = AnimIds.DryWet[index++ % AnimIds.DryWet.length];
-
-                } else if (eAnimType.equals(EAnimType.HighDry)) {
-                        bitmapRes = AnimIds.HighDry[index++ % AnimIds.HighDry.length];
-
-                } else if (eAnimType.equals(EAnimType.HighDryWet)) {
-                        bitmapRes = AnimIds.HighDryWet[index++ % AnimIds.HighDryWet.length];
-
-                } else if (eAnimType.equals(EAnimType.Moist)) {
-                        bitmapRes = AnimIds.Moist[index++ % AnimIds.Moist.length];
-
-                } else if (eAnimType.equals(EAnimType.MoistWet)) {
-                        bitmapRes = AnimIds.MoistWet[index++ % AnimIds.MoistWet.length];
-
-                } else if (eAnimType.equals(EAnimType.LowShao)) {
-                        bitmapRes = AnimIds.LowShao[index++ % AnimIds.LowShao.length];
-
-                } else if (eAnimType.equals(EAnimType.LowWen)) {
-                        bitmapRes = AnimIds.LowWen[index++ % AnimIds.LowWen.length];
-
-                } else if (eAnimType.equals(EAnimType.HighShao)) {
-                        bitmapRes = AnimIds.HighShao[index++ % AnimIds.HighShao.length];
-                }
-                return bitmapRes;
-        }
 }

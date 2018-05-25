@@ -78,4 +78,37 @@ public class AnimIds {
                 , R.drawable.high_fever23, R.drawable.high_fever24, R.drawable.high_fever25, R.drawable.high_fever26, R.drawable.high_fever27
                 , R.drawable.high_fever28, R.drawable.high_fever29, R.drawable.high_fever30
         };
+
+
+        public static int getBitmapRes(int count, EAnimType eAnimType) {
+                int bitmapRes = 0;
+                if (eAnimType.equals(EAnimType.Dry)) {
+                        bitmapRes = AnimIds.Dry[count++ % AnimIds.Dry.length];
+
+                } else if (eAnimType.equals(EAnimType.DryWet)) {
+                        bitmapRes = AnimIds.DryWet[count++ % AnimIds.DryWet.length];
+
+                } else if (eAnimType.equals(EAnimType.HighDry)) {
+                        bitmapRes = AnimIds.HighDry[count++ % AnimIds.HighDry.length];
+
+                } else if (eAnimType.equals(EAnimType.HighDryWet)) {
+                        bitmapRes = AnimIds.HighDryWet[count++ % AnimIds.HighDryWet.length];
+
+                } else if (eAnimType.equals(EAnimType.Moist)) {
+                        bitmapRes = AnimIds.Moist[count++ % AnimIds.Moist.length];
+
+                } else if (eAnimType.equals(EAnimType.MoistWet)) {
+                        bitmapRes = AnimIds.MoistWet[count++ % AnimIds.MoistWet.length];
+
+                } else if (eAnimType.equals(EAnimType.LowShao)) {
+                        bitmapRes = AnimIds.LowShao[count++ % AnimIds.LowShao.length];
+
+                } else if (eAnimType.equals(EAnimType.LowWen)) {
+                        bitmapRes = AnimIds.LowWen[count++ % AnimIds.LowWen.length];
+
+                } else if (eAnimType.equals(EAnimType.HighShao)) {
+                        bitmapRes = AnimIds.HighShao[count++ % AnimIds.HighShao.length];
+                }
+                return bitmapRes;
+        }
 }

@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.uurobot.baseframe.R;
+import com.uurobot.baseframe.activitys.ImageAnimActivity;
 import com.uurobot.baseframe.activitys.SmartDoctorActivity;
 import com.uurobot.baseframe.activitys.VideoPlayActivity;
+import com.uurobot.baseframe.dialog.ImageViewDialog;
 import com.uurobot.baseframe.dialog.SurFaceViewDialog;
 
 import java.util.List;
@@ -78,7 +80,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         private void handlerItemThree() {
-                mContext.startActivity(new Intent(mContext, VideoPlayActivity.class));
+                mContext.startActivity(new Intent(mContext, ImageAnimActivity.class));
         }
 
         /**
@@ -92,7 +94,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
          * 智慧苗圃
          */
         private void handlerItemOne() {
-                SurFaceViewDialog surFaceViewDialog = new SurFaceViewDialog();
+//                SurFaceViewDialog surFaceViewDialog = new SurFaceViewDialog();
+//                surFaceViewDialog.show(fragmentManager, null);
+                ImageViewDialog surFaceViewDialog = new ImageViewDialog();
                 surFaceViewDialog.show(fragmentManager, null);
         }
 

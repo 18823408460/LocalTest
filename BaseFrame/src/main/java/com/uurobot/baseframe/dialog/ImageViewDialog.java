@@ -24,8 +24,7 @@ import com.uurobot.baseframe.view.SurfaceViewAnim;
  * Created by Administrator on 2018/5/23.
  */
 
-public class SurFaceViewDialog extends DialogFragment implements View.OnClickListener {
-        private SurfaceViewAnim surfaceViewAnim;
+public class ImageViewDialog extends DialogFragment implements View.OnClickListener {
         private AnimImageView imageView ;
         private TextView tv_wendu, tv_shidu;
 
@@ -45,7 +44,8 @@ public class SurFaceViewDialog extends DialogFragment implements View.OnClickLis
                 Button button4 = inflate.findViewById(R.id.btn_setWendu);
                 button4.setOnClickListener(this);
 
-                surfaceViewAnim = inflate.findViewById(R.id.surfaceView_dialog);
+                imageView = inflate.findViewById(R.id.imageview_dialog);
+                imageView.startAnim();
                 tv_shidu = inflate.findViewById(R.id.tv_shidu);
                 tv_wendu = inflate.findViewById(R.id.tv_wendu);
                 setshiDu(0.9f);
@@ -97,10 +97,11 @@ public class SurFaceViewDialog extends DialogFragment implements View.OnClickLis
                 int id = v.getId();
                 switch (id) {
                         case R.id.btn_surfaceviewDialog:
+                                imageView.stopAnim();
                                 dismiss();
                                 break;
                         case R.id.btn_switch:
-                                surfaceViewAnim.updateAnim(eAnimTypes[index++ % (eAnimTypes.length-3)]);
+                                imageView.updateAnim(eAnimTypes[index++ % (eAnimTypes.length-3)]);
                                 break;
                         case R.id.btn_setShidu:
                                 setshiDu(DataUtils.floatTranslate((float) Math.random()));
