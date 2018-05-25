@@ -29,5 +29,8 @@
         <activity
             android:name=".activitys.RecycleActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".activitys.SmartTreeActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

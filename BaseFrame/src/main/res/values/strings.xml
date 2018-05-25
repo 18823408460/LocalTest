@@ -2,6 +2,7 @@
     <string name="app_name">BaseFrame</string>
     <string name="wenshizaipei">温室栽培</string>
     <string name="wendu">温度：</string>
+    <string name="switchF">切换</string>
     <string name="shidu">湿度：</string>
     <string name="shiduTip">适湿约0.3~0.7</string>
     <string name="wenduTip">适温约19-25°C</string>
@@ -21,4 +22,7 @@
     <string name="current_tiwen">当前体温</string>
     <string name="current_tiwen_value">36.3°C</string>
     <string name="normal_tiwen_value">正常体温36.1/37.3</string>
+    <string name="smarttree">温室栽培介绍</string>
+    <string name="wenshizaipeikechent">温室栽培课程</string>
+    <string name="sensorjieshao">感知智能介绍</string>
 </resources>

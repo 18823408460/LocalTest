@@ -4,13 +4,16 @@
     android:layout_height="match_parent"
     android:background="@drawable/activity_smartdoctor_bk">
 
-
     <FrameLayout
         android:id="@+id/fl_smartdoctor"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <include
-        android:id="@+id/layout_smartdoctor_head"
-        layout="@layout/activity_smartdoctor_head" />
+    <Button
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:onClick="switchF"
+        android:text="@string/switchF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

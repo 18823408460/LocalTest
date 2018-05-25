@@ -1,4 +1,4 @@
-package com.uurobot.baseframe.fragment;
+package com.uurobot.baseframe.fragment.mainhome;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;

@@ -15,17 +15,10 @@
 
     <TextView
         android:textSize="20dp"
-        style="@style/tv_wenshidu"
+        android:textColor="#000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="@string/smartdoctor" />
+        android:text="@string/smarttree" />
 
-    <Button
-        android:layout_marginRight="14dp"
-        android:id="@+id/btn_head_help"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/btn_help_normal" />
 </RelativeLayout>

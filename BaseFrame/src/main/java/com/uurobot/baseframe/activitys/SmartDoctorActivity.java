@@ -77,7 +77,7 @@ public class SmartDoctorActivity extends BaseActivity implements View.OnClickLis
                                 switchFragment(fromFragment, baseFragmentList.get(index++ % baseFragmentList.size()));
                                 break;
                         case R.id.btn_head_help:
-                                testRecyleView();
+                               // testRecyleView();
                                 break;
                 }
         }

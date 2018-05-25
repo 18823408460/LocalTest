@@ -47,6 +47,7 @@ public class AnimImageView extends AppCompatImageView {
                                 sendEmptyMessageDelayed(NextAnim, 250);
                         }
                 };
+                setBackgroundResource(R.drawable.dry0);
         }
 
         private int index = 0;

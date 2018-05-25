@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.activitys.ImageAnimActivity;
 import com.uurobot.baseframe.activitys.SmartDoctorActivity;
+import com.uurobot.baseframe.activitys.SmartTreeActivity;
 import com.uurobot.baseframe.adapter.holder.RecycleViewHolder;
 import com.uurobot.baseframe.dialog.ImageViewDialog;
 
@@ -94,8 +95,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         private void handlerItemOne() {
 //                SurFaceViewDialog surFaceViewDialog = new SurFaceViewDialog();
 //                surFaceViewDialog.show(fragmentManager, null);
-                ImageViewDialog surFaceViewDialog = new ImageViewDialog();
-                surFaceViewDialog.show(fragmentManager, null);
+//                ImageViewDialog surFaceViewDialog = new ImageViewDialog();
+//                surFaceViewDialog.show(fragmentManager, null);
+                mContext.startActivity(new Intent(mContext, SmartTreeActivity.class));
         }
 
         @Override

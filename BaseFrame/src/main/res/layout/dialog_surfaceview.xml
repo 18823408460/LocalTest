@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/red">
+    android:layout_height="match_parent">
 
 
     <com.uurobot.baseframe.view.AnimImageView
@@ -143,6 +142,7 @@
 
 
     <LinearLayout
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -180,4 +180,7 @@
             android:text="设置湿度" />
     </LinearLayout>
 
+    <include
+        android:id="@+id/layout_smarttree"
+        layout="@layout/activity_smartdoctor_head" />
 </RelativeLayout>

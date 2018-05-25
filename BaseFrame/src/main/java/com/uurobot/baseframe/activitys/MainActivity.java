@@ -3,20 +3,18 @@ package com.uurobot.baseframe.activitys;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.base.BaseFragment;
-import com.uurobot.baseframe.fragment.CommonFragment;
-import com.uurobot.baseframe.fragment.CustomFragment;
-import com.uurobot.baseframe.fragment.OtherFragment;
-import com.uurobot.baseframe.fragment.ThirdPartFragment;
+import com.uurobot.baseframe.fragment.mainhome.CommonFragment;
+import com.uurobot.baseframe.fragment.mainhome.CustomFragment;
+import com.uurobot.baseframe.fragment.mainhome.OtherFragment;
+import com.uurobot.baseframe.fragment.mainhome.ThirdPartFragment;
 
 import java.util.ArrayList;
 import java.util.List;
