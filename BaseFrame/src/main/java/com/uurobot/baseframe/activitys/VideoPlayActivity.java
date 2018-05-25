@@ -31,7 +31,6 @@ public class VideoPlayActivity extends BaseActivity {
         protected void onCreate(@Nullable Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
 
-
                 setContentView(R.layout.activity_video_play);
                 mVideoView = findViewById(R.id.vv_videopaly);
                 playVideo();

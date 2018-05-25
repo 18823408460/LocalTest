@@ -1,4 +1,4 @@
-package com.uurobot.baseframe.adapter;
+package com.uurobot.baseframe.adapter.holder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

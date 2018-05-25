@@ -1,10 +1,14 @@
 package com.uurobot.baseframe.dialog;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +28,8 @@ import com.uurobot.baseframe.view.SurfaceViewAnim;
  * Created by Administrator on 2018/5/23.
  */
 
-public class ImageViewDialog extends DialogFragment implements View.OnClickListener {
-        private AnimImageView imageView ;
+public class ImageViewDialog extends BaseDialog implements View.OnClickListener {
+        private AnimImageView imageView;
         private TextView tv_wendu, tv_shidu;
 
         @Nullable
@@ -74,11 +78,24 @@ public class ImageViewDialog extends DialogFragment implements View.OnClickListe
                 window.getDecorView().setPadding(0, 0, 0, 0);
                 WindowManager.LayoutParams attributes = window.getAttributes();
                 attributes.gravity = Gravity.CENTER;
+
+                // 不包含 状态栏的高度
                 DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
                 int widthPixels = displayMetrics.widthPixels;
                 int heightPixels = displayMetrics.heightPixels;
-
-                window.setLayout((int) (widthPixels * 1.0), (int) (heightPixels * 1.0));
+                WindowManager windowManager =(WindowManager) getContext().getSystemService(Context. WINDOW_SERVICE);
+                final Display display = windowManager.getDefaultDisplay();
+                Point outPoint = new Point();
+                if (Build.VERSION.SDK_INT >= 19) {
+                        // 可能有虚拟按键的情况
+                        display.getRealSize(outPoint);
+                } else {
+                        // 不可能有虚拟按键
+                        display.getSize(outPoint);
+                }
+                heightPixels = outPoint.y;
+                widthPixels = outPoint.x;
+                window.setLayout((int) (widthPixels * 1.0), (int) (heightPixels));
                 //设置dialog背景为透明色
                 window.setBackgroundDrawableResource(R.color.transparent);
         }
@@ -101,7 +118,7 @@ public class ImageViewDialog extends DialogFragment implements View.OnClickListe
                                 dismiss();
                                 break;
                         case R.id.btn_switch:
-                                imageView.updateAnim(eAnimTypes[index++ % (eAnimTypes.length-3)]);
+                                imageView.updateAnim(eAnimTypes[index++ % (eAnimTypes.length - 3)]);
                                 break;
                         case R.id.btn_setShidu:
                                 setshiDu(DataUtils.floatTranslate((float) Math.random()));

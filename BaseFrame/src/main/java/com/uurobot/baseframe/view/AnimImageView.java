@@ -44,7 +44,7 @@ public class AnimImageView extends AppCompatImageView {
                         @Override
                         public void handleMessage(Message msg) {
                                 showAnim();
-                                sendEmptyMessageDelayed(NextAnim, 150);
+                                sendEmptyMessageDelayed(NextAnim, 250);
                         }
                 };
         }

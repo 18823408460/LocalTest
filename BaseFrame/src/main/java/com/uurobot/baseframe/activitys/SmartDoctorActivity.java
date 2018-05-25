@@ -1,5 +1,6 @@
 package com.uurobot.baseframe.activitys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -76,21 +77,31 @@ public class SmartDoctorActivity extends BaseActivity implements View.OnClickLis
                                 switchFragment(fromFragment, baseFragmentList.get(index++ % baseFragmentList.size()));
                                 break;
                         case R.id.btn_head_help:
-                                if (this.fromFragment instanceof SmartDoctorFragmentOne) {
-                                        DialogFragment smartDoctorDialog = SmartDoctorUpDialog.getInstance("检测人体");
-                                        smartDoctorDialog.show(getSupportFragmentManager(), null);
-
-                                } else if (this.fromFragment instanceof SmartDoctorFragmentTwo) {
-                                        DialogFragment smartDoctorDialog = SmartDoctorNormalDialog.
-                                                getInstance(" 检测失败，请重新检测!");
-                                        smartDoctorDialog.show(getSupportFragmentManager(), null);
-
-                                } else if (this.fromFragment instanceof SmartDoctorFragmentThree) {
-                                        DialogFragment smartDoctorDialog = SmartDoctorUpDialog.
-                                                getInstance("身体棒棒的，成绩\n杠杠的");
-                                        smartDoctorDialog.show(getSupportFragmentManager(), null);
-                                }
+                                testRecyleView();
                                 break;
+                }
+        }
+
+        private void testRecyleView() {
+                Intent intent = new Intent(this, RecycleActivity.class);
+                intent.putExtra(RecycleActivity.TYPE,"TT");
+                startActivity(intent);
+        }
+
+        private void testDialog() {
+                if (this.fromFragment instanceof SmartDoctorFragmentOne) {
+                        DialogFragment smartDoctorDialog = SmartDoctorUpDialog.getInstance("检测人体");
+                        smartDoctorDialog.show(getSupportFragmentManager(), null);
+
+                } else if (this.fromFragment instanceof SmartDoctorFragmentTwo) {
+                        DialogFragment smartDoctorDialog = SmartDoctorNormalDialog.
+                                getInstance(" 检测失败，请重新检测!");
+                        smartDoctorDialog.show(getSupportFragmentManager(), null);
+
+                } else if (this.fromFragment instanceof SmartDoctorFragmentThree) {
+                        DialogFragment smartDoctorDialog = SmartDoctorUpDialog.
+                                getInstance("身体棒棒的，成绩\n杠杠的");
+                        smartDoctorDialog.show(getSupportFragmentManager(), null);
                 }
         }
 }
