@@ -56,7 +56,7 @@ public class SmartHomeFragmentOne extends BaseFragment implements View.OnClickLi
                 tv_wendu.setText(format);
         }
 
-        private EAnimType[] eAnimTypes = EAnimType.values();
+        private EAnimType[] eAnimTypes = {EAnimType.OpenDoor,EAnimType.OpenLamp,EAnimType.OpenAirCondition,EAnimType.OpenTv};
         private int index;
 
         @Override
@@ -67,7 +67,7 @@ public class SmartHomeFragmentOne extends BaseFragment implements View.OnClickLi
                                 imageView.stopAnim();
                                 break;
                         case R.id.btn_switch:
-                                imageView.updateAnim(eAnimTypes[index++ % (eAnimTypes.length - 3)]);
+                                imageView.updateAnim(eAnimTypes[index++ % (eAnimTypes.length)]);
                                 break;
                         case R.id.btn_setShidu:
                                 setshiDu(DataUtils.floatTranslate((float) Math.random()));
@@ -76,5 +76,17 @@ public class SmartHomeFragmentOne extends BaseFragment implements View.OnClickLi
                                 setWenDu(DataUtils.floatTranslate((float) (Math.random() * 20)));
                                 break;
                 }
+        }
+
+        @Override
+        public void onPause() {
+                super.onPause();
+                imageView.stopAnim();
+        }
+
+        @Override
+        public void onResume() {
+                super.onResume();
+                imageView.startAnim();
         }
 }

@@ -35,10 +35,9 @@ public class SmartHomeFragmentTwo extends BaseFragment {
 
         private void initAdapter() {
                 List<TTBean> data = new ArrayList<>();
-                data.add(new TTBean("项目任务", "worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld"));
-                data.add(new TTBean("对应知识点", "worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld"));
-                data.add(new TTBean("功能描述", "worldworldworldworldworldworldworldworldworldworldworld" +
-                        "worldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworldworld"));
+                data.add(new TTBean(getString(R.string.project_task_title), getString(R.string.project_task_smarthome)));
+                data.add(new TTBean(getString(R.string.project_study_point_title), getString(R.string.project_study_point_smarthome)));
+                data.add(new TTBean(getString(R.string.project_fun_desc_title), getString(R.string.project_fun_desc_smarthome)));
                 recycleViewAdapter = new TTRecyleViewAdapter(data);
         }
 

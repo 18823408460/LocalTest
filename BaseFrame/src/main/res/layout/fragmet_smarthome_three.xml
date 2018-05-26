@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
+    <com.uurobot.baseframe.view.HeadLayout
         android:id="@+id/layout_smarttree"
-        layout="@layout/activity_smarttree_head" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:btn_left_bk="@drawable/btn_back_back"
+        app:tv_center_content="@string/smarthomeIntroduce"
+        app:tv_color="@android:color/black"
+        app:tv_size="26dp" />
 
     <TextView
-        android:padding="8dp"
-        android:layout_below="@id/layout_smarttree"
+        android:paddingLeft="10dp"
         android:id="@+id/tv_wenshikechen"
         style="@style/tv_green"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sensorjieshao" />
+        android:layout_below="@+id/layout_smarttree"
+        android:padding="8dp"
+        android:text="@string/sensorModule" />
 
     <View
         android:id="@+id/view_space"
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:layout_below="@id/tv_wenshikechen"
-        android:background="#00FF00" />
+        android:background="@color/view_color" />
 
 
     <android.support.v7.widget.RecyclerView
@@ -29,5 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/view_space"
+        android:layout_marginTop="30dp"
         android:background="@android:color/white" />
+
 </RelativeLayout>

@@ -37,7 +37,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
 
         @Override
         public int getItemCount() {
-                Log.e(TAG, "getItemCount: "+stringList.size() );
                 return stringList.size();
         }
 

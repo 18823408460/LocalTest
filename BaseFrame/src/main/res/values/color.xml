@@ -3,4 +3,7 @@
     <color name="normal_bk">#63B3DD</color>
     <color name="transparent">#00ffffff</color>
     <color name="red">#FF0000</color>
+    <color name="view_color">#00D6Fd</color>
+    <color name="view_color_yellow">#FFC730</color>
+    <color name="view_color_green">#45C4FF</color>
 </resources>

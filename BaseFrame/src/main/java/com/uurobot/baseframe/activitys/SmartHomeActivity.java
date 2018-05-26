@@ -6,9 +6,6 @@ import android.view.View;
 
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.base.BaseFragment;
-import com.uurobot.baseframe.fragment.smartTree.SmartTreeFragmentOne;
-import com.uurobot.baseframe.fragment.smartTree.SmartTreeFragmentThree;
-import com.uurobot.baseframe.fragment.smartTree.SmartTreeFragmentTwo;
 import com.uurobot.baseframe.fragment.smarthome.SmartHomeFragmentOne;
 import com.uurobot.baseframe.fragment.smarthome.SmartHomeFragmentThree;
 import com.uurobot.baseframe.fragment.smarthome.SmartHomeFragmentTwo;

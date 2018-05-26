@@ -35,9 +35,9 @@ public class SmartTreeFragmentThree extends BaseFragment {
 
     private void initAdapter() {
         List<ITBean> data = new ArrayList<>();
-        data.add(new ITBean(R.drawable.sensor_wemdu, "hellhellohellohellohellohellohellohellohellohellohelloo"));
-        data.add(new ITBean(R.drawable.sensor_touch, "hellohellohellohellohellohellohello"));
-        data.add(new ITBean(R.drawable.sensor_bright, "hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello"));
+        data.add(new ITBean(R.drawable.sensor_wemdu, getString(R.string.sensor_wendu_tip)));
+        data.add(new ITBean(R.drawable.sensor_touch, getString(R.string.sensor_touchu_tip)));
+        data.add(new ITBean(R.drawable.sensor_bright, getString(R.string.sensor_bright_tip)));
         recycleViewAdapter = new ITRecyleViewAdapter(data);
     }
 

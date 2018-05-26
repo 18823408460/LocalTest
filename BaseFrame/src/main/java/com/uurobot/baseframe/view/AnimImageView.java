@@ -44,10 +44,9 @@ public class AnimImageView extends AppCompatImageView {
                         @Override
                         public void handleMessage(Message msg) {
                                 showAnim();
-                                sendEmptyMessageDelayed(NextAnim, 250);
+                                sendEmptyMessageDelayed(NextAnim, 150);
                         }
                 };
-                setBackgroundResource(R.drawable.dry0);
         }
 
         private int index = 0;
@@ -60,16 +59,20 @@ public class AnimImageView extends AppCompatImageView {
 
         public void startAnim() {
                 index = 0;
+                stopAnim();
                 handler.sendEmptyMessage(NextAnim);
+                Log.e(TAG, "startAnim: =======================" );
         }
 
         public void stopAnim() {
                 handler.removeMessages(NextAnim);
+                Log.e(TAG, "stopAnim: ========================" );
         }
 
         public void updateAnim(EAnimType eAnimType) {
                 index = 0;
                 this.eAnimType = eAnimType;
+                stopAnim();
                 handler.sendEmptyMessage(NextAnim);
         }
 
@@ -79,6 +82,7 @@ public class AnimImageView extends AppCompatImageView {
                 boolean aBoolean = typedArray.getBoolean(R.styleable.SurfaceViewAnim_orderOnTop, false);
                 EAnimType[] values = EAnimType.values();
                 eAnimType = values[anInt];
+                handler.sendEmptyMessage(NextAnim);
                 Log.e(TAG, "initTypeVuale:  int= " + anInt + "  type=" + eAnimType + "  aBoolean=" + aBoolean);
         }
 }

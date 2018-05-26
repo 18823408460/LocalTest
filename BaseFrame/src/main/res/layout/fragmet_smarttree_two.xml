@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include
-        android:id="@+id/layout_smarttree"
-        layout="@layout/activity_smarttree_head" />
 
-    <TextView
-        android:padding="8dp"
-        android:layout_below="@id/layout_smarttree"
-        android:id="@+id/tv_wenshikechen"
-        style="@style/tv_yellow"
+    <com.uurobot.baseframe.view.HeadLayout
+        android:id="@+id/layout_smarttree"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:btn_left_bk="@drawable/btn_back_back"
+        app:tv_center_content="@string/smarttree"
+        app:tv_color="@android:color/black"
+        app:tv_size="26dp" />
+
+    <TextView
+        android:id="@+id/tv_wenshikechen"
+        style="@style/tv_tt_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_smarttree"
+        android:padding="8dp"
+        android:paddingLeft="10dp"
         android:text="@string/wenshizaipeikechent" />
 
     <View
@@ -20,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:layout_below="@id/tv_wenshikechen"
-        android:background="#FFFF00" />
+        android:background="@color/view_color_yellow" />
 
 
     <android.support.v7.widget.RecyclerView
@@ -28,5 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/view_space"
+        android:layout_marginTop="30dp"
         android:background="@android:color/white" />
+
+
 </RelativeLayout>

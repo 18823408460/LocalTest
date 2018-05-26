@@ -141,6 +141,19 @@ public class AnimIds {
 
                 } else if (eAnimType.equals(EAnimType.HighShao)) {
                         bitmapRes = AnimIds.HighShao[count++ % AnimIds.HighShao.length];
+
+                }else if (eAnimType.equals(EAnimType.OpenDoor)) {
+                        bitmapRes = AnimIds.OpenDoor[count++ % AnimIds.OpenDoor.length];
+
+                }else if (eAnimType.equals(EAnimType.OpenLamp)) {
+                        bitmapRes = AnimIds.OpenLamp[count++ % AnimIds.OpenLamp.length];
+
+                }else if (eAnimType.equals(EAnimType.OpenAirCondition)) {
+                        bitmapRes = AnimIds.OpenAirCondition[count++ % AnimIds.OpenAirCondition.length];
+
+                }else if (eAnimType.equals(EAnimType.OpenTv)) {
+                        bitmapRes = AnimIds.OpenTV[count++ % AnimIds.OpenTV.length];
+
                 }
                 return bitmapRes;
         }

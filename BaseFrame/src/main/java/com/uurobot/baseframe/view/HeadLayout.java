@@ -3,6 +3,7 @@ package com.uurobot.baseframe.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.uurobot.baseframe.utils.SizeUtil;
  */
 
 public class HeadLayout extends RelativeLayout {
+        private static final int error=-1 ;
         private int leftResId;
         private int rightResId;
         private String centerContent;
@@ -46,19 +48,29 @@ public class HeadLayout extends RelativeLayout {
                 Button btnLeft = view.findViewById(R.id.btn_head_common_left);
                 Button btnRight = view.findViewById(R.id.btn_head_common_right);
                 TextView textView = view.findViewById(R.id.tv_head_common);
-                btnLeft.setBackgroundResource(leftResId);
-                btnRight.setBackgroundResource(rightResId);
-                textView.setText(centerContent);
-                textView.setTextColor(tv_color);
-                textView.setTextSize(tv_size);
+                if (leftResId != error){
+                        btnLeft.setBackgroundResource(leftResId);
+                }else {
+                        btnLeft.setVisibility(GONE);
+                }
+                if (rightResId != error){
+                        btnRight.setBackgroundResource(rightResId);
+                }else {
+                        btnRight.setVisibility(GONE);
+                }
+                if (!TextUtils.isEmpty(centerContent)){
+                        textView.setText(centerContent);
+                        textView.setTextColor(tv_color);
+                        textView.setTextSize(tv_size);
+                }
         }
 
         private void initData(AttributeSet attrs) {
                 TypedArray typedArray = null;
                 try {
                         typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.headLayout);
-                        leftResId = typedArray.getResourceId(R.styleable.headLayout_btn_left_bk, 0);
-                        rightResId = typedArray.getResourceId(R.styleable.headLayout_btn_right_bk, 0);
+                        leftResId = typedArray.getResourceId(R.styleable.headLayout_btn_left_bk, error);
+                        rightResId = typedArray.getResourceId(R.styleable.headLayout_btn_right_bk, error);
                         centerContent = typedArray.getString(R.styleable.headLayout_tv_center_content);
                         tv_color = typedArray.getColor(R.styleable.headLayout_tv_color, 0);
                         tv_size = typedArray.getDimension(R.styleable.headLayout_tv_size, SizeUtil.dp2px(getContext(), 20f));

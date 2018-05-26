@@ -25,4 +25,21 @@
     <string name="smarttree">温室栽培介绍</string>
     <string name="wenshizaipeikechent">温室栽培课程</string>
     <string name="sensorjieshao">感知智能介绍</string>
+    <string name="sensor_wendu_tip">温度传感器是指将温度值和湿度值转换为容易被测量处理的电信号的设备或装置</string>
+    <string name="sensor_touchu_tip">触摸传感器是指将能感受压力信号，并能按照一定的规律将压力信号转换成可用的输出的电信号的器件或装置</string>
+    <string name="sensor_bright_tip">光照传感器，用于检测光照强度，简称光照，工作原理是将光照强度转为电压值</string>
+
+    <string name="project_task_title">项目任务</string>
+    <string name="project_fun_desc_title">功能描述</string>
+    <string name="project_study_point_title">对应知识点</string>
+    <string name="project_task">学生利用教学软件，温湿度传感器,学生利用教学软件，温湿度传感器学生利用教学软件，温湿度传感器</string>
+    <string name="project_fun_desc">学生利用教学软件，温湿度传感器学生利用教学软件，温湿度传感器学生利用教学软件，温湿度传感器</string>
+    <string name="project_study_point">学生利用教学软件，温湿度传感器学生利用教学软件，温湿度传感器学生利用教学软件，温湿度传感器</string>
+    <string name="project_task_smarthome">学生利用教学软件，温湿度传感器,学生利用教学软件，温湿度传感器学生利用教学软件，温湿度传感器</string>
+    <string name="project_fun_desc_smarthome">学生利用教学软件，温湿度传感器学生利用教学软件，温湿度传感器学生利用教学软件，温湿度传感器</string>
+    <string name="project_study_point_smarthome">学生利用教学软件，温湿度传感器学生利用教学软件，温湿度传感器学生利用教学软件，温湿度传感器</string>
+    <string name="smarthome">智能家具</string>
+    <string name="smarthomeIntroduce">智能家居介绍</string>
+    <string name="smarthomeKecheng">智能家居课程</string>
+    <string name="sensorModule">感知智能模块</string>
 </resources>

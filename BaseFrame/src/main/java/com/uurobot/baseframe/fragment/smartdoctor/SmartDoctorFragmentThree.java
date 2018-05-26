@@ -31,12 +31,14 @@ public class SmartDoctorFragmentThree extends BaseFragment {
         public void onPause() {
                 super.onPause();
                 Log.d(TAG, "onPause: ");
+                animImageView.stopAnim();
         }
 
         @Override
         public void onResume() {
                 super.onResume();
                 Log.d(TAG, "onResume: ");
+                animImageView.startAnim();
         }
 
         @Override

@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
     <com.uurobot.baseframe.view.AnimImageView
+        android:background="@drawable/low0"
         android:id="@+id/surfaceview_smartdoctor_three"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

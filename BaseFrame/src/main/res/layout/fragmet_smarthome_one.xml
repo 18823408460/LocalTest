@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <com.uurobot.baseframe.view.AnimImageView
+        android:background="@drawable/open0"
         android:id="@+id/imageview_dialog"
+        app:type = "openDoor"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -140,11 +143,10 @@
     </LinearLayout>
 
 
-
     <LinearLayout
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <Button
@@ -180,7 +182,9 @@
             android:text="设置湿度" />
     </LinearLayout>
 
-    <include
-        android:id="@+id/layout_smarttree"
-        layout="@layout/activity_smartdoctor_head" />
+    <com.uurobot.baseframe.view.HeadLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:btn_left_bk="@drawable/btn_back"
+        app:btn_right_bk="@drawable/btn_help" />
 </RelativeLayout>

@@ -26,6 +26,10 @@
             <enum name="lowShao" value="6" />
             <enum name="lowWen" value="7" />
             <enum name="highShao" value="8" />
+            <enum name="openDoor" value="9" />
+            <enum name="openLamp" value="10" />
+            <enum name="openAidCondition" value="11" />
+            <enum name="openTv" value="12" />
         </attr>
         <attr name="orderOnTop" format="boolean" />
     </declare-styleable>
