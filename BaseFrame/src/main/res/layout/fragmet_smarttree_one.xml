@@ -7,10 +7,10 @@
 
     <com.uurobot.baseframe.view.AnimImageView
         android:id="@+id/imageview_dialog"
-        android:background="@drawable/dry0"
-        app:type = "dry"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@drawable/dry0"
+        app:type="dry" />
 
     <TextView
         android:id="@+id/tv_wenshizaipei"
@@ -39,109 +39,40 @@
         android:background="@drawable/bk_wenshizaipei"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <com.uurobot.baseframe.view.ImageTextView
+            android:id="@+id/imagetextview_shidu"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp">
+            app:bitmapResId="@drawable/shidu"
+            app:lineColor="@color/black_high"
+            app:lineSize="4dp"
+            app:textDown="@string/shiduTip"
+            app:textDynamicColor="@color/green_high"
+            app:textDynamicSize="24dp"
+            app:textNormalColor="@color/green_low"
+            app:textNormalSize="15dp"
+            app:textUpLeft="@string/shidu"
+            app:textUpRight="@string/shiduValue" />
 
-            <ImageView
-                android:id="@+id/img_shidu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@drawable/shidu" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/img_shidu">
-
-                <TextView
-                    android:id="@+id/tv_shidu1"
-                    style="@style/tv_wenshidu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@string/shidu" />
-
-                <TextView
-                    android:id="@+id/tv_shidu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/tv_shidu1"
-                    android:text="@string/shiduValue"
-                    android:textColor="#00acfc"
-                    android:textSize="24dp" />
-
-                <TextView
-                    android:id="@+id/tv_shidu2"
-                    style="@style/tv_wenshidu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@id/tv_shidu1"
-                    android:layout_below="@id/tv_shidu"
-                    android:text="@string/shiduTip" />
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-        <View
+        <android.support.v4.widget.Space
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginBottom="6dp"
-            android:layout_marginTop="6dp"
-            android:background="#f5F1FD"
-            android:padding="2dp" />
+            android:layout_height="4dp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <com.uurobot.baseframe.view.ImageTextView
+            android:id="@+id/imagetextview_wendu"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp">
-
-            <ImageView
-                android:id="@+id/img_wendu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@drawable/wendu" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/img_wendu">
-
-                <TextView
-                    android:id="@+id/tv_wendu1"
-                    style="@style/tv_wenshidu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@string/wendu" />
-
-                <TextView
-                    android:id="@+id/tv_wendu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/tv_wendu1"
-                    android:text="@string/wenduValue"
-                    android:textColor="#00acfc"
-                    android:textSize="24dp" />
-
-                <TextView
-                    android:id="@+id/tv_wendu2"
-                    style="@style/tv_wenshidu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@id/tv_wendu1"
-                    android:layout_below="@id/tv_wendu"
-                    android:text="@string/wenduTip" />
-            </RelativeLayout>
-
-        </RelativeLayout>
+            app:bitmapResId="@drawable/wendu"
+            app:lineColor="@android:color/transparent"
+            app:lineSize="4dp"
+            app:textDown="@string/wenduTip"
+            app:textDynamicColor="@color/green_high"
+            app:textDynamicSize="24dp"
+            app:textNormalColor="@color/green_low"
+            app:textNormalSize="15dp"
+            app:textUpLeft="@string/wendu"
+            app:textUpRight="@string/wenduValue" />
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -8,7 +8,7 @@
     <string name="wenduTip">适温约19-25°C</string>
     <string name="shiduValue">0.2</string>
     <!-- .4表示数据总共是4位数，包含小数点在内-->
-    <string name="wenduValue">%1$.4S°C</string>
+    <string name="wenduValue">22.00°C</string>
     <string name="smartdoctor">智慧医生</string>
     <string name="check_people">检测人体...</string>
     <string name="tv_smartdoctor_one_tip">找不到你啦!\n快离我近点!</string>

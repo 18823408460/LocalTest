@@ -111,6 +111,10 @@ public class ImageTextView extends View {
         lineSize = SizeUtil.dp2px(getContext(), 2);
     }
 
+    public void updateDynaimcText(String textUpRight){
+        this.textUpRight = textUpRight ;
+        invalidate();
+    }
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         bitmap = BitmapFactory.decodeResource(getResources(), bitmapResId);
@@ -141,7 +145,7 @@ public class ImageTextView extends View {
         int Viewwidth = getWidth();
         // 绘制图片
         canvas.drawBitmap(bitmap, viewPadding, Viewheight / 2 - bitmap.getHeight() / 2, null);
-        float lineY = Viewheight / 2 + bitmap.getHeight() / 2 + textPaddingUp * 2;
+        float lineY = Viewheight / 2 + bitmap.getHeight() / 2 + textPaddingUp ;
         canvas.drawLine(viewPadding, lineY, Viewwidth - viewPadding, lineY, linePaint);
 
         // 绘制文字--- (x,y) 是 文字的左下角坐标

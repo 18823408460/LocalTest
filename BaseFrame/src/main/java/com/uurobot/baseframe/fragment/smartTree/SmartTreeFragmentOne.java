@@ -22,6 +22,7 @@ import com.uurobot.baseframe.base.BaseFragment;
 import com.uurobot.baseframe.utils.DataUtils;
 import com.uurobot.baseframe.utils.EAnimType;
 import com.uurobot.baseframe.view.AnimImageView;
+import com.uurobot.baseframe.view.ImageTextView;
 
 /**
  * Created by Administrator on 2018/5/23.
@@ -29,7 +30,8 @@ import com.uurobot.baseframe.view.AnimImageView;
 
 public class SmartTreeFragmentOne extends BaseFragment implements View.OnClickListener {
         private AnimImageView imageView;
-        private TextView tv_wendu, tv_shidu;
+        private ImageTextView imageTextViewWendu;
+        private ImageTextView imageTextViewShiu;
 
         @Override
         protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,8 +50,9 @@ public class SmartTreeFragmentOne extends BaseFragment implements View.OnClickLi
 
                 imageView = inflate.findViewById(R.id.imageview_dialog);
                 imageView.startAnim();
-                tv_shidu = inflate.findViewById(R.id.tv_shidu);
-                tv_wendu = inflate.findViewById(R.id.tv_wendu);
+
+                imageTextViewWendu  = inflate.findViewById(R.id.imagetextview_wendu);
+                imageTextViewShiu  = inflate.findViewById(R.id.imagetextview_shidu);
                 setshiDu(0.9f);
                 setWenDu(22f);
                 return inflate;
@@ -57,13 +60,13 @@ public class SmartTreeFragmentOne extends BaseFragment implements View.OnClickLi
 
 
         private void setshiDu(float shidu) {
-                tv_shidu.setText(String.valueOf(shidu));
+                //tv_shidu.setText(String.valueOf(shidu));
+                imageTextViewShiu.updateDynaimcText(String.valueOf(shidu));
         }
 
         private void setWenDu(float wendu) {
-                String string = getString(R.string.wenduValue);
-                String format = String.format(string, String.valueOf(wendu));
-                tv_wendu.setText(format);
+                String format = String.format("%s%s", String.valueOf(wendu),"°C");
+                imageTextViewWendu.updateDynaimcText(format);
         }
 
         private EAnimType[] eAnimTypes = {EAnimType.Dry,EAnimType.DryWet,EAnimType.HighDry,EAnimType.HighDryWet,EAnimType.Moist,EAnimType.MoistWet};

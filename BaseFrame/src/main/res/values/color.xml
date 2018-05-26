@@ -7,4 +7,9 @@
     <color name="view_color_yellow">#FFC730</color>
     <color name="view_color_green">#45C4FF</color>
     <color name="green">#0000FF</color>
+    <color name="green_low">#5dbeec</color>
+    <color name="green_high">#00acfc</color>
+    <color name="black_high">#f5F1FD</color>
+
+
 </resources>
