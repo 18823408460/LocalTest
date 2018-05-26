@@ -84,4 +84,12 @@
         <item name="android:textColor">#45C4FF</item>
     </style>
 
+    <style name="view_smarthome">
+        <item name="android:layout_width">180dp</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@color/red</item>
+    </style>
+
 </resources>

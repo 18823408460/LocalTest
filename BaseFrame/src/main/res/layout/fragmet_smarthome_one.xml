@@ -4,142 +4,80 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <com.uurobot.baseframe.view.AnimImageView
-        android:background="@drawable/open0"
         android:id="@+id/imageview_dialog"
-        app:type = "openDoor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <TextView
-        android:id="@+id/tv_wenshizaipei"
-        android:layout_width="194dp"
-        android:layout_height="70dp"
-        android:layout_above="@id/ll_layout_wenshidu"
-        android:layout_alignLeft="@id/ll_layout_wenshidu"
-        android:background="@drawable/bk_wenshizaipei"
-        android:drawableLeft="@drawable/tree"
-        android:drawablePadding="10dp"
-        android:gravity="center"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="@string/wenshizaipei"
-        android:textColor="#00cafd"
-        android:textSize="20dp" />
+        android:layout_height="match_parent"
+        android:background="@drawable/open0"
+        app:type="openDoor" />
 
     <LinearLayout
         android:id="@+id/ll_layout_wenshidu"
         android:layout_width="194dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/bk_wenshizaipei"
+        android:background="@drawable/bk_smarthome"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <com.uurobot.baseframe.view.ImageTextView
+            android:id="@+id/imagetextview_dengguang"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp">
+            app:bitmapResId="@drawable/denguang_home"
+            app:textDown="@string/dengguangTip"
+            app:textDynamicColor="@color/white"
+            app:textDynamicSize="28dp"
+            app:textNormalColor="@color/white_High"
+            app:textNormalSize="15dp"
+            app:textUpLeft="@string/dengguang"
+            app:textUpRight="@string/dengguangValue" />
 
-            <ImageView
-                android:id="@+id/img_shidu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@drawable/shidu" />
+        <View style="@style/view_smarthome" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/img_shidu">
-
-                <TextView
-                    android:id="@+id/tv_shidu1"
-                    style="@style/tv_wenshidu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@string/shidu" />
-
-                <TextView
-                    android:id="@+id/tv_shidu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/tv_shidu1"
-                    android:text="@string/shiduValue"
-                    android:textColor="#00acfc"
-                    android:textSize="24dp" />
-
-                <TextView
-                    android:id="@+id/tv_shidu2"
-                    style="@style/tv_wenshidu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@id/tv_shidu1"
-                    android:layout_below="@id/tv_shidu"
-                    android:text="@string/shiduTip" />
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginBottom="6dp"
-            android:layout_marginTop="6dp"
-            android:background="#f5F1FD"
-            android:padding="2dp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <com.uurobot.baseframe.view.ImageTextView
+            android:id="@+id/imagetextview_shidu"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp">
+            app:bitmapResId="@drawable/shidu_home"
+            app:textDown="@string/shiduHomeTip"
+            app:textDynamicColor="@color/white"
+            app:textDynamicSize="28dp"
+            app:textNormalColor="@color/white_High"
+            app:textNormalSize="15dp"
+            app:textUpLeft="@string/shidu"
+            app:textUpRight="@string/shiduValue" />
 
-            <ImageView
-                android:id="@+id/img_wendu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@drawable/wendu" />
+        <View style="@style/view_smarthome" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/img_wendu">
+        <com.uurobot.baseframe.view.ImageTextView
+            android:id="@+id/imagetextview_wendu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bitmapResId="@drawable/wendu_home"
+            app:textDown="@string/wenduHomeTip"
+            app:textDynamicColor="@color/white"
+            app:textDynamicSize="28dp"
+            app:textNormalColor="@color/white_High"
+            app:textNormalSize="15dp"
+            app:textUpLeft="@string/wendu"
+            app:textUpRight="@string/wenduValue" />
 
-                <TextView
-                    android:id="@+id/tv_wendu1"
-                    style="@style/tv_wenshidu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@string/wendu" />
+        <View style="@style/view_smarthome" />
 
-                <TextView
-                    android:id="@+id/tv_wendu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/tv_wendu1"
-                    android:text="@string/wenduValue"
-                    android:textColor="#00acfc"
-                    android:textSize="24dp" />
-
-                <TextView
-                    android:id="@+id/tv_wendu2"
-                    style="@style/tv_wenshidu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@id/tv_wendu1"
-                    android:layout_below="@id/tv_wendu"
-                    android:text="@string/wenduTip" />
-            </RelativeLayout>
-
-        </RelativeLayout>
+        <com.uurobot.baseframe.view.ImageTextView
+            android:id="@+id/imagetextview_gangying"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bitmapResId="@drawable/dangying_home"
+            app:textDown="@string/gangyingTip"
+            app:textDynamicColor="@color/white"
+            app:textDynamicSize="28dp"
+            app:textNormalColor="@color/white_High"
+            app:textNormalSize="15dp"
+            app:textUpLeft="@string/gangying"
+            app:textUpRight="@string/ganyingValue" />
     </LinearLayout>
 
 
@@ -150,20 +88,28 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_surfaceviewDialog"
-            style="@style/style_tv_recycleview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="结束动画" />
-
-        <Button
             android:id="@+id/btn_switch"
             style="@style/style_tv_recycleview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="切换动画" />
+
+        <Button
+            android:id="@+id/btn_setDengguang"
+            style="@style/style_tv_recycleview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="设置灯光" />
+
+        <Button
+            android:id="@+id/btn_setShidu"
+            style="@style/style_tv_recycleview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="设置湿度" />
 
         <Button
             android:id="@+id/btn_setWendu"
@@ -174,12 +120,12 @@
             android:text="设置温度" />
 
         <Button
-            android:id="@+id/btn_setShidu"
+            android:id="@+id/btn_setGanying"
             style="@style/style_tv_recycleview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="设置湿度" />
+            android:text="设置感应" />
     </LinearLayout>
 
     <com.uurobot.baseframe.view.HeadLayout

@@ -67,7 +67,7 @@ public class ImageTextView extends View {
             textDown = typedArray.getString(R.styleable.ImageTextView_textDown);
             textNormalColor = typedArray.getColor(R.styleable.ImageTextView_textNormalColor,Color.parseColor("#0000FF"));
             textDynamicColor = typedArray.getColor(R.styleable.ImageTextView_textDynamicColor,Color.parseColor("#FF0000"));
-            lineColor = typedArray.getColor(R.styleable.ImageTextView_lineColor,Color.parseColor("#FF0000"));
+            lineColor = typedArray.getColor(R.styleable.ImageTextView_lineColor,Color.parseColor("#00000000"));
             textNormalSize = typedArray.getDimensionPixelSize(R.styleable.ImageTextView_textNormalSize, SizeUtil.dp2px(getContext(), 20));
             textDynamicSize = typedArray.getDimensionPixelSize(R.styleable.ImageTextView_textDynamicSize, SizeUtil.dp2px(getContext(), 30));
             lineSize = typedArray.getDimensionPixelSize(R.styleable.ImageTextView_lineSize, SizeUtil.dp2px(getContext(), 2));

@@ -10,6 +10,7 @@
     <color name="green_low">#5dbeec</color>
     <color name="green_high">#00acfc</color>
     <color name="black_high">#f5F1FD</color>
-
+    <color name="white">#FFFFFF</color>
+    <color name="white_High">#D7FFFE</color>
 
 </resources>

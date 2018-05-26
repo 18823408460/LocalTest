@@ -8,7 +8,7 @@
     <string name="wenduTip">适温约19-25°C</string>
     <string name="shiduValue">0.2</string>
     <!-- .4表示数据总共是4位数，包含小数点在内-->
-    <string name="wenduValue">22.00°C</string>
+    <string name="wenduValue">22.0°C</string>
     <string name="smartdoctor">智慧医生</string>
     <string name="check_people">检测人体...</string>
     <string name="tv_smartdoctor_one_tip">找不到你啦!\n快离我近点!</string>
@@ -42,4 +42,12 @@
     <string name="smarthomeIntroduce">智能家居介绍</string>
     <string name="smarthomeKecheng">智能家居课程</string>
     <string name="sensorModule">感知智能模块</string>
+    <string name="dengguangTip">参数约：300-360lux</string>
+    <string name="dengguang">灯光:</string>
+    <string name="dengguangValue">360lux</string>
+    <string name="shiduHomeTip">参数约:0.4-0.7</string>
+    <string name="wenduHomeTip">参数值:19-25°C</string>
+    <string name="gangyingTip">参数 0-1m</string>
+    <string name="gangying">感应:</string>
+    <string name="ganyingValue">0.5</string>
 </resources>
