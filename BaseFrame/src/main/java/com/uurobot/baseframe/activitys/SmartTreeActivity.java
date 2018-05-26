@@ -28,9 +28,8 @@ import java.util.List;
  * Created by Administrator on 2018/5/23.
  */
 
-public class SmartTreeActivity extends BaseActivity  {
+public class SmartTreeActivity extends BaseFragmentActivity {
         private List<BaseFragment> baseFragmentList;
-        private BaseFragment fromFragment;
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,22 +46,9 @@ public class SmartTreeActivity extends BaseActivity  {
                 switchFragment(fromFragment, baseFragmentList.get(2));
         }
 
-        private void switchFragment(Fragment fromFragment, BaseFragment toFragment) {
-                FragmentManager supportFragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-                if (fromFragment != null) {
-                        fragmentTransaction.hide(fromFragment);
-                }
-                if (!toFragment.isAdded()) {
-                        fragmentTransaction.add(R.id.fl_smartdoctor, toFragment);
-                } else {
-                        fragmentTransaction.show(toFragment);
-                }
-                this.fromFragment = toFragment;
-                fragmentTransaction.commit();
-        }
         int index = 0;
-       public void switchF(View view){
-               switchFragment(fromFragment, baseFragmentList.get(index++ % baseFragmentList.size()));
-       }
+
+        public void switchF(View view) {
+                switchFragment(fromFragment, baseFragmentList.get(index++ % baseFragmentList.size()));
+        }
 }

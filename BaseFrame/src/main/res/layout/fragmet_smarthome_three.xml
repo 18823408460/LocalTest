@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/layout_smarttree"
+        layout="@layout/activity_smarttree_head" />
+
+    <TextView
+        android:padding="8dp"
+        android:layout_below="@id/layout_smarttree"
+        android:id="@+id/tv_wenshikechen"
+        style="@style/tv_green"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sensorjieshao" />
+
+    <View
+        android:id="@+id/view_space"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@id/tv_wenshikechen"
+        android:background="#00FF00" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleview_recycle_smarttree_three"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/view_space"
+        android:background="@android:color/white" />
+</RelativeLayout>

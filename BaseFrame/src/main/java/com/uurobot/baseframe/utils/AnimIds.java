@@ -80,6 +80,39 @@ public class AnimIds {
         };
 
 
+        public static final int OpenDoor[] = {
+                R.drawable.open0, R.drawable.open1, R.drawable.open2, R.drawable.open3, R.drawable.open4, R.drawable.open5, R.drawable.open6
+                , R.drawable.open6, R.drawable.open7, R.drawable.open8, R.drawable.open9, R.drawable.open10, R.drawable.open11, R.drawable.open12
+
+        };
+        public static final int OpenLamp[] = {
+                R.drawable.open_lamp0, R.drawable.open_lamp1, R.drawable.open_lamp2, R.drawable.open_lamp3, R.drawable.open_lamp4, R.drawable.open_lamp5
+                , R.drawable.open_lamp6, R.drawable.open_lamp7, R.drawable.open_lamp8, R.drawable.open_lamp9, R.drawable.open_lamp10
+                , R.drawable.open_lamp11, R.drawable.open_lamp12, R.drawable.open_lamp13, R.drawable.open_lamp14, R.drawable.open_lamp15
+                , R.drawable.open_lamp16, R.drawable.open_lamp17, R.drawable.open_lamp18, R.drawable.open_lamp19, R.drawable.open_lamp20
+                , R.drawable.open_lamp21, R.drawable.open_lamp22, R.drawable.open_lamp23, R.drawable.open_lamp24, R.drawable.open_lamp25
+                , R.drawable.open_lamp26, R.drawable.open_lamp27, R.drawable.open_lamp28, R.drawable.open_lamp29, R.drawable.open_lamp30
+                , R.drawable.open_lamp31, R.drawable.open_lamp32, R.drawable.open_lamp33, R.drawable.open_lamp34, R.drawable.open_lamp35
+                , R.drawable.open_lamp36, R.drawable.open_lamp37, R.drawable.open_lamp38, R.drawable.open_lamp39, R.drawable.open_lamp40
+                , R.drawable.open_lamp41, R.drawable.open_lamp42, R.drawable.open_lamp43, R.drawable.open_lamp44, R.drawable.open_lamp45
+                , R.drawable.open_lamp46, R.drawable.open_lamp47
+        };
+        public static final int OpenAirCondition[] = {
+                R.drawable.air_conditioner0, R.drawable.air_conditioner1, R.drawable.air_conditioner2, R.drawable.air_conditioner3
+                , R.drawable.air_conditioner4, R.drawable.air_conditioner5, R.drawable.air_conditioner6, R.drawable.air_conditioner7, R.drawable.air_conditioner8, R.drawable.air_conditioner9
+                , R.drawable.air_conditioner10, R.drawable.air_conditioner11, R.drawable.air_conditioner12, R.drawable.air_conditioner13, R.drawable.air_conditioner14, R.drawable.air_conditioner15
+                , R.drawable.air_conditioner16, R.drawable.air_conditioner17, R.drawable.air_conditioner18, R.drawable.air_conditioner19
+                , R.drawable.air_conditioner20, R.drawable.air_conditioner21, R.drawable.air_conditioner22, R.drawable.air_conditioner23, R.drawable.air_conditioner24, R.drawable.air_conditioner25
+                , R.drawable.air_conditioner26, R.drawable.air_conditioner27, R.drawable.air_conditioner28, R.drawable.air_conditioner29, R.drawable.air_conditioner30
+        };
+        public static final int OpenTV[] = {
+                R.drawable.tv0, R.drawable.tv1, R.drawable.tv2, R.drawable.tv3, R.drawable.tv4, R.drawable.tv5, R.drawable.tv6, R.drawable.tv7
+                , R.drawable.tv8, R.drawable.tv9, R.drawable.tv10, R.drawable.tv11, R.drawable.tv12, R.drawable.tv13, R.drawable.tv14
+                , R.drawable.tv15, R.drawable.tv16, R.drawable.tv17, R.drawable.tv18, R.drawable.tv19, R.drawable.tv20
+                , R.drawable.tv21, R.drawable.tv22, R.drawable.tv23, R.drawable.tv24, R.drawable.tv25, R.drawable.tv26
+                , R.drawable.tv27
+        };
+
         public static int getBitmapRes(int count, EAnimType eAnimType) {
                 int bitmapRes = 0;
                 if (eAnimType.equals(EAnimType.Dry)) {

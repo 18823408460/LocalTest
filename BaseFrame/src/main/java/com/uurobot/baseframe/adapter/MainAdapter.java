@@ -13,9 +13,9 @@ import android.widget.TextView;
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.activitys.ImageAnimActivity;
 import com.uurobot.baseframe.activitys.SmartDoctorActivity;
+import com.uurobot.baseframe.activitys.SmartHomeActivity;
 import com.uurobot.baseframe.activitys.SmartTreeActivity;
 import com.uurobot.baseframe.adapter.holder.RecycleViewHolder;
-import com.uurobot.baseframe.dialog.ImageViewDialog;
 
 import java.util.List;
 
@@ -23,9 +23,9 @@ import java.util.List;
  * Created by Administrator on 2018/5/23.
  */
 
-public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private List<String> stringList;
-        private static final String TAG = RecycleViewAdapter.class.getSimpleName();
+        private static final String TAG = MainAdapter.class.getSimpleName();
         private FragmentManager fragmentManager;
         private Context mContext;
 
@@ -34,7 +34,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 notifyDataSetChanged();
         }
 
-        public RecycleViewAdapter(List<String> stringList, FragmentManager fragmentManager) {
+        public MainAdapter(List<String> stringList, FragmentManager fragmentManager) {
                 this.stringList = stringList;
                 this.fragmentManager = fragmentManager;
         }
@@ -79,7 +79,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         private void handlerItemThree() {
-                mContext.startActivity(new Intent(mContext, ImageAnimActivity.class));
+                mContext.startActivity(new Intent(mContext, SmartHomeActivity.class));
         }
 
         /**

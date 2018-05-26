@@ -13,7 +13,11 @@ public enum EAnimType {
         MoistWet(5),
         LowShao(6),
         LowWen(7),
-        HighShao(8);
+        HighShao(8),
+        OpenDoor(9),
+        OpenLamp(10),
+        OpenAirCondition(11),
+        OpenTv(12);
 
         public int value;
 

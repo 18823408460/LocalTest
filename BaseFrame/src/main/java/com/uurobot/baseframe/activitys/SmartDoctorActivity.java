@@ -25,9 +25,9 @@ import java.util.List;
  * Created by Administrator on 2018/5/23.
  */
 
-public class SmartDoctorActivity extends BaseActivity implements View.OnClickListener {
+public class SmartDoctorActivity extends BaseFragmentActivity implements View.OnClickListener {
         private List<BaseFragment> baseFragmentList;
-        private BaseFragment fromFragment;
+
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,21 +43,6 @@ public class SmartDoctorActivity extends BaseActivity implements View.OnClickLis
                 baseFragmentList.add(new SmartDoctorFragmentTwo());
                 baseFragmentList.add(new SmartDoctorFragmentThree());
                 switchFragment(fromFragment, baseFragmentList.get(0));
-        }
-
-        private void switchFragment(Fragment fromFragment, BaseFragment toFragment) {
-                FragmentManager supportFragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-                if (fromFragment != null) {
-                        fragmentTransaction.hide(fromFragment);
-                }
-                if (!toFragment.isAdded()) {
-                        fragmentTransaction.add(R.id.fl_smartdoctor, toFragment);
-                } else {
-                        fragmentTransaction.show(toFragment);
-                }
-                this.fromFragment = toFragment;
-                fragmentTransaction.commit();
         }
 
         private void initView() {

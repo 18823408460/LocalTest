@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.adapter.ITRecyleViewAdapter;
-import com.uurobot.baseframe.adapter.RecycleViewAdapter;
 import com.uurobot.baseframe.adapter.RecycleViewItemDivide;
 import com.uurobot.baseframe.adapter.TTRecyleViewAdapter;
 import com.uurobot.baseframe.adapter.base.BaseAdapter;

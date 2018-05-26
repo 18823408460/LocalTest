@@ -27,13 +27,13 @@ import com.uurobot.baseframe.view.AnimImageView;
  * Created by Administrator on 2018/5/23.
  */
 
-public class SmartTreeFragmentOne extends BaseFragment implements View.OnClickListener{
+public class SmartTreeFragmentOne extends BaseFragment implements View.OnClickListener {
         private AnimImageView imageView;
         private TextView tv_wendu, tv_shidu;
 
         @Override
         protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-                View inflate = inflater.inflate(R.layout.dialog_surfaceview, container,false);
+                View inflate = inflater.inflate(R.layout.fragmet_smarttree_one, container, false);
                 Button button = inflate.findViewById(R.id.btn_surfaceviewDialog);
                 button.setOnClickListener(this);
 
@@ -65,6 +65,7 @@ public class SmartTreeFragmentOne extends BaseFragment implements View.OnClickLi
                 String format = String.format(string, String.valueOf(wendu));
                 tv_wendu.setText(format);
         }
+
         private EAnimType[] eAnimTypes = EAnimType.values();
         private int index;
 

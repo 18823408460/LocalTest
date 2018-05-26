@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.uurobot.baseframe.R;
-import com.uurobot.baseframe.adapter.RecycleViewAdapter;
+import com.uurobot.baseframe.adapter.MainAdapter;
 import com.uurobot.baseframe.adapter.RecycleViewItemDivide;
 import com.uurobot.baseframe.base.BaseFragment;
 
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class CommonFragment extends BaseFragment {
         private static final String TAG = CommonFragment.class.getSimpleName();
         private RecyclerView recyclerView;
-        private RecycleViewAdapter recycleViewAdapter;
+        private MainAdapter recycleViewAdapter;
 
         @Override
         protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,8 +37,8 @@ public class CommonFragment extends BaseFragment {
                 ArrayList<String> arrayList = new ArrayList<>();
                 arrayList.add("智慧苗圃");
                 arrayList.add("智慧医生");
-                arrayList.add("播放视频");
-                recycleViewAdapter = new RecycleViewAdapter(arrayList, getFragmentManager());
+                arrayList.add("智能家居");
+                recycleViewAdapter = new MainAdapter(arrayList, getFragmentManager());
                 recyclerView.addItemDecoration(new RecycleViewItemDivide(15));
                 recyclerView.setAdapter(recycleViewAdapter);
         }
