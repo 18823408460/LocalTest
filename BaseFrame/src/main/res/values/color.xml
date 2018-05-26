@@ -6,4 +6,5 @@
     <color name="view_color">#00D6Fd</color>
     <color name="view_color_yellow">#FFC730</color>
     <color name="view_color_green">#45C4FF</color>
+    <color name="green">#0000FF</color>
 </resources>

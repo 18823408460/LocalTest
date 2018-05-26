@@ -83,4 +83,5 @@
         <item name="android:textSize">28dp</item>
         <item name="android:textColor">#45C4FF</item>
     </style>
+
 </resources>
