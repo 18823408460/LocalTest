@@ -77,17 +77,7 @@ public class ImageTextView extends View {
     }
 
     private void initData() {
-//        bitmapResId = R.drawable.wendu;
-//        textUpLeft = "湿度:";
-//        textUpRight = "0.009C";
-//        textDown = "适湿约0.3-0.7";
-//        textNormalColor = Color.parseColor("#0000ff");
-//        textDynamicColor = Color.parseColor("#ff0000");
-//        lineColor = Color.parseColor("#ff0000");
-//        textNormalSize = SizeUtil.dp2px(getContext(), 20);
-//        textDynamicSize = SizeUtil.dp2px(getContext(), 35);
-//        lineSize = SizeUtil.dp2px(getContext(), 2);
-
+       // mockData();
         textPaintNoraml = new TextPaint();
         textPaintNoraml.setAntiAlias(true);
         textPaintNoraml.setColor(textNormalColor);
@@ -106,6 +96,19 @@ public class ImageTextView extends View {
         textPaddingLeft = SizeUtil.dp2px(getContext(), 5);
         textPaddingUp = SizeUtil.dp2px(getContext(), 5);
         viewPadding = SizeUtil.dp2px(getContext(), 5);
+    }
+
+    private void mockData() {
+        bitmapResId = R.drawable.wendu;
+        textUpLeft = "湿度:";
+        textUpRight = "0.009C";
+        textDown = "适湿约0.3-0.7";
+        textNormalColor = Color.parseColor("#0000ff");
+        textDynamicColor = Color.parseColor("#ff0000");
+        lineColor = Color.parseColor("#ff0000");
+        textNormalSize = SizeUtil.dp2px(getContext(), 20);
+        textDynamicSize = SizeUtil.dp2px(getContext(), 35);
+        lineSize = SizeUtil.dp2px(getContext(), 2);
     }
 
     @Override
