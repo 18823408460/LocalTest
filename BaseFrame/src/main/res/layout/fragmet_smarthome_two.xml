@@ -11,31 +11,24 @@
         app:tv_color="@android:color/black"
         app:tv_size = "26dp"
         app:tv_center_content="@string/smarthomeIntroduce"
-        app:btn_left_bk="@drawable/btn_back_back" />
+        app:btn_left_bk="@drawable/btn_back_gray" />
 
     <TextView
-        android:paddingLeft="10dp"
-        android:padding="8dp"
         android:layout_below="@+id/layout_smarttree"
         android:id="@+id/tv_wenshikechen"
-        style="@style/tv_tt_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/tv_yellow"
         android:text="@string/smarthomeKecheng" />
 
     <View
         android:id="@+id/view_space"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
+        style="@style/view_head"
         android:layout_below="@id/tv_wenshikechen"
         android:background="@color/view_color_yellow" />
 
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="30dp"
         android:id="@+id/recycleview_recycle_smarttree_two"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/recycleview"
         android:layout_below="@id/view_space"
         android:background="@android:color/white" />
 

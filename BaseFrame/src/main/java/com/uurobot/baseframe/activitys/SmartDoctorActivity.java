@@ -62,7 +62,7 @@ public class SmartDoctorActivity extends BaseFragmentActivity implements View.On
                                 switchFragment(fromFragment, baseFragmentList.get(index++ % baseFragmentList.size()));
                                 break;
                         case R.id.btn_head_help:
-                               // testRecyleView();
+                                testDialog();
                                 break;
                 }
         }

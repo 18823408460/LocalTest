@@ -8,35 +8,28 @@
         android:id="@+id/layout_smarttree"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:btn_left_bk="@drawable/btn_back_back"
+        app:btn_left_bk="@drawable/btn_back_gray"
         app:tv_center_content="@string/smarttree"
         app:tv_color="@android:color/black"
         app:tv_size="26dp" />
 
     <TextView
-        android:paddingLeft="10dp"
         android:id="@+id/tv_wenshikechen"
         style="@style/tv_green"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/layout_smarttree"
-        android:padding="8dp"
         android:text="@string/sensorjieshao" />
 
     <View
         android:id="@+id/view_space"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
+        style="@style/view_head"
         android:layout_below="@id/tv_wenshikechen"
         android:background="@color/view_color" />
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleview_recycle_smarttree_three"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/recycleview"
         android:layout_below="@id/view_space"
-        android:layout_marginTop="30dp"
         android:background="@android:color/white" />
 
 </RelativeLayout>

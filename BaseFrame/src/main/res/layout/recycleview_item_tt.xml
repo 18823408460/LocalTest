@@ -3,23 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
-    android:background="#99ffdd"
-    android:paddingLeft="30dp">
+    android:background="#99ffdd">
 
     <TextView
-        android:padding="3dp"
         android:id="@+id/tv_item_title_ll"
         style="@style/tv_tt_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="3dp" />
 
     <TextView
-        android:paddingRight="20dp"
-        android:padding="3dp"
         android:id="@+id/tv_item_content_ll"
         style="@style/tv_tt_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_item_title_ll" />
+        android:layout_below="@id/tv_item_title_ll"
+        android:padding="3dp"
+        android:paddingRight="20dp" />
 
 </RelativeLayout>

@@ -27,11 +27,11 @@
 
     <TextView
         android:gravity="center"
-        android:paddingBottom="14dp"
+        android:paddingBottom="20dp"
         android:layout_above="@id/img_one"
         android:layout_toRightOf="@id/img_one"
         android:text="@string/tv_smartdoctor_one_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/activity_smartdoctor_one_tv" />
+        android:background="@drawable/activity_smartdoctor_down_bk" />
 </RelativeLayout>

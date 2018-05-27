@@ -1,55 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#987654"
-    android:orientation="vertical"
     android:padding="0dp">
 
-    <com.uurobot.baseframe.view.ImageTextView
-        app:bitmapResId="@drawable/wendu"
-        app:textUpLeft="温度："
-        app:textUpRight="39.C"
-        app:textDown="今天的天气和好"
-        app:lineColor="@color/red"
-        app:textNormalColor="@color/green"
-        app:textDynamicColor="@color/red"
-        app:lineSize="4dp"
-        app:textDynamicSize="30dp"
-        app:textNormalSize="20dp"
-        android:id="@+id/view1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/low0" />
 
-    <com.uurobot.baseframe.view.ImageTextView
-        app:bitmapResId="@drawable/wendu"
-        app:textUpLeft="温度："
-        app:textUpRight="39.C"
-        app:textDown="今天的天气和好"
-        app:lineColor="@color/red"
-        app:textNormalColor="@color/green"
-        app:textDynamicColor="@color/red"
-        app:lineSize="4dp"
-        app:textDynamicSize="30dp"
-        app:textNormalSize="20dp"
-        android:id="@+id/view2"
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/view1" />
-
-    <com.uurobot.baseframe.view.ImageTextView
-        app:bitmapResId="@drawable/shidu"
-        app:textUpLeft="温度："
-        app:textUpRight="39.C"
-        app:textDown="今天的天气和好"
-        app:lineColor="@color/red"
-        app:textNormalColor="@color/green"
-        app:textDynamicColor="@color/red"
-        app:lineSize="4dp"
-        app:textDynamicSize="30dp"
-        app:textNormalSize="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/view2" />
+        android:layout_centerInParent="true"
+        android:text="center" />
 </RelativeLayout>
