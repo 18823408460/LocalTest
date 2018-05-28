@@ -6,7 +6,7 @@
 
     <application android:theme="@style/AppBaseTheme">
 
-        <activity android:name=".activitys.TestViewActivity">
+        <activity android:name=".activitys.custom.YouKuActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />

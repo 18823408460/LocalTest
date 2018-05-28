@@ -1,0 +1,4 @@
+1. view 的原理
+   view 和 viewgroup 的区别：
+
+   事件的派发
