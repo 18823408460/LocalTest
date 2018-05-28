@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:padding="10dp">
+    android:layout_marginTop="4dp">
 
     <Button
         android:id="@+id/btn_head_common_left"
@@ -18,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textColor="#000000"
-        android:textSize="30dp" />
+        android:textSize="16dp" />
 
     <Button
         android:id="@+id/btn_head_common_right"

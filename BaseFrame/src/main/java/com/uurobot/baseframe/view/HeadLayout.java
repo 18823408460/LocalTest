@@ -73,7 +73,7 @@ public class HeadLayout extends RelativeLayout {
                         rightResId = typedArray.getResourceId(R.styleable.headLayout_btn_right_bk, error);
                         centerContent = typedArray.getString(R.styleable.headLayout_tv_center_content);
                         tv_color = typedArray.getColor(R.styleable.headLayout_tv_color, 0);
-                        tv_size = typedArray.getDimension(R.styleable.headLayout_tv_size, SizeUtil.dp2px(getContext(), 20f));
+                        tv_size = typedArray.getDimension(R.styleable.headLayout_tv_size, SizeUtil.dp2px(getContext(), 10f));
                 } finally {
                         typedArray.recycle();
                 }

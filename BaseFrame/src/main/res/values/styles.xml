@@ -37,7 +37,6 @@
     </style>
 
     <!-- 温湿度 Textview
-         android:layout_width="match_parent" 不能写在这里？
         -->
     <style name="tv_wenshidu">
         <item name="android:gravity">center</item>
@@ -60,7 +59,7 @@
     </style>
 
     <style name="tv_yellow">
-        <item name="android:textSize">28dp</item>
+        <item name="android:textSize">20dp</item>
         <item name="android:textColor">#FFC528</item>
         <item name="android:paddingLeft">24dp</item>
         <item name="android:layout_width">match_parent</item>
@@ -69,7 +68,7 @@
     </style>
 
     <style name="tv_green">
-        <item name="android:textSize">28dp</item>
+        <item name="android:textSize">20dp</item>
         <item name="android:textColor">@color/view_color_green</item>
         <item name="android:paddingLeft">24dp</item>
         <item name="android:layout_width">match_parent</item>
@@ -94,12 +93,12 @@
 
 
     <style name="tv_tt_title">
-        <item name="android:textSize">28dp</item>
+        <item name="android:textSize">22dp</item>
         <item name="android:textColor">#FFC730</item>
     </style>
 
     <style name="tv_tt_content">
-        <item name="android:textSize">24dp</item>
+        <item name="android:textSize">20dp</item>
         <item name="android:textColor">#B6B6B6</item>
     </style>
 
