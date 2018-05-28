@@ -131,6 +131,6 @@
     <com.uurobot.baseframe.view.HeadLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:btn_left_bk="@drawable/btn_back"
-        app:btn_right_bk="@drawable/btn_help" />
+        app:btn_left_bk="@drawable/btn_back_visual"
+        app:btn_right_bk="@drawable/btn_help_visual" />
 </RelativeLayout>

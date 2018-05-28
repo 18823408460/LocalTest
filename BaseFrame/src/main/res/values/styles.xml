@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppBaseTheme" parent="android:Theme.Light.NoTitleBar.Fullscreen"></style>
+    <style name="AppBaseTheme" parent="android:Theme.Light.NoTitleBar.Fullscreen"/>
+    <style name="AppBaseTheme1" parent="Theme.AppCompat.Light"/>
+
+    <style name="AppCompatFullScreen" parent="@style/Theme.AppCompat.Light">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 
     <style name="AppTheme" parent="AppBaseTheme">
         <item name="android:windowNoTitle">true</item>

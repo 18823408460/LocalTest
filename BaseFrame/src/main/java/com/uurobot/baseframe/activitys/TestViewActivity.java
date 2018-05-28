@@ -1,5 +1,6 @@
 package com.uurobot.baseframe.activitys;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -15,5 +16,6 @@ public class TestViewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_textview);
        // setContentView(new ImageTextView(this));
+
     }
 }

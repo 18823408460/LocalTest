@@ -8,7 +8,7 @@
         android:id="@+id/layout_smarttree"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:btn_left_bk="@drawable/btn_back_gray"
+        app:btn_left_bk="@drawable/btn_back_gray_visual"
         app:tv_center_content="@string/smarttree"
         app:tv_color="@android:color/black"
         app:tv_size="26dp" />
