@@ -40,8 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginEnd="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         app:image_tem="@drawable/low_shao"
         app:tem_range="@string/low_shao_range"
         app:tem_range_tip="@string/low_shao_tip" />
