@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +45,8 @@ public class TestViewActivity extends BaseActivity {
 
                 //                testDrawable();
 
-                //                testRotateView();
-                testPopupWindow();
+                testRotateView();
+                //                testPopupWindow();
 
         }
 
@@ -68,7 +69,7 @@ public class TestViewActivity extends BaseActivity {
                                 popupWindow.setContentView(contentView);
                                 //  popupWindow.showAtLocation(v, Gravity.CENTER,0,0); //屏幕居中位置
                                 //  popupWindow.showAsDropDown(v); // v 的左下角
-                                popupWindow.showAsDropDown(v, v.getWidth() / 2 - popupWindow.getWidth() / 2, 0, -1);
+                                popupWindow.showAsDropDown(v, v.getWidth() / 2 - popupWindow.getWidth() / 2, 0, -1);//v 居中位置
                         }
                 });
         }
@@ -154,8 +155,31 @@ public class TestViewActivity extends BaseActivity {
                 imageView.setImageDrawable(new CircleDrawable(bitmap));
         }
 
+        private static final String TAG = TestViewActivity.class.getSimpleName();
+
         private void testRotateView() {
-                setContentView(new RotateThreeView(this));
+                @SuppressLint("ResourceType")
+                Bitmap bitmap = BitmapFactory.decodeStream(getResources().openRawResource(R.drawable.small2)); //这种方式创建的bitmap是不能修改的。
+                //  25 * 27
+                Log.e(TAG, "testRotateView: " + bitmap.getWidth() + "   " + bitmap.getHeight());
+                for (int i = 0; i < bitmap.getWidth(); i++) {
+                        String txt = "";
+                        for (int j = 0; j < bitmap.getHeight(); j++) {
+                                txt += bitmap.getPixel(i, j) + "\t";
+                                //bitmap.setPixel(i, j, Color.parseColor("#0000ff"));
+                        }
+                        Log.e(TAG, "testRotateView: row=" + i + "   " + txt);
+                }
+
+                Bitmap bitmap1 = Bitmap.createBitmap(10, 10, Bitmap.Config.RGB_565);
+                for (int i = 0; i < bitmap1.getWidth(); i++) {
+                        for (int j = 0; j < bitmap1.getHeight(); j++) {
+                                bitmap1.setPixel(i, j, Color.parseColor("#FF0000"));
+                        }
+                }
+                ImageView imageView = new ImageView(this);
+                imageView.setImageBitmap(bitmap1);
+                setContentView(imageView);
         }
 
         private void testAnim() {

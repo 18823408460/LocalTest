@@ -61,7 +61,9 @@ public class RotateThreeView extends View {
                         resId2 = typedArray.getResourceId(R.styleable.rotate_three_view_resId2, 0);
                         resId3 = typedArray.getResourceId(R.styleable.rotate_three_view_resId3, 0);
                 } finally {
-                        typedArray.recycle();
+                        if (typedArray != null){
+                                typedArray.recycle();
+                        }
                 }
         }
 
