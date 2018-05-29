@@ -12,12 +12,22 @@
     <!--android:layout_height="wrap_content"-->
     <!--android:layout_centerInParent="true" />-->
 
-    <com.uurobot.baseframe.view.RotateThreeView
-        app:resId1="@drawable/activity_smartdoctor_lizi"
-        app:resId2="@drawable/activity_smartdoctor_center2"
-        app:resId3="@drawable/icon_size"
+    <!--<com.uurobot.baseframe.view.RotateThreeView-->
+        <!--app:resId1="@drawable/activity_smartdoctor_lizi"-->
+        <!--app:resId2="@drawable/activity_smartdoctor_center2"-->
+        <!--app:resId3="@drawable/icon_size"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true" />-->
+
+    <ImageView
+        android:id="@+id/image_test"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/btn_activity_testview"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

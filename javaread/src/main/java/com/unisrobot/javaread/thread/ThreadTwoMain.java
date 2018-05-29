@@ -25,7 +25,7 @@ public class ThreadTwoMain {
                         public void run() {
                                 action.loopB();
                         }
-                },"B").start();
+                },"ExtendB").start();
                 new Thread(new Runnable() {
                         @Override
                         public void run() {

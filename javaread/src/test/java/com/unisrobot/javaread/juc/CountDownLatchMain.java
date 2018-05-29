@@ -11,6 +11,7 @@ import java.util.concurrent.CountDownLatch;
 public class CountDownLatchMain {
 
         public static void main(String[] args) throws InterruptedException {
+                // 闭锁
                 CountDownLatch countDownLatch = new CountDownLatch(1);
                 MyRunnable myRunnable = new MyRunnable(countDownLatch);
                 new Thread(myRunnable).start();

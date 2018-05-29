@@ -65,6 +65,7 @@ public class RotateThreeView extends View {
                 }
         }
 
+
         private void mockData() {
                 resId1 = R.drawable.activity_smartdoctor_lizi;
                 resId2 = R.drawable.activity_smartdoctor_center2;
@@ -75,6 +76,18 @@ public class RotateThreeView extends View {
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
                 setMeasuredDimension((int) viewWidth, (int) viewWidth);
         }
+
+
+        @Override
+        protected void onDetachedFromWindow() {
+                super.onDetachedFromWindow();
+        }
+
+        @Override
+        protected void onAttachedToWindow() {
+                super.onAttachedToWindow();
+        }
+
 
         @Override
         protected void onWindowVisibilityChanged(int visibility) {

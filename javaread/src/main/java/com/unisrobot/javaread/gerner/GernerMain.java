@@ -8,20 +8,26 @@ import java.util.List;
  */
 
 public class GernerMain {
-    public static void main(String[] args) {
-        ParentA parentA = new ParentA();
-        SonA sonA = new SonA();
-        GrandSonA grandSonA = new GrandSonA();
-        List<GrandSonA> list = new ArrayList<>();
-        printA(list);
+        public static void main(String[] args) {
+                ParentA parentA = new ParentA();
+                SonA sonA = new SonA();
+                GrandSonA grandSonA = new GrandSonA();
+                List<GrandSonA> list = new ArrayList<>();
+                printA(list);
 
-        List<ParentA> list1 = new ArrayList<>();
-        printB(list1);
-    }
+                List<ParentA> list1 = new ArrayList<>();
+                printB(list1);
 
-    private static void printA(List<? extends SonA> sonA) {
-    }
+                ExtendB<SonA> sonAB = new ExtendB<>();
+                ExtendB<GrandSonA> grandSonAB = new ExtendB<>();
 
-    private static void printB(List<? super SonA> sonA) {
-    }
+                //ExtendB<ParentA> parentAB = new ExtendB<ParentA>();
+        }
+
+        // 泛型限定符
+        private static void printA(List<? extends SonA> sonA) {
+        }
+
+        private static void printB(List<? super SonA> sonA) {
+        }
 }

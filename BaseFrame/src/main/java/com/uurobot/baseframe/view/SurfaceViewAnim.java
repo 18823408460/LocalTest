@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.util.AttributeSet;
@@ -81,28 +80,25 @@ public class SurfaceViewAnim extends SurfaceView implements SurfaceHolder.Callba
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
                 Log.e(TAG, "surfaceDestroyed: start--------");
-                synchronized (this) {
-                        threadAlive = false;
-                        canDraw = false;
-                        Log.e(TAG, "surfaceDestroyed: -----------end");
-                }
+                threadAlive = false;
+                canDraw = false;
+                Log.e(TAG, "surfaceDestroyed: -----------end");
         }
 
         @Override
         public void run() {
                 Log.e(TAG, "run: onDraw start");
                 while (threadAlive && !Thread.interrupted()) {
-                        synchronized (this) {
-                                if (canDraw) {
-                                        doDraw();
-                                }
+                        if (canDraw) {
+                                doDraw();
                         }
                 }
                 Log.e(TAG, "run: onDraw end");
         }
 
+        Canvas canvas = null;
+
         private void doDraw() {
-                Canvas canvas = null;
                 try {
                         canvas = surfaceHolder.lockCanvas();//从Surface中取出一块矩形区域进行刷新
                         //每次绘制之前要 清楚屏幕

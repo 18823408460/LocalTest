@@ -1,5 +1,7 @@
 package com.unisrobot.javaread.compare;
 
+import android.util.Log;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +14,11 @@ public final class FileString implements Comparable<FileString> {
                 this.fileName = fileName;
                 Matcher matcher = number.matcher(fileName);
                 if (matcher.find()) {
+                        String group = matcher.group(); //返回的是匹配串   的所有字符长度
+                        System.out.println("=========="+matcher.groupCount());
+                        System.out.println("========="+matcher.group());
+                        System.out.println("========="+matcher.group().length());
+                        System.out.println();
                         prefix_num = Integer.parseInt(matcher.group(1));
                 } else {
                         prefix_num = 0;

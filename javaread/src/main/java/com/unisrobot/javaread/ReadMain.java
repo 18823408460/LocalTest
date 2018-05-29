@@ -30,7 +30,7 @@ public class ReadMain {
                         new FileString("a2.png"),
                         new FileString("a10.png"),
                         new FileString("a11.png"),
-                        new FileString("a21.png")
+                        new FileString("a21.pnga21.pnga21.png")
                 );
                 Collections.sort(list);
                 System.out.println(list);
