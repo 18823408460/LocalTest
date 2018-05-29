@@ -123,4 +123,9 @@
         <item name="android:background">@color/red</item>
     </style>
 
+
+    <!-- style中使用自定义属性，不需要app 命名空间，否则会报错-->
+    <style name="custom">
+        <item name="resId1">@drawable/activity_smartdoctor_lizi</item>
+    </style>
 </resources>
