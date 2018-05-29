@@ -15,7 +15,7 @@ import com.uurobot.baseframe.utils.ViewTools;
  */
 
 public class YouKuActivity extends BaseActivity implements View.OnClickListener {
-    private RelativeLayout layout1, layout2, layout3;
+    private RelativeLayout layout1,     layout2, layout3;
     private ImageView imageViewHome, imageMenu;
     private boolean lever1Show, lever2Show;
 
