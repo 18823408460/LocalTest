@@ -36,15 +36,21 @@
 
 
     <declare-styleable name="ImageTextView">
-        <attr name="bitmapResId" format="reference"/>
-        <attr name="textUpLeft" format="string"/>
-        <attr name="textUpRight" format="string"/>
-        <attr name="textDown" format="string"/>
-        <attr name="textNormalColor" format="color"/>
-        <attr name="textDynamicColor" format="color"/>
-        <attr name="lineColor" format="color"/>
-        <attr name="lineSize" format="dimension"/>
-        <attr name="textNormalSize" format="dimension"/>
-        <attr name="textDynamicSize" format="dimension"/>
+        <attr name="bitmapResId" format="reference" />
+        <attr name="textUpLeft" format="string" />
+        <attr name="textUpRight" format="string" />
+        <attr name="textDown" format="string" />
+        <attr name="textNormalColor" format="color" />
+        <attr name="textDynamicColor" format="color" />
+        <attr name="lineColor" format="color" />
+        <attr name="lineSize" format="dimension" />
+        <attr name="textNormalSize" format="dimension" />
+        <attr name="textDynamicSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="rotate_three_view">
+        <attr name="resId1" format="reference" />
+        <attr name="resId2" format="reference" />
+        <attr name="resId3" format="reference" />
     </declare-styleable>
 </resources>

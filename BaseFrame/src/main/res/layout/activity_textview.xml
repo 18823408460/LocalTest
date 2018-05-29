@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000">
+    android:background="#551122">
 
-    <ImageView
-        android:scaleType="fitCenter"
-        android:background="@drawable/activity_smartdoctor_step1"
+    <!--<ImageView-->
+    <!--android:scaleType="fitCenter"-->
+    <!--android:background="@drawable/activity_smartdoctor_step1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true" />-->
+
+    <com.uurobot.baseframe.view.RotateThreeView
+        app:resId1="@drawable/activity_smartdoctor_lizi"
+        app:resId2="@drawable/activity_smartdoctor_center2"
+        app:resId3="@drawable/icon_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
+
 </RelativeLayout>

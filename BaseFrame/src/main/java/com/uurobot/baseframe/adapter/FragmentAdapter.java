@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.uurobot.baseframe.R;
-import com.uurobot.baseframe.activitys.ImageAnimActivity;
 import com.uurobot.baseframe.activitys.SmartDoctorActivity;
 import com.uurobot.baseframe.activitys.SmartHomeActivity;
 import com.uurobot.baseframe.activitys.SmartTreeActivity;
@@ -23,9 +22,9 @@ import java.util.List;
  * Created by Administrator on 2018/5/23.
  */
 
-public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract  class FragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private List<String> stringList;
-        private static final String TAG = MainAdapter.class.getSimpleName();
+        private static final String TAG = FragmentAdapter.class.getSimpleName();
         private FragmentManager fragmentManager;
         private Context mContext;
 
@@ -34,7 +33,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 notifyDataSetChanged();
         }
 
-        public MainAdapter(List<String> stringList, FragmentManager fragmentManager) {
+        public FragmentAdapter(List<String> stringList, FragmentManager fragmentManager) {
                 this.stringList = stringList;
                 this.fragmentManager = fragmentManager;
         }
@@ -63,42 +62,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
         }
 
-        private void handlerItemClick(int position) {
-                Log.d(TAG, "handlerItemClick: " + position);
-                switch (position) {
-                        case 0:
-                                handlerItemOne();
-                                break;
-                        case 1:
-                                handlerItemTwo();
-                                break;
-                        case 2:
-                                handlerItemThree();
-                                break;
-                }
-        }
-
-        private void handlerItemThree() {
-                mContext.startActivity(new Intent(mContext, SmartHomeActivity.class));
-        }
-
-        /**
-         * 智慧医生
-         */
-        private void handlerItemTwo() {
-                mContext.startActivity(new Intent(mContext, SmartDoctorActivity.class));
-        }
-
-        /**
-         * 智慧苗圃
-         */
-        private void handlerItemOne() {
-//                SurFaceViewDialog surFaceViewDialog = new SurFaceViewDialog();
-//                surFaceViewDialog.show(fragmentManager, null);
-//                ImageViewDialog surFaceViewDialog = new ImageViewDialog();
-//                surFaceViewDialog.show(fragmentManager, null);
-                mContext.startActivity(new Intent(mContext, SmartTreeActivity.class));
-        }
+        public abstract void handlerItemClick(int position) ;
 
         @Override
         public int getItemCount() {

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.uurobot.baseframe.R;
+import com.uurobot.baseframe.view.ImageTextView;
+import com.uurobot.baseframe.view.RotateThreeView;
 
 /**
  * Created by WEI on 2018/5/26.
@@ -15,7 +17,7 @@ public class TestViewActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_textview);
-       // setContentView(new ImageTextView(this));
+//        setContentView(new RotateThreeView(this));
 
     }
 }

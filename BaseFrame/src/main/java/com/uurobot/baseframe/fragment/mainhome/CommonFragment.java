@@ -1,5 +1,6 @@
 package com.uurobot.baseframe.fragment.mainhome;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.uurobot.baseframe.R;
-import com.uurobot.baseframe.adapter.MainAdapter;
+import com.uurobot.baseframe.activitys.SmartDoctorActivity;
+import com.uurobot.baseframe.activitys.SmartHomeActivity;
+import com.uurobot.baseframe.activitys.SmartTreeActivity;
+import com.uurobot.baseframe.adapter.FragmentAdapter;
 import com.uurobot.baseframe.adapter.RecycleViewItemDivide;
 import com.uurobot.baseframe.base.BaseFragment;
 
@@ -22,7 +26,7 @@ import java.util.ArrayList;
 public class CommonFragment extends BaseFragment {
         private static final String TAG = CommonFragment.class.getSimpleName();
         private RecyclerView recyclerView;
-        private MainAdapter recycleViewAdapter;
+        private FragmentAdapter recycleViewAdapter;
 
         @Override
         protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,9 +42,47 @@ public class CommonFragment extends BaseFragment {
                 arrayList.add("智慧苗圃");
                 arrayList.add("智慧医生");
                 arrayList.add("智能家居");
-                recycleViewAdapter = new MainAdapter(arrayList, getFragmentManager());
+                recycleViewAdapter = new FragmentAdapter(arrayList,getFragmentManager()) {
+                        @Override
+                        public void handlerItemClick(int position) {
+                                Log.d(TAG, "handlerItemClick: " + position);
+                                switch (position) {
+                                        case 0:
+                                                handlerItemOne();
+                                                break;
+                                        case 1:
+                                                handlerItemTwo();
+                                                break;
+                                        case 2:
+                                                handlerItemThree();
+                                                break;
+                                }
+                        }
+                };
                 recyclerView.addItemDecoration(new RecycleViewItemDivide(15));
                 recyclerView.setAdapter(recycleViewAdapter);
+        }
+
+        private void handlerItemThree() {
+                mContext.startActivity(new Intent(mContext, SmartHomeActivity.class));
+        }
+
+        /**
+         * 智慧医生
+         */
+        private void handlerItemTwo() {
+                mContext.startActivity(new Intent(mContext, SmartDoctorActivity.class));
+        }
+
+        /**
+         * 智慧苗圃
+         */
+        private void handlerItemOne() {
+                //                SurFaceViewDialog surFaceViewDialog = new SurFaceViewDialog();
+                //                surFaceViewDialog.show(fragmentManager, null);
+                //                ImageViewDialog surFaceViewDialog = new ImageViewDialog();
+                //                surFaceViewDialog.show(fragmentManager, null);
+                mContext.startActivity(new Intent(mContext, SmartTreeActivity.class));
         }
 
         @Override

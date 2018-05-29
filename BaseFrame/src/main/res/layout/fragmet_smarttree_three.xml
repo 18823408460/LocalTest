@@ -11,7 +11,7 @@
         app:btn_left_bk="@drawable/btn_back_gray_visual"
         app:tv_center_content="@string/smarttree"
         app:tv_color="@android:color/black"
-        app:tv_size="26dp" />
+        app:tv_size="10dp" />
 
     <TextView
         android:id="@+id/tv_wenshikechen"
