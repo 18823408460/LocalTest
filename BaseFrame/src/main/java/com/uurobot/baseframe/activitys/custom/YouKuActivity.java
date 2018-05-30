@@ -3,8 +3,10 @@ package com.uurobot.baseframe.activitys.custom;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.activitys.BaseActivity;
@@ -28,6 +30,7 @@ public class YouKuActivity extends BaseActivity implements View.OnClickListener 
         layout3 = (RelativeLayout) findViewById(R.id.layout_youku_lever3);
         imageViewHome = findViewById(R.id.image_icon_home);
         imageMenu = findViewById(R.id.image_icon_menu);
+        
         imageViewHome.setOnClickListener(this);
         imageMenu.setOnClickListener(this);
     }
@@ -37,14 +40,16 @@ public class YouKuActivity extends BaseActivity implements View.OnClickListener 
         int id = v.getId();
         if (id == R.id.image_icon_home) {
             if (!lever2Show) {
-                ViewTools.hideView(layout2);
+//                ViewTools.hideView(layout2);
+                  ViewTools.hideViewObj(layout2);
             } else {
-                ViewTools.showView(layout2);
+                ViewTools.showViewObj(layout2);
+//                ViewTools.showView(layout2);
             }
             lever2Show = !lever2Show;
 
         } else if (id == R.id.image_icon_menu) {
-
+            Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
         }
     }
 }
