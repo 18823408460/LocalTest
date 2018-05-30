@@ -45,10 +45,17 @@ public class TestViewActivity extends BaseActivity {
 
                 //                testDrawable();
 
-                testRotateView();
+                testDimens();
                 //                testPopupWindow();
 
         }
+
+
+        private void testDimens(){
+                setContentView(R.layout.activity_test_diments);
+        }
+
+
 
         private void testPopupWindow() {
                 setContentView(R.layout.activity_textview);

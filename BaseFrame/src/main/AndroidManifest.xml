@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.uurobot.baseframe">
 
@@ -5,51 +6,45 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application android:theme="@style/AppBaseTheme">
-
-        <activity android:name=".activitys.LauncherActivity">
+        <activity android:name=".activitys.TestViewActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activitys.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".activitys.SmartDoctorActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".activitys.VideoPlayActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".activitys.ImageAnimActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".activitys.RecycleActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".activitys.SmartTreeActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".activitys.SmartHomeActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".activitys.custom.YouKuActivity"
             android:screenOrientation="landscape" />
-
-        <activity
-            android:name=".activitys.TestViewActivity"
-            android:screenOrientation="landscape" />
+        <!--<activity-->
+            <!--android:name=".activitys.TestViewActivity"-->
+            <!--android:screenOrientation="landscape" />-->
         <activity android:name=".activitys.custom.AdsViewPagerActivity" />
+        <!-- This service is only used on devices with API v17+ -->
     </application>
+
 </manifest>

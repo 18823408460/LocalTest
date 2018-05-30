@@ -1,0 +1,4 @@
+1.     adb   -s  设备名  shell
+
+
+adb   -s  设备名  install -r
