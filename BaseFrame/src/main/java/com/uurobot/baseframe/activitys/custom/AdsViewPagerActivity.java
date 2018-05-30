@@ -68,8 +68,12 @@ public class AdsViewPagerActivity extends BaseActivity {
                 for (int i = 0; i < pagerIds.length; i++) {
                         ImageView imageView = new ImageView(this);
                         imageView.setBackgroundResource(R.drawable.point_selectors);
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(12, 12);
-                        params.leftMargin = 10;
+                        // 构造参数是  view  的宽高
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(62, 62);
+                        if (i != (pagerIds.length-1)){ // 最后一个不需要
+                                params.rightMargin = 40 ;
+                        }
+                        imageView.setLayoutParams(params);
                         imageView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -84,8 +88,8 @@ public class AdsViewPagerActivity extends BaseActivity {
                 viewPager.setAdapter(new PagerAdapter() {
                         @Override
                         public int getCount() {
-                                //                                return pagerIds.length;
-                                return Integer.MAX_VALUE; //6亿
+                                return pagerIds.length;
+                                //                                return Integer.MAX_VALUE; //6亿
                         }
 
                         @Override
@@ -97,7 +101,7 @@ public class AdsViewPagerActivity extends BaseActivity {
                         @Override
                         public Object instantiateItem(ViewGroup container, int position) {
                                 ImageView imageView = new ImageView(container.getContext());
-                                Log.e(TAG, "instantiateItem: ==== "+(position % pagerIds.length) );
+                                Log.e(TAG, "instantiateItem: ==== " + (position % pagerIds.length));
                                 imageView.setBackgroundResource(pagerIds[position % pagerIds.length]);
                                 imageView.setOnTouchListener(new View.OnTouchListener() {
                                         @Override
@@ -138,7 +142,9 @@ public class AdsViewPagerActivity extends BaseActivity {
                         public void onPageSelected(int position) {
                                 Log.e(TAG, "onPageSelected: " + position);
                                 textView.setText(strs[position % strs.length]);
-                                linearLayout.getChildAt(position % strs.length).setEnabled(true);
+                                linearLayout.getChildAt(prePosition).setSelected(false);
+                                prePosition = position % strs.length;
+                                linearLayout.getChildAt(prePosition).setSelected(true);
                         }
 
                         @Override
@@ -157,18 +163,19 @@ public class AdsViewPagerActivity extends BaseActivity {
                                 }
                         }
                 });
-                int item = Integer.MAX_VALUE / 2 ;
+                int item = 0;
+                prePosition = item ;
                 textView.setText(strs[item % strs.length]);
                 viewPager.setCurrentItem(item);
-                linearLayout.getChildAt(item % strs.length).setEnabled(true);
-                myHandler.sendEmptyMessageDelayed(0, 2000);
+                linearLayout.getChildAt(item % strs.length).setSelected(true);
+                //myHandler.sendEmptyMessageDelayed(0, 2000);
         }
 
+        private int prePosition ;
         private boolean isDragging = false;
-        private int index = 0;
 
         private void next() {
                 // 这样会循环滑动，==== 当向右滑动到最后一个，然后又会左滑到第一个。但是这种体验不好
-                viewPager.setCurrentItem(++index % pagerIds.length);
+                viewPager.setCurrentItem((viewPager.getCurrentItem()+1) % pagerIds.length);
         }
 }
