@@ -21,3 +21,65 @@ mipmap-hdpi           72x72            3.42k
 mipmap-xhdpi          96x96            4.84k
 mipmap-xxhdpi        144x144           7.72k
 mipmap-xxxhdpi       192x192           10.49k
+
+
+
+
+
+
+首先来说一下Android的屏幕适配：
+
+　　关于Android屏幕的一些基本概念知识，自行充电。。在此只介绍实际开发过程中的使用
+
+　　1、说到Android的屏幕适配，首当其冲的就是图片的适配
+
+　　　　图片适配遵循两个原则： ①尽量使用9.path图来自动适应屏幕 ②尽量使用最少的图片资源
+
+　　　　关于第一点使用9.path图片：比如topBar、底部导航、侧滑菜单等等各种按钮的背景处理时尽量使用9.path图片，一套图通吃
+
+　　　　关于第二点使用最少的图片资源：很多人喜欢切好几套图去适配屏幕，一来占用内存空间，二来美工会受不鸟的。。。
+
+　　　　　　第一种情况：欢迎页面、引导页面等图片需要铺满整个屏幕时，我们至少需要做两套图来满足屏幕的适配（480*800、720*1280）放于对应的文件夹下
+
+　　　　　　第二种情况：直接切图（480*800）放于对应的文件夹，让其自动适应
+
+　　　　很多人会质疑图片是否会被拉升，图片是否会模糊等问题，经过我的个人测试与几个上线项目的反馈，上面的方法可以满足决大多数的手机。
+
+　　2、Layout适配
+　　　　在src目录下建不同分辨率的layout目录
+　　　　layout-1280x720
+　　　　layout-800x480
+　　　　在不同的layout目录下新建有针对性的布局文件，里面的尺寸写死都没有关系。。。
+
+　　3、dimens适配
+　　　　在src目录下建不同分辨率的values目录
+　　　　values-1280x720
+　　　　values-800x480
+　　　　在不同的values目录下新建dimens.xml 文件 在这个dimens文件中就可以针对不同的分辨率定义它的尺寸了
+
+　　4、使用权重适配　　
+　　　　使用weight来分配屏幕的使用(权重来适配)
+
+　　5、java代码适配
+
+　　　　动态获取屏幕的宽、高 然后动态设置布局的尺寸
+
+我们再来说一下Android的国际化适配：
+　　
+　　1、字符串国际化：只要在 res 文件夹下新建对应语言的 values 文件夹，然后在对应的values文件夹下创建strings.xml即可
+　　 中文环境：values-zh
+　　英语环境：values-en
+　　美国英文环境：values-en-rUS
+　　大陆地区中文环境： values-zh-cn
+
+　　2、图片国际化：在 res 下新建对应语言的 drawable 文件夹
+　　 英语环境下的：
+　　drawable-en-ldpi
+　　drawable-en-hdpi
+　　drawable-en-mdpi
+　　中文环境为：
+　　 drawable-zh-hdpi
+　　drawable-zh-ldpi
+　　 drawable-zh-mdpi
+
+http://blog.csdn.net/androidmylove/article/details/42553663#comments
