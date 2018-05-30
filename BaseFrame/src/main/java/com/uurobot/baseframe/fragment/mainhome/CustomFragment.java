@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.activitys.TestViewActivity;
+import com.uurobot.baseframe.activitys.custom.AdsViewPagerActivity;
 import com.uurobot.baseframe.activitys.custom.YouKuActivity;
 import com.uurobot.baseframe.adapter.FragmentAdapter;
 import com.uurobot.baseframe.adapter.RecycleViewItemDivide;
@@ -39,6 +40,7 @@ public class CustomFragment extends BaseFragment {
                 ArrayList<String> arrayList = new ArrayList<>();
                 arrayList.add("旋转菜单");
                 arrayList.add("旋转View");
+                arrayList.add("广告贴");
                 recycleViewAdapter = new FragmentAdapter(arrayList, getFragmentManager()) {
                         @Override
                         public void handlerItemClick(int position) {
@@ -60,6 +62,7 @@ public class CustomFragment extends BaseFragment {
         }
 
         private void handlerItemThree() {
+                startActivity(new Intent(getActivity(), AdsViewPagerActivity.class));
         }
 
         private void handlerItemTwo() {

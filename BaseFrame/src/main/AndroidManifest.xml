@@ -50,5 +50,6 @@
         <activity
             android:name=".activitys.TestViewActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".activitys.custom.AdsViewPagerActivity" />
     </application>
 </manifest>
