@@ -61,7 +61,6 @@ public class DanceViewPagerActivity extends BaseActivity {
                         }
                 });
                 initData();
-                viewPager.setPageMargin(20);
                 viewPager.setOffscreenPageLimit(imageViews.size());
                 viewPager.setAdapter(new PagerAdapter() {
                         @Override
@@ -86,6 +85,11 @@ public class DanceViewPagerActivity extends BaseActivity {
                                 });
                                 container.addView(imageView);
                                 return imageView;
+                        }
+
+                        @Override
+                        public float getPageWidth(int position) {
+                                return 1f;
                         }
 
                         @Override
@@ -114,8 +118,8 @@ public class DanceViewPagerActivity extends BaseActivity {
                         }
                 });
                 viewPager.setPageTransformer(true, new ViewPager.PageTransformer() {
-                        public static final float MIN_SCALE = 0.5f;
-                        public static final float SENCOND_SCALE = 0.75f;
+                        public static final float MIN_SCALE = 0.6f;
+                        public static final float SENCOND_SCALE = 0.8f;
                         public static final float MAX_SCALE = 1f;
 
                         @Override
@@ -124,45 +128,47 @@ public class DanceViewPagerActivity extends BaseActivity {
                                 Log.e(TAG, "transformPage: ppsition=" + position + "    tag=" + page.getTag());
                                 //position小于等于1的时候，代表page已经位于中心item的最左边，
                                 //此时设置为最小的缩放率以及最大的旋转度数
+                                float scale = -1;
                                 if (position <= -2.1) {
-                                        page.setScaleX(MIN_SCALE);
-                                        page.setScaleY(MIN_SCALE);
+                                        scale = MIN_SCALE;
 
                                 } else if (position > -2.1 && position <= -1.05) {
                                         float v = (float) (Math.abs(position) - 1.05);
                                         if (v >= 1) {
                                                 v = 1;
                                         }
-                                        page.setScaleX((float) (SENCOND_SCALE - 0.25 * v));
-                                        page.setScaleY((float) (SENCOND_SCALE - 0.25 * v));
+                                        scale = (float) (SENCOND_SCALE - 0.2 * v);
 
                                 } else if (position > -1.05 && position <= 0) {
                                         float v = Math.abs(position);
                                         if (v >= 1) {
                                                 v = 1;
                                         }
-                                        page.setScaleX((float) (MAX_SCALE - 0.25 * v));
-                                        page.setScaleY((float) (MAX_SCALE - 0.25 * v));
+                                        scale = (float) (MAX_SCALE - 0.2 * v);
 
                                 } else if (position > 0 && position <= 1.05) {
                                         float v = position;
                                         if (v >= 1) {
                                                 v = 1;
                                         }
-                                        page.setScaleX((float) (MAX_SCALE - 0.25 * v));
-                                        page.setScaleY((float) (MAX_SCALE - 0.25 * v));
+                                        scale = (float) (MAX_SCALE - 0.2 * v);
 
                                 } else if (position > 1.05 && position <= 2.1) {
                                         float v = (float) (position - 1.05);
                                         if (v >= 1) {
                                                 v = 1;
                                         }
-                                        page.setScaleX((float) (SENCOND_SCALE - 0.25 * v));
-                                        page.setScaleY((float) (SENCOND_SCALE - 0.25 * v));
+                                        scale = (float) (SENCOND_SCALE - 0.2 * v);
 
                                 } else {
-                                        page.setScaleX(MIN_SCALE);
-                                        page.setScaleY(MIN_SCALE);
+                                        scale =  MIN_SCALE;
+                                }
+
+                                page.setPivotX(page.getWidth() / 2);
+                                page.setPivotY(0);
+                                if (scale != -1){
+                                        page.setScaleX(scale);
+                                        page.setScaleY(scale);
                                 }
                         }
                 });
