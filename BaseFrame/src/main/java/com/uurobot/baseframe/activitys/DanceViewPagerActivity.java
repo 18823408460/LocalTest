@@ -134,10 +134,6 @@ public class DanceViewPagerActivity extends BaseActivity {
 
                         @Override
                         public void transformPage(View page, float position) {
-                                float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
-                                Log.e(TAG, "transformPage: ppsition=" + position + "    tag=" + page.getTag());
-                                //position小于等于1的时候，代表page已经位于中心item的最左边，
-                                //此时设置为最小的缩放率以及最大的旋转度数
                                 float scale = -1;
                                 if (position <= -2.1) {
                                         scale = MIN_SCALE;
