@@ -37,12 +37,13 @@ public class DanceViewPagerActivity extends BaseActivity {
         private String title[] = {"小苹果", "最炫名族风", "迈克杰克逊", "沧海一声笑", "龙拳",};
         private List<RelativeLayout> imageViews;
         private int prePos;
+        private LayoutInflater layoutInflater;
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_dance);
-
+                layoutInflater = LayoutInflater.from(this);
                 linearLayout = findViewById(R.id.ll_dance_points);
                 textView = findViewById(R.id.tv_dance_title);
                 viewPager = findViewById(R.id.viewpager_dance);
@@ -65,7 +66,7 @@ public class DanceViewPagerActivity extends BaseActivity {
                 viewPager.setAdapter(new PagerAdapter() {
                         @Override
                         public int getCount() {
-                                return imageViews.size();
+                                return Integer.MAX_VALUE;
                         }
 
                         @Override
@@ -75,16 +76,23 @@ public class DanceViewPagerActivity extends BaseActivity {
 
                         @Override
                         public Object instantiateItem(ViewGroup container, int position) {
-                                RelativeLayout imageView = imageViews.get(position);
-                                imageView.setTag(position);
-                                imageView.setOnClickListener(new View.OnClickListener() {
+                                RelativeLayout relativeLayout;
+                                if (imageViews != null && imageViews.size() > 0) {
+                                        relativeLayout = imageViews.remove(0);
+                                } else {
+                                        relativeLayout = (RelativeLayout) layoutInflater.inflate(R.layout.viewpager_dance_item, null);
+                                }
+                                ImageView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
+                                imageView.setImageResource(imgs[position % imgs.length]);
+                                relativeLayout.setTag(position);
+                                relativeLayout.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                                 // Toast.makeText(DanceViewPagerActivity.this, "click="+v.getTag(), Toast.LENGTH_SHORT).show();
                                         }
                                 });
-                                container.addView(imageView);
-                                return imageView;
+                                container.addView(relativeLayout);
+                                return relativeLayout;
                         }
 
                         @Override
@@ -95,6 +103,7 @@ public class DanceViewPagerActivity extends BaseActivity {
                         @Override
                         public void destroyItem(ViewGroup container, int position, Object object) {
                                 container.removeView((View) object);
+                                imageViews.add((RelativeLayout) object);
                         }
                 });
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -106,10 +115,11 @@ public class DanceViewPagerActivity extends BaseActivity {
 
                         @Override
                         public void onPageSelected(int position) {
+                                int readPos = position % imgs.length;
                                 linearLayout.getChildAt(prePos).setSelected(false);
-                                linearLayout.getChildAt(position).setSelected(true);
-                                textView.setText(title[position]);
-                                prePos = position;
+                                linearLayout.getChildAt(readPos).setSelected(true);
+                                textView.setText(title[readPos]);
+                                prePos = readPos;
                         }
 
                         @Override
@@ -168,6 +178,7 @@ public class DanceViewPagerActivity extends BaseActivity {
                                 int diff = (int) (8000 * Math.sin(abs / 180 * Math.PI));
                                 Log.e(TAG, "transformPage: diff===" + diff);
                                 Log.e(TAG, "transformPage: tan===" + tan);
+
                                 page.setPivotX(page.getWidth() / 2);
                                 page.setPivotY(page.getHeight() / 2 - tan);
                                 if (scale != -1) {
@@ -176,17 +187,17 @@ public class DanceViewPagerActivity extends BaseActivity {
                                 }
                         }
                 });
-                int item = 2;
-                prePos = item;
+                int item = Integer.MAX_VALUE / 2;
                 viewPager.setCurrentItem(item);
+                item = item % imgs.length;
                 linearLayout.getChildAt(item).setSelected(true);
                 textView.setText(title[item]);
+                prePos = item;
 
         }
 
         private void initData() {
                 imageViews = new ArrayList<>();
-                LayoutInflater layoutInflater = LayoutInflater.from(this);
                 for (int i = 0; i < imgs.length; i++) {
                         RelativeLayout relativeLayout = (RelativeLayout) layoutInflater.inflate(R.layout.viewpager_dance_item, null);
                         ImageView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
