@@ -1,14 +1,15 @@
 package com.uurobot.baseframe.activitys;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uurobot.baseframe.R;
+import com.uurobot.baseframe.view.ReflectionImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ public class DanceViewPagerActivity extends BaseActivity {
         private LinearLayout linearLayout;
         private int imgs[] = {R.drawable.xpg, R.drawable.zumzf, R.drawable.mj, R.drawable.chysx, R.drawable.lq};
         private String title[] = {"小苹果", "最炫名族风", "迈克杰克逊", "沧海一声笑", "龙拳",};
-        private List<ImageView> imageViews;
+        private List<RelativeLayout> imageViews;
         private int prePos;
 
         @Override
@@ -59,7 +61,7 @@ public class DanceViewPagerActivity extends BaseActivity {
                         }
                 });
                 initData();
-                viewPager.setPageMargin(30);
+                viewPager.setPageMargin(20);
                 viewPager.setOffscreenPageLimit(imageViews.size());
                 viewPager.setAdapter(new PagerAdapter() {
                         @Override
@@ -74,7 +76,7 @@ public class DanceViewPagerActivity extends BaseActivity {
 
                         @Override
                         public Object instantiateItem(ViewGroup container, int position) {
-                                ImageView imageView = imageViews.get(position);
+                                RelativeLayout imageView = imageViews.get(position);
                                 imageView.setTag(position);
                                 imageView.setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -174,13 +176,13 @@ public class DanceViewPagerActivity extends BaseActivity {
 
         private void initData() {
                 imageViews = new ArrayList<>();
+                LayoutInflater layoutInflater = LayoutInflater.from(this);
                 for (int i = 0; i < imgs.length; i++) {
-                        ImageView imageView = new ImageView(this);
-                        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(100, 100);
-                        imageView.setLayoutParams(layoutParams);
+                        RelativeLayout relativeLayout = (RelativeLayout) layoutInflater.inflate(R.layout.viewpager_dance_item, null);
+                        ImageView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
                         imageView.setImageResource(imgs[i]);
                         imageView.setTag(i);
-                        imageViews.add(imageView);
+                        imageViews.add(relativeLayout);
 
                         ImageView points = new ImageView(this);
                         points.setBackgroundResource(R.drawable.point_selectors);

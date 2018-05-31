@@ -20,11 +20,11 @@
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager_dance"
-            android:layout_width="@dimen/x120"
-            android:layout_height="@dimen/x120"
+            android:layout_width="@dimen/x130"
+            android:layout_height="@dimen/x130"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/x70"
-            android:layout_marginRight="@dimen/x70"
+            android:layout_marginLeft="@dimen/x80"
+            android:layout_marginRight="@dimen/x80"
             android:clipChildren="false" />
     </RelativeLayout>
 
