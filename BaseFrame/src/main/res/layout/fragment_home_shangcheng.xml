@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/layout_home_fragment_head"
+        layout="@layout/layout_head_home_shangcheng" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleview_home_fragmnet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_home_fragment_head" />
+
+    <ImageButton
+        android:id="@+id/imageButton_home_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/x6"
+        android:background="@drawable/icon_home" />
+</RelativeLayout>

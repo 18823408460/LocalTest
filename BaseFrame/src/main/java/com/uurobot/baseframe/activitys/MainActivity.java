@@ -15,6 +15,7 @@ import com.uurobot.baseframe.fragment.mainhome.CommonFragment;
 import com.uurobot.baseframe.fragment.mainhome.CustomFragment;
 import com.uurobot.baseframe.fragment.mainhome.OtherFragment;
 import com.uurobot.baseframe.fragment.mainhome.ThirdPartFragment;
+import com.uurobot.baseframe.fragment.shangcheng.home.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class MainActivity extends BaseActivity {
                 baseFragmentList.add(new CommonFragment());
                 baseFragmentList.add(new ThirdPartFragment());
                 baseFragmentList.add(new CustomFragment());
-                baseFragmentList.add(new OtherFragment());
+                baseFragmentList.add(new HomeFragment());
                 //radioGroup.check(R.id.rb_common); // 这里会导致OnCheckedChangeListener调用两次
                 RadioButton radioButton = radioGroup.findViewById(R.id.rb_common);
                 radioButton.setChecked(true);

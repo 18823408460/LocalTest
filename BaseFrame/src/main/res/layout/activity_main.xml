@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/layout_head"
-        layout="@layout/layout_head_main" />
+    <!--<include-->
+        <!--android:id="@+id/layout_head"-->
+        <!--layout="@layout/layout_head_main" />-->
 
 
     <FrameLayout
@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/rg_layout_bottom"
-        android:layout_below="@id/layout_head"
         android:background="@android:color/white" />
 
     <RadioGroup

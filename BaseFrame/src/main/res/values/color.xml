@@ -12,5 +12,6 @@
     <color name="black_high">#f5F1FD</color>
     <color name="white">#FFFFFF</color>
     <color name="white_High">#D7FFFE</color>
+    <color name="blue">#0877EF</color>
 
 </resources>

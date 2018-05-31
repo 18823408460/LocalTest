@@ -52,4 +52,7 @@
     <string name="ganyingValue">0.5</string>
     <string name="pref_dream_text_key">pref_dream_text</string>
     <string name="pref_dream_text_default">zzzZZZzzz</string>
+    <string name="input_somthing">输入要搜索的产品</string>
+    <string name="type">分类</string>
+    <string name="danceTitle">机器人舞蹈</string>
 </resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/x40"
+    android:background="@color/red"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_margin="@dimen/x4"
+        android:id="@+id/tv_home_fragmnet_head_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:background="@drawable/bk_tv_home_fragment_head"
+        android:drawableLeft="@drawable/home_search_icon"
+        android:drawablePadding="@dimen/x9"
+        android:paddingBottom="@dimen/x4"
+        android:paddingLeft="@dimen/x8"
+        android:paddingTop="@dimen/x4"
+        android:text="@string/input_somthing" />
+
+    <TextView
+        android:id="@+id/tv_home_fragmnet_head_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/main_type"
+        android:gravity="center"
+        android:text="@string/type" />
+</LinearLayout>

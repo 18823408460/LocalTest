@@ -20,6 +20,8 @@ import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.activitys.BaseActivity;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/5/30.
@@ -32,6 +34,7 @@ public class AdsViewPagerActivity extends BaseActivity {
         private LinearLayout linearLayout;
         private int[] pagerIds = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e};
         private String[] strs = {"111111", "222222", "333333", "444444", "555555"};
+        private List<ImageView> imageViewList = new ArrayList<>();
 
         private static class MyHandler extends Handler {
                 WeakReference<AdsViewPagerActivity> weakReference;
@@ -45,7 +48,7 @@ public class AdsViewPagerActivity extends BaseActivity {
                         AdsViewPagerActivity adsViewPagerActivity = weakReference.get();
                         if (adsViewPagerActivity != null) {
                                 adsViewPagerActivity.next();
-                                sendEmptyMessageDelayed(0, 3000);
+                                sendEmptyMessageDelayed(0, 1000);
                         }
                 }
         }
@@ -70,8 +73,8 @@ public class AdsViewPagerActivity extends BaseActivity {
                         imageView.setBackgroundResource(R.drawable.point_selectors);
                         // 构造参数是  view  的宽高
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(62, 62);
-                        if (i != (pagerIds.length-1)){ // 最后一个不需要
-                                params.rightMargin = 40 ;
+                        if (i != (pagerIds.length - 1)) { // 最后一个不需要
+                                params.rightMargin = 40;
                         }
                         imageView.setLayoutParams(params);
                         imageView.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +84,10 @@ public class AdsViewPagerActivity extends BaseActivity {
                                 }
                         });
                         linearLayout.addView(imageView);
+
+                        ImageView imageView1 = new ImageView(this);
+                        imageView1.setBackgroundResource(pagerIds[i]);
+                        imageViewList.add(imageView1);
                 }
         }
 
@@ -88,8 +95,8 @@ public class AdsViewPagerActivity extends BaseActivity {
                 viewPager.setAdapter(new PagerAdapter() {
                         @Override
                         public int getCount() {
-                                return pagerIds.length;
-                                //                                return Integer.MAX_VALUE; //6亿
+                                //                                return pagerIds.length;
+                                return Integer.MAX_VALUE; //6亿
                         }
 
                         @Override
@@ -100,7 +107,7 @@ public class AdsViewPagerActivity extends BaseActivity {
                         // container == Viewpager
                         @Override
                         public Object instantiateItem(ViewGroup container, int position) {
-                                ImageView imageView = new ImageView(container.getContext());
+                                ImageView imageView = imageViewList.get(position % imageViewList.size());
                                 Log.e(TAG, "instantiateItem: ==== " + (position % pagerIds.length));
                                 imageView.setBackgroundResource(pagerIds[position % pagerIds.length]);
                                 imageView.setOnTouchListener(new View.OnTouchListener() {
@@ -163,19 +170,19 @@ public class AdsViewPagerActivity extends BaseActivity {
                                 }
                         }
                 });
-                int item = 0;
-                prePosition = item ;
-                textView.setText(strs[item % strs.length]);
-                viewPager.setCurrentItem(item);
-                linearLayout.getChildAt(item % strs.length).setSelected(true);
-                //myHandler.sendEmptyMessageDelayed(0, 2000);
+                int item = 0; // 可以无限又滑动
+                prePosition = item;
+                textView.setText(strs[prePosition % strs.length]);
+                viewPager.setCurrentItem(prePosition);
+                linearLayout.getChildAt(prePosition % strs.length).setSelected(true);
+                myHandler.sendEmptyMessageDelayed(0, 2000);
         }
 
-        private int prePosition ;
+        private int prePosition;
         private boolean isDragging = false;
 
         private void next() {
                 // 这样会循环滑动，==== 当向右滑动到最后一个，然后又会左滑到第一个。但是这种体验不好
-                viewPager.setCurrentItem((viewPager.getCurrentItem()+1) % pagerIds.length);
+                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
         }
 }

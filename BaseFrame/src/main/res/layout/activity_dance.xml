@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bk_dance">
+
+
+    <include
+        android:id="@+id/layout_head_dance"
+        layout="@layout/layout_head_dance" />
+
+    <RelativeLayout
+        android:id="@+id/viewPager_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x200"
+        android:layout_below="@id/layout_head_dance"
+        android:layout_centerInParent="false"
+        android:clipChildren="false"
+        android:layerType="software">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_dance"
+            android:layout_width="@dimen/x120"
+            android:layout_height="@dimen/x120"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/x70"
+            android:layout_marginRight="@dimen/x70"
+            android:clipChildren="false" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageview_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/x200"
+        android:src="@drawable/dance_play" />
+
+    <TextView
+        android:id="@+id/tv_dance_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageview_play"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/x10"
+        android:text="最炫民族风"
+        android:textColor="@color/white"
+        android:textSize="@dimen/x20" />
+
+    <LinearLayout
+        android:id="@+id/ll_dance_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_dance_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/x10"
+        android:orientation="horizontal" />
+</RelativeLayout>
