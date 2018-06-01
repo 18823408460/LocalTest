@@ -134,8 +134,8 @@ public class DanceViewPagerActivity extends BaseActivity {
 
                         @Override
                         public void transformPage(View page, float position) {
-                                float scale ;
-                                Log.e(TAG, "transformPage: "+position );
+                                float scale;
+                                Log.e(TAG, "transformPage: " + position);
                                 if (position <= -2) {
                                         float v = (float) (Math.abs(position) - 2);
                                         scale = (float) (MIN_SCALE - 0.2 * v);
@@ -161,12 +161,16 @@ public class DanceViewPagerActivity extends BaseActivity {
                                         scale = (float) (MIN_SCALE - 0.2 * v);
                                 }
                                 float abs = Math.abs(position);
-                                int tan = (int) ((abs * 900 / 3.0) * Math.tan(23 * Math.PI / 180));
+                                int tan = (int) ((abs * 600 / 3.0) * Math.tan(40 * Math.PI / 180));
 
                                 if (scale != -1) {
+                                        String s = String.valueOf(position);
+                                        String[] split = s.split("\\.");
+                                        int diffWidth = 0;
+                                        page.setTranslationX(-position * page.getWidth() / 8);
+                                        page.setTranslationY(page.getHeight() / 6 - tan);
                                         page.setScaleX(scale);
                                         page.setScaleY(scale);
-                                        page.setTranslationY(- tan );
 
                                 }
                         }

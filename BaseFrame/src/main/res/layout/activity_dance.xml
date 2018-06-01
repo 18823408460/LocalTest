@@ -10,7 +10,6 @@
         layout="@layout/layout_head_dance" />
 
     <RelativeLayout
-        android:background="@color/red"
         android:id="@+id/viewPager_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x200"
