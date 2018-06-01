@@ -47,6 +47,7 @@
         <!--android:name=".activitys.TestViewActivity"-->
         <!--android:screenOrientation="landscape" />-->
         <activity android:name=".activitys.custom.AdsViewPagerActivity" />
+        <activity android:name=".activitys.shangcheng.GoodInfoActivity" />
         <!-- This service is only used on devices with API v17+ -->
     </application>
 
