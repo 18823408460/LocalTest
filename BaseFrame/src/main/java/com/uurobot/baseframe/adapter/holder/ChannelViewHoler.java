@@ -63,7 +63,7 @@ public class ChannelViewHoler extends RecyclerView.ViewHolder {
                                         convertView = layoutInflater.inflate(R.layout.gridview_channel_item, null);
                                         gridHolder = new GridHolder();
                                         ImageView imageView = convertView.findViewById(R.id.imageview_gridview_channel);
-                                        TextView textView = convertView.findViewById(R.id.tv_gridview_channel);
+                                        TextView textView = convertView.findViewById(R.id.tv_desc_gridview_channel);
                                         gridHolder.imageView = imageView;
                                         gridHolder.textView = textView;
                                         convertView.setTag(gridHolder);

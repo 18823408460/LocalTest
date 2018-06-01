@@ -22,6 +22,6 @@
     <GridView
         android:id="@+id/gridview_channel_fragment"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x200"
+        android:layout_height="@dimen/x260"
         android:layout_below="@id/ll_head_channel" />
 </RelativeLayout>

@@ -97,7 +97,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
 
                 } else if (holder instanceof ChannelViewHoler) {
                         List<ResponseBean.ResultBean.ChannelInfoBean> channel_info = resultBean.getChannel_info();
-                       // ((ChannelViewHoler) holder).setData(channel_info);
+                        ((ChannelViewHoler) holder).setData(channel_info);
 
                 } else if (holder instanceof ActInfoViewHoler) {
                         List<ResponseBean.ResultBean.ActInfoBean> act_info = resultBean.getAct_info();

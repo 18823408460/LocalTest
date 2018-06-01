@@ -32,6 +32,6 @@
     <GridView
         android:id="@+id/gridview_secKill_fragment"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x160"
+        android:layout_height="@dimen/x240"
         android:layout_below="@id/ll_head" />
 </RelativeLayout>

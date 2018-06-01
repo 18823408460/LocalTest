@@ -8,13 +8,13 @@
     android:padding="@dimen/x4">
 
     <ImageView
-        android:id="@+id/imageview_gridview_recommend"
-        android:layout_width="@dimen/x40"
-        android:layout_height="@dimen/x40" />
+        android:id="@+id/imageview_gridview_channel"
+        android:layout_width="@dimen/x80"
+        android:layout_height="@dimen/x80" />
 
     <TextView
-        android:id="@+id/tv_price_gridview_recommend"
-        android:layout_width="@dimen/x40"
+        android:id="@+id/tv_price_gridview_channel"
+        android:layout_width="@dimen/x80"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:gravity="center"
@@ -23,8 +23,8 @@
         android:textSize="@dimen/x10" />
 
     <TextView
-        android:id="@+id/tv_desc_gridview_recommend"
-        android:layout_width="@dimen/x40"
+        android:id="@+id/tv_desc_gridview_channel"
+        android:layout_width="@dimen/x80"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:gravity="center"

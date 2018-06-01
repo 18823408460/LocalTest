@@ -7,6 +7,6 @@
     <com.youth.banner.Banner
         android:id="@+id/banner_home_fragment"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x130"
+        android:layout_height="@dimen/x160"
         app:is_auto_play="true" />
 </RelativeLayout>

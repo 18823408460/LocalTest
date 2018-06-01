@@ -36,7 +36,7 @@ public class RecomendViewHoler extends RecyclerView.ViewHolder {
 
         public void setData(final List<ResponseBean.ResultBean.RecommendInfoBean> data) {
                 Log.e(TAG, "setData: " + data);
-                gridView.setNumColumns(5);
+                gridView.setNumColumns(3);
                 gridView.setAdapter(new BaseAdapter() {
                         @Override
                         public int getCount() {
@@ -57,7 +57,7 @@ public class RecomendViewHoler extends RecyclerView.ViewHolder {
                         public View getView(int position, View convertView, ViewGroup parent) {
                                 GridHolder gridHolder;
                                 if (convertView == null) {
-                                        convertView = inflater.inflate(R.layout.gridview_channel_item, null);
+                                        convertView = inflater.inflate(R.layout.gridview_recommend_item, null);
                                         gridHolder = new GridHolder();
                                         gridHolder.imageView = convertView.findViewById(R.id.imageview_gridview_recommend);
                                         gridHolder.textViewDesc = convertView.findViewById(R.id.tv_desc_gridview_recommend);

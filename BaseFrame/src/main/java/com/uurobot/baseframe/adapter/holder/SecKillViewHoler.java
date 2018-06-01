@@ -35,7 +35,7 @@ public class SecKillViewHoler extends RecyclerView.ViewHolder {
                 super(itemView);
                 textView = itemView.findViewById(R.id.tv_secKill_fragment);
                 gridView = itemView.findViewById(R.id.gridview_secKill_fragment);
-                gridView.setNumColumns(5);
+                gridView.setNumColumns(3);
                 layoutInflater = LayoutInflater.from(itemView.getContext());
         }
 
