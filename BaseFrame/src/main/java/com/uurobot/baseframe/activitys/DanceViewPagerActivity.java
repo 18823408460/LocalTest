@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uurobot.baseframe.R;
+import com.uurobot.baseframe.fragment.shangcheng.home.Utils;
 import com.uurobot.baseframe.view.ReflectionImage;
 
 import java.util.ArrayList;
@@ -83,7 +84,7 @@ public class DanceViewPagerActivity extends BaseActivity {
                                         relativeLayout = (RelativeLayout) layoutInflater.inflate(R.layout.viewpager_dance_item, null);
                                 }
                                 ImageView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
-                                imageView.setImageResource(imgs[position % imgs.length]);
+                                imageView.setBackgroundResource(imgs[position % imgs.length]);
                                 relativeLayout.setTag(position);
                                 relativeLayout.setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -136,43 +137,13 @@ public class DanceViewPagerActivity extends BaseActivity {
                         public void transformPage(View page, float position) {
                                 float scale;
                                 Log.e(TAG, "transformPage: " + position);
-                                if (position <= -2) {
-                                        float v = (float) (Math.abs(position) - 2);
-                                        scale = (float) (MIN_SCALE - 0.2 * v);
+                                //执行缩放
+                                float scaleFactor = Utils.getPageScale(position);
+                                page.setScaleX(scaleFactor);
+                                page.setScaleY(scaleFactor);
 
-                                } else if (position > -2 && position <= -1) {
-                                        float v = (float) (Math.abs(position) - 1);
-                                        scale = (float) (SENCOND_SCALE - 0.2 * v);
-
-                                } else if (position > -1 && position <= 0) {
-                                        float v = Math.abs(position);
-                                        scale = (float) (MAX_SCALE - 0.2 * v);
-
-                                } else if (position > 0 && position <= 1) {
-                                        float v = position;
-                                        scale = (float) (MAX_SCALE - 0.2 * v);
-
-                                } else if (position > 1 && position <= 2) {
-                                        float v = (float) (position - 1);
-                                        scale = (float) (SENCOND_SCALE - 0.2 * v);
-
-                                } else {
-                                        float v = (float) (position - 2);
-                                        scale = (float) (MIN_SCALE - 0.2 * v);
-                                }
-                                float abs = Math.abs(position);
-                                int tan = (int) ((abs * 600 / 3.0) * Math.tan(40 * Math.PI / 180));
-
-                                if (scale != -1) {
-                                        String s = String.valueOf(position);
-                                        String[] split = s.split("\\.");
-                                        int diffWidth = 0;
-                                        page.setTranslationX(-position * page.getWidth() / 8);
-                                        page.setTranslationY(page.getHeight() / 6 - tan);
-                                        page.setScaleX(scale);
-                                        page.setScaleY(scale);
-
-                                }
+                                Utils.transLationX(page, position);
+                                Utils.setPivotXY(page, position);
                         }
                 });
                 int item = Integer.MAX_VALUE / 2;
@@ -189,7 +160,7 @@ public class DanceViewPagerActivity extends BaseActivity {
                 for (int i = 0; i < imgs.length; i++) {
                         RelativeLayout relativeLayout = (RelativeLayout) layoutInflater.inflate(R.layout.viewpager_dance_item, null);
                         ImageView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
-                        imageView.setImageResource(imgs[i]);
+                        imageView.setBackgroundResource(imgs[i]);
                         imageView.setTag(i);
                         imageViews.add(relativeLayout);
 

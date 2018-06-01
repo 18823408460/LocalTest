@@ -15,10 +15,11 @@
         android:paddingTop="@dimen/x5" />
 
     <ImageView
-        android:paddingBottom="@dimen/x5"
         android:id="@+id/image_dance_icon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:paddingBottom="@dimen/x5"
+        android:scaleType="centerInside" />
 
 </RelativeLayout>
