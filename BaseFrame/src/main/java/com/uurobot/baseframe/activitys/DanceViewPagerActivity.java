@@ -134,59 +134,40 @@ public class DanceViewPagerActivity extends BaseActivity {
 
                         @Override
                         public void transformPage(View page, float position) {
-                                float scale = -1;
+                                float scale ;
+                                Log.e(TAG, "transformPage: "+position );
+                                if (position <= -2) {
+                                        float v = (float) (Math.abs(position) - 2);
+                                        scale = (float) (MIN_SCALE - 0.2 * v);
 
-                                if (position <= -2.1) {
-                                        scale = MIN_SCALE;
-
-                                } else if (position > -2.1 && position <= -1.05) {
-                                        float v = (float) (Math.abs(position) - 1.05);
-                                        if (v >= 1) {
-                                                v = 1;
-                                        }
+                                } else if (position > -2 && position <= -1) {
+                                        float v = (float) (Math.abs(position) - 1);
                                         scale = (float) (SENCOND_SCALE - 0.2 * v);
 
-                                } else if (position > -1.05 && position <= 0) {
+                                } else if (position > -1 && position <= 0) {
                                         float v = Math.abs(position);
-                                        if (v >= 1) {
-                                                v = 1;
-                                        }
                                         scale = (float) (MAX_SCALE - 0.2 * v);
 
-                                } else if (position > 0 && position <= 1.05) {
+                                } else if (position > 0 && position <= 1) {
                                         float v = position;
-                                        if (v >= 1) {
-                                                v = 1;
-                                        }
                                         scale = (float) (MAX_SCALE - 0.2 * v);
 
-                                } else if (position > 1.05 && position <= 2.1) {
-                                        float v = (float) (position - 1.05);
-                                        if (v >= 1) {
-                                                v = 1;
-                                        }
+                                } else if (position > 1 && position <= 2) {
+                                        float v = (float) (position - 1);
                                         scale = (float) (SENCOND_SCALE - 0.2 * v);
 
                                 } else {
-                                        scale = MIN_SCALE;
+                                        float v = (float) (position - 2);
+                                        scale = (float) (MIN_SCALE - 0.2 * v);
                                 }
                                 float abs = Math.abs(position);
-                                int tan = (int) ((abs * 900 / 3.0) * Math.tan(40 * Math.PI / 180));
+                                int tan = (int) ((abs * 900 / 3.0) * Math.tan(23 * Math.PI / 180));
 
-                                //page.setPivotX(page.getWidth() / 2);
-                                //page.setPivotY(page.getHeight() / 2 - tan);
-                                if (position > 0) {
-                                        page.setPivotX(0);
-                                        page.setPivotY(page.getHeight() / 2 - tan);
-                                } else {
-                                        page.setPivotX(page.getWidth());
-                                        page.setPivotY(page.getHeight() / 2  - tan );
-                                }
                                 if (scale != -1) {
                                         page.setScaleX(scale);
                                         page.setScaleY(scale);
+                                        page.setTranslationY(- tan );
 
-                                        float diffScale = 1 - scale;
                                 }
                         }
                 });
