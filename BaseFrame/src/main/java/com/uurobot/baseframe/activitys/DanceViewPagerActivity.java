@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.fragment.shangcheng.home.Utils;
+import com.uurobot.baseframe.view.BorderImageView;
 import com.uurobot.baseframe.view.ReflectionImage;
 
 import java.util.ArrayList;
@@ -83,15 +84,9 @@ public class DanceViewPagerActivity extends BaseActivity {
                                 } else {
                                         relativeLayout = (RelativeLayout) layoutInflater.inflate(R.layout.viewpager_dance_item, null);
                                 }
-                                ImageView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
+                                BorderImageView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
                                 imageView.setBackgroundResource(imgs[position % imgs.length]);
                                 relativeLayout.setTag(position);
-                                relativeLayout.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                                // Toast.makeText(DanceViewPagerActivity.this, "click="+v.getTag(), Toast.LENGTH_SHORT).show();
-                                        }
-                                });
                                 container.addView(relativeLayout);
                                 return relativeLayout;
                         }
@@ -116,11 +111,12 @@ public class DanceViewPagerActivity extends BaseActivity {
 
                         @Override
                         public void onPageSelected(int position) {
-                                int readPos = position % imgs.length;
+                                int realPos = position % imgs.length;
                                 linearLayout.getChildAt(prePos).setSelected(false);
-                                linearLayout.getChildAt(readPos).setSelected(true);
-                                textView.setText(title[readPos]);
-                                prePos = readPos;
+                                linearLayout.getChildAt(realPos).setSelected(true);
+                                textView.setText(title[realPos]);
+                                setBorader(realPos,true);
+                                prePos = realPos;
                         }
 
                         @Override
@@ -151,15 +147,20 @@ public class DanceViewPagerActivity extends BaseActivity {
                 item = item % imgs.length;
                 linearLayout.getChildAt(item).setSelected(true);
                 textView.setText(title[item]);
+                setBorader(item,true);
                 prePos = item;
 
+        }
+
+        private void setBorader(int item,boolean state) {
+                Log.e(TAG, "setBorader: ====== "+ imageViews.size() );
         }
 
         private void initData() {
                 imageViews = new ArrayList<>();
                 for (int i = 0; i < imgs.length; i++) {
                         RelativeLayout relativeLayout = (RelativeLayout) layoutInflater.inflate(R.layout.viewpager_dance_item, null);
-                        ImageView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
+                        BorderImageView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
                         imageView.setBackgroundResource(imgs[i]);
                         imageView.setTag(i);
                         imageViews.add(relativeLayout);

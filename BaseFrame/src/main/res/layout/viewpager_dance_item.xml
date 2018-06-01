@@ -14,12 +14,12 @@
         android:background="@drawable/projection"
         android:paddingTop="@dimen/x5" />
 
-    <ImageView
+    <com.uurobot.baseframe.view.BorderImageView
         android:id="@+id/image_dance_icon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:paddingBottom="@dimen/x5"
+        android:padding="@dimen/x10"
         android:scaleType="centerInside" />
 
 </RelativeLayout>
