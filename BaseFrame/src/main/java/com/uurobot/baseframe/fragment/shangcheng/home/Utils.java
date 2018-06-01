@@ -36,9 +36,9 @@ public class Utils {
         public static void transLationX(View page, float position) {
                 float transLationX = getTransLation(position) * page.getWidth()/2;
                 page.setTranslationX(transLationX);
+
                 float abs = Math.abs(position);
                 int tan = (int) ((abs * 600 / 3.0) * Math.tan(26 * Math.PI / 180));
-
                 page.setTranslationY(-tan);
         }
 

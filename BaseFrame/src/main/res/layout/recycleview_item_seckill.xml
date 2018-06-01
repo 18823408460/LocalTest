@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green_low"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x10"
+            android:text="@string/seckill"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/x20" />
+
+        <TextView
+            android:id="@+id/tv_secKill_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x140"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/x16"
+            tools:text="00:00:00" />
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/gridview_secKill_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x160"
+        android:layout_below="@id/ll_head" />
+</RelativeLayout>

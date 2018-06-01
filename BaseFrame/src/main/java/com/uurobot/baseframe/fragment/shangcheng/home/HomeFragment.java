@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.adapter.HomeFragmentAdapter;
+import com.uurobot.baseframe.adapter.RecycleViewItemDivide;
 import com.uurobot.baseframe.base.BaseFragment;
 import com.uurobot.baseframe.bean.shangcheng.ResponseBean;
 import com.uurobot.baseframe.utils.Constans;
@@ -40,7 +42,27 @@ public class HomeFragment extends BaseFragment {
         protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
                 View view = inflater.inflate(R.layout.fragment_home_shangcheng, container, false);
                 recyclerView = view.findViewById(R.id.recycleview_home_fragmnet);
-                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
+                imageButton = view.findViewById(R.id.imageButton_home_fragment);
+                imageButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                Toast.makeText(mContext, "homeBtn", Toast.LENGTH_SHORT).show();
+                        }
+                });
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                        @Override
+                        public int getSpanSize(int position) { // 监听滑动到了 第几个Item
+                                if (position > 3) {
+                                        imageButton.setVisibility(View.VISIBLE);
+                                } else {
+                                        imageButton.setVisibility(View.GONE);
+                                }
+                                return 1;
+                        }
+                });
+                recyclerView.setLayoutManager(gridLayoutManager);
+                recyclerView.addItemDecoration(new RecycleViewItemDivide(4));
                 homeFragmentAdapter = new HomeFragmentAdapter(mContext);
                 recyclerView.setAdapter(homeFragmentAdapter);
                 return view;
@@ -71,12 +93,7 @@ public class HomeFragment extends BaseFragment {
                         return;
                 }
                 ResponseBean responseBean = JSON.parseObject(response, ResponseBean.class);
-                List<ResponseBean.ResultBean.BannerInfoBean> banner_info = responseBean.getResult().getBanner_info();
-                List<String> imageUrlList = new ArrayList<>();
-                for (ResponseBean.ResultBean.BannerInfoBean bannerInfoBean : banner_info) {
-                        String imageUrl = bannerInfoBean.getImage();
-                        imageUrlList.add(Constans.IMAGE_BASE_URL+imageUrl);
-                }
-                homeFragmentAdapter.setBannerData(imageUrlList);
+                homeFragmentAdapter.setData(responseBean.getResult());
+
         }
 }

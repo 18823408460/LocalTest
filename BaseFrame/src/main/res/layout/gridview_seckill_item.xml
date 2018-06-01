@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/x4">
+
+    <ImageView
+        android:id="@+id/imageview_gridview_seckill"
+        android:layout_width="@dimen/x40"
+        android:layout_height="@dimen/x40" />
+
+    <!-- android:ellipsize=”start”—–省略号显示在开头 "...pedia"
+        android:ellipsize=”end”——省略号显示在结尾  "encyc..."
+        android:ellipsize=”middle”—-省略号显示在中间 "en...dia"
+        android:ellipsize=”marquee”–以横向滚动方式显示(需获得当前焦点时) -->
+    <TextView
+        android:id="@+id/tv_normal_gridview_seckill"
+        android:layout_width="@dimen/x40"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="2"
+        android:textColor="@color/red"
+        android:textSize="@dimen/x15" />
+
+    <TextView
+        android:id="@+id/tv_convert_gridview_seckill"
+        android:layout_width="@dimen/x40"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="2"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/x10" />
+</LinearLayout>

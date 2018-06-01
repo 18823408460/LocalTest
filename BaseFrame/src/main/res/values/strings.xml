@@ -55,4 +55,9 @@
     <string name="input_somthing">输入要搜索的产品</string>
     <string name="type">分类</string>
     <string name="danceTitle">机器人舞蹈</string>
+    <string name="channel">频道</string>
+    <string name="act">活动专区</string>
+    <string name="seckill">秒杀</string>
+    <string name="hot">热卖</string>
+    <string name="recommend">推荐</string>
 </resources>

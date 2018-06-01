@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.uurobot.baseframe.R;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class BannerViewHoler extends RecyclerView.ViewHolder {
                 super(itemView);
                 banner = itemView.findViewById(R.id.banner_home_fragment);
                 banner.setIndicatorGravity(BannerConfig.CIRCLE_INDICATOR_TITLE);
+                banner.setBannerAnimation(Transformer.Accordion);
         }
 
         public void setData(List<String> data) {

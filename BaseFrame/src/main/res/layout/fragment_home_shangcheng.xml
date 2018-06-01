@@ -20,5 +20,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="@dimen/x6"
-        android:background="@drawable/icon_home" />
+        android:background="@drawable/tree"
+        android:visibility="gone" />
 </RelativeLayout>
