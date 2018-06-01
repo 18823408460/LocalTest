@@ -176,8 +176,8 @@ public class DanceViewPagerActivity extends BaseActivity {
                                 Log.e(TAG, "transformPage: diff===" + diff);
                                 Log.e(TAG, "transformPage: tan===" + tan);
 
-                                //page.setPivotX(page.getWidth() / 2);
-                                // page.setPivotY(page.getHeight() / 2 - tan);
+                                page.setPivotX(page.getWidth() / 2);
+                                 page.setPivotY(page.getHeight() / 2 - tan);
                                 if (scale != -1) {
                                         page.setScaleX(scale);
                                         page.setScaleY(scale);
@@ -206,9 +206,9 @@ public class DanceViewPagerActivity extends BaseActivity {
 
                         ImageView points = new ImageView(this);
                         points.setBackgroundResource(R.drawable.point_selectors);
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(62, 62);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(42, 42);
                         if (i != (imgs.length - 1)) { // 最后一个不需要
-                                params.rightMargin = 40;
+                                params.rightMargin = 20;
                         }
                         points.setLayoutParams(params);
                         linearLayout.addView(points);
