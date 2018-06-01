@@ -172,9 +172,6 @@ public class DanceViewPagerActivity extends BaseActivity {
                                 }
                                 float abs = Math.abs(position);
                                 int tan = (int) ((abs * 900 / 3.0) * Math.tan(40 * Math.PI / 180));
-                                int diff = (int) (8000 * Math.sin(abs / 180 * Math.PI));
-                                Log.e(TAG, "transformPage: diff===" + diff);
-                                Log.e(TAG, "transformPage: tan===" + tan);
 
                                 //page.setPivotX(page.getWidth() / 2);
                                 //page.setPivotY(page.getHeight() / 2 - tan);
