@@ -62,7 +62,7 @@ public class DanceViewPagerActivity extends BaseActivity {
                         }
                 });
                 initData();
-                viewPager.setOffscreenPageLimit(imageViews.size());
+                viewPager.setOffscreenPageLimit(imageViews.size() + 4);
                 viewPager.setAdapter(new PagerAdapter() {
                         @Override
                         public int getCount() {
@@ -135,6 +135,7 @@ public class DanceViewPagerActivity extends BaseActivity {
                         @Override
                         public void transformPage(View page, float position) {
                                 float scale = -1;
+
                                 if (position <= -2.1) {
                                         scale = MIN_SCALE;
 
@@ -175,11 +176,13 @@ public class DanceViewPagerActivity extends BaseActivity {
                                 Log.e(TAG, "transformPage: diff===" + diff);
                                 Log.e(TAG, "transformPage: tan===" + tan);
 
-                                page.setPivotX(page.getWidth() / 2);
-                                page.setPivotY(page.getHeight() / 2 - tan);
+                                //page.setPivotX(page.getWidth() / 2);
+                                // page.setPivotY(page.getHeight() / 2 - tan);
                                 if (scale != -1) {
                                         page.setScaleX(scale);
                                         page.setScaleY(scale);
+
+                                        float diffScale = 1 - scale;
                                 }
                         }
                 });
