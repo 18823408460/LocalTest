@@ -21,7 +21,7 @@
     </LinearLayout>
 
     <GridView
-        android:id="@+id/gridview_secKill_fragment"
+        android:id="@+id/gridview_recomment_fragment"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x200"
         android:layout_below="@id/ll_head" />

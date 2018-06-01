@@ -42,6 +42,20 @@ public class HomeFragment extends BaseFragment {
         protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
                 View view = inflater.inflate(R.layout.fragment_home_shangcheng, container, false);
                 recyclerView = view.findViewById(R.id.recycleview_home_fragmnet);
+                textViewSearch = view.findViewById(R.id.tv_home_fragmnet_head_search);
+                textViewSearch.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                Toast.makeText(mContext, "textViewSearch", Toast.LENGTH_SHORT).show();
+                        }
+                });
+                textViewType = view.findViewById(R.id.tv_home_fragmnet_head_type);
+                textViewType.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                Toast.makeText(mContext, "textViewType", Toast.LENGTH_SHORT).show();
+                        }
+                });
                 imageButton = view.findViewById(R.id.imageButton_home_fragment);
                 imageButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -94,6 +108,5 @@ public class HomeFragment extends BaseFragment {
                 }
                 ResponseBean responseBean = JSON.parseObject(response, ResponseBean.class);
                 homeFragmentAdapter.setData(responseBean.getResult());
-
         }
 }
