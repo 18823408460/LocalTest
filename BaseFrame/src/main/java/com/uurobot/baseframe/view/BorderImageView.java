@@ -33,10 +33,10 @@ public class BorderImageView extends ImageView {
                 super.onDraw(canvas);
                 if (drawBorder) {
                         //画边框
-                        int borderWidth = 20;
+                        int borderWidth = 10;
                         Paint paint = new Paint();
                         paint.setColor(color);
-                        paint.setStrokeWidth(30);
+                        paint.setStrokeWidth(borderWidth);
                         paint.setStyle(Paint.Style.STROKE);
                         canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - borderWidth / 2, paint);
                 }

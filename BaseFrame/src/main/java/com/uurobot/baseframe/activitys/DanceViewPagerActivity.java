@@ -64,7 +64,7 @@ public class DanceViewPagerActivity extends BaseActivity {
                         }
                 });
                 initData();
-                viewPager.setOffscreenPageLimit(imageViews.size() + 4);
+                viewPager.setOffscreenPageLimit(imageViews.size() + 2);
                 viewPager.setAdapter(new PagerAdapter() {
                         @Override
                         public int getCount() {
@@ -86,8 +86,10 @@ public class DanceViewPagerActivity extends BaseActivity {
                                 }
                                 BorderImageView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
                                 imageView.setBackgroundResource(imgs[position % imgs.length]);
+                                imageView.drawBorder(true);
                                 relativeLayout.setTag(position);
                                 container.addView(relativeLayout);
+                                Log.e(TAG, "instantiateItem:    "+position );
                                 return relativeLayout;
                         }
 
@@ -98,6 +100,7 @@ public class DanceViewPagerActivity extends BaseActivity {
 
                         @Override
                         public void destroyItem(ViewGroup container, int position, Object object) {
+                                Log.e(TAG, "destroyItem :    "+position );
                                 container.removeView((View) object);
                                 imageViews.add((RelativeLayout) object);
                         }
@@ -105,12 +108,12 @@ public class DanceViewPagerActivity extends BaseActivity {
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                         @Override
                         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                                Log.e(TAG, "onPageScrolled: position=" + position + "   positionOffset=" + positionOffset);
 
                         }
 
                         @Override
                         public void onPageSelected(int position) {
+                                Log.e(TAG, "onPageSelected: "+position );
                                 int realPos = position % imgs.length;
                                 linearLayout.getChildAt(prePos).setSelected(false);
                                 linearLayout.getChildAt(realPos).setSelected(true);
@@ -132,7 +135,6 @@ public class DanceViewPagerActivity extends BaseActivity {
                         @Override
                         public void transformPage(View page, float position) {
                                 float scale;
-                                Log.e(TAG, "transformPage: " + position);
                                 //执行缩放
                                 float scaleFactor = Utils.getPageScale(position);
                                 page.setScaleX(scaleFactor);
