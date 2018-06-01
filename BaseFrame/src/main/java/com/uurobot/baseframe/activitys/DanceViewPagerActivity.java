@@ -176,8 +176,15 @@ public class DanceViewPagerActivity extends BaseActivity {
                                 Log.e(TAG, "transformPage: diff===" + diff);
                                 Log.e(TAG, "transformPage: tan===" + tan);
 
-                                page.setPivotX(page.getWidth() / 2);
-                                 page.setPivotY(page.getHeight() / 2 - tan);
+                                //page.setPivotX(page.getWidth() / 2);
+                                //page.setPivotY(page.getHeight() / 2 - tan);
+                                if (position > 0) {
+                                        page.setPivotX(0);
+                                        page.setPivotY(page.getHeight() / 2 - tan);
+                                } else {
+                                        page.setPivotX(page.getWidth());
+                                        page.setPivotY(page.getHeight() / 2  - tan );
+                                }
                                 if (scale != -1) {
                                         page.setScaleX(scale);
                                         page.setScaleY(scale);
