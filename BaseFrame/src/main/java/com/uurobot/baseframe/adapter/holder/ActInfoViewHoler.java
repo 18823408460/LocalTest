@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.uurobot.baseframe.R;
+import com.uurobot.baseframe.adapter.HomeFragmentAdapter;
 import com.uurobot.baseframe.bean.shangcheng.ResponseBean;
 import com.uurobot.baseframe.utils.Constans;
 import com.uurobot.baseframe.utils.SizeUtil;
@@ -21,15 +22,16 @@ import java.util.List;
  * Created by Administrator on 2018/5/31.
  */
 
-public class ActInfoViewHoler extends RecyclerView.ViewHolder {
+public class ActInfoViewHoler extends BaseHolder {
         private static final String TAG = ActInfoViewHoler.class.getSimpleName();
         private ViewPager viewPager;
 
-        public ActInfoViewHoler(View itemView) {
+        public ActInfoViewHoler(View itemView, IHolderLisenter iHolderLisenter) {
                 super(itemView);
                 viewPager = itemView.findViewById(R.id.viewpager_act_fragment);
                 viewPager.setPageMargin(SizeUtil.dp2px(itemView.getContext(), 10));
-                viewPager.setPageTransformer(true,new ScaleInTransformer());
+                viewPager.setPageTransformer(true, new ScaleInTransformer());
+                this.iHolderLisenter = iHolderLisenter;
         }
 
         public void setData(final List<ResponseBean.ResultBean.ActInfoBean> data) {
@@ -47,10 +49,15 @@ public class ActInfoViewHoler extends RecyclerView.ViewHolder {
                         }
 
                         @Override
-                        public Object instantiateItem(ViewGroup container, int position) {
+                        public Object instantiateItem(ViewGroup container, final int position) {
                                 ImageView imageView = new ImageView(container.getContext());
                                 String icon_url = data.get(position).getIcon_url();
-
+                                imageView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                                iHolderLisenter.onClick(HomeFragmentAdapter.HolderType.Act, position);
+                                        }
+                                });
                                 Glide.with(container.getContext())
                                         .load(Constans.IMAGE_BASE_URL + icon_url)
                                         .error(R.drawable.icon_search)

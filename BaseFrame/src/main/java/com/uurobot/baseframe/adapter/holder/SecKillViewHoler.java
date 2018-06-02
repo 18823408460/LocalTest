@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.uurobot.baseframe.R;
+import com.uurobot.baseframe.adapter.HomeFragmentAdapter;
 import com.uurobot.baseframe.bean.shangcheng.ResponseBean;
 import com.uurobot.baseframe.utils.Constans;
 
@@ -24,19 +26,20 @@ import java.util.List;
  * Created by Administrator on 2018/5/31.
  */
 
-public class SecKillViewHoler extends RecyclerView.ViewHolder {
+public class SecKillViewHoler extends BaseHolder {
         private static final String TAG = SecKillViewHoler.class.getSimpleName();
         private TextView textView;
         private GridView gridView;
         private LayoutInflater layoutInflater;
         private CountDownTimer countDownTimer;
 
-        public SecKillViewHoler(View itemView) {
+        public SecKillViewHoler(View itemView, IHolderLisenter iHolderLisenter) {
                 super(itemView);
                 textView = itemView.findViewById(R.id.tv_secKill_fragment);
                 gridView = itemView.findViewById(R.id.gridview_secKill_fragment);
                 gridView.setNumColumns(3);
                 layoutInflater = LayoutInflater.from(itemView.getContext());
+                this.iHolderLisenter = iHolderLisenter;
         }
 
         public void setData(final ResponseBean.ResultBean.SeckillInfoBean data) {
@@ -45,7 +48,12 @@ public class SecKillViewHoler extends RecyclerView.ViewHolder {
                 long diff = Long.parseLong(data.getEnd_time()) - Long.parseLong(data.getStart_time());
 
                 startCountDown(diff);
-
+                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                iHolderLisenter.onClick(HomeFragmentAdapter.HolderType.Seckill, position);
+                        }
+                });
                 gridView.setAdapter(new BaseAdapter() {
                         @Override
                         public int getCount() {

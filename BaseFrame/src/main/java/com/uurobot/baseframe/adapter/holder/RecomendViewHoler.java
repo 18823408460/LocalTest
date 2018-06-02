@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.uurobot.baseframe.R;
+import com.uurobot.baseframe.adapter.HomeFragmentAdapter;
 import com.uurobot.baseframe.bean.shangcheng.ResponseBean;
 import com.uurobot.baseframe.utils.Constans;
 
@@ -23,20 +25,27 @@ import java.util.List;
  * Created by Administrator on 2018/5/31.
  */
 
-public class RecomendViewHoler extends RecyclerView.ViewHolder {
+public class RecomendViewHoler extends BaseHolder {
         private static final String TAG = RecomendViewHoler.class.getSimpleName();
         private GridView gridView;
         private LayoutInflater inflater;
 
-        public RecomendViewHoler(View itemView) {
+        public RecomendViewHoler(View itemView, IHolderLisenter iHolderLisenter) {
                 super(itemView);
                 gridView = itemView.findViewById(R.id.gridview_recomment_fragment);
                 inflater = LayoutInflater.from(itemView.getContext());
+                this.iHolderLisenter = iHolderLisenter;
         }
 
         public void setData(final List<ResponseBean.ResultBean.RecommendInfoBean> data) {
                 Log.e(TAG, "setData: " + data);
                 gridView.setNumColumns(3);
+                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                iHolderLisenter.onClick(HomeFragmentAdapter.HolderType.Recommend, position);
+                        }
+                });
                 gridView.setAdapter(new BaseAdapter() {
                         @Override
                         public int getCount() {

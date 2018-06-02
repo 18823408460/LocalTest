@@ -8,9 +8,11 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.uurobot.baseframe.R;
+import com.uurobot.baseframe.adapter.HomeFragmentAdapter;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.List;
@@ -19,15 +21,16 @@ import java.util.List;
  * Created by Administrator on 2018/5/31.
  */
 
-public class BannerViewHoler extends RecyclerView.ViewHolder {
+public class BannerViewHoler extends BaseHolder {
         private static final String TAG = BannerViewHoler.class.getSimpleName();
         public Banner banner;
 
-        public BannerViewHoler(View itemView) {
+        public BannerViewHoler(View itemView, IHolderLisenter iHolderLisenter) {
                 super(itemView);
                 banner = itemView.findViewById(R.id.banner_home_fragment);
                 banner.setIndicatorGravity(BannerConfig.CIRCLE_INDICATOR_TITLE);
                 banner.setBannerAnimation(Transformer.Accordion);
+                this.iHolderLisenter = iHolderLisenter;
         }
 
         public void setData(List<String> data) {
@@ -41,5 +44,11 @@ public class BannerViewHoler extends RecyclerView.ViewHolder {
                 });
                 banner.setImages(data);
                 banner.start();
+                banner.setOnBannerListener(new OnBannerListener() {
+                        @Override
+                        public void OnBannerClick(int position) {
+                                iHolderLisenter.onClick(HomeFragmentAdapter.HolderType.Banner, position);
+                        }
+                });
         }
 }

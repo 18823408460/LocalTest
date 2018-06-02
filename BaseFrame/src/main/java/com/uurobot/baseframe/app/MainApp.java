@@ -1,6 +1,7 @@
 package com.uurobot.baseframe.app;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -13,9 +14,16 @@ import okhttp3.OkHttpClient;
  */
 
 public class MainApp extends Application {
+        public static Context context;
+
+        public static Context getContext() {
+                return context;
+        }
+
         @Override
         public void onCreate() {
                 super.onCreate();
+                context = this;
                 initOkHttp();
         }
 
