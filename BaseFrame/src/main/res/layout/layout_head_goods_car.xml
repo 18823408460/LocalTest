@@ -11,10 +11,12 @@
         android:textColor="@android:color/black"
         android:textSize="@dimen/x20" />
 
-    <ImageButton
-        android:id="@+id/imageButton_goods_car_edit"
+    <TextView
+       android:layout_centerVertical="true"
+        android:id="@+id/tv_goods_car_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/edit"
         android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/x4" />
+        android:layout_margin="@dimen/x9" />
 </RelativeLayout>

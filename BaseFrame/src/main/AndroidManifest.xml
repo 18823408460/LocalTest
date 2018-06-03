@@ -48,6 +48,7 @@
         <!--android:screenOrientation="landscape" />-->
         <activity android:name=".activitys.custom.AdsViewPagerActivity" />
         <activity android:name=".activitys.shangcheng.GoodInfoActivity" />
+        <activity android:name=".activitys.shangcheng.GoodCarActivity" />
         <!-- This service is only used on devices with API v17+ -->
     </application>
 

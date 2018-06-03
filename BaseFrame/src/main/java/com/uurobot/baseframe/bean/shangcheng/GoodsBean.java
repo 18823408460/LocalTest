@@ -15,7 +15,7 @@ public class GoodsBean implements Serializable {
         private String name;
         private String origin_price;
         private String product_id;
-        private int numbers;
+        private int numbers = 1;
 
         public GoodsBean() {
         }
