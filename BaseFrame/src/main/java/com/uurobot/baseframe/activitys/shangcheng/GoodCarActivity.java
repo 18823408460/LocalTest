@@ -1,7 +1,9 @@
 package com.uurobot.baseframe.activitys.shangcheng;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.activitys.BaseActivity;
+import com.uurobot.baseframe.adapter.RecycleViewItemDivide;
 import com.uurobot.baseframe.adapter.shangcheng.GoodsCarAdapter;
 import com.uurobot.baseframe.bean.shangcheng.GoodsBean;
 import com.uurobot.baseframe.bean.shangcheng.GoodsCarBean;
@@ -28,7 +31,7 @@ import java.util.List;
  */
 // 在Android中如果想要实现3D效果一般有两种选择，一是使用Open GL ES，二是使用Camera。Open GL ES使用起来太过复杂，
 // 一般是用于比较高级的3D特效或游戏，像比较简单的一些3D效果，使用Camera就足够了
-public class GoodCarActivity extends BaseActivity {
+public class GoodCarActivity extends Activity {
         private static final String TAG = GoodCarActivity.class.getSimpleName();
         private RecyclerView recyclerView;
         private TextView tvEdit;
@@ -51,26 +54,20 @@ public class GoodCarActivity extends BaseActivity {
 
         private List<GoodsBean> mockData() {
                 List<GoodsBean> goodsBeans = new ArrayList<>();
-                GoodsBean goodsBean = new GoodsBean();
-                goodsBean.setProduct_id("1");
-                goodsBean.setName("11");
-                goodsBean.setFigure("11");
-                goodsBean.setCover_price("11");
-                goodsBean.setOrigin_price("11");
-                goodsBeans.add(goodsBean);
-
-                GoodsBean goodsBean1 = new GoodsBean();
-                goodsBean1.setProduct_id("3");
-                goodsBean1.setName("33");
-                goodsBean1.setFigure("33");
-                goodsBean1.setCover_price("33");
-                goodsBean1.setOrigin_price("33");
-                goodsBeans.add(goodsBean1);
+                for (int i = 0; i < 11; i++) {
+                        GoodsBean goodsBean = new GoodsBean();
+                        goodsBean.setProduct_id(String.valueOf(i));
+                        goodsBean.setName(String.valueOf("这是我的商品number："+i));
+                        goodsBean.setFigure(String.valueOf(i));
+                        goodsBean.setCover_price(String.valueOf(i));
+                        goodsBean.setOrigin_price(String.valueOf(i));
+                        goodsBeans.add(goodsBean);
+                }
                 return goodsBeans;
         }
 
         private void getDataFromLocal() {
-                //                List<GoodsBean> data = CartStorage.getCartStorage().getAllData();
+                //List<GoodsBean> data = CartStorage.getCartStorage().getAllData();
                 List<GoodsBean> data = mockData();
                 allData = new ArrayList<>();
                 for (GoodsBean goods : data) {
@@ -89,6 +86,8 @@ public class GoodCarActivity extends BaseActivity {
                 linearLayoutEmpty = findViewById(R.id.layout_goods_car_empty);
                 relativeLayoutNotEmpty = findViewById(R.id.layout_goods_car_not_empty);
                 layoutInflater = LayoutInflater.from(this);
-                recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+                recyclerView.addItemDecoration(new RecycleViewItemDivide(10));
+                //recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+                recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         }
 }

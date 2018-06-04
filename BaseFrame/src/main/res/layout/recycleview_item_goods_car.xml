@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/x80"
-    android:orientation="horizontal"
+    android:layout_height="@dimen/x320"
+    android:layout_margin="@dimen/x10"
     android:background="@color/green_low"
-    android:padding="@dimen/x4">
+    android:orientation="horizontal">
 
     <CheckBox
         android:id="@+id/checkbox_goods_car_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/x2"
         android:background="@drawable/checkbox_selector"
         android:button="@null" />
 
@@ -25,7 +26,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/x10"
+        android:layout_margin="@dimen/x5"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -38,21 +40,22 @@
             android:textColor="@android:color/black"
             android:textSize="@dimen/x10" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tv_price_goods_car_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:text="价格" />
 
             <com.uurobot.baseframe.view.GoodsNumSelectView
                 android:id="@+id/googsNumSelectView"
-                android:layout_width="@dimen/x100"
-                android:layout_height="@dimen/x40" />
-        </LinearLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

@@ -37,7 +37,7 @@ public class GoodsNumSelectView extends LinearLayout implements View.OnClickList
 
         private void initData() {
                 LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-                View view = layoutInflater.inflate(R.layout.layout_goods_num_select_view, null);
+                View view = layoutInflater.inflate(R.layout.layout_goods_num_select_view,this);
                 imageButtonSub = view.findViewById(R.id.imageButton_sub_goods_num_select_view);
                 imageButtonSub.setOnClickListener(this);
                 imageButtonAdd = view.findViewById(R.id.imageButton_add_goods_num_select_view);

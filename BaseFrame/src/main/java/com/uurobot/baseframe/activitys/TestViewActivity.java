@@ -26,6 +26,7 @@ import com.uurobot.baseframe.view.FakeViewPager;
 import com.uurobot.baseframe.view.RotateThreeView;
 import com.uurobot.baseframe.view.SurfaceViewAnim;
 
+import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -47,9 +48,12 @@ public class TestViewActivity extends BaseActivity {
 
                 //                testDrawable();
 
-                testFakeViewPager();
+                testCutomView();
                 //                testPopupWindow();
+        }
 
+        private void testCutomView(){
+                setContentView(R.layout.activity_test_goodsselectview);
         }
 
 
