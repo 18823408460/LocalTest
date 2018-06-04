@@ -64,11 +64,11 @@ public class DanceViewPagerActivity extends BaseActivity {
                         }
                 });
                 initData();
-                viewPager.setOffscreenPageLimit(imageViews.size() + 2);
+                viewPager.setOffscreenPageLimit(7);
                 viewPager.setAdapter(new PagerAdapter() {
                         @Override
                         public int getCount() {
-                                return imageViews.size();
+                                return Integer.MAX_VALUE;
                         }
 
                         @Override
@@ -78,11 +78,8 @@ public class DanceViewPagerActivity extends BaseActivity {
 
                         @Override
                         public Object instantiateItem(ViewGroup container, int position) {
-                                RelativeLayout relativeLayout;
-                                relativeLayout = imageViews.get(position % imageViews.size());
-                                BorderImageView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
-                                imageView.setBackgroundResource(imgs[position % imgs.length]);
-                                relativeLayout.setTag(position);
+                                Log.e(TAG, "instantiateItem: " + position%imageViews.size() );
+                                RelativeLayout relativeLayout =imageViews.get(position% imageViews.size());
                                 container.addView(relativeLayout);
                                 return relativeLayout;
                         }
@@ -106,9 +103,11 @@ public class DanceViewPagerActivity extends BaseActivity {
 
                         @Override
                         public void onPageSelected(int position) {
-                                Log.e(TAG, "onPageSelected: " + position);
-                                int realPos = position % imgs.length;
-                                linearLayout.getChildAt(prePos).setSelected(false);
+                                int realPos = position % title.length;
+                                Log.e(TAG, "onPageSelected: " + position+ "   realPos="+realPos+"   "+linearLayout.getChildCount());
+                                if (prePos != -1){
+                                        linearLayout.getChildAt(prePos).setSelected(false);
+                                }
                                 linearLayout.getChildAt(realPos).setSelected(true);
                                 textView.setText(title[realPos]);
                                 setBorader(realPos, true);
@@ -137,7 +136,7 @@ public class DanceViewPagerActivity extends BaseActivity {
                                 Utils.setPivotXY(page, position);
                         }
                 });
-                int item = imageViews.size() / 2;
+                int item = Integer.MAX_VALUE / 2;
                 viewPager.setCurrentItem(item);
                 item = item % imgs.length;
                 linearLayout.getChildAt(item).setSelected(true);
@@ -148,11 +147,11 @@ public class DanceViewPagerActivity extends BaseActivity {
         }
 
         private void setBorader(int item, boolean state) {
-                Log.e(TAG, "setBorader: ====== " + imageViews.size());
+                Log.e(TAG, "setBorader: ====== " + prePos +"   " + item);
                 if (prePos != -1){
                         RelativeLayout relativeLayout = imageViews.get(prePos);
                         BorderImageView imageView = (BorderImageView) relativeLayout.getChildAt(1);
-                        imageView.drawBorder(false);
+                        //imageView.drawBorder(false);
                 }
                 RelativeLayout relativeLayout1 = imageViews.get(item);
                 BorderImageView imageView1 = (BorderImageView) relativeLayout1.getChildAt(1);
@@ -161,13 +160,16 @@ public class DanceViewPagerActivity extends BaseActivity {
 
         private void initData() {
                 imageViews = new ArrayList<>();
-                for (int i = 0; i < imgs.length; i++) {
+                for (int i = 0; i < imgs.length*4 ; i++) {
                         RelativeLayout relativeLayout = (RelativeLayout) layoutInflater.inflate(R.layout.viewpager_dance_item, null);
                         BorderImageView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
-                        imageView.setBackgroundResource(imgs[i]);
+                        imageView.setBackgroundResource(imgs[i%imgs.length]);
                         imageView.setTag(i);
                         imageViews.add(relativeLayout);
 
+
+                }
+                for (int i = 0; i < title.length; i++) {
                         ImageView points = new ImageView(this);
                         points.setBackgroundResource(R.drawable.point_selectors);
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(42, 42);

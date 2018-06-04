@@ -68,7 +68,7 @@ public class AdsViewPagerActivity extends BaseActivity {
         }
 
         private void initPoints() {
-                for (int i = 0; i < pagerIds.length; i++) {
+                for (int i = 0; i < pagerIds.length*4; i++) {
                         ImageView imageView = new ImageView(this);
                         imageView.setBackgroundResource(R.drawable.point_selectors);
                         // 构造参数是  view  的宽高
@@ -86,7 +86,7 @@ public class AdsViewPagerActivity extends BaseActivity {
                         linearLayout.addView(imageView);
 
                         ImageView imageView1 = new ImageView(this);
-                        imageView1.setBackgroundResource(pagerIds[i]);
+                        imageView1.setBackgroundResource(pagerIds[i%pagerIds.length]);
                         imageViewList.add(imageView1);
                 }
         }
@@ -175,7 +175,7 @@ public class AdsViewPagerActivity extends BaseActivity {
                 textView.setText(strs[prePosition % strs.length]);
                 viewPager.setCurrentItem(prePosition);
                 linearLayout.getChildAt(prePosition % strs.length).setSelected(true);
-                myHandler.sendEmptyMessageDelayed(0, 2000);
+               // myHandler.sendEmptyMessageDelayed(0, 2000);
         }
 
         private int prePosition;
