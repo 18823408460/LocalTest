@@ -1,6 +1,5 @@
 package com.uurobot.baseframe.activitys;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.fragment.shangcheng.home.Utils;
 import com.uurobot.baseframe.view.BorderImageView;
-import com.uurobot.baseframe.view.ReflectionImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +36,8 @@ public class DanceViewPagerActivity extends BaseActivity {
         private int imgs[] = {R.drawable.xpg, R.drawable.zumzf, R.drawable.mj, R.drawable.chysx, R.drawable.lq};
         private String title[] = {"小苹果", "最炫名族风", "迈克杰克逊", "沧海一声笑", "龙拳",};
         private List<RelativeLayout> imageViews;
-        private int prePos = -1;
+        private int prePointPos = -1;
+        private int preLayoutPos = -1;
         private LayoutInflater layoutInflater;
 
         @Override
@@ -105,13 +104,16 @@ public class DanceViewPagerActivity extends BaseActivity {
                         public void onPageSelected(int position) {
                                 int realPos = position % title.length;
                                 Log.e(TAG, "onPageSelected: " + position+ "   realPos="+realPos+"   "+linearLayout.getChildCount());
-                                if (prePos != -1){
-                                        linearLayout.getChildAt(prePos).setSelected(false);
+                                if (prePointPos != -1){
+                                        linearLayout.getChildAt(prePointPos).setSelected(false);
                                 }
                                 linearLayout.getChildAt(realPos).setSelected(true);
                                 textView.setText(title[realPos]);
-                                setBorader(realPos, true);
-                                prePos = realPos;
+                                prePointPos = realPos;
+
+                                int layouts = position % imageViews.size();
+                                setBorader(layouts, true);
+                                preLayoutPos = layouts ;
                         }
 
                         @Override
@@ -138,20 +140,22 @@ public class DanceViewPagerActivity extends BaseActivity {
                 });
                 int item = Integer.MAX_VALUE / 2;
                 viewPager.setCurrentItem(item);
-                item = item % imgs.length;
-                linearLayout.getChildAt(item).setSelected(true);
-                textView.setText(title[item]);
-                setBorader(item, true);
-                prePos = item;
+                int points = item % title.length;
+                linearLayout.getChildAt(points).setSelected(true);
+                textView.setText(title[points]);
+                prePointPos = points;
 
+                int layouts = item % imageViews.size();
+                setBorader(layouts, true);
+                preLayoutPos = layouts ;
         }
 
         private void setBorader(int item, boolean state) {
-                Log.e(TAG, "setBorader: ====== " + prePos +"   " + item);
-                if (prePos != -1){
-                        RelativeLayout relativeLayout = imageViews.get(prePos);
+                Log.e(TAG, "setBorader: ====== " + prePointPos +"   " + item);
+                if (preLayoutPos != -1){
+                        RelativeLayout relativeLayout = imageViews.get(preLayoutPos);
                         BorderImageView imageView = (BorderImageView) relativeLayout.getChildAt(1);
-                        //imageView.drawBorder(false);
+                        imageView.drawBorder(false);
                 }
                 RelativeLayout relativeLayout1 = imageViews.get(item);
                 BorderImageView imageView1 = (BorderImageView) relativeLayout1.getChildAt(1);
@@ -166,9 +170,8 @@ public class DanceViewPagerActivity extends BaseActivity {
                         imageView.setBackgroundResource(imgs[i%imgs.length]);
                         imageView.setTag(i);
                         imageViews.add(relativeLayout);
-
-
                 }
+
                 for (int i = 0; i < title.length; i++) {
                         ImageView points = new ImageView(this);
                         points.setBackgroundResource(R.drawable.point_selectors);

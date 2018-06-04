@@ -40,15 +40,15 @@ public class BorderImageView extends AppCompatImageView {
                         paint.setStrokeWidth(borderWidth);
                         paint.setStyle(Paint.Style.STROKE);
                         canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - borderWidth / 2, paint);
-                        Log.e(TAG, "onDraw: borader===========yes============" );
+                     //   Log.e(TAG, "onDraw: borader===========yes============" );
                 }else {
-                        Log.e(TAG, "onDraw: borader===========no============" );
+                     //   Log.e(TAG, "onDraw: borader===========no============" );
                 }
         }
 
         public void drawBorder(boolean b) {
                 this.drawBorder = b;
                 invalidate();
-                Log.e(TAG, "drawBorder: =========================="+b );
+               // Log.e(TAG, "drawBorder: =========================="+b );
         }
 }
