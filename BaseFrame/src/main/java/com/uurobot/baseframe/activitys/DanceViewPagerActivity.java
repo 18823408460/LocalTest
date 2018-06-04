@@ -38,7 +38,7 @@ public class DanceViewPagerActivity extends BaseActivity {
         private int imgs[] = {R.drawable.xpg, R.drawable.zumzf, R.drawable.mj, R.drawable.chysx, R.drawable.lq};
         private String title[] = {"小苹果", "最炫名族风", "迈克杰克逊", "沧海一声笑", "龙拳",};
         private List<RelativeLayout> imageViews;
-        private int prePos = 0;
+        private int prePos = -1;
         private LayoutInflater layoutInflater;
 
         @Override
@@ -149,10 +149,11 @@ public class DanceViewPagerActivity extends BaseActivity {
 
         private void setBorader(int item, boolean state) {
                 Log.e(TAG, "setBorader: ====== " + imageViews.size());
-                RelativeLayout relativeLayout = imageViews.get(prePos);
-                BorderImageView imageView = (BorderImageView) relativeLayout.getChildAt(1);
-                imageView.drawBorder(false);
-
+                if (prePos != -1){
+                        RelativeLayout relativeLayout = imageViews.get(prePos);
+                        BorderImageView imageView = (BorderImageView) relativeLayout.getChildAt(1);
+                        imageView.drawBorder(false);
+                }
                 RelativeLayout relativeLayout1 = imageViews.get(item);
                 BorderImageView imageView1 = (BorderImageView) relativeLayout1.getChildAt(1);
                 imageView1.drawBorder(true);
