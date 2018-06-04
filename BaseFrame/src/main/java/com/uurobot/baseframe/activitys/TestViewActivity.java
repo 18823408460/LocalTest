@@ -22,6 +22,7 @@ import android.widget.ViewSwitcher;
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.drawable.CircleDrawable;
 import com.uurobot.baseframe.drawable.RoundRectDrawable;
+import com.uurobot.baseframe.view.FakeViewPager;
 import com.uurobot.baseframe.view.RotateThreeView;
 import com.uurobot.baseframe.view.SurfaceViewAnim;
 
@@ -36,6 +37,7 @@ import static android.net.wifi.WifiConfiguration.Status.strings;
 
 public class TestViewActivity extends BaseActivity {
         private ImageView imageView;
+        int imgs[] = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e};
 
         @SuppressLint("ResourceType")
         @Override
@@ -45,16 +47,27 @@ public class TestViewActivity extends BaseActivity {
 
                 //                testDrawable();
 
-                testDimens();
+                testFakeViewPager();
                 //                testPopupWindow();
 
         }
 
 
-        private void testDimens(){
-                setContentView(R.layout.activity_test_diments);
+        private void testFakeViewPager() {
+                setContentView(R.layout.activity_test_fakeviewpager);
+                FakeViewPager fakeViewPager = findViewById(R.id.fake_viewpager);
+
+                for (int i = 0; i < imgs.length; i++) {
+                        ImageView imageView = new ImageView(this);
+                        imageView.setBackgroundResource(imgs[i]);
+                        fakeViewPager.addView(imageView);
+                }
         }
 
+
+        private void testDimens() {
+                setContentView(R.layout.activity_test_diments);
+        }
 
 
         private void testPopupWindow() {

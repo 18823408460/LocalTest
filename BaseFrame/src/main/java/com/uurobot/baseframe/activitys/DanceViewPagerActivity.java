@@ -164,7 +164,7 @@ public class DanceViewPagerActivity extends BaseActivity {
 
         private void initData() {
                 imageViews = new ArrayList<>();
-                for (int i = 0; i < imgs.length*4 ; i++) {
+                for (int i = 0; i < imgs.length*3 ; i++) {
                         RelativeLayout relativeLayout = (RelativeLayout) layoutInflater.inflate(R.layout.viewpager_dance_item, null);
                         BorderImageView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
                         imageView.setBackgroundResource(imgs[i%imgs.length]);
