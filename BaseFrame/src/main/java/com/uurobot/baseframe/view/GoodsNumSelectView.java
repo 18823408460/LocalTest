@@ -60,4 +60,8 @@ public class GoodsNumSelectView extends LinearLayout implements View.OnClickList
                         }
                 }
         }
+
+        public void setNumber(int numbers) {
+                textViewNum.setText(String.valueOf(numbers));
+        }
 }

@@ -9,8 +9,8 @@
     <application
         android:name=".app.MainApp"
         android:theme="@style/AppBaseTheme">
-        <activity android:name=".activitys.TestViewActivity"
-            android:screenOrientation="landscape">
+        <activity android:name=".activitys.shangcheng.GoodCarActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
 
@@ -49,7 +49,7 @@
         <!--android:screenOrientation="landscape" />-->
         <activity android:name=".activitys.custom.AdsViewPagerActivity" />
         <activity android:name=".activitys.shangcheng.GoodInfoActivity" />
-        <activity android:name=".activitys.shangcheng.GoodCarActivity" />
+        <!--<activity android:name=".activitys.shangcheng.GoodCarActivity" />-->
         <!-- This service is only used on devices with API v17+ -->
     </application>
 

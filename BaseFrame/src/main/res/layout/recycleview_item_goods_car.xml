@@ -1,41 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/x100"
+    android:layout_height="@dimen/x80"
     android:orientation="horizontal"
+    android:background="@color/green_low"
     android:padding="@dimen/x4">
 
     <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <LinearLayout
+        android:id="@+id/checkbox_goods_car_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/checkbox_selector"
+        android:button="@null" />
+
+    <ImageView
+        android:id="@+id/imagevie_goods_car_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/x10"
+        android:background="@drawable/tree" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/x10"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_desc_goods_car_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="2" />
+            android:maxLines="2"
+            android:text="描述描述描述描述描述描述描述描述描述描述描述描述"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/x10" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_price_goods_car_item"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="价格" />
 
             <com.uurobot.baseframe.view.GoodsNumSelectView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:id="@+id/googsNumSelectView"
+                android:layout_width="@dimen/x100"
+                android:layout_height="@dimen/x40" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
