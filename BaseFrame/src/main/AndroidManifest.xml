@@ -9,7 +9,8 @@
     <application
         android:name=".app.MainApp"
         android:theme="@style/AppBaseTheme">
-        <activity android:name=".activitys.LauncherActivity">
+        <activity android:name=".activitys.DanceViewPagerActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
 

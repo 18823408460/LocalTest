@@ -31,7 +31,7 @@
                 android:id="@+id/recycleview_goods_car"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:weight="1" />
+                android:layout_weight="1" />
 
 
             <!-- 下面的两个布局互斥-->
