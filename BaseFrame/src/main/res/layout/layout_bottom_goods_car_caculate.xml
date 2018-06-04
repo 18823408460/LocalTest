@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/blue"
+    android:layout_gravity="center_vertical"
+    android:paddingLeft="@dimen/x20"
     android:orientation="horizontal">
 
     <CheckBox
+        android:id="@+id/checkbox_goods_car_calculate"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:button="@null"
+        android:drawablePadding="@dimen/x10"
         android:drawableLeft="@drawable/checkbox_selector"
         android:text="@string/allSelect" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/allPrice"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/x30" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -73,4 +73,6 @@
     <string name="gotoCalculate">去结算</string>
     <string name="delete">删除</string>
     <string name="nullSomathing">空空如也</string>
+    <string name="allPrice">合计：</string>
+    <string name="finish">完成</string>
 </resources>

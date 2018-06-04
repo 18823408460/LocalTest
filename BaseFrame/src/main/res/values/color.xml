@@ -15,4 +15,6 @@
     <color name="blue">#0877EF</color>
     <color name="divider_color">#44ffffff</color>
 
+    <color name="gray">#44ffffff</color>
+    <color name="gray_high">#404040</color>
 </resources>
