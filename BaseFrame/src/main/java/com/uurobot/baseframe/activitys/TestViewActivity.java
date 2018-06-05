@@ -14,8 +14,11 @@ import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 import android.widget.ViewSwitcher;
 
@@ -48,24 +51,47 @@ public class TestViewActivity extends BaseActivity {
 
                 //                testDrawable();
 
-                testCutomView();
+                testCamera();
                 //                testPopupWindow();
         }
 
-        private void testCutomView(){
+
+        private void testCamera(){
+                setContentView(R.layout.activity_test_camera);
+        }
+
+
+        private void testCutomView() {
                 setContentView(R.layout.activity_test_goodsselectview);
         }
 
 
         private void testFakeViewPager() {
                 setContentView(R.layout.activity_test_fakeviewpager);
-                FakeViewPager fakeViewPager = findViewById(R.id.fake_viewpager);
+                final RadioGroup radioGroup = findViewById(R.id.rg_test_fakeviewpager);
+                final FakeViewPager fakeViewPager = findViewById(R.id.fake_viewpager);
+                fakeViewPager.setPageSelectListenter(new FakeViewPager.PageSelectListenter() {
+                        @Override
+                        public void onSelect(int position) {
+                                Log.e(TAG, "onSelect: "+position );
+                        }
+                });
 
                 for (int i = 0; i < imgs.length; i++) {
                         ImageView imageView = new ImageView(this);
                         imageView.setBackgroundResource(imgs[i]);
                         fakeViewPager.addView(imageView);
+
+                        RadioButton radioButton = new RadioButton(this);
+                        radioGroup.addView(radioButton);
                 }
+                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                                Log.e(TAG, "onCheckedChanged: "+checkedId );
+                                fakeViewPager.scrollToItem(checkedId);
+                        }
+                });
         }
 
 

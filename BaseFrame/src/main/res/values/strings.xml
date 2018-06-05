@@ -75,4 +75,11 @@
     <string name="nullSomathing">空空如也</string>
     <string name="allPrice">合计：</string>
     <string name="finish">完成</string>
+    <string name="finish1">完成1</string>
+    <string name="finish2">完成2</string>
+    <string name="finish3">完成3</string>
+    <string name="finish4">完成4</string>
+    <string name="finish5">完成5</string>
+    <string name="finish6">完成6</string>
+    <string name="finish7">完成7</string>
 </resources>
