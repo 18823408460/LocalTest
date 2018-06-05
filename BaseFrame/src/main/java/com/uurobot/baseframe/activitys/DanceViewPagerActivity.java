@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.fragment.shangcheng.home.Utils;
 import com.uurobot.baseframe.view.BorderImageView;
+import com.uurobot.baseframe.view.DaoyingView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class DanceViewPagerActivity extends BaseActivity {
         private LinearLayout linearLayout;
         private int imgs[] = {R.drawable.xpg, R.drawable.zumzf, R.drawable.mj, R.drawable.chysx, R.drawable.lq};
         private String title[] = {"小苹果", "最炫名族风", "迈克杰克逊", "沧海一声笑", "龙拳",};
-        private List<RelativeLayout> imageViews;
+        private List<ViewHolder> imageViews;
         private int prePointPos = -1;
         private int preLayoutPos = -1;
         private LayoutInflater layoutInflater;
@@ -77,10 +78,10 @@ public class DanceViewPagerActivity extends BaseActivity {
 
                         @Override
                         public Object instantiateItem(ViewGroup container, int position) {
-                                Log.e(TAG, "instantiateItem: " + position%imageViews.size() );
-                                RelativeLayout relativeLayout =imageViews.get(position% imageViews.size());
-                                container.addView(relativeLayout);
-                                return relativeLayout;
+                                Log.e(TAG, "instantiateItem: " + position % imageViews.size());
+                                ViewHolder viewHolder = imageViews.get(position % imageViews.size());
+                                container.addView(viewHolder.relativeLayout);
+                                return viewHolder.relativeLayout;
                         }
 
                         @Override
@@ -103,8 +104,8 @@ public class DanceViewPagerActivity extends BaseActivity {
                         @Override
                         public void onPageSelected(int position) {
                                 int realPos = position % title.length;
-                                Log.e(TAG, "onPageSelected: " + position+ "   realPos="+realPos+"   "+linearLayout.getChildCount());
-                                if (prePointPos != -1){
+                                Log.e(TAG, "onPageSelected: " + position + "   realPos=" + realPos + "   " + linearLayout.getChildCount());
+                                if (prePointPos != -1) {
                                         linearLayout.getChildAt(prePointPos).setSelected(false);
                                 }
                                 linearLayout.getChildAt(realPos).setSelected(true);
@@ -113,7 +114,7 @@ public class DanceViewPagerActivity extends BaseActivity {
 
                                 int layouts = position % imageViews.size();
                                 setBorader(layouts, true);
-                                preLayoutPos = layouts ;
+                                preLayoutPos = layouts;
                         }
 
                         @Override
@@ -147,29 +148,31 @@ public class DanceViewPagerActivity extends BaseActivity {
 
                 int layouts = item % imageViews.size();
                 setBorader(layouts, true);
-                preLayoutPos = layouts ;
+                preLayoutPos = layouts;
         }
 
         private void setBorader(int item, boolean state) {
-                Log.e(TAG, "setBorader: ====== " + prePointPos +"   " + item);
-                if (preLayoutPos != -1){
-                        RelativeLayout relativeLayout = imageViews.get(preLayoutPos);
-                        BorderImageView imageView = (BorderImageView) relativeLayout.getChildAt(1);
-                        imageView.drawBorder(false);
+                Log.e(TAG, "setBorader: ====== " + prePointPos + "   " + item);
+                if (preLayoutPos != -1) {
+                        ViewHolder viewHolder = imageViews.get(preLayoutPos);
+                        DaoyingView daoyingView = viewHolder.daoyingView;
+                        daoyingView.drawBorder(false);
                 }
-                RelativeLayout relativeLayout1 = imageViews.get(item);
-                BorderImageView imageView1 = (BorderImageView) relativeLayout1.getChildAt(1);
-                imageView1.drawBorder(true);
+                ViewHolder viewHolder = imageViews.get(item);
+                DaoyingView daoyingView = viewHolder.daoyingView;
+                daoyingView.drawBorder(true);
         }
 
         private void initData() {
                 imageViews = new ArrayList<>();
-                for (int i = 0; i < imgs.length*3 ; i++) {
+                for (int i = 0; i < imgs.length * 4; i++) {
                         RelativeLayout relativeLayout = (RelativeLayout) layoutInflater.inflate(R.layout.viewpager_dance_item, null);
-                        BorderImageView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
-                        imageView.setBackgroundResource(imgs[i%imgs.length]);
+                        DaoyingView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
                         imageView.setTag(i);
-                        imageViews.add(relativeLayout);
+                        ViewHolder viewHolder = new ViewHolder();
+                        viewHolder.relativeLayout = relativeLayout ;
+                        viewHolder.daoyingView = imageView ;
+                        imageViews.add(viewHolder);
                 }
 
                 for (int i = 0; i < title.length; i++) {
@@ -182,5 +185,10 @@ public class DanceViewPagerActivity extends BaseActivity {
                         points.setLayoutParams(params);
                         linearLayout.addView(points);
                 }
+        }
+
+        private class ViewHolder {
+                public RelativeLayout relativeLayout;
+                public DaoyingView daoyingView;
         }
 }

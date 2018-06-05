@@ -25,7 +25,7 @@ public class DaoyingView extends View {
         private Bitmap bitmap;
         private Bitmap shader;
         // 描边的宽度
-        private int border = 3;
+        private int border = 4;
 
         public DaoyingView(Context context) {
                 this(context, null);
@@ -52,7 +52,7 @@ public class DaoyingView extends View {
 
                 paint = new Paint();
                 paint.setAntiAlias(true);
-                paint.setStrokeWidth(3);
+                paint.setStrokeWidth(border);
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setColor(Color.parseColor("#ff0000"));
         }
@@ -80,6 +80,7 @@ public class DaoyingView extends View {
 
         public void drawBorder(boolean draBorder) {
                 this.drawBorder = draBorder;
+                invalidate();
         }
 
         /**

@@ -10,7 +10,8 @@
         android:name=".app.MainApp"
         android:theme="@style/AppBaseTheme">
 
-        <activity android:name=".activitys.TestViewActivity">
+        <activity android:name=".activitys.DanceViewPagerActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
