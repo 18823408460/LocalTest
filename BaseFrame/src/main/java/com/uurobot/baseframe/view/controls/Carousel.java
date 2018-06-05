@@ -791,6 +791,9 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
                                         canvas.drawBitmap(reflectionImage, 0, height + reflectionGap,
                                                 null);
 
+
+
+                                        // ----绘制 倒影
                                         // Create a shader that is a linear gradient that covers the
                                         // reflection
                                         Paint paint = new Paint();

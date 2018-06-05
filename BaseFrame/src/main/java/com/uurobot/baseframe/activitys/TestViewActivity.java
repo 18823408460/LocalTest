@@ -51,10 +51,14 @@ public class TestViewActivity extends BaseActivity {
 
                 //                testDrawable();
 
-                testCamera();
+                testDaoyingView();
                 //                testPopupWindow();
         }
 
+
+        private void testDaoyingView(){
+                setContentView(R.layout.activity_test_daoying);
+        }
 
         private void testCamera(){
                 setContentView(R.layout.activity_test_camera);
