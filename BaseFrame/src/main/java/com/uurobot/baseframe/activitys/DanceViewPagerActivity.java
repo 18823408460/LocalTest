@@ -168,6 +168,7 @@ public class DanceViewPagerActivity extends BaseActivity {
                 for (int i = 0; i < imgs.length * 4; i++) {
                         RelativeLayout relativeLayout = (RelativeLayout) layoutInflater.inflate(R.layout.viewpager_dance_item, null);
                         DaoyingView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
+                        imageView.setBitmap(imgs[i%imgs.length]);
                         imageView.setTag(i);
                         ViewHolder viewHolder = new ViewHolder();
                         viewHolder.relativeLayout = relativeLayout ;

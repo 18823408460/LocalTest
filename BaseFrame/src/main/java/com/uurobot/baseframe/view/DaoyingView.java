@@ -66,7 +66,6 @@ public class DaoyingView extends View {
         @Override
         protected void onDraw(Canvas canvas) {
                 //                canvas.drawBitmap(createReflectedImage(bitmap), 0, bitmap.getHeight(), null);
-
                 canvas.drawBitmap(shader, bitmap.getWidth() / 2 - shader.getWidth() / 2 + border, bitmap.getHeight() - shader.getHeight() / 2 + border, null);
                 canvas.drawBitmap(bitmap, border, border, null);
 
@@ -118,5 +117,10 @@ public class DaoyingView extends View {
                 // 画布画出反转图片大小区域，然后把渐变效果加到其中，就出现了图片的倒影效果。
                 canvas.drawRect(0, 0, width, drawBitmap.getHeight(), shaderPaint);
                 return drawBitmap;
+        }
+
+        public void setBitmap(int img) {
+                bitmap = BitmapFactory.decodeResource(getResources(),img);
+                invalidate();
         }
 }
