@@ -3,16 +3,21 @@ package com.uurobot.baseframe.activitys;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -28,6 +33,8 @@ import com.uurobot.baseframe.drawable.RoundRectDrawable;
 import com.uurobot.baseframe.view.FakeViewPager;
 import com.uurobot.baseframe.view.RotateThreeView;
 import com.uurobot.baseframe.view.SurfaceViewAnim;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.Timer;
@@ -51,16 +58,49 @@ public class TestViewActivity extends BaseActivity {
 
                 //                testDrawable();
 
-                testDaoyingView();
+                testDraw();
                 //                testPopupWindow();
         }
 
+        private void testDraw() {
+                LinearLayout linearLayout = new LinearLayout(this){
+                        @Override
+                        protected void dispatchDraw(Canvas canvas) {
+                                Log.e(TAG, "dispatchDraw: " );
+                                super.dispatchDraw(canvas);
+                        }
+                };
+                setContentView(linearLayout);
+                Button button = new AppCompatButton(this){
+                        @Override
+                        protected void onDraw(Canvas canvas) {
+                                Log.e(TAG, "onDraw: ========butn");
+                                super.onDraw(canvas);
+                        }
+                };
+                final TextView textView = new AppCompatTextView(this){
+                        @Override
+                        protected void onDraw(Canvas canvas) {
+                                Log.e(TAG, "onDraw: ======= textviwe" );
+                                super.onDraw(canvas);
+                        }
+                };
+                button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                textView.invalidate();
+                        }
+                });
+                linearLayout.addView(button);
+                linearLayout.addView(textView);
+        }
 
-        private void testDaoyingView(){
+
+        private void testDaoyingView() {
                 setContentView(R.layout.activity_test_daoying);
         }
 
-        private void testCamera(){
+        private void testCamera() {
                 setContentView(R.layout.activity_test_camera);
         }
 
@@ -77,7 +117,7 @@ public class TestViewActivity extends BaseActivity {
                 fakeViewPager.setPageSelectListenter(new FakeViewPager.PageSelectListenter() {
                         @Override
                         public void onSelect(int position) {
-                                Log.e(TAG, "onSelect: "+position );
+                                Log.e(TAG, "onSelect: " + position);
                         }
                 });
 
@@ -92,7 +132,7 @@ public class TestViewActivity extends BaseActivity {
                 radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(RadioGroup group, int checkedId) {
-                                Log.e(TAG, "onCheckedChanged: "+checkedId );
+                                Log.e(TAG, "onCheckedChanged: " + checkedId);
                                 fakeViewPager.scrollToItem(checkedId);
                         }
                 });

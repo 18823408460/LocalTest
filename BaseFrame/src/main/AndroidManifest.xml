@@ -10,7 +10,7 @@
         android:name=".app.MainApp"
         android:theme="@style/AppBaseTheme">
 
-        <activity android:name=".activitys.MainActivity">
+        <activity android:name=".activitys.TestViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,10 +21,6 @@
 
         </activity>
 
-        <activity
-            android:name=".activitys.TestViewActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".activitys.SmartDoctorActivity"
             android:screenOrientation="landscape" />

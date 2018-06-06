@@ -1,0 +1,139 @@
+1. class  ActivityThrad{
+	final ApplicationThread mAppThread = new ApplicationThread(); //负责和AMS进行binder通讯
+	final H mH = new H() ; //
+	
+	public static void main(){
+		Looper.prepareMainLooper(); 
+		...
+		ActivityThread thread = new ActivityThrad();
+		thread.attach(false); //这里创建Application
+		...
+		
+		sMainThreadHandler = thread.getHandler() ; //返回就是mH
+		...
+	}
+
+	private class H extends Handler { //AMS过来的所有消息，最终都会到这里处理，包括Activity的。。。
+    	...
+    	case LAUNCH_ACTIVITY: {
+    		void handleLaunchActivity(r, null){
+    			...
+    			Activity activity = performLauncherActivity();//里面会调 Activity的oncreate()
+    			activity.attach();
+    			...
+    		}
+    	} //创建启动Activity
+    	...
+    	case RESUME_ACTIVITY: {
+    		void handleResumeActivity(){
+    			...
+    			 wm.addView(decor, l); //将 decor 添加到 windowmanager中才能显示，=== 最终调用WindowManagerGlobal.addView();
+    			...
+    		}
+    	}
+    	...
+    }
+}
+
+
+2. class Activity {
+	void attach(){
+		 mWindow = new PhoneWindow();
+		 mWindow.setCallback(this); // 点击事件的监听
+		 mWindow.setWindowManager(....);
+		 WindowManager mWindowManager = mWindow.getWindowManager(); //最终其实返回一个WindowManagerImpl
+	}
+	...
+    void setContentView(){
+		getWindow().setContentView();   mWindow = PhoneWindow = getWindow()
+	}
+}
+
+3.class PhoneWindow extends Window {
+	void setContentView(int layoutResID){
+		if (mContentParent == null) {
+			   installDecor(){
+					if (mDecor == null) {
+						mDecor = generateDecor(); //  new DecorView(); (class  DecorView extends FrameLayout ; DecorView里面是LinearLayout,里面包含一个Title+ FrameLayout(Content))
+					}
+					if (mContentParent == null) {
+						mContentParent = generateLayout(mDecor);
+					}
+			   }
+		} 
+		 mLayoutInflater.inflate(layoutResID, mContentParent); //将layoutResID转换成view，同时添加到mContentParent，最终要显示，还需要将mContentParent添加到 Decorview中
+	}
+	
+	void DecorView  generateDecor(){
+		return new DecorView(getContext(), -1);
+	}
+	
+	protected ViewGroup generateLayout(DecorView decor) {
+		View in = mLayoutInflater.inflate(layoutResource, null); // layoutResource是一个系统布局 === 是LinearLayout,里面包含一个Title+ FrameLayout(Content)
+		decor.addView(in, new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)); //往DecorView中添加子View，即mContentParent 
+		ViewGroup contentParent = (ViewGroup)findViewById(ID_ANDROID_CONTENT);
+		return contentParent;
+	}
+}
+
+public abstract class Window {
+	void setWindowManager(WindowManager wm,...){
+		 mWindowManager = ((WindowManagerImpl)wm).createLocalWindowManager(this);
+	}
+	public WindowManager getWindowManager() {
+       return mWindowManager;
+    }
+}
+
+4. public interface WindowManager extends ViewManager；
+   public interface ViewManager{
+    public void addView(View view, ViewGroup.LayoutParams params);   // mDecor最终会通过这个类添加 
+    public void updateViewLayout(View view, ViewGroup.LayoutParams params);
+    public void removeView(View view);
+}
+
+public final class WindowManagerImpl implements WindowManager {  WindowManager除了操作view，还会和WMS进行binder通讯
+     private final WindowManagerGlobal mGlobal = WindowManagerGlobal.getInstance();单列： // WindowManagerImpl通过这个代理类实现view 的相关操作(桥接模式/代理模式)
+																		而： WindowManagerImpl -> WindowManagerGlobal -> ViewRootImpl
+}
+
+public final class WindowManagerGlobal {// 这个类时单列的， 意味者整个app的所有的window，都会保存在这里。。
+	private final ArrayList<View> mViews = new ArrayList<View>();
+    private final ArrayList<ViewRootImpl> mRoots = new ArrayList<ViewRootImpl>();
+    private final ArrayList<WindowManager.LayoutParams> mParams = new ArrayList<WindowManager.LayoutParams>();
+	
+	// 请求创建Window..创建好的View树只有添加到一个Window里才会显示到屏幕上，因为WindowManagerService服务会为每一个Window创建一块Surface作为画布，View树里所有的View都会绘画到这块Surface上
+	void addView(View view, ViewGroup.LayoutParams params,Display display, Window parentWindow) {
+		  mViews.add(view);  // 保存着每个Window的 根View
+          mRoots.add(root);  //  保存每个根View对应的ViewRootImpl
+          mParams.add(wparams);  //  保存的是每个Window的窗口配置参数WindowManager.LayoutParams
+		  root.setView(view, wparams, panelParentView);
+	}
+	//每个Acivity对应一个Window，里面所有的view构成一个view 树，，树根是 DecorView。。。。。
+}
+
+5. class ViewRootImpl{ // 完成绘制 和 事件 的分发处理
+		void setView(){
+			requestLayout();.....
+			view.assignParen(this); view=DecorView的mParent为ViewRootImpl
+		}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

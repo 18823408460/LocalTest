@@ -60,6 +60,7 @@ public class DanceViewPagerActivity extends BaseActivity {
                 viewPager_container.setOnTouchListener(new View.OnTouchListener() {
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
+                                Log.e(TAG, "onTouch: "+event.getX()+ "    "+event.getY()+"  "+ event.getAction() );
                                 return viewPager.dispatchTouchEvent(event);
                         }
                 });
@@ -93,6 +94,12 @@ public class DanceViewPagerActivity extends BaseActivity {
                         public void destroyItem(ViewGroup container, int position, Object object) {
                                 Log.e(TAG, "destroyItem :    " + position);
                                 container.removeView((View) object);
+                        }
+                });
+                viewPager.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                Log.e(TAG, "onClick:  view pager" );
                         }
                 });
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -169,7 +176,13 @@ public class DanceViewPagerActivity extends BaseActivity {
                         RelativeLayout relativeLayout = (RelativeLayout) layoutInflater.inflate(R.layout.viewpager_dance_item, null);
                         DaoyingView imageView = relativeLayout.findViewById(R.id.image_dance_icon);
                         imageView.setBitmap(imgs[i%imgs.length]);
-                        imageView.setTag(i);
+                        imageView.setTag(i%imgs.length);
+                        imageView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                        Log.e(TAG, "onClick: ==============view="+ v.getTag());
+                                }
+                        });
                         ViewHolder viewHolder = new ViewHolder();
                         viewHolder.relativeLayout = relativeLayout ;
                         viewHolder.daoyingView = imageView ;

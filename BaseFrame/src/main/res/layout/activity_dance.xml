@@ -10,6 +10,7 @@
         layout="@layout/layout_head_dance" />
 
     <RelativeLayout
+        android:background="@color/red"
         android:id="@+id/viewPager_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x200"
@@ -19,12 +20,13 @@
         android:layerType="software">
 
         <android.support.v4.view.ViewPager
+            android:background="@color/view_color_yellow"
             android:id="@+id/viewpager_dance"
             android:layout_width="@dimen/x130"
             android:layout_height="@dimen/x130"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/x60"
-            android:layout_marginRight="@dimen/x60"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginRight="@dimen/x20"
             android:clipChildren="false" />
     </RelativeLayout>
 
