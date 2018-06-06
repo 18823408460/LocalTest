@@ -10,8 +10,7 @@
         android:name=".app.MainApp"
         android:theme="@style/AppBaseTheme">
 
-        <activity android:name=".activitys.DanceViewPagerActivity"
-            android:screenOrientation="landscape">
+        <activity android:name=".activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +22,7 @@
         </activity>
 
         <activity
-            android:name=".activitys.MainActivity"
+            android:name=".activitys.TestViewActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity

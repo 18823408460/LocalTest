@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.base.BaseFragment;
+import com.uurobot.baseframe.fragment.jinrong.BaseFragmentJinRong;
 import com.uurobot.baseframe.fragment.mainhome.CommonFragment;
 import com.uurobot.baseframe.fragment.mainhome.CustomFragment;
 import com.uurobot.baseframe.fragment.mainhome.OtherFragment;
@@ -28,7 +29,7 @@ public class MainActivity extends BaseActivity {
         private static final String TAG = "MainActivity";
         private RadioGroup radioGroup;
         private Fragment fromFragment;
-        private List<BaseFragment> baseFragmentList;
+        private List<Fragment> baseFragmentList;
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class MainActivity extends BaseActivity {
                 baseFragmentList.add(new CommonFragment());
                 baseFragmentList.add(new ThirdPartFragment());
                 baseFragmentList.add(new CustomFragment());
-                baseFragmentList.add(new HomeFragment());
+                baseFragmentList.add(new BaseFragmentJinRong());
                 //radioGroup.check(R.id.rb_common); // 这里会导致OnCheckedChangeListener调用两次
                 RadioButton radioButton = radioGroup.findViewById(R.id.rb_common);
                 radioButton.setChecked(true);
@@ -70,13 +71,13 @@ public class MainActivity extends BaseActivity {
                                 RadioButton radioButton = group.findViewById(checkedId);
                                 String tag = (String) radioButton.getTag();
                                 Log.d(TAG, "onCheckedChanged: " + checkedId + "   tag=" + tag);
-                                BaseFragment toFragment = baseFragmentList.get(Integer.parseInt(tag));
+                                Fragment toFragment = baseFragmentList.get(Integer.parseInt(tag));
                                 switchFragment(fromFragment, toFragment);
                         }
                 });
         }
 
-        private void switchFragment(Fragment fromFragment, BaseFragment toFragment) {
+        private void switchFragment(Fragment fromFragment, Fragment toFragment) {
                 FragmentManager supportFragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
                 if (fromFragment != null) {

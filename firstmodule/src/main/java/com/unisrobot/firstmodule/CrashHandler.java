@@ -94,7 +94,10 @@ public class CrashHandler implements UncaughtExceptionHandler {
                         Log.e(TAG, "handleException: context null ");
                 }else {
 
-                        //这里是显示不出来的。这里是主线程
+                        //这里是显示不出来的。??????????
+
+                        // Handler创建的时候，需要一个Looper，默认会获取当前所在线程的Looper，而子线程默认不会创建Looper的。
+                        // Toast 内部会创建一个Looper，而当前是一个子线程。。。
 //                        Toast.makeText(mContext.getApplicationContext(), "很抱歉,程序出现异常,即将退出", Toast.LENGTH_SHORT).show();
 
                         Log.e(TAG, "onCreate: "+android.os.Process.myPid() + "    "+Thread.currentThread().getName());
