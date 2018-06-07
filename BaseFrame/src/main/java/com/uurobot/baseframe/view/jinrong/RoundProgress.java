@@ -28,7 +28,7 @@ public class RoundProgress extends View {
         private Paint roundPaint;
         private Paint textPaint;
         private int roundRadio;
-        private int progress = 80;
+        private int progress = 90;
         private int angle;
         private int mCurrentAngle;
         private int mCurrentProgress;
@@ -96,7 +96,6 @@ public class RoundProgress extends View {
                 roundPaint.setColor(roundBkColor);
                 canvas.drawCircle(mWidth / 2, mWidth / 2, roundRadio, roundPaint);
 
-
                 RectF rectF = new RectF();
                 rectF.left = roundWidth / 2;
                 rectF.top = roundWidth / 2;
@@ -105,7 +104,6 @@ public class RoundProgress extends View {
                 roundPaint.setColor(roundProgressColor);
                 canvas.drawArc(rectF, 0, mCurrentAngle, false, roundPaint);
                 roundPaint.reset();
-
 
                 String text = String.valueOf(mCurrentProgress + "%");
                 float textWidth = textPaint.measureText(text);

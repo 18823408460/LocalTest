@@ -1,13 +1,44 @@
 package com.uurobot.baseframe.utils;
 
 import android.content.Context;
+import android.graphics.Point;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.Display;
+import android.view.WindowManager;
+
+import com.uurobot.baseframe.app.MainApp;
 
 /**
  * Created by Administrator on 2018/5/26.
  */
 
 public class SizeUtil {
+
+        /**
+         * 推荐使用这个
+         *
+         * @return
+         */
+        public static Point getScreen() {
+                Context context = MainApp.getContext();
+                DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+                int heightPixels = displayMetrics.heightPixels;
+                int widthPixels = displayMetrics.widthPixels;
+                return new Point(widthPixels, heightPixels);
+        }
+
+        public static Point getScreen2() {
+                Context context = MainApp.getContext();
+                WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                Display defaultDisplay = windowManager.getDefaultDisplay();
+                DisplayMetrics outMetrics = new DisplayMetrics();
+                defaultDisplay.getMetrics(outMetrics);
+                int widthPixels = outMetrics.widthPixels;
+                int heightPixels = outMetrics.heightPixels;
+                return new Point(widthPixels, heightPixels);
+        }
+
         /**
          * dp转换成px
          */

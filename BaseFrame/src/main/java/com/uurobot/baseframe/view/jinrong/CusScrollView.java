@@ -77,6 +77,8 @@ public class CusScrollView extends ScrollView {
 
         @Override
         public boolean onInterceptTouchEvent(MotionEvent ev) {
+
+
                 return super.onInterceptTouchEvent(ev);
         }
 

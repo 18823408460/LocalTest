@@ -17,6 +17,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
@@ -31,8 +32,10 @@ import android.widget.ViewSwitcher;
 
 import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.drawable.CircleDrawable;
+import com.uurobot.baseframe.view.CarYouBiaoView;
 import com.uurobot.baseframe.view.FakeViewPager;
 import com.uurobot.baseframe.view.SurfaceViewAnim;
+import com.uurobot.baseframe.view.jinrong.HorProgress;
 import com.uurobot.baseframe.view.jinrong.RoundProgress;
 
 import java.util.Timer;
@@ -62,13 +65,15 @@ public class TestViewActivity extends BaseActivity {
 
 
     private void testRoundProgress(){
-        setContentView(new RoundProgress(this));
+        setContentView(new CarYouBiaoView(this));
     }
 
     private void testScrollview() {
         setContentView(R.layout.activity_cus_scrollview);
         ViewPager viewPager = findViewById(R.id.viewpager_cus_scrollview);
         viewPager.setOffscreenPageLimit(1);
+        ViewTreeObserver viewTreeObserver = viewPager.getViewTreeObserver();
+
         viewPager.setAdapter(new PagerAdapter() {
             @Override
             public int getCount() {
