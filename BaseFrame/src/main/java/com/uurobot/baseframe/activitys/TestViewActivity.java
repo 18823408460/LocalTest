@@ -1,6 +1,7 @@
 package com.uurobot.baseframe.activitys;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -32,6 +33,7 @@ import com.uurobot.baseframe.R;
 import com.uurobot.baseframe.drawable.CircleDrawable;
 import com.uurobot.baseframe.view.FakeViewPager;
 import com.uurobot.baseframe.view.SurfaceViewAnim;
+import com.uurobot.baseframe.view.jinrong.RoundProgress;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -42,48 +44,55 @@ import java.util.TimerTask;
 
 public class TestViewActivity extends BaseActivity {
     private ImageView imageView;
+    private Context mContext ;
     int imgs[] = {R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e};
 
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this ;
         //                testAnim();
 
         //                testDrawable();
 
-        testScrollview();
+        testRoundProgress();
         //                testPopupWindow();
+    }
+
+
+    private void testRoundProgress(){
+        setContentView(new RoundProgress(this));
     }
 
     private void testScrollview() {
         setContentView(R.layout.activity_cus_scrollview);
-//        ViewPager viewPager = findViewById(R.id.viewpager_cus_scrollview);
-//
-//        viewPager.setAdapter(new PagerAdapter() {
-//            @Override
-//            public int getCount() {
-//                return imgs.length;
-//            }
-//
-//            @Override
-//            public boolean isViewFromObject(View view, Object object) {
-//                return view == object;
-//            }
-//
-//            @Override
-//            public Object instantiateItem(ViewGroup container, int position) {
-//                ImageView imageView = new ImageView(container.getContext());
-//                imageView.setBackgroundResource(imgs[position]);
-//                container.addView(container);
-//                return imageView;
-//            }
-//
-//            @Override
-//            public void destroyItem(ViewGroup container, int position, Object object) {
-//                container.removeView((View) object);
-//            }
-//        });
+        ViewPager viewPager = findViewById(R.id.viewpager_cus_scrollview);
+        viewPager.setOffscreenPageLimit(1);
+        viewPager.setAdapter(new PagerAdapter() {
+            @Override
+            public int getCount() {
+                return imgs.length;
+            }
+
+            @Override
+            public boolean isViewFromObject(View view, Object object) {
+                return view == object;
+            }
+
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
+                ImageView imageView = new ImageView(mContext);
+                imageView.setBackgroundResource(imgs[position]);
+                container.addView(imageView);
+                return imageView;
+            }
+
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                container.removeView((View) object);
+            }
+        });
     }
 
     private void testDraw() {
