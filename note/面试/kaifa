@@ -31,6 +31,21 @@
 
  3 .splash中的动画： 常用 AlphaAination();
 4. ViewPagerIncator 框架：
-5 FragmentPagerAdapter,  FragmentStatePagerAdapter
+5 FragmentPagerAdapter,  FragmentStatePagerAdapter(很多个Fragment)
+
+inflate(context);、、 传入APPContext，和activityContext，带来的区别 === 主题
+
+6. 帧动画 用 Progressbar 实现 --- 加载动画
+
+7. shape === GrientDrawable
+   selector = StateListDrawble
+
+8 登入- 免登入功能：
+   一旦登入成功，将账号 密码对应的md5 密文 保存到 sp 中...
+
+ 9 StellarMap:飞入飞出 布局
+   自定义 流式布局
+
+   10 图片先压缩宽高，然后在截圆/// 。避免截图到一半
 
 

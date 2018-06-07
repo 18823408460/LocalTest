@@ -9,47 +9,52 @@ import java.util.Stack;
  */
 
 public class ActivityManager {
-        private volatile static ActivityManager activityManager;
-        private Stack<Activity> activityStack;
+    private volatile static ActivityManager activityManager;
+    private Stack<Activity> activityStack;
 
 
-        private ActivityManager() {
-                activityStack = new Stack<>();
-        }
+    private ActivityManager() {
+        activityStack = new Stack<>();
+    }
 
-        public static ActivityManager getInstance() {
+    public static ActivityManager getInstance() {
+        if (activityManager == null) {
+            synchronized (ActivityManager.class) {
                 if (activityManager == null) {
-                        synchronized (ActivityManager.class) {
-                                if (activityManager == null) {
-                                        activityManager = new ActivityManager();
-                                }
-                        }
+                    activityManager = new ActivityManager();
                 }
-                return activityManager;
+            }
         }
+        return activityManager;
+    }
 
-        public void add(Activity activity) {
-                if (activityStack.contains(activity)) {
-
-                }
-                activityStack.add(activity);
+    public void add(Activity activity) {
+        if (activity != null) {
+            activityStack.add(activity);
         }
+    }
 
-        public void remove(Activity activity) {
-                if (activityStack.contains(activity)) {
-                        activity.finish();
-                        activityStack.remove(activity);
-                }
-        }
+    public void removeCurrent() {
+        Activity activity = activityStack.lastElement();
+        activity.finish();
+        activityStack.remove(activity);
+    }
 
-        public void removeAll() {
-                for (int i = activityStack.size(); i >= 0; i--) {
-                        Activity remove = activityStack.remove(i);
-                        remove.finish();
-                }
+    public void remove(Activity activity) {
+        if (activityStack.contains(activity)) {
+            activity.finish();
+            activityStack.remove(activity);
         }
+    }
 
-        public int getStackSize() {
-                return activityStack.size();
+    public void removeAll() {
+        for (int i = activityStack.size(); i >= 0; i--) {
+            Activity remove = activityStack.remove(i);
+            remove.finish();
         }
+    }
+
+    public int getStackSize() {
+        return activityStack.size();
+    }
 }
