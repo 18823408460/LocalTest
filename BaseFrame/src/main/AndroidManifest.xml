@@ -10,7 +10,7 @@
         android:name=".app.MainApp"
         android:theme="@style/AppBaseTheme">
 
-        <activity android:name=".activitys.TestDialogActivity">
+        <activity android:name=".activitys.TestViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

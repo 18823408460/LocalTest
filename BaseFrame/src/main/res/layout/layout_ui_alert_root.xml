@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#60000000">
+    <!-- 上面是做背景 ，进行 模糊处理的-->
+
 
     <FrameLayout
         android:id="@+id/alert_content"

@@ -13,8 +13,10 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 import com.uurobot.baseframe.utils.SizeUtil;
+import com.zhy.http.okhttp.utils.L;
 
 /**
  * Created by Administrator on 2018/6/7.
@@ -52,6 +54,7 @@ public class CarYouBiaoView extends View {
                 centerPoint = new Point(mViewWidth / 2, mViewHeight / 3 * 2);
                 paint = new Paint();
                 biaoPanRadio = mViewHeight / 2;
+                initAnim();
         }
 
 
@@ -61,11 +64,12 @@ public class CarYouBiaoView extends View {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animation) {
                                 float value = (float) animation.getAnimatedValue();
-
+                                currentAngle = (int) (angle*value);
                                 invalidate();
                         }
                 });
-                valueAnimator.setDuration(2000);
+                valueAnimator.setInterpolator(new LinearInterpolator());
+                valueAnimator.setDuration(4000);
                 valueAnimator.start();
         }
 
@@ -73,7 +77,8 @@ public class CarYouBiaoView extends View {
         private int count = 12;
         private int AllAngle = 180;
         private int keduLength = 100;
-
+        private int angle = 115 ;
+        private int currentAngle = 0 ;
         @Override
         protected void onDraw(Canvas canvas) {
                 paint.setAntiAlias(true);
@@ -95,6 +100,7 @@ public class CarYouBiaoView extends View {
 
                 int angle = AllAngle / count;
                 canvas.save(); //必须在 rotate 之前调用
+                int havaRotate = 0;
                 for (int i = 0; i < angle - 2; i++) {
                         float endX = centerPoint.x + biaoPanRadio;
                         float endY = centerPoint.y;
@@ -106,8 +112,9 @@ public class CarYouBiaoView extends View {
                                 paint.setTextSize(60);
                                 float textW = paint.measureText(text);
                                 Paint.FontMetrics fontMetrics = paint.getFontMetrics();
-                                float textH = paint.descent() + paint.ascent();
-                                canvas.drawText(text, startX - textW - 10, startY - textH / 2, paint);
+                                float textH = fontMetrics.descent + fontMetrics.ascent;
+                                canvas.drawText(text, startX - textW - 20, startY - textH / 2, paint);
+                                paint.setStrokeWidth(30); //这个会影响字体
                         } else {
                                 paint.setStrokeWidth(10);
                         }
@@ -115,6 +122,7 @@ public class CarYouBiaoView extends View {
                         canvas.drawLine(startX, startY, endX, endY, paint);
                         // 默认是左上角旋转  - = 逆时针
                         canvas.rotate(-angle, centerPoint.x, centerPoint.y);
+                        havaRotate += angle;
                 }
                 canvas.restore();//必须在 rotate 之后调用
 
@@ -128,7 +136,7 @@ public class CarYouBiaoView extends View {
                 path.lineTo(centerPoint.x, centerPoint.y + centerPaintRadio);
 
                 canvas.save();
-                canvas.rotate(90, centerPoint.x, centerPoint.y);
+                canvas.rotate(currentAngle, centerPoint.x, centerPoint.y);
                 canvas.drawPath(path, paint);
                 canvas.restore();
 
@@ -157,6 +165,8 @@ public class CarYouBiaoView extends View {
                 rectF2.right = centerPoint.x + biaoPanRadio - yinyinWidth / 2;
                 rectF2.bottom = centerPoint.y + biaoPanRadio - yinyinWidth / 2;
                 Log.e(TAG, "onDraw: " + rectF2);
-                canvas.drawArc(rectF2, -180, 90, false, paint);
+                canvas.drawArc(rectF2, -180, currentAngle, false, paint);
+
+                paint.reset();
         }
 }

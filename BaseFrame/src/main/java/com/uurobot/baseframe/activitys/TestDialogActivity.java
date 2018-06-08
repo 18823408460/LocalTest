@@ -1,11 +1,22 @@
 package com.uurobot.baseframe.activitys;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uurobot.baseframe.R;
@@ -120,7 +131,67 @@ public class TestDialogActivity extends Activity {
                                         .show();
                         }
                 });
+
+
+                final View decorView = getWindow().getDecorView();
+                final FrameLayout frameLayoutWindow = decorView.findViewById(android.R.id.content);
+                final View layoutParent = View.inflate(TestDialogActivity.this, R.layout.layout_ui_alert_root, null);
+                final FrameLayout frameLayoutRoot = layoutParent.findViewById(R.id.alert_root);
+                FrameLayout frameLayoutContent = layoutParent.findViewById(R.id.alert_content);
+
+                View view = View.inflate(TestDialogActivity.this, R.layout.layout_ui_alert, null);
+                frameLayoutContent.addView(view);
+                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.gravity = Gravity.CENTER;
+                layoutParams.leftMargin = 20;
+                layoutParams.rightMargin = 20;
+                frameLayoutContent.setLayoutParams(layoutParams);
+
+                // 这么简单的做，它是接受不到 触摸事件的，， 可以直接在   mainActivity布局中做
+                findViewById(R.id.showMyDialog).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                if (!isShow) {
+                                        frameLayoutWindow.addView(frameLayoutRoot);
+                                } else {
+                                        frameLayoutWindow.removeView(frameLayoutRoot);
+                                }
+                                isShow = !isShow;
+                        }
+                });
+
+                findViewById(R.id.showSysDialog).setOnClickListener(new View.OnClickListener() {
+                        @SuppressLint("NewApi")
+                        @Override
+                        public void onClick(View v) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(TestDialogActivity.this);
+                                builder.setTitle("title");
+                                builder.setMessage("msg");
+                                builder.setNegativeButton("confirm", null);
+                                builder.setPositiveButton("cancel", null);
+                                builder.show();
+                        }
+                });
+
+
+                findViewById(R.id.showSysDialog2).setOnClickListener(new View.OnClickListener() {
+                        @SuppressLint("NewApi")
+                        @Override
+                        public void onClick(View v) {
+                                Dialog dialog = new Dialog(TestDialogActivity.this);
+                                LinearLayout relativeLayout = (LinearLayout) View.inflate(TestDialogActivity.this, R.layout.layout_ui_alert, null);
+                                LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                layoutParams1.gravity = Gravity.CENTER;
+                                layoutParams1.leftMargin = 30 ;
+                                layoutParams1.rightMargin =30 ;
+                                relativeLayout.setLayoutParams(layoutParams1);
+                                dialog.setContentView(relativeLayout);
+                                dialog.show();
+                        }
+                });
         }
+
+        boolean isShow = false;
 
         private void initData() {
                 actions.add(new AlertItem("Action1", Color.RED));

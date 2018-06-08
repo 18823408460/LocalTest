@@ -62,8 +62,13 @@ public class TestViewActivity extends BaseActivity {
 
                 //                testDrawable();
 
-                testSlideDrawLayout();
+                testCarYouBiao();
                 //                testPopupWindow();
+        }
+
+
+        private void testCarYouBiao() {
+                setContentView(new CarYouBiaoView(this));
         }
 
         private void testSlideDrawLayout() {

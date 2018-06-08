@@ -1,23 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <Button
         android:id="@+id/showdialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="显示UIAlertView"
-        />
+        android:text="显示UIAlertView" />
+
     <Button
         android:id="@+id/showvalert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="显示UIActionList"
-        />
+        android:text="显示UIActionList" />
+
     <Button
         android:id="@+id/showActionSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="显示UIActionSheet"
-        />
+        android:text="显示UIActionSheet" />
+
+    <Button
+        android:id="@+id/showMyDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="显示 MyDialog" />
+
+    <Button
+        android:id="@+id/showSysDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="显示 showSysDialog" />
+
+
+
+    <Button
+        android:id="@+id/showSysDialog2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="显示 showSysDialog2" />
 </LinearLayout>

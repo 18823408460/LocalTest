@@ -54,6 +54,9 @@ public class TitleAlertItem extends AlertItem {
     public void setAlign(Align pAlign) {
         align = pAlign;
     }
+
+
+    // 设置 图片在 文字的 侧面 的显示
     public static void drawDrawable(Context context,TextView view, TitleAlertItem ai){
         Align align = ai.getAlign();
         if(ai.getResid()==-1){

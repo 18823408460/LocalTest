@@ -95,6 +95,7 @@ public class ImageViewDialog extends BaseDialog implements View.OnClickListener 
                 }
                 heightPixels = outPoint.y;
                 widthPixels = outPoint.x;
+//                window.setAttributes(attributes);
                 window.setLayout((int) (widthPixels * 1.0), (int) (heightPixels));
                 //设置dialog背景为透明色
                 window.setBackgroundDrawableResource(R.color.transparent);
