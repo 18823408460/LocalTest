@@ -16,7 +16,7 @@ import com.uurobot.baseframe.app.MainApp;
 public class SizeUtil {
 
         /**
-         * 推荐使用这个
+         * 推荐使用这个, 但是如果全屏，并且隐藏导航栏时，这里获取的是不包含导航栏的高度
          *
          * @return
          */
