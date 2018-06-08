@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/showdialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="显示UIAlertView"
+        />
+    <Button
+        android:id="@+id/showvalert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="显示UIActionList"
+        />
+    <Button
+        android:id="@+id/showActionSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="显示UIActionSheet"
+        />
+</LinearLayout>

@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
@@ -67,6 +68,7 @@ public class TestViewActivity extends BaseActivity {
 
         private void testSlideDrawLayout() {
                 setContentView(R.layout.activity_test_slidedrawlayout);
+                Window window = getWindow();
         }
 
 

@@ -57,7 +57,7 @@ public class FakeViewPager extends ViewGroup {
                                 Log.d(TAG, "onScroll: " + distanceX + "    getScrollX=" + getScrollX());
 
                                 scrollBy((int) distanceX, 0); // 相对上一次的位置
-                                return false;
+                                return  false;
                         }
 
                         @Override
