@@ -48,4 +48,8 @@ inflate(context);、、 传入APPContext，和activityContext，带来的区别 
 
    10 图片先压缩宽高，然后在截圆/// 。避免截图到一半
 
+   11 .  MPAndroidChart
+
+   12 app 的唯一性：  包名+ 签名(可以代表作者，同一个作者的所有产品用同一个)
+
 
