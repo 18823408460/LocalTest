@@ -64,7 +64,7 @@ public class CarYouBiaoView extends View {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animation) {
                                 float value = (float) animation.getAnimatedValue();
-                                currentAngle = (int) (angle*value);
+                                currentAngle = (int) (angle * value);
                                 invalidate();
                         }
                 });
@@ -73,12 +73,16 @@ public class CarYouBiaoView extends View {
                 valueAnimator.start();
         }
 
-
+        /** 圆上任意一点的坐标 ==  3点钟（0度） 12点钟（-90度）
+         * x1 = x0 + r * cos(angle * PI / 180)
+         * y1 = y0 + r * sin(angle * PI /180)
+         */
         private int count = 12;
         private int AllAngle = 180;
         private int keduLength = 100;
-        private int angle = 115 ;
-        private int currentAngle = 0 ;
+        private int angle = 115;
+        private int currentAngle = 0;
+
         @Override
         protected void onDraw(Canvas canvas) {
                 paint.setAntiAlias(true);
@@ -99,32 +103,46 @@ public class CarYouBiaoView extends View {
                 canvas.drawArc(rectF, 0, -180, false, paint);
 
                 int angle = AllAngle / count;
-                canvas.save(); //必须在 rotate 之前调用
+                //canvas.save(); //必须在 rotate 之前调用
                 int havaRotate = 0;
                 for (int i = 0; i < angle - 2; i++) {
-                        float endX = centerPoint.x + biaoPanRadio;
-                        float endY = centerPoint.y;
-                        float startX = endX - keduLength;
-                        float startY = endY;
+                        float endX = (float) (centerPoint.x + biaoPanRadio* Math.cos(-angle*i*Math.PI/180));
+                        float endY = (float) (centerPoint.y + biaoPanRadio* Math.sin(-angle*i*Math.PI/180));
 
+                        float startX = (float) (centerPoint.x + (biaoPanRadio-keduLength)* Math.cos(-angle*i*Math.PI/180));
+                        float startY = (float) (centerPoint.y + (biaoPanRadio-keduLength)* Math.sin(-angle*i*Math.PI/180));
                         if (i % 3 == 0) {
                                 String text = String.valueOf(i);
                                 paint.setTextSize(60);
                                 float textW = paint.measureText(text);
                                 Paint.FontMetrics fontMetrics = paint.getFontMetrics();
                                 float textH = fontMetrics.descent + fontMetrics.ascent;
-                                canvas.drawText(text, startX - textW - 20, startY - textH / 2, paint);
-                                paint.setStrokeWidth(30); //这个会影响字体
+                                Log.e(TAG, "onDraw:  haveRotate== " + havaRotate);
+
+                                float startTextX = (float) (centerPoint.x + (biaoPanRadio-keduLength -20)* Math.cos(-angle*i*Math.PI/180));
+                                float startTextY = (float) (centerPoint.y + (biaoPanRadio-keduLength -20)* Math.sin(-angle*i*Math.PI/180));
+                                if ( i == 0 ){
+                                        canvas.drawText(text, startTextX - textW/2 , startTextY - textH/2, paint);
+
+                                }else if (i== (angle-3)){
+                                        canvas.drawText(text, startTextX  , startTextY - textH/2, paint);
+
+
+                                }else {
+                                        canvas.drawText(text, startTextX - textW/2 , startTextY - textH, paint);
+                                }
+
+                                paint.setStrokeWidth(20); //这个会影响字体
                         } else {
                                 paint.setStrokeWidth(10);
                         }
 
                         canvas.drawLine(startX, startY, endX, endY, paint);
-                        // 默认是左上角旋转  - = 逆时针
-                        canvas.rotate(-angle, centerPoint.x, centerPoint.y);
+                        // 默认是左上角旋转  - = 逆时针( 旋转画布，，text 绘制有点麻烦，)
+                       // canvas.rotate(-angle, centerPoint.x, centerPoint.y);
                         havaRotate += angle;
                 }
-                canvas.restore();//必须在 rotate 之后调用
+               // canvas.restore();//必须在 rotate 之后调用
 
 
                 int centerPaintRadio = 50;
