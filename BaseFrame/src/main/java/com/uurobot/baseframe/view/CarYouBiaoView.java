@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import com.uurobot.baseframe.utils.SizeUtil;
-import com.zhy.http.okhttp.utils.L;
 
 /**
  * Created by Administrator on 2018/6/7.
@@ -28,6 +27,7 @@ public class CarYouBiaoView extends View {
         private Paint paint;
         private int biaoPanRadio; //表盘外圆的半径
         private Point centerPoint;
+        private int progressAngle = 115;
 
         public CarYouBiaoView(Context context) {
                 this(context, null);
@@ -47,6 +47,13 @@ public class CarYouBiaoView extends View {
                 setMeasuredDimension(mViewWidth, mViewWidth);
         }
 
+        int[] dat= {90,167,140,69};
+        public void update(){
+                int index = (int) (Math.random()*dat.length);
+                progressAngle = dat[index];
+                initAnim();
+        }
+
         private void initData() {
                 Point screen = SizeUtil.getScreen();
                 mViewWidth = screen.x;
@@ -64,7 +71,7 @@ public class CarYouBiaoView extends View {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animation) {
                                 float value = (float) animation.getAnimatedValue();
-                                currentAngle = (int) (angle * value);
+                                currentAngle = (int) (progressAngle * value);
                                 invalidate();
                         }
                 });
@@ -75,19 +82,20 @@ public class CarYouBiaoView extends View {
 
         /**
          * 圆上任意一点的坐标 ==  3点钟（0度） 12点钟（-90度）
-         * x1 = x0 + r * cos(angle * PI / 180)
-         * y1 = y0 + r * sin(angle * PI /180)
+         * x1 = x0 + r * cos(progressAngle * PI / 180)
+         * y1 = y0 + r * sin(progressAngle * PI /180)
          */
         private int count = 12;
         private int AllAngle = 180;
         private int keduLength = 100;
-        private int angle = 115;
+
         private int currentAngle = 0;
         private int hengXian = keduLength / 4;
 
         @Override
         protected void onDraw(Canvas canvas) {
                 paint.setAntiAlias(true);
+                paint.setDither(true);
                 paint.setStyle(Paint.Style.FILL);
                 paint.setColor(Color.parseColor("#2E70B3"));
                 canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
@@ -125,7 +133,7 @@ public class CarYouBiaoView extends View {
 
                                 Path path = new Path();
                                 if (i == 0) {
-                                        canvas.drawText(text, startTextX - textW, startTextY - textH / 2, paint);
+                                        canvas.drawText(text, startTextX - textW, startTextY , paint);
 
                                         float endX1 = (float) (centerPoint.x + biaoPanRadio * Math.cos(-(angle * i + 5) * Math.PI / 180));
                                         float endY1 = (float) (centerPoint.y + biaoPanRadio * Math.sin(-(angle * i + 5) * Math.PI / 180));
@@ -133,10 +141,11 @@ public class CarYouBiaoView extends View {
                                         path.lineTo(startX, startY);
                                         path.lineTo(startX, startY - hengXian);
                                         path.lineTo(endX1, endY1);
+                                        path.addArc(rectF, angle * i, -5);
                                         canvas.drawPath(path, paint);
 
                                 } else if (i == (angle - 3)) {
-                                        canvas.drawText(text, startTextX, startTextY - textH / 2, paint);
+                                        canvas.drawText(text, startTextX, startTextY , paint);
 
                                         float endX1 = (float) (centerPoint.x + biaoPanRadio * Math.cos(-(angle * i - 5) * Math.PI / 180));
                                         float endY1 = (float) (centerPoint.y + biaoPanRadio * Math.sin(-(angle * i - 5) * Math.PI / 180));
@@ -144,6 +153,7 @@ public class CarYouBiaoView extends View {
                                         path.lineTo(startX, startY);
                                         path.lineTo(startX, startY - hengXian);
                                         path.lineTo(endX1, endY1);
+                                        path.addArc(rectF, angle * i, -5);
                                         canvas.drawPath(path, paint);
 
                                 } else {
@@ -161,6 +171,7 @@ public class CarYouBiaoView extends View {
                                         path.lineTo(startX1, startY1);
                                         path.lineTo(startX2, startY2);
                                         path.lineTo(endX2, endY2);
+                                        path.addArc(rectF, angle * i, -5);
                                         canvas.drawPath(path, paint);
                                 }
 
@@ -173,7 +184,7 @@ public class CarYouBiaoView extends View {
                         // 首位置的线宽怎么修改  +   末尾位置的线宽怎么修改 (  正确的方法通过Path 来做)
 
                         // 默认是左上角旋转  - = 逆时针( 旋转画布，，text 绘制有点麻烦，)
-                        // canvas.rotate(-angle, centerPoint.x, centerPoint.y);
+                        // canvas.rotate(-progressAngle, centerPoint.x, centerPoint.y);
                 }
                 // canvas.restore();//必须在 rotate 之后调用
 
@@ -184,10 +195,16 @@ public class CarYouBiaoView extends View {
                 Path path = new Path();
 
                 int xianW = 230;
-                path.moveTo(centerPoint.x - xianW, centerPoint.y);
-                path.lineTo(centerPoint.x, centerPoint.y - centerPaintRadio);
-                path.lineTo(centerPoint.x, centerPoint.y + centerPaintRadio);
+                double qieXianLength = Math.sqrt(xianW * xianW - centerPaintRadio * centerPaintRadio);
+                float h = (float) (qieXianLength * centerPaintRadio * 1.0 / xianW);
+                double len = Math.sqrt(qieXianLength * qieXianLength - h * h);
 
+                path.moveTo(centerPoint.x - xianW, centerPoint.y);
+                path.lineTo((float) (centerPoint.x + (qieXianLength - len)), centerPoint.y - h);
+                path.lineTo((float) (centerPoint.x + (qieXianLength - len)), centerPoint.y + h);
+
+
+                // 这里旋转是可变区域
                 canvas.save();
                 canvas.rotate(currentAngle, centerPoint.x, centerPoint.y);
                 canvas.drawPath(path, paint);
@@ -218,6 +235,8 @@ public class CarYouBiaoView extends View {
                 rectF2.right = centerPoint.x + biaoPanRadio - yinyinWidth / 2;
                 rectF2.bottom = centerPoint.y + biaoPanRadio - yinyinWidth / 2;
                 Log.e(TAG, "onDraw: " + rectF2);
+
+                // 这里可变区域。。。。。。。。。。。。。。
                 canvas.drawArc(rectF2, -180, currentAngle, false, paint);
 
                 paint.reset();

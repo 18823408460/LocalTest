@@ -178,12 +178,12 @@ public class TestDialogActivity extends Activity {
                         @SuppressLint("NewApi")
                         @Override
                         public void onClick(View v) {
-                                Dialog dialog = new Dialog(TestDialogActivity.this);
+                                Dialog dialog = new Dialog(TestDialogActivity.this, R.style.fragmentDialog);
                                 LinearLayout relativeLayout = (LinearLayout) View.inflate(TestDialogActivity.this, R.layout.layout_ui_alert, null);
-                                LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                layoutParams1.gravity = Gravity.CENTER;
-                                layoutParams1.leftMargin = 30 ;
-                                layoutParams1.rightMargin =30 ;
+                                LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                                layoutParams1.gravity = Gravity.BOTTOM;
+                                layoutParams1.leftMargin = 30;
+                                layoutParams1.rightMargin = 30;
                                 relativeLayout.setLayoutParams(layoutParams1);
                                 dialog.setContentView(relativeLayout);
                                 dialog.show();

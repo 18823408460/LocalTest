@@ -62,13 +62,21 @@ public class TestViewActivity extends BaseActivity {
 
                 //                testDrawable();
 
-                testCarYouBiao();
+                testFakeViewPager();
                 //                testPopupWindow();
         }
 
 
         private void testCarYouBiao() {
-                setContentView(new CarYouBiaoView(this));
+                setContentView(R.layout.activity_test_car_youbiao);
+                final CarYouBiaoView carYouBiaoView = findViewById(R.id.car_youbiao);
+                Button button = findViewById(R.id.BtnUpdate);
+                button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                carYouBiaoView.update();
+                        }
+                });
         }
 
         private void testSlideDrawLayout() {
@@ -82,8 +90,8 @@ public class TestViewActivity extends BaseActivity {
 
                 FlowLayout flowLayout = findViewById(R.id.flowlayout_test_activity);
                 String[] strings = {"是发送到发送到0000", "诉讼费11", "水电费问问222", "her3333", "斯蒂芬第三方44",
-                        "是发送到发送到sfdsfsdf5555",/* "诉讼费sdfsd66", "水电费问问sferew777", "herwerer888", "sdsdggsdg斯蒂芬第三方99",
-                        "水电费问问sferew10",*/ /*"herwerer11", "sdsdggsdg斯蒂芬第三方121212"*/};
+                        "是发送到发送到sfdsfsdf5555", "诉讼费sdfsd66", "水电费问问sferew777", "herwerer888", "sdsdggsdg斯蒂芬第三方99",
+                        "水电费问问sferew10", /*"herwerer11", "sdsdggsdg斯蒂芬第三方121212"*/};
                 for (int i = 0; i < strings.length; i++) {
                         Button button = new Button(this);
                         button.setText(strings[i]);
@@ -193,14 +201,24 @@ public class TestViewActivity extends BaseActivity {
                         }
                 });
 
+                View inflate = View.inflate(mContext, R.layout.layout_fakeviewpager_test, null);
+                fakeViewPager.addView(inflate);
+                RadioButton radioButton2 = new RadioButton(this);
+                radioGroup.addView(radioButton2);
+
                 for (int i = 0; i < imgs.length; i++) {
                         ImageView imageView = new ImageView(this);
                         imageView.setBackgroundResource(imgs[i]);
                         fakeViewPager.addView(imageView);
 
                         RadioButton radioButton = new RadioButton(this);
+                        if (i == 0) {
+                                radioButton.setChecked(true);
+                        }
                         radioGroup.addView(radioButton);
                 }
+
+
                 radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(RadioGroup group, int checkedId) {

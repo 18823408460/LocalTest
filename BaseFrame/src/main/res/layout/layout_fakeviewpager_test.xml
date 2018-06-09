@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_high"
+    android:orientation="vertical">
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="85dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="81dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x50"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x50"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x50"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x50"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x50"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x50"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x50"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x50"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x50"
+                android:text="sfsdfsdsdfdsfs" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x50"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x50"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sfsdfsdsdfdsfs" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sfsdfsdsdfdsfs" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

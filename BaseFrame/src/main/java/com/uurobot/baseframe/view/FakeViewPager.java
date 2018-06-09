@@ -32,6 +32,15 @@ public class FakeViewPager extends ViewGroup {
                 initData();
         }
 
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+                int childCount = getChildCount();
+                for (int i = 0; i < childCount; i++) {
+                        getChildAt(i).measure(widthMeasureSpec, heightMeasureSpec);
+                }
+                super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        }
+
         private void initData() {
                 scroller = new Scroller(getContext());
                 gestureDetector = new GestureDetector(getContext(), new GestureDetector.OnGestureListener() {
@@ -57,7 +66,7 @@ public class FakeViewPager extends ViewGroup {
                                 Log.d(TAG, "onScroll: " + distanceX + "    getScrollX=" + getScrollX());
 
                                 scrollBy((int) distanceX, 0); // 相对上一次的位置
-                                return  false;
+                                return false;
                         }
 
                         @Override
@@ -84,6 +93,43 @@ public class FakeViewPager extends ViewGroup {
                 }
         }
 
+        /**
+         * true === 拦截
+         * false === 往下分发，不拦截
+         *
+         * @param ev
+         * @return
+         */
+        private float downX;
+        private float downY;
+
+        @Override
+        public boolean onInterceptTouchEvent(MotionEvent ev) {
+                gestureDetector.onTouchEvent(ev);
+
+                boolean result = false; // 默认不拦截
+                switch (ev.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                                downX = ev.getX();
+                                downY = ev.getY();
+                                break;
+                        case MotionEvent.ACTION_UP:
+                                break;
+                        case MotionEvent.ACTION_MOVE:
+                                float x = ev.getX();
+                                float y = ev.getY();
+
+                                float distanceX = Math.abs(x - downX);
+                                float distanceY = Math.abs(y - downY);
+                                if (distanceX > distanceY && distanceX > 10) { // 水平方向滑动，拦截
+                                        result = true;
+                                }
+
+                                break;
+                }
+                return result;
+        }
+
         private int mCurrentItem = 0;
         float startX = 0;
 
@@ -93,8 +139,12 @@ public class FakeViewPager extends ViewGroup {
                 gestureDetector.onTouchEvent(event);
 
                 switch (event.getAction()) {
+                        case MotionEvent.ACTION_MOVE:
+                                Log.e(TAG, "onTouchEvent: ======== ACTION_MOVE");
+                                break;
                         case MotionEvent.ACTION_DOWN:
                                 startX = event.getX();
+                                Log.e(TAG, "onTouchEvent: ======== ACTION_DOWN");
                                 break;
                         case MotionEvent.ACTION_UP:
                                 float endX = event.getX();
@@ -104,7 +154,7 @@ public class FakeViewPager extends ViewGroup {
                                 } else if ((endX - startX) > getWidth() / 2) {
                                         mCurrentItem--;
                                 }
-                                Log.e(TAG, "onTouchEvent: endX=" + endX + "    startX=" + startX + "      getWidth=" + getWidth() / 2);
+                                Log.e(TAG, "onTouchEvent up: endX=" + endX + "    startX=" + startX + "      getWidth=" + getWidth() / 2);
                                 scrollToItem(mCurrentItem);
                                 break;
                 }

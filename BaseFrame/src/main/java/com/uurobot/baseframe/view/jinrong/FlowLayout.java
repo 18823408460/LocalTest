@@ -46,7 +46,8 @@ public class FlowLayout extends ViewGroup {
                 int maxWidth = padding;
                 int maxHeigth = padding;
                 int measuredHeight = 0;
-                for (int i = 0; i < childCount; i++) {
+                Log.e(TAG, "onMeasure: padding ===== "+ padding );
+                for (int i = 0; i < childCount; i++) { // 8个
                         TextView childView = (TextView) getChildAt(i);
                         childView.measure(widthMeasureSpec, heightMeasureSpec);
                         measuredHeight = childView.getMeasuredHeight();
@@ -54,15 +55,15 @@ public class FlowLayout extends ViewGroup {
 
                         maxWidth += measuredWidth + padding;
                         if (maxWidth >= screenWidth) { //超过屏幕宽度，则需要换行
-                                maxHeigth += measuredHeight + padding;
+                                maxHeigth += (measuredHeight + padding);
                                 maxWidth = padding;
-                                Log.d(TAG, "onMeasure: 换行=====" + maxHeigth + "   " + i + "   text=" + childView.getText());
+                                Log.d(TAG, "onMeasure: 换行=====" + maxHeigth + "   " + i + "   text=" + childView.getText() + "  measuredHeight="+measuredHeight);
                         } else {
-                                Log.e(TAG, "onMeasure: " + measuredWidth + "   " + maxHeigth + "     ="+i);
+                                Log.e(TAG, "onMeasure: " + measuredWidth + "   " + maxHeigth + "     ="+i + "   "+childView.getText() + "   measuredHeight="+measuredHeight);
                         }
                 }
 
-                maxHeigth += measuredHeight + padding ;
+                maxHeigth += (measuredHeight + padding) ;
                 Log.e(TAG, "onMeasure: ============maxHeigth====="+maxHeigth );
                 setMeasuredDimension(screenWidth, maxHeigth);
         }
