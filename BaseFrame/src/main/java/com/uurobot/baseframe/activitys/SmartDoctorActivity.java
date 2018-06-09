@@ -7,6 +7,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.telephony.PhoneNumberUtils;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.Button;
 
@@ -35,6 +37,8 @@ public class SmartDoctorActivity extends BaseFragmentActivity implements View.On
                 setContentView(R.layout.activity_smartdoctor);
                 initView();
                 initData();
+
+                int i = View.generateViewId();
         }
 
         private void initData() {
