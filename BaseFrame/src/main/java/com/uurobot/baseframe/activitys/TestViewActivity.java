@@ -8,8 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatButton;
@@ -38,8 +36,6 @@ import com.uurobot.baseframe.view.CarYouBiaoView;
 import com.uurobot.baseframe.view.FakeViewPager;
 import com.uurobot.baseframe.view.SurfaceViewAnim;
 import com.uurobot.baseframe.view.jinrong.FlowLayout;
-import com.uurobot.baseframe.view.jinrong.HorProgress;
-import com.uurobot.baseframe.view.jinrong.RoundProgress;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -59,13 +55,15 @@ public class TestViewActivity extends BaseActivity {
                 super.onCreate(savedInstanceState);
                 mContext = this;
                 //                testAnim();
-
                 //                testDrawable();
-
-                testFakeViewPager();
+                testSlideLayout();
                 //                testPopupWindow();
         }
 
+
+        private void testSlideLayout(){
+                setContentView(R.layout.activity_test_slidelayout);
+        }
 
         private void testCarYouBiao() {
                 setContentView(R.layout.activity_test_car_youbiao);

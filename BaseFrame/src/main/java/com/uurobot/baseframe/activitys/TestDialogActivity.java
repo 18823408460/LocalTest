@@ -11,12 +11,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uurobot.baseframe.R;
@@ -38,7 +35,7 @@ import java.util.List;
 
 public class TestDialogActivity extends Activity {
         List<AlertItem> actions = new ArrayList<>();
-
+        private Button btn_show ;
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);

@@ -2,10 +2,8 @@ package com.uurobot.baseframe.adapter.base;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 
 import java.util.List;
 
@@ -39,5 +37,13 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
         public int getItemCount() {
                 return stringList.size();
         }
+        public void setItemOnClick(ItemOnClick itemOnClick) {
+                this.itemOnClick = itemOnClick;
+        }
 
+        protected ItemOnClick itemOnClick;
+
+        public interface ItemOnClick {
+                void onLongClick(RecyclerView.ViewHolder holder);
+        }
 }
