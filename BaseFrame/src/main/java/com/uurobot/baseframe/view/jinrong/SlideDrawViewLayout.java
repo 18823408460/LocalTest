@@ -44,7 +44,12 @@ public class SlideDrawViewLayout extends ViewGroup {
                 for (int i = 0; i < childCount; i++) { // 这里不调用，下面获取测量宽高
                         getChildAt(i).measure(widthMeasureSpec, heightMeasureSpec);
                 }
-                setMeasuredDimension(screenW, screenH);
+                super.onMeasure(widthMeasureSpec,heightMeasureSpec);
+
+                View slideView = getChildAt(1);
+                slideViewMeasuredWidth = slideView.getMeasuredWidth();
+                int slideViewMeasuredHeight = slideView.getMeasuredHeight();
+                Log.e(TAG, "onMeasure: slideViewMeasuredWidth=" + slideViewMeasuredWidth + "  slideViewMeasuredHeight=" + slideViewMeasuredHeight);
         }
 
         @Override
@@ -80,21 +85,14 @@ public class SlideDrawViewLayout extends ViewGroup {
                                 int scrollX = getScrollX();
                                 Log.e(TAG, "onTouchEvent: scrollX= " + scrollX + "    " + slideViewMeasuredWidth);
                                 float moveX = event.getX();
-                                int diffX = (int) (moveX - lastX);
-
-                                if (diffX <= 0) { // <0 说明是往左滑
-                                        if (scrollX >= 0) {
-                                                Log.e(TAG, "onTouchEvent: can not scroll to left= =  ");
-                                                return super.onTouchEvent(event);
-                                        }
-
-                                } else { // 往右滑动
-                                        if (scrollX <= -slideViewMeasuredWidth) {
-                                                Log.e(TAG, "onTouchEvent: can not scroll to right= =  ");
-                                                return super.onTouchEvent(event);
-                                        }
+                                int distance = (int) (moveX - lastX);
+                                int diffX = (int) (scrollX - distance);
+                                if (diffX >0){
+                                        diffX = 0;
+                                }else if( diffX < -getWidth()){
+                                        diffX = -getWidth();
                                 }
-                                scrollBy(-diffX, getScrollY());
+                                scrollTo(diffX, getScrollY());
                                 lastX = moveX;
                                 break;
                 }
