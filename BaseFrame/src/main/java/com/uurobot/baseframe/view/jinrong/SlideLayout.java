@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -17,6 +18,7 @@ import android.widget.Toast;
  * 侧滑菜单
  */
 public class SlideLayout extends FrameLayout {
+    private static final String TAG = SlideLayout.class.getSimpleName();
     private View contentView;
     private View menuView;
     private int conentWidth;
@@ -49,15 +51,19 @@ public class SlideLayout extends FrameLayout {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 startX = event.getX();
-                startY = event.getY();
+                startY = event.getY(); // 鼠标按下去的坐标，= 相对 父 view
                 break;
             case MotionEvent.ACTION_MOVE:
                 float endX = event.getX();
-                float endY = event.getY();
+                Log.e(TAG, "onTouchEvent: endX= "+endX );
+                float endY = event.getY(); // 只要鼠标移动，这个值就会变化。。。
 
                 int distance = (int) (endX - startX); // 这是滑动的距离
 
+                // getScrollX() = 上一次滑动的偏移点， -distance = 本次要
                 int toScroll = getScrollX() - distance;
+                Log.e(TAG, "onTouchEvent: distance=== "+ distance + "    x="+getScrollX());
+
 
                 // 这里怎么理解？？？？
                 if (toScroll < 0) {
@@ -66,7 +72,9 @@ public class SlideLayout extends FrameLayout {
                     toScroll = menuWidth;
 
                 }
-                // getScrollX ,getScroolY 都是相对没有滑动时默认位置 的  偏移量,,
+                // getScrollX ,getScroolY 都是相对起始位置的  偏移量,,
+
+                // 这里要传的参数是： 相对起始位置的 偏移量。。。。
                 scrollTo(toScroll, getScrollY()); // y 始终没有滑动，所以 getScrollY() 始终=0
 
                 startX = event.getX();

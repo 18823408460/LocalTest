@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_high"
+    android:orientation="vertical"
+    tools:context="com.uurobot.baseframe.activitys.ScrollTestActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/scrollTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/scrollBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/image_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x40"
+        android:layout_marginTop="@dimen/x40"
+        android:src="@drawable/tree" />
+
+    <ImageView
+        android:id="@+id/image_scroll2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x40"
+        android:layout_marginTop="@dimen/x40"
+        android:src="@drawable/tree" />
+
+
+    <Button
+        android:id="@+id/btn_move1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x40"
+        android:layout_marginTop="@dimen/x40"
+        android:background="@drawable/tree"
+        android:text="btn_move1" />
+
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_move2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x40"
+            android:layout_marginTop="@dimen/x40"
+            android:background="@drawable/tree"
+            android:layout_gravity="center_horizontal"
+            android:text="btn_move2" />
+    </LinearLayout>
+
+</LinearLayout>
