@@ -56,12 +56,12 @@ public class TestViewActivity extends BaseActivity {
                 mContext = this;
                 //                testAnim();
                 //                testDrawable();
-                testSlideDrawLayout();
+                testFakeViewPager();
                 //                testPopupWindow();
         }
 
 
-        private void testSlideLayout(){
+        private void testSlideLayout() {
                 setContentView(R.layout.activity_test_slidelayout);
         }
 
@@ -195,16 +195,15 @@ public class TestViewActivity extends BaseActivity {
                 fakeViewPager.setPageSelectListenter(new FakeViewPager.PageSelectListenter() {
                         @Override
                         public void onSelect(int position) {
-                                Log.e(TAG, "onSelect: " + position);
                                 RadioButton childAt = (RadioButton) radioGroup.getChildAt(position);
                                 radioGroup.check(childAt.getId()); //传入Button的id
+                                Log.e(TAG, "onSelect: " + position + "   id="+childAt.getId());
                         }
                 });
 
                 View inflate = View.inflate(mContext, R.layout.layout_fakeviewpager_test, null);
-               // fakeViewPager.addView(inflate);
-                RadioButton radioButton2 = new RadioButton(this);
-              //  radioGroup.addView(radioButton2);
+                fakeViewPager.addView(inflate);
+
 
                 for (int i = 0; i < imgs.length; i++) {
                         ImageView imageView = new ImageView(this);
@@ -212,18 +211,19 @@ public class TestViewActivity extends BaseActivity {
                         fakeViewPager.addView(imageView);
 
                         RadioButton radioButton = new RadioButton(this);
-
                         radioGroup.addView(radioButton);
-                        if (i == 0 ){
-                                radioGroup.check(radioButton.getId()); //传入Button的id
+                        if (i == 0){
+                                radioButton.setChecked(true);
                         }
                 }
-
+                RadioButton radioButton2 = new RadioButton(this);
+                radioGroup.addView(radioButton2);
 
                 radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                         @Override
-                        public void onCheckedChanged(RadioGroup group, int checkedId) {// 这个id 从1开始
-
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                                Log.e(TAG, "onCheckedChanged: " + checkedId);
+                                fakeViewPager.update(checkedId-1);
                         }
                 });
         }

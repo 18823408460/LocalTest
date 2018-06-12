@@ -6,10 +6,10 @@
 //        classpath 'com.android.tools.build:gradle:0.4.+'
 //    }
 //}
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 
 dependencies {
-    compile 'com.android.support:support-v4:23.3.0'
+    implementation 'com.android.support:support-v4:26.0.0'
 }
 
 android {

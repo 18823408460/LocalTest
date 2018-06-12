@@ -95,7 +95,6 @@ public class FakeViewPager extends ViewGroup {
                 for (int i = 0; i < childCount; i++) {
                         View childAt = getChildAt(i);
                         childAt.layout(i * getWidth(), 0, (i + 1) * getWidth(), getHeight());
-
                 }
         }
 
@@ -114,7 +113,8 @@ public class FakeViewPager extends ViewGroup {
                 // gestureDetector.onTouchEvent(ev);
                 boolean result = false; // 默认不拦截
                 switch (ev.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
+                        case MotionEvent.ACTION_DOWN: //默认的情况下， 这个down 事件是由listview处理，一旦拦截后，才交给viewpager处理，，，
+                                                      // 这时才会触发viewpager move事件，，导致瞬间距离滑动比较大==跳变。。
                                 downX = ev.getX();
                                 downY = ev.getY();
                                 break;
@@ -126,17 +126,19 @@ public class FakeViewPager extends ViewGroup {
 
                                 float distanceX = Math.abs(x - downX);
                                 float distanceY = Math.abs(y - downY);
+                                Log.e(TAG, "onInterceptTouchEvent: move=============="+distanceX );
                                 if (distanceX > distanceY && distanceX > 10) { // 水平方向滑动，拦截
                                         //反拦截
                                         //   getParent().requestDisallowInterceptTouchEvent(true);
                                         result = true;
                                 }
+                                startX = x ;
                                 break;
                 }
                 return result;
         }
 
-        private int mCurrentItem = 0;
+        private /*volatile*/ int mCurrentItem = 0;
         float startX = 0;
 
         @Override // 偏移量 ， 坐标， 这两个概念要区分。。
@@ -161,6 +163,7 @@ public class FakeViewPager extends ViewGroup {
                                 break;
                         case MotionEvent.ACTION_DOWN:
                                 downX = startX = event.getX();
+                                Log.e(TAG, "onTouchEvent: down  " + downX);
                                 break;
                         case MotionEvent.ACTION_UP:
                                 endX = event.getX();
@@ -171,31 +174,42 @@ public class FakeViewPager extends ViewGroup {
                                 //                                        return true;
                                 //                                }
                                 //
-                                if ((downX - endX) > getWidth() / 2) {
+//                                int scroll = downX - endX ; // 这样带来的问题：先左滑，然后右滑，downx没有变化。。。。
+
+                                int scroll = getScrollX() - mCurrentItem * measuredWidth;;
+
+                                if (scroll > measuredWidth / 2) {
                                         mCurrentItem++;
 
-                                } else if ((endX - downX) > getWidth() / 2) {
+                                } else if (scroll < (-measuredWidth / 2)  ) {
                                         mCurrentItem--;
                                 }
-                                //                                Log.e(TAG, "onTouchEvent up: endX=" + endX + "    startX=" + startX + "      getWidth=" + getWidth() / 2);
+                                Log.e(TAG, "onTouchEvent: getScrollX===== "+scroll + "   width/2="+measuredWidth/2 );
                                 //
-                                scrollToItem(mCurrentItem);
+                                scrollToItem();
                                 //                                startX = endX;
                                 break;
                 }
                 return true;
         }
+        public void update(int item){
+                mCurrentItem = item ;
+                scrollToItem();
+        }
 
-        public void scrollToItem(int mCurrentItem) {
+
+        private void scrollToItem() {
                 if (mCurrentItem < 0) {
                         mCurrentItem = 0;
+                        Log.e(TAG, "scrollToItem: <<<<<<<<<  "+mCurrentItem );
                 } else if (mCurrentItem > (getChildCount() - 1)) {
+                        Log.e(TAG, "scrollToItem:>>>>>>> count = "+getChildCount() );
                         mCurrentItem = getChildCount() - 1;
                 }
-                int distance = (mCurrentItem * getWidth()) - getScrollX();
+                int distance = (mCurrentItem * measuredWidth) - getScrollX();
 
                 if (pageSelectListenter != null) {
-                        Log.e(TAG, "scrollToItem: ==== " + mCurrentItem);
+                        Log.e(TAG, "scrollToItem: Item ==== " + mCurrentItem);
                         pageSelectListenter.onSelect(mCurrentItem);
                 }
                 Log.e(TAG, "scrollToItem: ===========" + distance);

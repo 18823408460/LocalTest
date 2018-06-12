@@ -45,6 +45,7 @@ dependencies {
     implementation files('libs/glide-3.7.0.jar')
     implementation 'com.zhy:magic-viewpager:1.0.1'
     implementation project(':SlidingMenu_library')
+
 }
 
 
