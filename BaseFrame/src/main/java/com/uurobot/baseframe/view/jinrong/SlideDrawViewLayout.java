@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.uurobot.baseframe.utils.SizeUtil;
 
@@ -14,7 +15,11 @@ import com.uurobot.baseframe.utils.SizeUtil;
  * Created by Administrator on 2018/6/8.
  */
 
-public class SlideDrawViewLayout extends ViewGroup {
+/**
+ * 继承 ViewGroup，需要手动去measure child，比较复杂。。。
+ * 直接继承 Framenlayout，，。。
+ */
+public class SlideDrawViewLayout extends /*ViewGroup*/ FrameLayout{
         private static final String TAG = SlideDrawViewLayout.class.getSimpleName();
         private int screenW;
         private int screenH;
@@ -40,10 +45,10 @@ public class SlideDrawViewLayout extends ViewGroup {
 
         @Override
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-                int childCount = getChildCount();
-                for (int i = 0; i < childCount; i++) { // 这里不调用，下面获取测量宽高
-                        getChildAt(i).measure(widthMeasureSpec, heightMeasureSpec);
-                }
+//                int childCount = getChildCount();
+//                for (int i = 0; i < childCount; i++) { // 这里不调用，下面获取测量宽高
+//                        getChildAt(i).measure(widthMeasureSpec, heightMeasureSpec);
+//                }
                 super.onMeasure(widthMeasureSpec,heightMeasureSpec);
 
                 View slideView = getChildAt(1);
@@ -89,8 +94,8 @@ public class SlideDrawViewLayout extends ViewGroup {
                                 int diffX = (int) (scrollX - distance);
                                 if (diffX >0){
                                         diffX = 0;
-                                }else if( diffX < -getWidth()){
-                                        diffX = -getWidth();
+                                }else if( diffX < -slideViewMeasuredWidth){
+                                        diffX = -slideViewMeasuredWidth;
                                 }
                                 scrollTo(diffX, getScrollY());
                                 lastX = moveX;

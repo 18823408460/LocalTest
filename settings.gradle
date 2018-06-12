@@ -1,1 +1,1 @@
-include ':app', ':firstmodule', ':comlib', ':javaread', ':robothead', ':designMode', ':BaseFrame'
+include ':app', ':firstmodule', ':comlib', ':javaread', ':robothead', ':designMode', ':BaseFrame','SlidingMenu_library'

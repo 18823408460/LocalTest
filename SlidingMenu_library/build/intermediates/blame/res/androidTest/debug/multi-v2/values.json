@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "F:\\githubRep\\LocalTest\\LocalTest\\SlidingMenu_library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+            "outputFile": "F:\\github\\LocalTest\\SlidingMenu_library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
-                    "source": "F:\\githubRep\\LocalTest\\LocalTest\\SlidingMenu_library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "source": "F:\\github\\LocalTest\\SlidingMenu_library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "from": {
                         "startLines": "14",
                         "startColumns": "4",
