@@ -1,10 +1,14 @@
 package com.unisrobot.javaread;
 
+import android.text.TextUtils;
+
 import com.unisrobot.javaread.compare.FileString;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,14 +18,48 @@ import java.util.concurrent.Executors;
 /**
  * Created by Administrator on 2018/4/28.
  */
-
+//com.dl7.mvp.adapter
 public class ReadMain {
         public static final byte EVENT_CSB_RESPONSE = (byte) 0x96;
 
         public static void main(String[] args) {
-                test3();
+                testList();
 
                 //                test2();
+        }
+
+
+        private static void testList(){
+                LinkedList<String> linkedList = new LinkedList<>();
+                linkedList.add("0");
+                linkedList.add("1");
+                linkedList.add("2");
+                linkedList.add("3");
+
+                String aa = null ;
+                for (String e :
+                        linkedList) {
+                        if (e.equals("2")){
+                                aa = e ;
+                                linkedList.remove(e);
+                        }
+                }
+                if (aa != null)
+                linkedList.addFirst(aa);
+                System.out.println(linkedList);
+        }
+
+        private static void test4(){
+                String info ="[# ]";
+                String[] splitInfo = info.split("\n");
+                List<String> infoList = new ArrayList<>();
+
+                System.out.println("=== "+splitInfo.length);
+                System.out.println("=== "+infoList);
+        }
+
+        private static String delNewlineCharacter(String s) {
+                return s.replace("\n", "").replace(" ", "").replace("\t", "").replace("\r", "");
         }
 
         private static void test3() {
