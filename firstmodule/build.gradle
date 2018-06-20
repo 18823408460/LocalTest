@@ -61,18 +61,21 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["router-compiler"]
     implementation rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
-    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:design:26.1.0'
 
     compile 'com.cjj.materialrefeshlayout:library:1.3.0'
 
-    if (isBuildModule){
+    if (isBuildModule) {
         implementation 'com.airbnb.android:lottie:2.5.4'
 //                {
 //            tansitive  true
 ////            exclude module: 'okhttp-ws'
 //        }
-    }else{
+    } else {
         provided 'com.airbnb.android:lottie:2.5.4'
     }
 
+   /* compile"com.google.dagger:dagger:2.14.1"
+    // 因为不是通过反射，而是预编译通过 注解实现的。，所以要加
+    annotationProcessor"com.google.dagger:dagger-compiler:2.14.1"*/
 }

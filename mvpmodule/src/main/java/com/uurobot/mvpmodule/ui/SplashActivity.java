@@ -1,9 +1,10 @@
-package com.uurobot.mvpmodule;
+package com.uurobot.mvpmodule.ui;
 
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 
+import com.uurobot.mvpmodule.R;
 import com.uurobot.mvpmodule.base.BaseActivity;
 import com.uurobot.mvpmodule.base.IBaseContract;
 import com.uurobot.mvpmodule.widget.SimpleButton;

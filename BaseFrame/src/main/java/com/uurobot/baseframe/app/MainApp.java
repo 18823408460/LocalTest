@@ -1,14 +1,23 @@
 package com.uurobot.baseframe.app;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.widget.ListView;
 
+import com.uurobot.baseframe.dragger.update.ApplicationComponent;
+import com.uurobot.baseframe.dragger.update.ApplicationModule;
+import com.uurobot.baseframe.dragger.update.DaggerApplicationComponent;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 import okhttp3.OkHttpClient;
 
 /**
@@ -16,34 +25,52 @@ import okhttp3.OkHttpClient;
  */
 
 public class MainApp extends Application {
-    public static Context context;
-    public static Handler mainHandler;
-    public static int mainThreadId;
-    public static Thread mainThread;
+        public static Context context;
+        public static Handler mainHandler;
+        public static int mainThreadId;
+        public static Thread mainThread;
+        private static ApplicationComponent sAppComponent;
 
+        public static ApplicationComponent getAppComponent() {
+                return sAppComponent;
+        }
 
-    public static Context getContext() {
-        return context;
-    }
+        public static Context getContext() {
+                return context;
+        }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        context = this;
-        mainHandler = new Handler();
-        mainThreadId = android.os.Process.myPid();
-        mainThread = Thread.currentThread();
-        initOkHttp();
-    }
+        private void _initInjector() {
+                // 这里不做注入操作，只提供一些全局单例数据
+                sAppComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
+        }
 
-    private void initOkHttp() {
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                // .addInterceptor(new LoggerInterceptor("TAG"))
-                .connectTimeout(10000L, TimeUnit.MILLISECONDS)
-                .readTimeout(10000L, TimeUnit.MILLISECONDS)
-                //其他配置
-                .build();
+        @Override
+        public void onCreate() {
+                super.onCreate();
+                context = this;
+                _initInjector();
+                mainHandler = new Handler();
+                mainThreadId = android.os.Process.myPid();
+                mainThread = Thread.currentThread();
 
-        OkHttpUtils.initClient(okHttpClient);
-    }
+                initOkHttp();
+        }
+
+        private void initOkHttp() {
+                OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                        // .addInterceptor(new LoggerInterceptor("TAG"))
+                        .connectTimeout(10000L, TimeUnit.MILLISECONDS)
+                        .readTimeout(10000L, TimeUnit.MILLISECONDS)
+                        //其他配置
+                        .build();
+
+                OkHttpUtils.initClient(okHttpClient);
+        }
+/*        @Inject
+        DispatchingAndroidInjector<Activity> dispatchingAndroidInjectorActivity;
+
+        @Override
+        public AndroidInjector<Activity> activityInjector() {
+                return dispatchingAndroidInjectorActivity;
+        }*/
 }

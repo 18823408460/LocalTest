@@ -1,4 +1,4 @@
-package com.uurobot.mvpmodule;
+package com.uurobot.mvpmodule.ui;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
+import com.uurobot.mvpmodule.R;
 import com.uurobot.mvpmodule.base.BaseActivity;
 import com.uurobot.mvpmodule.base.IBaseContract;
 import com.uurobot.mvpmodule.fragment.NewsFragment;

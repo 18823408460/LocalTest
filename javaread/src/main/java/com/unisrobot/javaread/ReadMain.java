@@ -23,39 +23,75 @@ public class ReadMain {
         public static final byte EVENT_CSB_RESPONSE = (byte) 0x96;
 
         public static void main(String[] args) {
-                testList();
+                testBurrfer();
 
                 //                test2();
         }
 
+        private static void testBurrfer() {
+                StringBuffer stringBuffer = new StringBuffer();
+                stringBuffer.append("1");
+                stringBuffer.append("2");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("3");
+                stringBuffer.append("4");
+                System.out.println(stringBuffer.capacity());
+                System.out.println(stringBuffer.length());
+                String data = stringBuffer.toString();
+                System.out.println("data=" + data);
+                stringBuffer.delete(0, stringBuffer.length() );
+                System.out.println(stringBuffer.capacity()+ "  "+stringBuffer.toString()+"  len="+stringBuffer.length());
+        }
 
-        private static void testList(){
+        private static void testList() {
                 LinkedList<String> linkedList = new LinkedList<>();
                 linkedList.add("0");
                 linkedList.add("1");
                 linkedList.add("2");
                 linkedList.add("3");
 
-                String aa = null ;
+                String aa = null;
                 for (String e :
                         linkedList) {
-                        if (e.equals("2")){
-                                aa = e ;
+                        if (e.equals("2")) {
+                                aa = e;
                                 linkedList.remove(e);
                         }
                 }
                 if (aa != null)
-                linkedList.addFirst(aa);
+                        linkedList.addFirst(aa);
                 System.out.println(linkedList);
         }
 
-        private static void test4(){
-                String info ="[# ]";
+        private static void test4() {
+                String info = "[# ]";
                 String[] splitInfo = info.split("\n");
                 List<String> infoList = new ArrayList<>();
 
-                System.out.println("=== "+splitInfo.length);
-                System.out.println("=== "+infoList);
+                System.out.println("=== " + splitInfo.length);
+                System.out.println("=== " + infoList);
         }
 
         private static String delNewlineCharacter(String s) {
