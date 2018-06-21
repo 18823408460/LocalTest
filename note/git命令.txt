@@ -59,3 +59,17 @@ git config --global alias.br branch
 git config --global alias.ci commit
 git config --global alias.st status
 
+
+error: Pulling is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+hint: as appropriate to mark resolution and make a commit.
+fatal: Exiting because of an unresolved conflict.
+
+git reset --hard FETCH_HEAD，FETCH_HEAD表示上一次成功git pull之后形成的commit点。然后git pull.
+注意：
+
+
+
+12.  使用命令git branch --set-upstream ;实例如下，其中debug为创建的分支
+    git branch --set-upstream debug origin/debug 
+
