@@ -1,23 +1,19 @@
 package com.uurobot.baseframe.dagger.news;
 
-import javax.inject.Inject;
-
 /**
  * Created by Administrator on 2018/6/21.
  */
 
-public class AppleBean {
+public class AppleBean2 {
         private String name;
         private double price;
 
-        @Inject
-        public AppleBean() {
+        public AppleBean2() {
                 this.name = "红富士";
                 this.price = 1;
         }
 
-        @Inject
-        public AppleBean(String name) {
+        public AppleBean2(String name) {
                 this.name = name;
                 this.price = 1;
         }

@@ -1,23 +1,13 @@
 package com.uurobot.baseframe.app;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
-import android.widget.ListView;
 
-import com.uurobot.baseframe.dragger.update.ApplicationComponent;
-import com.uurobot.baseframe.dragger.update.ApplicationModule;
-import com.uurobot.baseframe.dragger.update.DaggerApplicationComponent;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasActivityInjector;
 import okhttp3.OkHttpClient;
 
 /**
@@ -29,11 +19,6 @@ public class MainApp extends Application {
         public static Handler mainHandler;
         public static int mainThreadId;
         public static Thread mainThread;
-        private static ApplicationComponent sAppComponent;
-
-        public static ApplicationComponent getAppComponent() {
-                return sAppComponent;
-        }
 
         public static Context getContext() {
                 return context;
@@ -41,7 +26,7 @@ public class MainApp extends Application {
 
         private void _initInjector() {
                 // 这里不做注入操作，只提供一些全局单例数据
-                sAppComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
+                //sAppComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
         }
 
         @Override
