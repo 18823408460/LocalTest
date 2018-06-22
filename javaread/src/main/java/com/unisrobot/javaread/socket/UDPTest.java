@@ -51,7 +51,7 @@ public class UDPTest {
         }
 
         private static class SendRunnable implements Runnable {
-                DatagramSocket datagramSocket;
+                DatagramSocket sendSocket;
 
                 byte[] sendData = new byte[]{
                         (byte) 0xAA, 0x55, 0x00, 0x4D,
@@ -67,13 +67,13 @@ public class UDPTest {
                         0x00, 0x12, 0x4B, 0x00, 0x19, (byte) 0x99,0x50, 0x07,
                         0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
                 };
-                DatagramPacket p;
+                DatagramPacket sendPkg;
 
                 @Override
                 public void run() {
                         try {
-                                datagramSocket = new DatagramSocket();
-                                p = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("192.168.12.1"), 3000);
+                                sendSocket = new DatagramSocket();
+                                sendPkg = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("192.168.12.1"), 3000);
 
                         } catch (SocketException e) {
                                 e.printStackTrace();
@@ -85,7 +85,7 @@ public class UDPTest {
 
                         while (true) {
                                 try {
-                                        datagramSocket.send(p);
+                                        sendSocket.send(sendPkg);
                                         Thread.sleep(2000);
                                         System.out.println("send data===============");
                                 } catch (IOException e) {
