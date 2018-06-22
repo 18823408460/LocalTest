@@ -10,7 +10,8 @@ import javax.inject.Qualifier;
  * Created by Administrator on 2018/6/21.
  */
 @Documented
-@Qualifier
+@Qualifier // 标识父，区分不同的 生产对象。
+
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Type {
         String value() default "";

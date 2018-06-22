@@ -11,7 +11,7 @@ import dagger.Provides;
  * 1. 这种方式 生成的对象，对应的对象不需要用 @Inject 来标识，，
  *
  *
- * 2. 多个构造，只能有一个可以被 @Inject）
+ * 2. 多个构造，只能有一个可以被 @Inject）  Types may only contain one @Inject constructor.
  *
  *
  */
@@ -29,5 +29,6 @@ public class FruitModule {
         public AppleBean2 provideApple() {
                 return new AppleBean2("helloApple");
         }
+
 
 }
