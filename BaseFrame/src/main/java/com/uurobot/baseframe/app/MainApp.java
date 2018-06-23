@@ -37,7 +37,6 @@ public class MainApp extends Application {
                 mainHandler = new Handler();
                 mainThreadId = android.os.Process.myPid();
                 mainThread = Thread.currentThread();
-
                 initOkHttp();
         }
 

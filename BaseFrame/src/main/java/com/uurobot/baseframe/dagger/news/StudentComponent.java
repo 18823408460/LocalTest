@@ -1,5 +1,8 @@
 package com.uurobot.baseframe.dagger.news;
 
+import com.uurobot.baseframe.dagger.news.bean.DrinkModule;
+import com.uurobot.baseframe.dagger.news.bean.FruitModules;
+
 import javax.inject.Scope;
 import javax.inject.Singleton;
 
@@ -25,7 +28,7 @@ import dagger.Component;
 // 方式二：
 @TodoScope
 @Singleton
-@Component(modules = {FruitModule.class})
+@Component(modules = {FruitModule.class,FruitModules.class, DrinkModule.class})
 public interface StudentComponent {
         void inject(DraggerNewsActivity activity);
 

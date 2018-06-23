@@ -7,6 +7,10 @@ import javax.inject.Singleton;
 
 /**
  * Created by Administrator on 2018/6/22.
+ *
+ *
+ * 1. @Singleton注释一个@Provides方法
+ * 2. 注入类：
  */
 
 @Singleton //单列
