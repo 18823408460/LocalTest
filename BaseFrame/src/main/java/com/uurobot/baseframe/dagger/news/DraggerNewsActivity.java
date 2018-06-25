@@ -16,6 +16,10 @@ import dagger.Lazy;
 
 /**
  * Created by Administrator on 2018/6/21.
+ 
+ 如果依赖实例的注入来源是@Provides方法时，@Provides方法必须被@Scope注解；如果依赖实例的注入来源是@Inject注解的构造函数时，实例类必须被@Scope注解。这样@Scope注解才会有效。也就是说，@Scope实际上是对注入器的控制。
+
+Scope控制的实例的注入器是当前Component之内的实例注入器，而不会影响其他的Component中的实例注入器
  */
 //https://blog.csdn.net/io_field/article/details/71083516
 

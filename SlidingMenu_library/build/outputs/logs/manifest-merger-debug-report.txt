@@ -1,37 +1,37 @@
 -- Merging decision tree log ---
 manifest
-ADDED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:1-7:12
-INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:1-7:12
-INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:1-7:12
-INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:1-7:12
-INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:1-7:12
-INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:1-7:12
-INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:1-7:12
+ADDED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:1-7:12
+INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:1-7:12
+INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:1-7:12
+INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:1-7:12
+INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:1-7:12
+INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:1-7:12
+INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:1-7:12
 	package
-		ADDED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml:3:5-50
-		INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
-		INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
+		ADDED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml:3:5-50
+		INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
+		INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
 	android:versionName
-		ADDED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml:5:5-30
-		INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
-		INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
+		ADDED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml:5:5-30
+		INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
+		INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
 	xmlns:android
-		ADDED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:11-69
+		ADDED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml:2:11-69
 	android:versionCode
-		ADDED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml:4:5-28
-		INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
-		INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
+		ADDED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml:4:5-28
+		INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
+		INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
 uses-sdk
-INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
-INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
-INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
-INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
+INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
+INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
+INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
+INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
-		ADDED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
-		INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
+		INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
+		ADDED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
+		INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
-		ADDED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
-		INJECTED from F:\github\LocalTest\SlidingMenu_library\AndroidManifest.xml
+		INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
+		ADDED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
+		INJECTED from F:\githubRep\LocalTest\LocalTest\SlidingMenu_library\AndroidManifest.xml
