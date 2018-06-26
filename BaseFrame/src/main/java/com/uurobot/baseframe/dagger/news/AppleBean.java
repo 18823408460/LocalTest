@@ -5,8 +5,8 @@ import javax.inject.Inject;
 /**
  * Created by Administrator on 2018/6/21.
  */
-@TodoScope
-public class AppleBean {
+//@TodoScope
+public class  AppleBean {
         private String name;
         private double price;
 

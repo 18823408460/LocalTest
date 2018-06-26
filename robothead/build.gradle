@@ -37,8 +37,6 @@ dependencies {
     implementation files('libs/Msc-debug.jar')
     implementation files('libs/serialPort.jar')
     implementation files('libs/alsarecorder.jar')
-    implementation files('libs/dabaisdk.jar')
-    implementation files('libs/dabaisdk.jar')
 }
 
 

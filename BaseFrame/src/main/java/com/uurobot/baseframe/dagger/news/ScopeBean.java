@@ -16,7 +16,7 @@ import javax.inject.Inject;
  * 3. 如果有类注入实例的类被@Scope注解, 如果要用到module，则在其生产方法中加 @Scope 就行。（注入来源是@Provides方法时，@Provides方法必须被@Scope注解）
  *
  */
-@TodoScope
+@TodoScope //  @Scope 该注解适用于注解包含可注入的构造函数的类
 public class ScopeBean {
         private static final String TAG = "ScopeBean";
         private String data;

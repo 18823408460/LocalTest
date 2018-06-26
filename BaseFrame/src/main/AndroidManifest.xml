@@ -10,12 +10,7 @@
         android:name=".app.MainApp"
         android:theme="@style/AppBaseTheme">
         <activity android:name=".dagger.news.DraggerNewsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activitys.SmartDoctorActivity"
@@ -43,8 +38,14 @@
         <!-- <activity android:name=".activitys.shangcheng.GoodCarActivity" /> -->
         <!-- This service is only used on devices with API v17+ -->
 
-        <activity android:name=".socket.SocketActivity">
+        <activity android:name=".socket.SocketActivity"></activity>
+        <activity android:name=".dagger.news.activity.InjectActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

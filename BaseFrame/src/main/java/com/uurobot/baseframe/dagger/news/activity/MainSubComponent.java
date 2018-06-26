@@ -11,11 +11,11 @@ import dagger.android.AndroidInjector;
  */
 
 @Subcomponent(modules = AndroidInjectionModule.class)
-public interface MainSubComponent extends AndroidInjector<DraggerNewsActivity> {
+public interface MainSubComponent extends AndroidInjector<InjectActivity> {
 
 
         @Subcomponent.Builder
-        abstract class Builder extends AndroidInjector.Builder<DraggerNewsActivity> {
+        abstract class Builder extends AndroidInjector.Builder<InjectActivity> {
 
         }
 }
