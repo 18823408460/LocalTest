@@ -10,7 +10,7 @@ import dagger.android.AndroidInjectionModule;
  * Created by Administrator on 2018/6/23.
  */
 
-@Component(modules = AndroidInjectionModule.class)
+@Component(modules = {AndroidInjectionModule.class,MainModule.class})
 public interface ApplicationComponent {
         void inject(MainApp app);
 }

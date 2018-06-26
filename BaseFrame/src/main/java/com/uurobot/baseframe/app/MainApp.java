@@ -1,20 +1,27 @@
 package com.uurobot.baseframe.app;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 
+import com.uurobot.baseframe.dagger.news.activity.DaggerApplicationComponent;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 import okhttp3.OkHttpClient;
 
 /**
  * Created by Administrator on 2018/5/31.
  */
 
-public class MainApp extends Application {
+public class MainApp extends Application implements HasActivityInjector{
         public static Context context;
         public static Handler mainHandler;
         public static int mainThreadId;
@@ -26,7 +33,8 @@ public class MainApp extends Application {
 
         private void _initInjector() {
                 // 这里不做注入操作，只提供一些全局单例数据
-                //sAppComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
+//                sAppComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
+                DaggerApplicationComponent.create().inject(this);
         }
 
         @Override
@@ -50,11 +58,11 @@ public class MainApp extends Application {
 
                 OkHttpUtils.initClient(okHttpClient);
         }
-/*        @Inject
+        @Inject
         DispatchingAndroidInjector<Activity> dispatchingAndroidInjectorActivity;
 
         @Override
         public AndroidInjector<Activity> activityInjector() {
                 return dispatchingAndroidInjectorActivity;
-        }*/
+        }
 }
