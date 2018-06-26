@@ -15,7 +15,7 @@ import com.unisrobot.robothead.bluetooth.IBluetoothLisenter;
  * 2. 带有逻辑关系的节点，需要找到节点 执行的条件，节点执行完毕的条件,
  *    条件: 执行次数, 传感器, 逻辑运算,
  *
- * 3.节点什么结束完毕？？
+ * 3.节点什么结束完毕,节点什么时候开始执行？？
  */
 
 public class VisualEditActivity extends Activity {
