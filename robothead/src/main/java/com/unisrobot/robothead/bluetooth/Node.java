@@ -5,7 +5,9 @@ package com.unisrobot.robothead.bluetooth;
  */
 
 public abstract class Node {
-    abstract void start();
+        abstract void start();
 
-    abstract void end();
+        abstract void end();
+
+        abstract void interrupt();
 }

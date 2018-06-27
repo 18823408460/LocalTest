@@ -10,7 +10,8 @@ import com.google.gson.JsonSyntaxException;
 import com.unisrobot.robothead.bluetooth.BluToothMgr;
 import com.unisrobot.robothead.bluetooth.IBluetoothLisenter;
 
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/6/26.
@@ -26,6 +27,7 @@ import java.util.logging.Logger;
 public class VisualEditActivity extends Activity {
         private static final String TAG = VisualEditActivity.class.getSimpleName();
         private BluToothMgr bluToothMgr;
+        private List<VpJsonBean.NodeDataBase> nodeDataBaseList = new ArrayList<>();
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,12 +57,94 @@ public class VisualEditActivity extends Activity {
                                         if (readUTF.startsWith("{") || readUTF.startsWith("[")) {
                                                 vpJsonBean = new Gson().fromJson(readUTF, VpJsonBean.class);
                                                 Log.e(TAG, "parseBlueDataThread: data=" + vpJsonBean);
+                                                parseNodeDataThread(vpJsonBean);
                                         }
                                 }
                         } catch (JsonSyntaxException e) {
                                 e.printStackTrace();
                                 Log.e(TAG, "parseBlueDataThread: jsonSyntaxException = " + e);
                         }
+                }
+        }
+
+        private void parseNodeDataThread(VpJsonBean vpJsonBean) {
+                if (vpJsonBean != null) { // 这里是在子线程执行
+                        switch (vpJsonBean.TaskType) {
+                                case TaskType.MSG_TYPE_BASE_TASK:
+                                        handlerVpTaskThread(vpJsonBean.Tasks);
+                                        break;
+                                case TaskType.MSG_TYPE_STOP:
+                                        nodeDataBaseList.clear();
+                                        Log.e(TAG, "parseNodeDataThread: stop task");
+                                        break;
+                        }
+                }
+        }
+
+        /**
+         * 执行可视化编程 Task
+         *
+         * @param tasks
+         */
+        private void handlerVpTaskThread(final List<VpJsonBean.NodeDataBase> tasks) {
+                if (tasks != null && tasks.size() > 0) {
+                        nodeDataBaseList.clear();
+                        nodeDataBaseList.addAll(tasks);
+                        runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                        VpJsonBean.NodeDataBase node = nodeDataBaseList.remove(0);
+                                        dispatchNode(node);
+                                }
+                        });
+                }
+        }
+
+        /**
+         * 节点分发
+         *
+         * @param node
+         */
+        private void dispatchNode(VpJsonBean.NodeDataBase node) {
+                String type = node.Type;
+                switch (type) {
+                        case NodeType.BASIC:
+                                exeBasicNode(node);
+                                break;
+                        case NodeType.COMBINEACTION:
+                                break;
+                        case NodeType.EARS:
+                                break;
+                        case NodeType.EYES:
+                                break;
+                        case NodeType.LANGUAGE:
+                                break;
+                        case NodeType.LOGIC:
+                                break;
+                        case NodeType.MIND:
+                                break;
+                        case NodeType.PERCEPTION:
+                                break;
+                }
+        }
+
+        /**
+         * basic 节点的执行
+         *
+         * @param node
+         */
+        private void exeBasicNode(VpJsonBean.NodeDataBase node) {
+                switch (node.PrefabName) {
+                        case NodeType.Basic.BasicActionPrefab_GoSpeedSeconed:
+                                break;
+                        case NodeType.Basic.BasicActionPrefab_BasicJoint:
+                                break;
+                        case NodeType.Basic.BasicActionPrefab_TrunAngle:
+                                break;
+                        case NodeType.Basic.BasicActionPrefab_WheelsSpeed:
+                                break;
+                        case NodeType.Basic.BasicActionPrefab_Second:
+                                break;
                 }
         }
 

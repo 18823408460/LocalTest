@@ -8,7 +8,7 @@ import java.util.List;
 
 public class VpJsonBean {
 
-        public String TaskType; // 整个数据包的类型，将 VisualMsgType
+        public String TaskType; // 整个数据包的类型，将 TaskType
         public String TaskName;
         public String TaskIcon;
         public List<NodeDataBase> Tasks; // 所有节点
