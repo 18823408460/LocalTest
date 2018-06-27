@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.unisrobot.robothead.bluetooth.BluToothMgr;
 import com.unisrobot.robothead.bluetooth.IBluetoothLisenter;
+import com.unisrobot.robothead.visualedit.nodebean.basic.SpeedTimeBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,13 +132,18 @@ public class VisualEditActivity extends Activity {
         /**
          * basic 节点的执行
          *
-         * @param node
+         * @param nodeData
          */
-        private void exeBasicNode(VpJsonBean.NodeDataBase node) {
-                switch (node.PrefabName) {
+        private void exeBasicNode(VpJsonBean.NodeDataBase nodeData) {
+                switch (nodeData.PrefabName) {
                         case NodeType.Basic.BasicActionPrefab_GoSpeedSeconed:
+                                SpeedTimeBean bean = SpeedTimeBean.getBean(nodeData);
+                                bean.exeNode();
                                 break;
                         case NodeType.Basic.BasicActionPrefab_BasicJoint:
+                                String joint = nodeData.Args.get(0).Content;
+                                String oration = nodeData.Args.get(1).Content;
+                                String angle = nodeData.Args.get(2).Content;
                                 break;
                         case NodeType.Basic.BasicActionPrefab_TrunAngle:
                                 break;

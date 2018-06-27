@@ -15,7 +15,6 @@ public final class NodeEvent {
                 public static final String TRUN_RIGHT_ANGLE = "向右转 , 角度";
                 public static final String WHEELSSPEED = "基础_轮子速度";
                 public static final String STOP_SECOND = "停止移动";
-
         }
 
         //组合动作
