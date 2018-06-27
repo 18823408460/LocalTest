@@ -12,16 +12,16 @@
         "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.0.0.aar\\7dbfcdf88600e638239ab76f2679861f\\res\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png"
     },
     {
-        "merged": "F:\\github\\LocalTest\\SlidingMenu_library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.0.0.aar\\91125fbc505a6b1dcf4ff5c85e307f67\\res\\drawable-hdpi-v4\\notify_panel_notification_icon_bg.png"
+        "merged": "F:\\githubRep\\LocalTest\\LocalTest\\SlidingMenu_library\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_notification_media_cancel_action.xml.flat",
+        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.0.0.aar\\d3b9c04c9ea8643b1c4f55534547697d\\res\\layout\\notification_media_cancel_action.xml"
     },
     {
         "merged": "F:\\githubRep\\LocalTest\\LocalTest\\SlidingMenu_library\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_notification_media_action.xml.flat",
         "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.0.0.aar\\d3b9c04c9ea8643b1c4f55534547697d\\res\\layout\\notification_media_action.xml"
     },
     {
-        "merged": "F:\\githubRep\\LocalTest\\LocalTest\\SlidingMenu_library\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_notification_media_cancel_action.xml.flat",
-        "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.0.0.aar\\d3b9c04c9ea8643b1c4f55534547697d\\res\\layout\\notification_media_cancel_action.xml"
+        "merged": "F:\\github\\LocalTest\\SlidingMenu_library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_notify_panel_notification_icon_bg.png.flat",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.0.0.aar\\91125fbc505a6b1dcf4ff5c85e307f67\\res\\drawable-hdpi-v4\\notify_panel_notification_icon_bg.png"
     },
     {
         "merged": "F:\\githubRep\\LocalTest\\LocalTest\\SlidingMenu_library\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_notification_template_part_chronometer.xml.flat",

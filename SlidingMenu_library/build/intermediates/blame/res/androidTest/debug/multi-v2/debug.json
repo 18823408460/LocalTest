@@ -1,21 +1,6 @@
 {
     "logs": [
         {
-            "outputFile": "F:\\github\\LocalTest\\SlidingMenu_library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-v24_values-v24.arsc.flat",
-            "map": [
-                {
-                    "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.0.0.aar\\5d1f25e0ad2c8e9c6dc01cf1a4b06ec9\\res\\values-v24\\values-v24.xml",
-                    "from": {
-                        "startLines": "2,3,4,5",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,121,182,248",
-                        "endColumns": "65,60,65,66",
-                        "endOffsets": "116,177,243,310"
-                    }
-                }
-            ]
-        },
-        {
             "outputFile": "F:\\githubRep\\LocalTest\\LocalTest\\SlidingMenu_library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-uk_values-uk.arsc.flat",
             "map": [
                 {
@@ -26,6 +11,21 @@
                         "startOffsets": "55",
                         "endColumns": "100",
                         "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "F:\\github\\LocalTest\\SlidingMenu_library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-v24_values-v24.arsc.flat",
+            "map": [
+                {
+                    "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.0.0.aar\\5d1f25e0ad2c8e9c6dc01cf1a4b06ec9\\res\\values-v24\\values-v24.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,121,182,248",
+                        "endColumns": "65,60,65,66",
+                        "endOffsets": "116,177,243,310"
                     }
                 }
             ]
@@ -91,10 +91,10 @@
             ]
         },
         {
-            "outputFile": "F:\\github\\LocalTest\\SlidingMenu_library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-ta_values-ta.arsc.flat",
+            "outputFile": "F:\\githubRep\\LocalTest\\LocalTest\\SlidingMenu_library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-km_values-km.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.0.0.aar\\91125fbc505a6b1dcf4ff5c85e307f67\\res\\values-ta\\values-ta.xml",
+                    "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.0.0.aar\\7dbfcdf88600e638239ab76f2679861f\\res\\values-km\\values-km.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -106,10 +106,10 @@
             ]
         },
         {
-            "outputFile": "F:\\githubRep\\LocalTest\\LocalTest\\SlidingMenu_library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-km_values-km.arsc.flat",
+            "outputFile": "F:\\github\\LocalTest\\SlidingMenu_library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-ta_values-ta.arsc.flat",
             "map": [
                 {
-                    "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.0.0.aar\\7dbfcdf88600e638239ab76f2679861f\\res\\values-km\\values-km.xml",
+                    "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.0.0.aar\\91125fbc505a6b1dcf4ff5c85e307f67\\res\\values-ta\\values-ta.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
