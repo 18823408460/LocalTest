@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "F:\\githubRep\\LocalTest\\LocalTest\\SlidingMenu_library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-ne\\values-ne.xml",
+            "map": [
+                {
+                    "source": "D:\\Android\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.0.0.aar\\7dbfcdf88600e638239ab76f2679861f\\res\\values-ne\\values-ne.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}

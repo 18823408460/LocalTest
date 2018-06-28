@@ -16,98 +16,107 @@ import java.util.List;
  */
 
 public class LinkNode {
-        private static final String TAG = LinkNode.class.getSimpleName();
-        //每次执行一个nodeDataBaseList中的一个节点后，currentIndex++ ;
-        private int currentYIndex = 0;  // y 方向的 链表索引
-        private NodeRunType nodeType;
-        private List<VpJsonBean.NodeDataBase> nodeDataBaseList;
-        private List<VpJsonBean.NodeDataBase> nodeDataBaseListElse;
-        private AppendCData appendCData;
-        private boolean ContanirNode = false;
+    private static final String TAG = LinkNode.class.getSimpleName();
+    //每次执行一个nodeDataBaseList中的一个节点后，currentIndex++ ;
+    private int currentYIndex = 0;  // y 方向的 链表索引
+    private NodeRunType nodeType;
+    private List<VpJsonBean.NodeDataBase> nodeDataBaseList;// 可执行的List
+    private List<VpJsonBean.NodeDataBase> nodeDataBaseListElse; //暂存，判断条件后，付给nodeDataBaseList
+    private AppendCData appendCData;
+    private boolean ContanirNode = false;
 
-        public LinkNode(VpJsonBean.NodeDataBase nodeDataBase) {
-                List<VpJsonBean.NodeDataBase> list = new ArrayList<>();
-                list.add(nodeDataBase);
-                addData(list);
+    public LinkNode(VpJsonBean.NodeDataBase nodeDataBase) {
+        List<VpJsonBean.NodeDataBase> list = new ArrayList<>();
+        list.add(nodeDataBase);
+        addData(list);
+    }
+
+    public LinkNode(List<VpJsonBean.NodeDataBase> list) {
+        addData(list);
+    }
+
+    private void addData(List<VpJsonBean.NodeDataBase> list) {
+        VpJsonBean.NodeDataBase nodeDataBase = list.get(currentYIndex);
+        nodeType = RunTypeUtil.getRunType(nodeDataBase);
+        Log.e(TAG, "LinkNode: " + nodeDataBase.PrefabName + "   nodeType=" + nodeType);
+        boolean isViewGroupNode = RunTypeUtil.IsViewGroupNode(nodeDataBase);
+        if (isViewGroupNode) {
+            Log.e(TAG, "LinkNode: isViewGroupNode");
+            this.ContanirNode = true;
+            List<VpJsonBean.NodeDataBase> actions = nodeDataBase.Actions;
+            if (actions != null && actions.size() > 0) {
+                nodeDataBaseList = actions;
+            }
+            VpJsonBean.SwitchBean aSwitch = nodeDataBase.Switch;
+            if (aSwitch != null) {
+                nodeDataBaseList = aSwitch.Do;  // if
+                nodeDataBaseListElse = aSwitch.Else; //else
+            }
+
+        } else {
+            Log.e(TAG, "LinkNode: not   ViewGroupNode");
+            this.ContanirNode = false;
+            this.nodeDataBaseList = list;
         }
-
-        public LinkNode(List<VpJsonBean.NodeDataBase> list) {
-                addData(list);
+        if (NodeRunType.CONDITION.equals(nodeType)) {
+            appendCData = AppendUtil.getAppendCData(nodeDataBase);
         }
+    }
 
-        private void addData(List<VpJsonBean.NodeDataBase> list) {
-                VpJsonBean.NodeDataBase nodeDataBase = list.get(currentYIndex);
-                nodeType = RunTypeUtil.getRunType(nodeDataBase);
-                Log.e(TAG, "LinkNode: " + nodeDataBase.PrefabName + "   nodeType=" + nodeType);
-                boolean isViewGroupNode = RunTypeUtil.IsViewGroupNode(nodeDataBase);
-                if (isViewGroupNode) {
-                        Log.e(TAG, "LinkNode: isViewGroupNode");
-                        this.ContanirNode = true;
-                        List<VpJsonBean.NodeDataBase> actions = nodeDataBase.Actions;
-                        if (actions != null && actions.size() > 0) {
-                                nodeDataBaseList = actions;
-                        }
-                        VpJsonBean.SwitchBean aSwitch = nodeDataBase.Switch;
-                        if (aSwitch != null) {
-                                nodeDataBaseList = aSwitch.Do;  // if
-                                nodeDataBaseListElse = aSwitch.Else; //else
-                        }
-
-                } else {
-                        Log.e(TAG, "LinkNode: not   ViewGroupNode");
-                        this.ContanirNode = false;
-                        this.nodeDataBaseList = list;
-                }
-                if (NodeRunType.CONDITION.equals(nodeType)) {
-                        appendCData = AppendUtil.getAppendCData(nodeDataBase);
-                }
+    public boolean hasNext() {
+        if (currentYIndex < nodeDataBaseList.size()) {
+            return true;
         }
+        return false;
+    }
 
-        public AppendCData getAppendCData() {
-                return appendCData;
-        }
+    public VpJsonBean.NodeDataBase getNextData() {
+        VpJsonBean.NodeDataBase nodeDataBase = nodeDataBaseList.get(currentYIndex);
+        currentYIndex++;
+        return nodeDataBase;
+    }
 
-        public boolean isContanirNode() {
-                return ContanirNode;
-        }
+    public AppendCData getAppendCData() {
+        return appendCData;
+    }
+
+    public boolean isContanirNode() {
+        return ContanirNode;
+    }
 
 
-        public NodeRunType getNodeType() {
-                return nodeType;
-        }
+    public NodeRunType getNodeType() {
+        return nodeType;
+    }
 
-        public List<VpJsonBean.NodeDataBase> getNodeDataBaseList() {
-                return nodeDataBaseList;
-        }
+    public List<VpJsonBean.NodeDataBase> getNodeDataBaseList() {
+        return nodeDataBaseList;
+    }
 
-        public List<VpJsonBean.NodeDataBase> getNodeDataBaseListElse() {
-                return nodeDataBaseListElse;
-        }
+    public void updateNodeDataBaseList(List<VpJsonBean.NodeDataBase> dataBases) {
+        this.nodeDataBaseList = dataBases;
+    }
 
-        public void setCurrentYIndex(int currentYIndex) {
-                this.currentYIndex = currentYIndex;
-        }
+    public List<VpJsonBean.NodeDataBase> getNodeDataBaseListElse() {
+        return nodeDataBaseListElse;
+    }
 
-        public int getCurrentYIndex() {
-                return currentYIndex;
-        }
+    public void startExe() {
+    }
 
-        public void startExe() {
-        }
+    public void stop() {
 
-        public void stop() {
+    }
 
-        }
-
-        @Override
-        public String toString() {
-                return "LinkNode{" +
-                        "currentYIndex=" + currentYIndex +
-                        ", nodeType=" + nodeType +
-                        ", nodeDataBaseList=" + nodeDataBaseList +
-                        ", nodeDataBaseListElse=" + nodeDataBaseListElse +
-                        ", appendCData=" + appendCData +
-                        ", ContanirNode=" + ContanirNode +
-                        '}';
-        }
+    @Override
+    public String toString() {
+        return "LinkNode{" +
+                "currentYIndex=" + currentYIndex +
+                ", nodeType=" + nodeType +
+                ", nodeDataBaseList=" + nodeDataBaseList +
+                ", nodeDataBaseListElse=" + nodeDataBaseListElse +
+                ", appendCData=" + appendCData +
+                ", ContanirNode=" + ContanirNode +
+                '}';
+    }
 }
