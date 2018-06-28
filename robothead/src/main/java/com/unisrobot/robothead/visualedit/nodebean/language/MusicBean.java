@@ -6,7 +6,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 
-import com.unisrobot.robothead.visualedit.VpJsonBean;
+import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
 
 import java.util.Random;
 

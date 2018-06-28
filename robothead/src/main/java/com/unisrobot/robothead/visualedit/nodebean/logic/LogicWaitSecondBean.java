@@ -1,7 +1,7 @@
 package com.unisrobot.robothead.visualedit.nodebean.logic;
 
-import com.unisrobot.robothead.visualedit.VpJsonBean;
-import com.unisrobot.robothead.visualedit.nodebean.AppendUtil;
+import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
+import com.unisrobot.robothead.visualedit.nodebean.common.AppendUtil;
 
 /**
  * Created by WEI on 2018/6/27.

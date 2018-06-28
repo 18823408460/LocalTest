@@ -2,7 +2,7 @@ package com.unisrobot.robothead.visualedit.nodebean.eye;
 
 import android.text.TextUtils;
 
-import com.unisrobot.robothead.visualedit.VpJsonBean;
+import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
 
 /**
  * Created by WEI on 2018/6/27.

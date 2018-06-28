@@ -1,4 +1,4 @@
-package com.unisrobot.robothead.visualedit;
+package com.unisrobot.robothead.visualedit.nodebean.common;
 
 /**
  * Created by Administrator on 2018/6/27.

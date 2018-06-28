@@ -1,9 +1,9 @@
 package com.unisrobot.robothead.visualedit.nodebean.basic;
 
-import com.unisrobot.robothead.visualedit.NodeEvent;
-import com.unisrobot.robothead.visualedit.NodeParams;
-import com.unisrobot.robothead.visualedit.VpJsonBean;
-import com.unisrobot.robothead.visualedit.nodebean.Joint;
+import com.unisrobot.robothead.visualedit.nodebean.common.NodeEvent;
+import com.unisrobot.robothead.visualedit.nodebean.common.NodeParams;
+import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
+import com.unisrobot.robothead.visualedit.bean.Joint;
 
 /**
  * Created by Administrator on 2018/6/27.

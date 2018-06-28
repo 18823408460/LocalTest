@@ -10,7 +10,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.unisrobot.robothead.thread.ThreadPool;
 import com.unisrobot.robothead.utils.Logger;
-import com.unisrobot.robothead.visualedit.VpProtocol;
+import com.unisrobot.robothead.visualedit.nodebean.common.VpProtocol;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

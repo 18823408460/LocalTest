@@ -13,11 +13,12 @@ import com.google.gson.JsonSyntaxException;
 import com.unisrobot.robothead.bluetooth.BluToothMgr;
 import com.unisrobot.robothead.bluetooth.IBluetoothLisenter;
 import com.unisrobot.robothead.visualedit.model.LinkNode;
-import com.unisrobot.robothead.visualedit.nodebean.AppendCData;
+import com.unisrobot.robothead.visualedit.nodebean.common.AppendCData;
 import com.unisrobot.robothead.visualedit.nodebean.basic.JointBean;
 import com.unisrobot.robothead.visualedit.nodebean.basic.SpeedTimeBean;
 import com.unisrobot.robothead.visualedit.nodebean.basic.TurnAngleBean;
 import com.unisrobot.robothead.visualedit.nodebean.combineaction.CombineBean;
+import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
 import com.unisrobot.robothead.visualedit.nodebean.ear.EarBean;
 import com.unisrobot.robothead.visualedit.nodebean.eye.EyeFeelingBean;
 import com.unisrobot.robothead.visualedit.nodebean.eye.EyeLookAngle;
@@ -49,7 +50,7 @@ public class VisualEditActivity extends Activity {
     private LinkNode currentLinkNode;
     private LinkNode linkFatherNode;
     private ExeHandler exeHandler;
-    private int linkNodeListXIndex = -1;  // y 方向的 链表索引
+    private int linkNodeListXIndex = -1;  // x 方向的 链表索引
 
     private static class ExeHandler extends Handler {
         WeakReference<VisualEditActivity> weakReference;
@@ -214,6 +215,11 @@ public class VisualEditActivity extends Activity {
     private void exeLinkNode() {
         VpJsonBean.NodeDataBase nodeDataBase = currentLinkNode.getNextData();
         dispatchNode(nodeDataBase);
+        mockNext();
+    }
+
+    private void mockNext() {
+        //模拟下一个节点执行的条件到了, 具体什么时候执行下一个？？？
         exeHandler.sendEmptyMessageDelayed(NEXT, 1000);
     }
 

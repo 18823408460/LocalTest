@@ -2,9 +2,9 @@ package com.unisrobot.robothead.visualedit.model;
 
 import android.util.Log;
 
-import com.unisrobot.robothead.visualedit.VpJsonBean;
-import com.unisrobot.robothead.visualedit.nodebean.AppendCData;
-import com.unisrobot.robothead.visualedit.nodebean.AppendUtil;
+import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
+import com.unisrobot.robothead.visualedit.nodebean.common.AppendCData;
+import com.unisrobot.robothead.visualedit.nodebean.common.AppendUtil;
 import com.unisrobot.robothead.visualedit.type.NodeRunType;
 import com.unisrobot.robothead.visualedit.type.RunTypeUtil;
 
@@ -63,7 +63,7 @@ public class LinkNode {
         }
     }
 
-    public boolean hasNext() {
+    public boolean hasNext() { // 这里不仅仅只判断 索引，还要优先根据nodeType来判断
         if (currentYIndex < nodeDataBaseList.size()) {
             return true;
         }
@@ -82,11 +82,6 @@ public class LinkNode {
 
     public boolean isContanirNode() {
         return ContanirNode;
-    }
-
-
-    public NodeRunType getNodeType() {
-        return nodeType;
     }
 
     public List<VpJsonBean.NodeDataBase> getNodeDataBaseList() {

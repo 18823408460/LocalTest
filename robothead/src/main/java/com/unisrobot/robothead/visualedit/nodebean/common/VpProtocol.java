@@ -1,4 +1,4 @@
-package com.unisrobot.robothead.visualedit;
+package com.unisrobot.robothead.visualedit.nodebean.common;
 
 /**
  * 发送可视化蓝牙消息类

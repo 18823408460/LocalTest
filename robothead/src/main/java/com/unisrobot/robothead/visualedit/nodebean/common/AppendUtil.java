@@ -1,8 +1,6 @@
-package com.unisrobot.robothead.visualedit.nodebean;
+package com.unisrobot.robothead.visualedit.nodebean.common;
 
-import com.unisrobot.robothead.visualedit.NodeParams;
 import com.unisrobot.robothead.visualedit.type.NodeJsonType;
-import com.unisrobot.robothead.visualedit.VpJsonBean;
 
 import java.util.List;
 
