@@ -2,11 +2,10 @@ package com.unisrobot.robothead.visualedit.nodebean;
 
 /**
  * Created by Administrator on 2018/6/27.
+ * <p>
+ * AppendA，B 节点返回是是个数值型数据
  */
 
 public class AppendABData {
-        public String Number1;
-        public String Content;
-        public String Event;
-        public String Result;
+        public String number;
 }

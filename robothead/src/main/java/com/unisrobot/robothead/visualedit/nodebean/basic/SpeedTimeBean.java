@@ -38,11 +38,11 @@ public class SpeedTimeBean {
 
     public static SpeedTimeBean getBean(VpJsonBean.NodeDataBase nodeData) {
         SpeedTimeBean speedTimeBean = new SpeedTimeBean();
-        VpJsonBean.InputNumber InputNumberSpeed = AppendUtil.getInputNumber(nodeData, 0);
-        VpJsonBean.InputNumber InputNumberTime = AppendUtil.getInputNumber(nodeData, 1);
+        String InputNumberSpeed = AppendUtil.getInputNumber(nodeData, 0);
+        String InputNumberTime = AppendUtil.getInputNumber(nodeData, 1);
         String direction = nodeData.Args.get(0).Content;
-        short speed = getSpeed(InputNumberSpeed.Number);
-        long time = getTime(InputNumberTime.Number);
+        short speed = getSpeed(InputNumberSpeed);
+        long time = getTime(InputNumberTime);
         speedTimeBean.direction = direction;
         speedTimeBean.xTime = time;
         speedTimeBean.speed = speed;
