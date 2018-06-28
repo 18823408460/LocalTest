@@ -13,7 +13,7 @@ import com.unisrobot.robothead.visualedit.nodebean.AppendUtil;
 public class TurnAngleBean {
     private short angle;
     private long xTime;
-    private String direction;
+    private String direction ="";
 
     public void exeNode() {
         switch (direction) {
@@ -33,9 +33,9 @@ public class TurnAngleBean {
     public static TurnAngleBean getBean(VpJsonBean.NodeDataBase nodeData) {
         TurnAngleBean speedTimeBean = new TurnAngleBean();
         String InputNumberAngle = AppendUtil.getInputNumber(nodeData, 0);
-        String direction = nodeData.Args.get(0).Content;
+//        String direction = nodeData.Args.get(0).Content;
         short speed = getAngle(InputNumberAngle);
-        speedTimeBean.direction = direction;
+     //   speedTimeBean.direction = direction;
         speedTimeBean.xTime = getTime("");
         speedTimeBean.angle = speed;
         return speedTimeBean;

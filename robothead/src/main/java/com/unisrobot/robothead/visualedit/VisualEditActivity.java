@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -44,10 +45,12 @@ public class VisualEditActivity extends Activity {
         private static final int NEXT = 1;
         private static final String TAG = VisualEditActivity.class.getSimpleName();
         private BluToothMgr bluToothMgr;
-        private LinkedList<LinkNode> linkNodeLinkedList = new LinkedList<>();
+        private LinkedList<LinkNode> linkNodeLinkedListX = new LinkedList<>();
         private LinkNode currentLinkNode;
-        private int currentIndex = 0;
+        private LinkNode linkFatherNode;
         private ExeHandler exeHandler;
+        private int linkNodeListXIndex = 0;  // y 方向的 链表索引
+        private int currentLinkListYIndex = 0;  // y 方向的 链表索引
 
         private static class ExeHandler extends Handler {
                 WeakReference<VisualEditActivity> weakReference;
@@ -70,18 +73,42 @@ public class VisualEditActivity extends Activity {
         }
 
         private void exeNextNode() {
-                int currentIndex = currentLinkNode.getCurrentIndex();
-                Log.e(TAG, "exeNextNode: ................." + currentIndex);
+                int index = currentLinkNode.getCurrentYIndex();
                 List<VpJsonBean.NodeDataBase> nodeDataBaseList = currentLinkNode.getNodeDataBaseList();
-                if (currentIndex < nodeDataBaseList.size()) {
-                        VpJsonBean.NodeDataBase nodeDataBase = nodeDataBaseList.get(currentIndex);
-                        dispatchNode(nodeDataBase);
+                Log.e(TAG, "exeNextNode: currentIndex= " + index + "   all = " + nodeDataBaseList.size());
+                if (index < nodeDataBaseList.size()) { // 同一个包含型Node 的执行
+                        Log.e(TAG, "exeNextNode: **********************1");
+                        VpJsonBean.NodeDataBase nodeDataBase = nodeDataBaseList.get(index);
+                        LinkNode linkNode = new LinkNode(nodeDataBase);
+                        contachLinkNode(linkNode);
 
-                } else {
-                        if (currentIndex > 0) {
-                                currentIndex--;
-                                currentLinkNode = linkNodeLinkedList.get(currentIndex);
-                                exeLinkNode();
+                } else { // 非 包含型 Node 的执行
+                        if (linkNodeListXIndex > 1) { // 如果 X 方向上 还有包含型Node，执行上一个
+                                linkNodeListXIndex--;
+                                currentLinkNode = linkNodeLinkedListX.get(linkNodeListXIndex);
+                                int currentYIndex = currentLinkNode.getCurrentYIndex();
+                                int size = currentLinkNode.getNodeDataBaseList().size();
+                                Log.e(TAG, "exeNextNode:  currentYIndex=" + currentYIndex + "  sizeAll=" + size);
+                                if (currentYIndex < size) {
+                                        VpJsonBean.NodeDataBase nodeDataBase = nodeDataBaseList.get(currentYIndex);
+                                        LinkNode linkNode = new LinkNode(nodeDataBase);
+                                        contachLinkNode(linkNode);
+                                } else { // 继续回退。往前执行
+                                        exeNextNode();
+                                }
+                        } else { // FatherNode Y 方向上的执行
+                                linkNodeListXIndex = 0;
+                                currentLinkListYIndex++;
+                                int all = linkFatherNode.getNodeDataBaseList().size();
+                                Log.e(TAG, "exeNextNode: allNode ==== " + all + "    currentLinkListYIndex=" + currentLinkListYIndex);
+                                if (currentLinkListYIndex < all) { // Y 方向上 依次 增大寻找Node
+                                        Log.e(TAG, "exeNextNode: ********************3");
+                                        VpJsonBean.NodeDataBase nodeDataBase = linkFatherNode.getNodeDataBaseList().get(currentLinkListYIndex);
+                                        LinkNode linkNode = new LinkNode(nodeDataBase);
+                                        contachLinkNode(linkNode);
+                                } else {
+                                        Log.e(TAG, "exeNextNode: **********************end");
+                                }
                         }
                 }
         }
@@ -146,15 +173,17 @@ public class VisualEditActivity extends Activity {
         private void handlerVpTaskThread(final List<VpJsonBean.NodeDataBase> tasks) {
                 if (tasks != null && tasks.size() > 0) {
                         clean();
-                        final LinkNode linkNode = new LinkNode(tasks);
-                        linkNodeLinkedList.add(linkNode);
-                        currentLinkNode = linkNode;
+                        linkFatherNode = new LinkNode(tasks);
                         runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                         // 这里不能用 remove，因为可能是重复执行
-                                        // VpJsonBean.NodeDataBase node = linkNodeLinkedList.remove(0);
-                                        contachLinkNode(linkNode);
+                                        // VpJsonBean.NodeDataBase node = linkNodeLinkedListX.remove(0);
+                                        int currentYIndex = linkFatherNode.getCurrentYIndex();
+                                        VpJsonBean.NodeDataBase nodeDataBase = linkFatherNode.getNodeDataBaseList().get(currentYIndex);
+                                        linkFatherNode.setCurrentYIndex(++currentYIndex);
+                                        currentLinkNode = new LinkNode(nodeDataBase);
+                                        contachLinkNode(currentLinkNode);
                                 }
                         });
                 }
@@ -164,37 +193,40 @@ public class VisualEditActivity extends Activity {
                 if (linkNode.isContanirNode()) { //如果是容器节点
                         AppendCData appendCData = linkNode.getAppendCData();
                         if (appendCData != null) { //如果是条件型容器节点
+                                Log.e(TAG, "contachLinkNode: is conditon view group node");
                                 if (appendCData.logic) { //如果条件满足,执行if
-                                        List<VpJsonBean.NodeDataBase> nodeDataBaseList = linkNode.getNodeDataBaseList();
-                                        LinkNode linkNode1 = new LinkNode(nodeDataBaseList);
-                                        linkNodeLinkedList.addLast(linkNode);
-                                        currentLinkNode = linkNode;
-                                        currentIndex++;
-                                        contachLinkNode(linkNode1);
+                                        contachLinkNode(getLinkNode(linkNode, true));
                                 } else {
-                                        List<VpJsonBean.NodeDataBase> nodeDataBaseListElse = linkNode.getNodeDataBaseListElse();
-                                        LinkNode linkNode1 = new LinkNode(nodeDataBaseListElse);
-                                        contachLinkNode(linkNode1);
+                                        contachLinkNode(getLinkNode(linkNode, false));
                                 }
                         } else { // 如果直接是顺序执行的容器节点
-                                List<VpJsonBean.NodeDataBase> nodeDataBaseList = linkNode.getNodeDataBaseList();
-                                LinkNode linkNode1 = new LinkNode(nodeDataBaseList);
-                                linkNodeLinkedList.addLast(linkNode);
-                                currentLinkNode = linkNode;
-                                currentIndex++;
-                                contachLinkNode(linkNode1);
+                                Log.e(TAG, "contachLinkNode: is  view group node");
+                                contachLinkNode(getLinkNode(linkNode, true));
                         }
                 } else {
-                        Log.e(TAG, "contachLinkNode: " + linkNodeLinkedList);
                         exeLinkNode();
                 }
         }
 
+        @NonNull
+        private LinkNode getLinkNode(LinkNode fatherNode, boolean isIf) {
+                List<VpJsonBean.NodeDataBase> nodeDataBaseList;
+                if (isIf) {
+                        nodeDataBaseList = fatherNode.getNodeDataBaseList();
+                } else {
+                        nodeDataBaseList = fatherNode.getNodeDataBaseListElse();
+                }
+                LinkNode childNode = new LinkNode(nodeDataBaseList);
+                linkNodeLinkedListX.addLast(childNode);
+                currentLinkNode = childNode;
+                linkNodeListXIndex++;
+                return childNode;
+        }
+
         private void exeLinkNode() {
-                int index = currentLinkNode.getCurrentIndex();
-                Log.e(TAG, "exeLinkNode: index=== " + index);
+                int index = currentLinkNode.getCurrentYIndex();
                 VpJsonBean.NodeDataBase nodeDataBase = currentLinkNode.getNodeDataBaseList().get(index);
-                currentLinkNode.setCurrentIndex(index++);
+                currentLinkNode.setCurrentYIndex(++index);
                 dispatchNode(nodeDataBase);
                 exeHandler.sendEmptyMessageDelayed(NEXT, 1000);
         }
@@ -204,7 +236,7 @@ public class VisualEditActivity extends Activity {
          */
         private void dispatchNode(VpJsonBean.NodeDataBase node) {
                 String type = node.Type;
-                Log.e(TAG, "dispatchNode: node type ===" + type);
+                Log.e(TAG, "dispatchNode: node type ===" + node.Event);
                 switch (type) {
                         case NodeJsonType.BASIC:
                                 exeBasicNode(node);
@@ -236,8 +268,10 @@ public class VisualEditActivity extends Activity {
                         currentLinkNode.stop();
                         currentLinkNode = null;
                 }
-                currentIndex = 0;
-                linkNodeLinkedList.clear();
+                currentLinkListYIndex = 0;
+                linkNodeListXIndex = 0;
+                linkNodeLinkedListX.clear();
+                linkFatherNode = null;
                 exeHandler.removeCallbacksAndMessages(null);
         }
 

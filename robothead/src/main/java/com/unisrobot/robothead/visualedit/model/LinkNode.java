@@ -5,10 +5,10 @@ import android.util.Log;
 import com.unisrobot.robothead.visualedit.VpJsonBean;
 import com.unisrobot.robothead.visualedit.nodebean.AppendCData;
 import com.unisrobot.robothead.visualedit.nodebean.AppendUtil;
-import com.unisrobot.robothead.visualedit.type.NodeJsonType;
 import com.unisrobot.robothead.visualedit.type.NodeRunType;
 import com.unisrobot.robothead.visualedit.type.RunTypeUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,19 +18,30 @@ import java.util.List;
 public class LinkNode {
         private static final String TAG = LinkNode.class.getSimpleName();
         //每次执行一个nodeDataBaseList中的一个节点后，currentIndex++ ;
-        private int currentIndex = 0;
+        private int currentYIndex = 0;  // y 方向的 链表索引
         private NodeRunType nodeType;
         private List<VpJsonBean.NodeDataBase> nodeDataBaseList;
         private List<VpJsonBean.NodeDataBase> nodeDataBaseListElse;
         private AppendCData appendCData;
         private boolean ContanirNode = false;
 
+        public LinkNode(VpJsonBean.NodeDataBase nodeDataBase) {
+                List<VpJsonBean.NodeDataBase> list = new ArrayList<>();
+                list.add(nodeDataBase);
+                addData(list);
+        }
+
         public LinkNode(List<VpJsonBean.NodeDataBase> list) {
-                VpJsonBean.NodeDataBase nodeDataBase = list.get(currentIndex);
+                addData(list);
+        }
+
+        private void addData(List<VpJsonBean.NodeDataBase> list) {
+                VpJsonBean.NodeDataBase nodeDataBase = list.get(currentYIndex);
                 nodeType = RunTypeUtil.getRunType(nodeDataBase);
                 Log.e(TAG, "LinkNode: " + nodeDataBase.PrefabName + "   nodeType=" + nodeType);
                 boolean isViewGroupNode = RunTypeUtil.IsViewGroupNode(nodeDataBase);
                 if (isViewGroupNode) {
+                        Log.e(TAG, "LinkNode: isViewGroupNode");
                         this.ContanirNode = true;
                         List<VpJsonBean.NodeDataBase> actions = nodeDataBase.Actions;
                         if (actions != null && actions.size() > 0) {
@@ -43,6 +54,7 @@ public class LinkNode {
                         }
 
                 } else {
+                        Log.e(TAG, "LinkNode: not   ViewGroupNode");
                         this.ContanirNode = false;
                         this.nodeDataBaseList = list;
                 }
@@ -60,14 +72,6 @@ public class LinkNode {
         }
 
 
-        public int getCurrentIndex() {
-                return currentIndex;
-        }
-
-        public void setCurrentIndex(int currentIndex) {
-                this.currentIndex = currentIndex;
-        }
-
         public NodeRunType getNodeType() {
                 return nodeType;
         }
@@ -80,12 +84,12 @@ public class LinkNode {
                 return nodeDataBaseListElse;
         }
 
-        @Override
-        public String toString() {
-                return "LinkNode{" +
-                        "currentIndex=" + currentIndex +
-                        ", nodeType=" + nodeType +
-                        '}';
+        public void setCurrentYIndex(int currentYIndex) {
+                this.currentYIndex = currentYIndex;
+        }
+
+        public int getCurrentYIndex() {
+                return currentYIndex;
         }
 
         public void startExe() {
@@ -93,5 +97,14 @@ public class LinkNode {
 
         public void stop() {
 
+        }
+
+        @Override
+        public String toString() {
+                return "LinkNode{" +
+                        ", currentYIndex=" + currentYIndex +
+                        ", nodeType=" + nodeType +
+                        ", ContanirNode=" + ContanirNode +
+                        '}';
         }
 }

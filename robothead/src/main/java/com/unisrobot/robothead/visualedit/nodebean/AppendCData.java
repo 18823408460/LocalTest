@@ -5,5 +5,5 @@ package com.unisrobot.robothead.visualedit.nodebean;
  */
 
 public class AppendCData {
-        public boolean logic;
+        public boolean logic = true;
 }
