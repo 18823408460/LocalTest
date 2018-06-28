@@ -1,11 +1,11 @@
-package com.unisrobot.robothead.visualedit;
+package com.unisrobot.robothead.visualedit.type;
 
 /**
  * Created by Administrator on 2018/6/27.
  * 节点的类型
  */
 
-public final class NodeType {
+public final class NodeJsonType {
     public static final String BASIC = "Basic";
     public static final String COMBINEACTION = "CombineAction";
     public static final String EARS = "Ears";
@@ -61,9 +61,9 @@ public final class NodeType {
     //逻辑智能
     public static final class Logic {
         public static final String LogicPrefab_WaitSecond = "LogicPrefab_WaitSecond";
-        public static final String LogicPrefab_RepeatTimes = "LogicPrefab_RepeatTimes";
-        public static final String LogicPrefab_ContinueRepeat = "LogicPrefab_ContinueRepeat";
-        public static final String LogicPrefab_ContinueUntil = "LogicPrefab_ContinueUntil";
+        public static final String LogicPrefab_RepeatCount = "LogicPrefab_RepeatTimes";
+        public static final String LogicPrefab_RepeatCycle = "LogicPrefab_ContinueRepeat";
+        public static final String LogicPrefab_RepeatUntil = "LogicPrefab_ContinueUntil";
         public static final String LogicPrefab_IfElse = "LogicPrefab_IfElse";
         public static final String LogicPrefab_If = "LogicPrefab_If";
         public static final String LogicPrefab_CallFunction = "LogicPrefab_CallFunction";

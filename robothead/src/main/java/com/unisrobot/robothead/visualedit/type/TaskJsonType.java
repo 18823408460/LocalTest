@@ -1,6 +1,6 @@
-package com.unisrobot.robothead.visualedit;
+package com.unisrobot.robothead.visualedit.type;
 
-public class TaskType {
+public class TaskJsonType {
 
         public static final String MSG_TYPE_BASE_TASK = "MSG_TYPE_BASE_TASK"; // (运行)发送项目内容 == 可视化编程内容的执行
 

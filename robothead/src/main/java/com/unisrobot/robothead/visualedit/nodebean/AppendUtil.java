@@ -1,7 +1,7 @@
 package com.unisrobot.robothead.visualedit.nodebean;
 
 import com.unisrobot.robothead.visualedit.NodeParams;
-import com.unisrobot.robothead.visualedit.NodeType;
+import com.unisrobot.robothead.visualedit.type.NodeJsonType;
 import com.unisrobot.robothead.visualedit.VpJsonBean;
 
 import java.util.List;
@@ -38,24 +38,31 @@ public class AppendUtil {
                 return "";
         }
 
-        private static AppendCData getAppendCData(VpJsonBean.NodeDataBase nodeDataBase) {
-                AppendCData appendCData = new AppendCData();
+        public static AppendCData getAppendCData(VpJsonBean.NodeDataBase nodeDataBase) {
+                AppendCData appendCData = null;
+                VpJsonBean.Appendents appendent = nodeDataBase.Appendent;
+                if (appendent != null) {
+                        List<VpJsonBean.NodeDataBase> append_c = appendent.Append_C;
+                        if (append_c != null && append_c.size() > 0) {
+                                appendCData = new AppendCData();
+                        }
+                }
                 return appendCData;
         }
 
         private static AppendABData getAppendABData(VpJsonBean.NodeDataBase nodeDataBase) {
                 AppendABData appendData = new AppendABData();
-                if (NodeType.MIND.equals(nodeDataBase.Type)) {
+                if (NodeJsonType.MIND.equals(nodeDataBase.Type)) {
                         switch (nodeDataBase.PrefabName) {
-                                case NodeType.Mind.MindPrefab_Num:
+                                case NodeJsonType.Mind.MindPrefab_Num:
                                         appendData.number = nodeDataBase.Args.get(0).Content;
                                         break;
-                                case NodeType.Mind.MindPrefab_Calculate://计算两个数
+                                case NodeJsonType.Mind.MindPrefab_Calculate://计算两个数
                                         String inputNumber = getInputNumber(nodeDataBase, 0);
                                         String inputNumber2 = getInputNumber(nodeDataBase, 1);
                                         appendData.number = NumberUtil.handlerNumber(nodeDataBase.Pictures.get(0).Picture, inputNumber, inputNumber2);
                                         break;
-                                case NodeType.Mind.MindPrefab_CalculateNumber://四舍五入
+                                case NodeJsonType.Mind.MindPrefab_CalculateNumber://四舍五入
                                         inputNumber = getInputNumber(nodeDataBase, 0);
                                         String content = nodeDataBase.Args.get(0).Content;
                                         if (NodeParams.Mind.SI_SHE_WU_RU.equals(content)) {
@@ -65,7 +72,7 @@ public class AppendUtil {
                                                 appendData.number = Math.sin(aDouble * Math.PI / 180) + "";
                                         }
                                         break;
-                                case NodeType.Mind.MindPrefab_AcalculateBRemainder://取余数
+                                case NodeJsonType.Mind.MindPrefab_AcalculateBRemainder://取余数
                                         inputNumber = getInputNumber(nodeDataBase, 0);
                                         inputNumber2 = getInputNumber(nodeDataBase, 1);
                                         appendData.number = Double.parseDouble(inputNumber) % Double.parseDouble(inputNumber2) + "";

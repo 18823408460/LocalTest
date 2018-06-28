@@ -1,4 +1,4 @@
-package com.unisrobot.robothead.visualedit;
+package com.unisrobot.robothead.visualedit.type;
 
 /**
  * Created by Administrator on 2018/6/27.
@@ -18,7 +18,7 @@ public enum NodeRunType {
         COUNT,
 
         /**
-         * 等待型，即等待某个条件后，才执行下一个节点
+         * 等待型，即等待某个条件(触摸几次，等几秒，收到云端反馈(需要超时处理)，收到音频播放结束  )后，才执行下一个节点
          */
         WAIT_NEXT,
 
