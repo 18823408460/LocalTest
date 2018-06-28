@@ -76,14 +76,14 @@ public class VisualEditActivity extends Activity {
                 int index = currentLinkNode.getCurrentYIndex();
                 List<VpJsonBean.NodeDataBase> nodeDataBaseList = currentLinkNode.getNodeDataBaseList();
                 Log.e(TAG, "exeNextNode: currentIndex= " + index + "   all = " + nodeDataBaseList.size());
-                if (index < nodeDataBaseList.size()) { // 同一个包含型Node 的执行
+                if (index < nodeDataBaseList.size()) { // 同一个包含型Node Y 的执行
                         Log.e(TAG, "exeNextNode: **********************1");
                         VpJsonBean.NodeDataBase nodeDataBase = nodeDataBaseList.get(index);
                         LinkNode linkNode = new LinkNode(nodeDataBase);
                         contachLinkNode(linkNode);
 
-                } else { // 非 包含型 Node 的执行
-                        if (linkNodeListXIndex > 1) { // 如果 X 方向上 还有包含型Node，执行上一个
+                } else { // 同一个Node中非包含型 Node 的执行
+                        if (linkNodeListXIndex > 1) { // 如果 Y 方向上 还有Node，往下执行
                                 linkNodeListXIndex--;
                                 currentLinkNode = linkNodeLinkedListX.get(linkNodeListXIndex);
                                 int currentYIndex = currentLinkNode.getCurrentYIndex();
@@ -177,8 +177,6 @@ public class VisualEditActivity extends Activity {
                         runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                        // 这里不能用 remove，因为可能是重复执行
-                                        // VpJsonBean.NodeDataBase node = linkNodeLinkedListX.remove(0);
                                         int currentYIndex = linkFatherNode.getCurrentYIndex();
                                         VpJsonBean.NodeDataBase nodeDataBase = linkFatherNode.getNodeDataBaseList().get(currentYIndex);
                                         linkFatherNode.setCurrentYIndex(++currentYIndex);
