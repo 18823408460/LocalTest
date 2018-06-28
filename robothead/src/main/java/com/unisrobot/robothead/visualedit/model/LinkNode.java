@@ -102,8 +102,11 @@ public class LinkNode {
         @Override
         public String toString() {
                 return "LinkNode{" +
-                        ", currentYIndex=" + currentYIndex +
+                        "currentYIndex=" + currentYIndex +
                         ", nodeType=" + nodeType +
+                        ", nodeDataBaseList=" + nodeDataBaseList +
+                        ", nodeDataBaseListElse=" + nodeDataBaseListElse +
+                        ", appendCData=" + appendCData +
                         ", ContanirNode=" + ContanirNode +
                         '}';
         }

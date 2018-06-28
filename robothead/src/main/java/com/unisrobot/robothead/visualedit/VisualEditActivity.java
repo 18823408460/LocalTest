@@ -83,14 +83,14 @@ public class VisualEditActivity extends Activity {
                         contachLinkNode(linkNode);
 
                 } else { // 同一个Node中非包含型 Node 的执行
-                        if (linkNodeListXIndex > 1) { // 如果 Y 方向上 还有Node，往下执行
+                        if (linkNodeListXIndex > 0) { // 如果 Y 方向上 还有Node，往下执行  XXXXXXX这里回退有问题？？
                                 linkNodeListXIndex--;
                                 currentLinkNode = linkNodeLinkedListX.get(linkNodeListXIndex);
                                 int currentYIndex = currentLinkNode.getCurrentYIndex();
                                 int size = currentLinkNode.getNodeDataBaseList().size();
-                                Log.e(TAG, "exeNextNode:  currentYIndex=" + currentYIndex + "  sizeAll=" + size);
+                                Log.e(TAG, "exeNextNode:  currentYIndex=" + currentYIndex + "  sizeAll=" + size + "  node="+currentLinkNode);
                                 if (currentYIndex < size) {
-                                        VpJsonBean.NodeDataBase nodeDataBase = nodeDataBaseList.get(currentYIndex);
+                                        VpJsonBean.NodeDataBase nodeDataBase = currentLinkNode.getNodeDataBaseList().get(currentYIndex);
                                         LinkNode linkNode = new LinkNode(nodeDataBase);
                                         contachLinkNode(linkNode);
                                 } else { // 继续回退。往前执行
