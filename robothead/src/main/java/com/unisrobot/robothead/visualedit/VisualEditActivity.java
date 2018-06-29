@@ -43,339 +43,324 @@ import java.util.List;
  */
 
 public class VisualEditActivity extends Activity {
-    private static final int NEXT = 1;
-    private static final String TAG = VisualEditActivity.class.getSimpleName();
-    private BluToothMgr bluToothMgr;
-    private LinkedList<LinkNode> linkNodeLinkedListX = new LinkedList<>();
-    private LinkNode currentLinkNode;
-    private LinkNode linkFatherNode;
-    private ExeHandler exeHandler;
-    private int linkNodeListXIndex = -1;  // x 方向的 链表索引
+        private static final int NEXT = 1;
+        private static final String TAG = VisualEditActivity.class.getSimpleName();
+        private BluToothMgr bluToothMgr;
+        private LinkedList<VpJsonBean.NodeDataBase> fatherNodeLists = new LinkedList<>();
+        private LinkNode currentLinkNode;
+        private ExeHandler exeHandler;
+        private int fatherNodeListYIndex = 0;  // x 方向的 链表索引
 
-    private static class ExeHandler extends Handler {
-        WeakReference<VisualEditActivity> weakReference;
+        private static class ExeHandler extends Handler {
+                WeakReference<VisualEditActivity> weakReference;
 
-        public ExeHandler(VisualEditActivity activity) {
-            weakReference = new WeakReference<>(activity);
+                public ExeHandler(VisualEditActivity activity) {
+                        weakReference = new WeakReference<>(activity);
+                }
+
+                @Override
+                public void handleMessage(Message msg) {
+                        VisualEditActivity visualEditActivity = weakReference.get();
+                        if (visualEditActivity != null && !visualEditActivity.isDestroyed()) {
+                                switch (msg.what) {
+                                        case NEXT:
+                                                visualEditActivity.exeNextNode();
+                                                break;
+                                }
+                        }
+                }
+        }
+
+        private void exeNextNode() {
+                Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>fatherNodeListYIndex=" + fatherNodeListYIndex);
+                boolean hasNext = currentLinkNode.hasNextChildNode();
+                if (hasNext) {
+                        Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>> next child.......... ");
+                        VpJsonBean.NodeDataBase nextData = currentLinkNode.getNextChildNode();
+                        currentLinkNode = new LinkNode(nextData);
+                        contachLinkNode(currentLinkNode);
+                } else { // 同一个Node中非包含型 Node 的执行
+                        Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>>>> next father child ");
+                        LinkNode prevLinkNode = currentLinkNode.getFatherNode();
+                        if (prevLinkNode != null) {  // 这里进行回退
+                                if (prevLinkNode.hasNextChildNode()) {
+                                        VpJsonBean.NodeDataBase nextFatherNode = prevLinkNode.getNextChildNode();
+                                        currentLinkNode = new LinkNode(nextFatherNode);
+                                        contachLinkNode(currentLinkNode);
+                                } else {
+                                        exeNextNode();
+                                }
+                        } else {
+                                if (fatherNodeListYIndex < fatherNodeLists.size()) {
+                                        VpJsonBean.NodeDataBase nodeDataBase = fatherNodeLists.get(fatherNodeListYIndex++);
+                                        currentLinkNode = new LinkNode(nodeDataBase);
+                                        contachLinkNode(currentLinkNode);
+
+                                } else {
+                                        Log.e(TAG, "exeNextNode: **********************end");
+                                }
+                        }
+                }
         }
 
         @Override
-        public void handleMessage(Message msg) {
-            VisualEditActivity visualEditActivity = weakReference.get();
-            if (visualEditActivity != null && !visualEditActivity.isDestroyed()) {
-                switch (msg.what) {
-                    case NEXT:
-                        visualEditActivity.exeNextNode();
-                        break;
-                }
-            }
+        protected void onCreate(@Nullable Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                exeHandler = new ExeHandler(this);
+                initBlueTooth();
         }
-    }
 
-    private void exeNextNode() {
-        Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>linkNodeListXIndex="+linkNodeListXIndex );
-        boolean hasNext = currentLinkNode.hasNextChildNode();
-        if (hasNext) {
-            Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>> next child.......... " );
-            VpJsonBean.NodeDataBase nextData = currentLinkNode.getNextChildNode();
-            currentLinkNode = new LinkNode(nextData);
-            contachLinkNode(currentLinkNode);
-        } else { // 同一个Node中非包含型 Node 的执行
-            Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>>>> next father child " );
-            hasNext = currentLinkNode.hasNextFatherNode();
-            if (hasNext){
-                VpJsonBean.NodeDataBase nextFatherNode = currentLinkNode.getNextFatherNode();
-                currentLinkNode = new LinkNode(nextFatherNode);
-                contachLinkNode(currentLinkNode);
-            }else {
-                //子节点个数默认是0（-1是为了和list索引保持一致）,如果是1个，不需要回退，剩下的 交给 linkFatherNode处理
-                // 如果 2个以上，则需要回退..
-                if (linkNodeListXIndex > 0) { // 如果 Y 方向上 还有Node，往下执行  XXXXXXX这里回退有问题？？
-                    linkNodeListXIndex--;
-                    currentLinkNode = linkNodeLinkedListX.get(linkNodeListXIndex);
-                    hasNext = currentLinkNode.hasNextChildNode();
-                    if (hasNext) {
-                        VpJsonBean.NodeDataBase nodeDataBase = currentLinkNode.getNextChildNode();
-                        currentLinkNode= new LinkNode(nodeDataBase);
-                        contachLinkNode(currentLinkNode);
-                    } else { // 继续回退。往前执行上一个节点 剩下的
-                        exeNextNode();
-                    }
-                } else { // FatherNode Y 方向上的执行
-                    linkNodeListXIndex = -1;
-                    linkNodeLinkedListX.clear();
-                    hasNext = linkFatherNode.hasNextChildNode();
-                    if (hasNext) {
-                        VpJsonBean.NodeDataBase nodeDataBase = linkFatherNode.getNextChildNode();
-                        currentLinkNode= new LinkNode(nodeDataBase);
-                        contachLinkNode(currentLinkNode);
-                    } else {
-                        Log.e(TAG, "exeNextNode: **********************end");
-                    }
-                }
-            }
+        private void initBlueTooth() {
+                bluToothMgr = BluToothMgr.getInstance();
+                bluToothMgr.init();
+                bluToothMgr.setBluetoothLisenter(new IBluetoothLisenter() {
+                        @Override
+                        public void OnReceiverData(String data) { //这里是handler 子线程
+                                parseBlueDataThread(data);
+                        }
+                });
         }
-    }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        exeHandler = new ExeHandler(this);
-        initBlueTooth();
-    }
-
-    private void initBlueTooth() {
-        bluToothMgr = BluToothMgr.getInstance();
-        bluToothMgr.init();
-        bluToothMgr.setBluetoothLisenter(new IBluetoothLisenter() {
-            @Override
-            public void OnReceiverData(String data) { //这里是handler 子线程
-                parseBlueDataThread(data);
-            }
-        });
-    }
-
-    private void parseBlueDataThread(String readUTF) {
-        if (readUTF.matches("\\w+&&#[1-9]\\.wav")) {
-            String[] split = readUTF.split("&&#");
-            Log.e(TAG, "parseBlueDataThread: music");
-        } else {
-            VpJsonBean vpJsonBean = null;
-            try {
-                if (readUTF != null) {
-                    if (readUTF.startsWith("{") || readUTF.startsWith("[")) {
-                        vpJsonBean = new Gson().fromJson(readUTF, VpJsonBean.class);
-                        parseNodeDataThread(vpJsonBean);
-                    }
-                }
-            } catch (JsonSyntaxException e) {
-                e.printStackTrace();
-                Log.e(TAG, "parseBlueDataThread: jsonSyntaxException = " + e);
-            }
-        }
-    }
-
-    private void parseNodeDataThread(VpJsonBean vpJsonBean) {
-        if (vpJsonBean != null) { // 这里是在子线程执行
-            switch (vpJsonBean.TaskType) {
-                case TaskJsonType.MSG_TYPE_BASE_TASK:
-                    handlerVpTaskThread(vpJsonBean.Tasks);
-                    break;
-                case TaskJsonType.MSG_TYPE_STOP:
-                    clean();
-                    Log.e(TAG, "parseNodeDataThread: clean task");
-                    break;
-            }
-        }
-    }
-
-    /**
-     * 执行可视化编程 Task
-     *
-     * @param tasks
-     */
-    private void handlerVpTaskThread(final List<VpJsonBean.NodeDataBase> tasks) {
-        if (tasks != null && tasks.size() > 0) {
-            clean();
-            linkFatherNode = new LinkNode(tasks);
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    VpJsonBean.NodeDataBase nextData = linkFatherNode.getNextChildNode();
-                    currentLinkNode = new LinkNode(nextData);
-                    contachLinkNode(currentLinkNode);
-                }
-            });
-        }
-    }
-
-    private void contachLinkNode(LinkNode linkNode) {
-        if (linkNode.isContanirNode()) { //如果是容器节点
-            VpJsonBean.NodeDataBase nextData = linkNode.getNextChildNode();
-            currentLinkNode = new LinkNode(nextData);
-            AppendCData appendCData = linkNode.getAppendCData();
-            if (appendCData != null) { //如果是条件型容器节点
-                Log.e(TAG, "contachLinkNode: is conditon view group node=");
-                if (appendCData.logic) { //如果条件满足,执行if==============================容器节点判断位置
-                    contachLinkNode(getLinkNode(currentLinkNode, true));
+        private void parseBlueDataThread(String readUTF) {
+                if (readUTF.matches("\\w+&&#[1-9]\\.wav")) {
+                        String[] split = readUTF.split("&&#");
+                        Log.e(TAG, "parseBlueDataThread: music");
                 } else {
-                    contachLinkNode(getLinkNode(currentLinkNode, false));
+                        VpJsonBean vpJsonBean = null;
+                        try {
+                                if (readUTF != null) {
+                                        if (readUTF.startsWith("{") || readUTF.startsWith("[")) {
+                                                vpJsonBean = new Gson().fromJson(readUTF, VpJsonBean.class);
+                                                parseNodeDataThread(vpJsonBean);
+                                        }
+                                }
+                        } catch (JsonSyntaxException e) {
+                                e.printStackTrace();
+                                Log.e(TAG, "parseBlueDataThread: jsonSyntaxException = " + e);
+                        }
                 }
-            } else { // 如果直接是顺序执行的容器节点
-                Log.e(TAG, "contachLinkNode: is  view group node");
-                contachLinkNode(getLinkNode(currentLinkNode, true));
-            }
-        } else {
-            exeLinkNode(linkNode);
         }
-    }
 
-    @NonNull
-    private LinkNode getLinkNode(LinkNode fatherNode, boolean isIf) {
-        List<VpJsonBean.NodeDataBase> nodeDataBaseList;
-        if (isIf) {
-            nodeDataBaseList = fatherNode.getNodeDataBaseList();
-        } else {
-            nodeDataBaseList = fatherNode.getNodeDataBaseListElse();
+        private void parseNodeDataThread(VpJsonBean vpJsonBean) {
+                if (vpJsonBean != null) { // 这里是在子线程执行
+                        switch (vpJsonBean.TaskType) {
+                                case TaskJsonType.MSG_TYPE_BASE_TASK:
+                                        handlerVpTaskThread(vpJsonBean.Tasks);
+                                        break;
+                                case TaskJsonType.MSG_TYPE_STOP:
+                                        clean();
+                                        Log.e(TAG, "parseNodeDataThread: clean task");
+                                        break;
+                        }
+                }
         }
-//      fatherNode.updateNodeDataBaseList(nodeDataBaseList);
-        LinkNode childNode = new LinkNode(nodeDataBaseList);
-        linkNodeLinkedListX.addLast(childNode);
-        currentLinkNode = childNode;
-        linkNodeListXIndex++;
-        return childNode;
-    }
 
-    private void exeLinkNode(LinkNode node) {
-        VpJsonBean.NodeDataBase nodeDataBase = node.getNextChildNode();
-        dispatchNode(nodeDataBase);
-        mockNext();
-    }
-
-    private void mockNext() {
-        //模拟下一个节点执行的条件到了, 具体什么时候执行下一个？？？
-        exeHandler.sendEmptyMessageDelayed(NEXT, 1000);
-    }
-
-    /**
-     * 节点分发
-     */
-    private void dispatchNode(VpJsonBean.NodeDataBase node) {
-        String type = node.Type;
-        Log.e(TAG, "dispatchNode: node type ===" + node.Event);
-        switch (type) {
-            case NodeJsonType.BASIC:
-                exeBasicNode(node);
-                break;
-            case NodeJsonType.COMBINEACTION:
-                exeCombineActionNode(node);
-                break;
-            case NodeJsonType.EARS:
-                exeEarNode(node);
-                break;
-            case NodeJsonType.EYES:
-                exeEyesNode(node);
-                break;
-            case NodeJsonType.LANGUAGE:
-                exeLanguageNode(node);
-                break;
-            case NodeJsonType.LOGIC:
-                exeLogicNode(node);
-                break;
-            case NodeJsonType.MIND:
-                break;
-            case NodeJsonType.PERCEPTION:
-                break;
+        /**
+         * 执行可视化编程 Task
+         *
+         * @param tasks
+         */
+        private void handlerVpTaskThread(final List<VpJsonBean.NodeDataBase> tasks) {
+                if (tasks != null && tasks.size() > 0) {
+                        clean();
+                        fatherNodeLists.addAll(tasks);
+                        Log.e(TAG, "handlerVpTaskThread: fatherNodeList size=== " + fatherNodeLists.size());
+                        runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                        VpJsonBean.NodeDataBase nodeDataBase = fatherNodeLists.get(fatherNodeListYIndex++);
+                                        currentLinkNode = new LinkNode(nodeDataBase);
+                                        contachLinkNode(currentLinkNode);
+                                }
+                        });
+                }
         }
-    }
 
-    private void clean() {
-        if (currentLinkNode != null) {
-            currentLinkNode.stop();
-            currentLinkNode = null;
+        private void contachLinkNode(LinkNode linkNode) {
+                if (linkNode.isContainerNode()) { //如果是容器节点
+                        VpJsonBean.NodeDataBase nextData = linkNode.getNextChildNode();
+                        currentLinkNode = new LinkNode(nextData);
+                        currentLinkNode.setFatherNode(linkNode);
+                        AppendCData appendCData = linkNode.getAppendCData();
+                        if (appendCData != null) { //如果是条件型容器节点
+                                Log.e(TAG, "contachLinkNode: is conditon view group node=");
+                                if (appendCData.logic) { //如果条件满足,执行if==============================容器节点判断位置
+                                        contachLinkNode(getLinkNode(currentLinkNode, true));
+                                } else {
+                                        contachLinkNode(getLinkNode(currentLinkNode, false));
+                                }
+                        } else { // 如果直接是顺序执行的容器节点
+                                Log.e(TAG, "contachLinkNode: is  view group node");
+                                contachLinkNode(getLinkNode(currentLinkNode, true));
+                        }
+                } else {
+                        exeLinkNode(linkNode);
+                }
         }
-        linkNodeListXIndex = -1;
-        linkNodeLinkedListX.clear();
-        linkFatherNode = null;
-        exeHandler.removeCallbacksAndMessages(null);
-    }
 
-
-    private void exeLogicNode(VpJsonBean.NodeDataBase nodeData) {
-        switch (nodeData.PrefabName) {
-            case NodeJsonType.Logic.LogicPrefab_:
-                break;
-            case NodeJsonType.Logic.LogicPrefab_CallFunction:
-                break;
-            case NodeJsonType.Logic.LogicPrefab_RepeatCycle:
-                break;
-            case NodeJsonType.Logic.LogicPrefab_RepeatUntil:
-                break;
-            case NodeJsonType.Logic.LogicPrefab_If:
-                break;
-            case NodeJsonType.Logic.LogicPrefab_IfElse:
-                break;
-            case NodeJsonType.Logic.LogicPrefab_IfElseFace:
-                break;
-            case NodeJsonType.Logic.LogicPrefab_MakeFunction:
-                break;
-            case NodeJsonType.Logic.LogicPrefab_RepeatCount:
-                break;
-            case NodeJsonType.Logic.LogicPrefab_WaitSecond:
-                break;
+        @NonNull
+        private LinkNode getLinkNode(LinkNode fatherNode, boolean isIf) {
+                List<VpJsonBean.NodeDataBase> nodeDataBaseList;
+                if (isIf) {
+                        nodeDataBaseList = fatherNode.getNodeDataBaseList();
+                } else {
+                        nodeDataBaseList = fatherNode.getNodeDataBaseListElse();
+                }
+                //      fatherNode.updateNodeDataBaseList(nodeDataBaseList);
+                LinkNode childNode = new LinkNode(nodeDataBaseList);
+                currentLinkNode = childNode;
+                return childNode;
         }
-    }
 
-    private void exeEarNode(VpJsonBean.NodeDataBase nodeData) {
-        switch (nodeData.PrefabName) {
-            case NodeJsonType.Ears.EarsPrefab_: //要去云端获取答案然后才能执行下一个节点
-                EarBean earBean = EarBean.getBean(nodeData);
-                earBean.exeNode();
-                break;
-            case NodeJsonType.Ears.EarsPrefab_Hear:
-                break;
+        private void exeLinkNode(LinkNode node) {
+                VpJsonBean.NodeDataBase nodeDataBase = node.getNextChildNode();
+                dispatchNode(nodeDataBase);
+                mockNext();
         }
-    }
 
-    private void exeEyesNode(VpJsonBean.NodeDataBase nodeData) {
-        switch (nodeData.PrefabName) {
-            case NodeJsonType.Eyes.EyesPrefab_:
-            case NodeJsonType.Eyes.EyesPrefab_LookAngle:
-                EyeLookAngle eyeLookAngle = EyeLookAngle.getBean(nodeData);
-                eyeLookAngle.exeNode();
-                break;
-            case NodeJsonType.Eyes.EyesPrefab_Feelings:
-                EyeFeelingBean eyeFeelingBean = EyeFeelingBean.getBean(nodeData);
-                eyeFeelingBean.exeNode();
-                break;
+        private void mockNext() {
+                //模拟下一个节点执行的条件到了, 具体什么时候执行下一个？？？
+                exeHandler.sendEmptyMessageDelayed(NEXT, 1000);
         }
-    }
 
-    private void exeLanguageNode(VpJsonBean.NodeDataBase node) {
-        switch (node.PrefabName) {
-            case NodeJsonType.Language.LanguagePrefab_Speak:// tts
-                TtsBean bean = TtsBean.getBean(node);
+        /**
+         * 节点分发
+         */
+        private void dispatchNode(VpJsonBean.NodeDataBase node) {
+                String type = node.Type;
+                Log.e(TAG, "dispatchNode: node type ===" + node.Event);
+                switch (type) {
+                        case NodeJsonType.BASIC:
+                                exeBasicNode(node);
+                                break;
+                        case NodeJsonType.COMBINEACTION:
+                                exeCombineActionNode(node);
+                                break;
+                        case NodeJsonType.EARS:
+                                exeEarNode(node);
+                                break;
+                        case NodeJsonType.EYES:
+                                exeEyesNode(node);
+                                break;
+                        case NodeJsonType.LANGUAGE:
+                                exeLanguageNode(node);
+                                break;
+                        case NodeJsonType.LOGIC:
+                                exeLogicNode(node);
+                                break;
+                        case NodeJsonType.MIND:
+                                break;
+                        case NodeJsonType.PERCEPTION:
+                                break;
+                }
+        }
+
+        private void clean() {
+                if (currentLinkNode != null) {
+                        currentLinkNode.stop();
+                        currentLinkNode = null;
+                }
+                fatherNodeListYIndex = 0;
+                fatherNodeLists.clear();
+                exeHandler.removeCallbacksAndMessages(null);
+        }
+
+
+        private void exeLogicNode(VpJsonBean.NodeDataBase nodeData) {
+                switch (nodeData.PrefabName) {
+                        case NodeJsonType.Logic.LogicPrefab_:
+                                break;
+                        case NodeJsonType.Logic.LogicPrefab_CallFunction:
+                                break;
+                        case NodeJsonType.Logic.LogicPrefab_RepeatCycle:
+                                break;
+                        case NodeJsonType.Logic.LogicPrefab_RepeatUntil:
+                                break;
+                        case NodeJsonType.Logic.LogicPrefab_If:
+                                break;
+                        case NodeJsonType.Logic.LogicPrefab_IfElse:
+                                break;
+                        case NodeJsonType.Logic.LogicPrefab_IfElseFace:
+                                break;
+                        case NodeJsonType.Logic.LogicPrefab_MakeFunction:
+                                break;
+                        case NodeJsonType.Logic.LogicPrefab_RepeatCount:
+                                break;
+                        case NodeJsonType.Logic.LogicPrefab_WaitSecond:
+                                break;
+                }
+        }
+
+        private void exeEarNode(VpJsonBean.NodeDataBase nodeData) {
+                switch (nodeData.PrefabName) {
+                        case NodeJsonType.Ears.EarsPrefab_: //要去云端获取答案然后才能执行下一个节点
+                                EarBean earBean = EarBean.getBean(nodeData);
+                                earBean.exeNode();
+                                break;
+                        case NodeJsonType.Ears.EarsPrefab_Hear:
+                                break;
+                }
+        }
+
+        private void exeEyesNode(VpJsonBean.NodeDataBase nodeData) {
+                switch (nodeData.PrefabName) {
+                        case NodeJsonType.Eyes.EyesPrefab_:
+                        case NodeJsonType.Eyes.EyesPrefab_LookAngle:
+                                EyeLookAngle eyeLookAngle = EyeLookAngle.getBean(nodeData);
+                                eyeLookAngle.exeNode();
+                                break;
+                        case NodeJsonType.Eyes.EyesPrefab_Feelings:
+                                EyeFeelingBean eyeFeelingBean = EyeFeelingBean.getBean(nodeData);
+                                eyeFeelingBean.exeNode();
+                                break;
+                }
+        }
+
+        private void exeLanguageNode(VpJsonBean.NodeDataBase node) {
+                switch (node.PrefabName) {
+                        case NodeJsonType.Language.LanguagePrefab_Speak:// tts
+                                TtsBean bean = TtsBean.getBean(node);
+                                bean.exeNode();
+                                break;
+                        case NodeJsonType.Language.LanguagePrefab_:// music
+                                MusicBean musicBean = MusicBean.getBean(node);
+                                musicBean.exeNode();
+                                break;
+                }
+        }
+
+        private void exeCombineActionNode(VpJsonBean.NodeDataBase node) {
+                CombineBean bean = CombineBean.getBean(node);
                 bean.exeNode();
-                break;
-            case NodeJsonType.Language.LanguagePrefab_:// music
-                MusicBean musicBean = MusicBean.getBean(node);
-                musicBean.exeNode();
-                break;
         }
-    }
 
-    private void exeCombineActionNode(VpJsonBean.NodeDataBase node) {
-        CombineBean bean = CombineBean.getBean(node);
-        bean.exeNode();
-    }
-
-    /**
-     * basic 节点的执行
-     *
-     * @param nodeData
-     */
-    private void exeBasicNode(VpJsonBean.NodeDataBase nodeData) {
-        switch (nodeData.PrefabName) {
-            case NodeJsonType.Basic.BasicActionPrefab_GoSpeedSeconed:
-                SpeedTimeBean bean = SpeedTimeBean.getBean(nodeData);
-                bean.exeNode();
-                break;
-            case NodeJsonType.Basic.BasicActionPrefab_BasicJoint:
-                JointBean bean1 = JointBean.getBean(nodeData);
-                bean1.exeNode();
-                break;
-            case NodeJsonType.Basic.BasicActionPrefab_TrunAngle:
-                TurnAngleBean bean2 = TurnAngleBean.getBean(nodeData);
-                bean2.exeNode();
-                break;
-            case NodeJsonType.Basic.BasicActionPrefab_Second:
-                break;
+        /**
+         * basic 节点的执行
+         *
+         * @param nodeData
+         */
+        private void exeBasicNode(VpJsonBean.NodeDataBase nodeData) {
+                switch (nodeData.PrefabName) {
+                        case NodeJsonType.Basic.BasicActionPrefab_GoSpeedSeconed:
+                                SpeedTimeBean bean = SpeedTimeBean.getBean(nodeData);
+                                bean.exeNode();
+                                break;
+                        case NodeJsonType.Basic.BasicActionPrefab_BasicJoint:
+                                JointBean bean1 = JointBean.getBean(nodeData);
+                                bean1.exeNode();
+                                break;
+                        case NodeJsonType.Basic.BasicActionPrefab_TrunAngle:
+                                TurnAngleBean bean2 = TurnAngleBean.getBean(nodeData);
+                                bean2.exeNode();
+                                break;
+                        case NodeJsonType.Basic.BasicActionPrefab_Second:
+                                break;
+                }
         }
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bluToothMgr.destroy();
-    }
+        @Override
+        protected void onDestroy() {
+                super.onDestroy();
+                bluToothMgr.destroy();
+        }
 }

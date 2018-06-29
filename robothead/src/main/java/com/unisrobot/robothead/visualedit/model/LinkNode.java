@@ -19,13 +19,13 @@ public class LinkNode {
         private static final String TAG = LinkNode.class.getSimpleName();
         //每次执行一个nodeDataBaseList中的一个节点后，currentIndex++ ;
         private int currentChildYIndex = 0;  // y 方向的 链表索引
-        private int currentFatherYIndex = 0;  // y 方向的 链表索引
         private NodeRunType nodeType;
         private List<VpJsonBean.NodeDataBase> nodeDataBaseList;// 当前LinkNode中包含的 包含型Node
-        private List<VpJsonBean.NodeDataBase> nodeDataBaseFatherList;// 当前LinkNode中包含的所有的node
         private List<VpJsonBean.NodeDataBase> nodeDataBaseListElse; //暂存，判断条件后，付给nodeDataBaseList
         private AppendCData appendCData;
-        private boolean ContanirNode = false;
+        private boolean ContainerNode = false;
+
+        private LinkNode fatherNode; //前一个node(父 node)
 
         public LinkNode(VpJsonBean.NodeDataBase nodeDataBase) {
                 List<VpJsonBean.NodeDataBase> list = new ArrayList<>();
@@ -44,7 +44,7 @@ public class LinkNode {
                 boolean isViewGroupNode = RunTypeUtil.IsViewGroupNode(nodeDataBase);
                 if (isViewGroupNode) { // 这里会导致节点丢失
                         Log.e(TAG, "LinkNode: isViewGroupNode");
-                        this.ContanirNode = true;
+                        this.ContainerNode = true;
                         List<VpJsonBean.NodeDataBase> actions = nodeDataBase.Actions;
                         if (actions != null && actions.size() > 0) { //这个是包含的内容(和 ifelse里面包含的区分)
                                 this.nodeDataBaseList = actions;
@@ -57,7 +57,7 @@ public class LinkNode {
 
                 } else {
                         Log.e(TAG, "LinkNode: not   ViewGroupNode");
-                        this.ContanirNode = false;
+                        this.ContainerNode = false;
                         this.nodeDataBaseList = list;
                 }
                 if (NodeRunType.CONDITION.equals(nodeType)) {
@@ -72,14 +72,6 @@ public class LinkNode {
                 return false;
         }
 
-        public boolean hasNextFatherNode() { // 这里不仅仅只判断 索引，还要优先根据nodeType来判断
-                if (isContanirNode()){
-                        if (currentFatherYIndex < nodeDataBaseFatherList.size()) {
-                                return true;
-                        }
-                }
-                return false;
-        }
 
         public VpJsonBean.NodeDataBase getNextChildNode() {
                 VpJsonBean.NodeDataBase nodeDataBase = nodeDataBaseList.get(currentChildYIndex);
@@ -87,21 +79,22 @@ public class LinkNode {
                 return nodeDataBase;
         }
 
-        public VpJsonBean.NodeDataBase getNextFatherNode() {
-                Log.e(TAG, "getNextFatherNode: currentFatherYIndex=" + currentFatherYIndex );
-                VpJsonBean.NodeDataBase nodeDataBase = nodeDataBaseFatherList.get(currentFatherYIndex);
-                currentFatherYIndex += 1;
-                Log.e(TAG, "getNextFatherNode: currentFatherYIndex="+
-                        currentFatherYIndex + "   data"+ nodeDataBase);
-                return nodeDataBase;
+
+        public LinkNode getFatherNode() {
+                return fatherNode;
         }
+
+        public void setFatherNode(LinkNode fatherNode) {
+                this.fatherNode = fatherNode;
+        }
+
 
         public AppendCData getAppendCData() {
                 return appendCData;
         }
 
-        public boolean isContanirNode() {
-                return ContanirNode;
+        public boolean isContainerNode() {
+                return ContainerNode;
         }
 
         public List<VpJsonBean.NodeDataBase> getNodeDataBaseList() {
@@ -131,7 +124,7 @@ public class LinkNode {
                         ", nodeDataBaseList=" + nodeDataBaseList +
                         ", nodeDataBaseListElse=" + nodeDataBaseListElse +
                         ", appendCData=" + appendCData +
-                        ", ContanirNode=" + ContanirNode +
+                        ", ContainerNode=" + ContainerNode +
                         '}';
         }
 }
