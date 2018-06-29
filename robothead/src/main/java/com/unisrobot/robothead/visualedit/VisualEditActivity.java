@@ -46,11 +46,10 @@ public class VisualEditActivity extends Activity {
         private static final int NEXT = 1;
         private static final String TAG = VisualEditActivity.class.getSimpleName();
         private BluToothMgr bluToothMgr;
-        private LinkedList<VpJsonBean.NodeDataBase> fatherNodeLists = new LinkedList<>();
+        private LinkedList<VpJsonBean.NodeDataBase> rootNodeLists = new LinkedList<>();
         private LinkNode currentFatherLinkNode;
-        private LinkNode FatherLinkNode;
         private ExeHandler exeHandler;
-        private int fatherNodeListYIndex = 0;  // x 方向的 链表索引
+        private int rootNodeListYIndex = 0;  // y 方向的 链表索引
 
         private static class ExeHandler extends Handler {
                 WeakReference<VisualEditActivity> weakReference;
@@ -72,48 +71,6 @@ public class VisualEditActivity extends Activity {
                 }
         }
 
-        private void exeNextNode() {
-                boolean hasNext = currentFatherLinkNode.hasNextChildNode();
-                if (hasNext) {
-                        Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>> next child.......... ");
-                        VpJsonBean.NodeDataBase nextData = currentFatherLinkNode.getNextChildNode();
-                        contachLinkNode(new LinkNode(nextData));
-                } else { // 同一个Node中非包含型 Node 的执行
-                        LinkNode prevLinkNode = currentFatherLinkNode.getFatherNode();
-                        Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>>>> next father child prevLinkNode=" + prevLinkNode);
-                        Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>>>> next father child currentFatherLinkNode=" + currentFatherLinkNode);
-                        if (prevLinkNode != null) {  // 如果存在父节点
-                                if (prevLinkNode.hasNextChildNode()) { // 如果父节点中 还有剩下的子节点
-                                        VpJsonBean.NodeDataBase nextFatherNode = prevLinkNode.getNextChildNode();
-                                        contachLinkNode(new LinkNode(nextFatherNode));
-
-                                } else { // 这里回退有问题
-                                        currentFatherLinkNode = prevLinkNode.getFatherNode();
-                                        if (currentFatherLinkNode != null){
-                                                exeNextNode();
-                                        }else {
-                                                if (fatherNodeListYIndex < fatherNodeLists.size()) {
-                                                        VpJsonBean.NodeDataBase nodeDataBase = fatherNodeLists.get(fatherNodeListYIndex++);
-                                                        currentFatherLinkNode = new LinkNode(nodeDataBase);
-                                                        contachLinkNode(currentFatherLinkNode);
-
-                                                } else {
-                                                        Log.e(TAG, "exeNextNode: **********************end");
-                                                }
-                                        }
-                                }
-                        } else {
-                                if (fatherNodeListYIndex < fatherNodeLists.size()) {
-                                        VpJsonBean.NodeDataBase nodeDataBase = fatherNodeLists.get(fatherNodeListYIndex++);
-                                        currentFatherLinkNode = new LinkNode(nodeDataBase);
-                                        contachLinkNode(currentFatherLinkNode);
-
-                                } else {
-                                        Log.e(TAG, "exeNextNode: **********************end");
-                                }
-                        }
-                }
-        }
 
         @Override
         protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -175,57 +132,84 @@ public class VisualEditActivity extends Activity {
         private void handlerVpTaskThread(final List<VpJsonBean.NodeDataBase> tasks) {
                 if (tasks != null && tasks.size() > 0) {
                         clean();
-                        fatherNodeLists.addAll(tasks);
-                        Log.e(TAG, "handlerVpTaskThread: fatherNodeList size=== " + fatherNodeLists.size());
+                        rootNodeLists.addAll(tasks);
+                        Log.e(TAG, "handlerVpTaskThread: fatherNodeList size=== " + rootNodeLists.size());
                         runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                        VpJsonBean.NodeDataBase nodeDataBase = fatherNodeLists.get(fatherNodeListYIndex++);
-                                        FatherLinkNode = currentFatherLinkNode = new LinkNode(nodeDataBase);
-                                        contachLinkNode(currentFatherLinkNode);
+                                        VpJsonBean.NodeDataBase nodeDataBase = rootNodeLists.get(rootNodeListYIndex++);
+                                        contachLinkNode(new LinkNode(nodeDataBase));
                                 }
                         });
                 }
         }
 
+        private void exeNextNode() {
+                if (currentFatherLinkNode != null){
+                        boolean hasNext = currentFatherLinkNode.hasNextChildNode();
+                        if (hasNext) {
+                                Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>> next child.......... ");
+                                VpJsonBean.NodeDataBase nextData = currentFatherLinkNode.getNextChildNode();
+                                contachLinkNode(new LinkNode(nextData));
+                        }else {
+                                LinkNode prevFatherNode = currentFatherLinkNode.getFatherNode();
+                                if (prevFatherNode != null){
+                                        currentFatherLinkNode = prevFatherNode ;
+                                        exeNextNode();
+                                }else {
+                                        exeNextRootNode();
+                                }
+                        }
+                }else {
+                        exeNextRootNode();
+                }
+        }
+
+        private void exeNextRootNode() {
+                if (rootNodeListYIndex < rootNodeLists.size()) {
+                        VpJsonBean.NodeDataBase nodeDataBase = rootNodeLists.get(rootNodeListYIndex++);
+                        contachLinkNode( new LinkNode(nodeDataBase));
+                } else {
+                        Log.e(TAG, "exeNextNode: **********************end");
+                }
+        }
+
         private void contachLinkNode(LinkNode linkNode) {
                 if (linkNode.isContainerNode()) { //如果是容器节点,看是不是 条件型容器节点
+                        if (currentFatherLinkNode == null){
+                                currentFatherLinkNode = linkNode ;
+                        }else {
+                                linkNode.setFatherNode(currentFatherLinkNode);
+                                currentFatherLinkNode = linkNode ;
+                        }
                         AppendCData appendCData = linkNode.getAppendCData();
                         if (appendCData != null) { //如果是条件型容器节点
                                 Log.e(TAG, "contachLinkNode: is conditon view group node=");
                                 if (appendCData.logic) { //如果条件满足,执行if==============================容器节点判断位置
-                                        contachLinkNode(getLinkNode(linkNode, true));
+                                        contachLinkNode(getContainerFirstNode(linkNode, true));
                                 } else {
-                                        contachLinkNode(getLinkNode(linkNode, false));
+                                        contachLinkNode(getContainerFirstNode(linkNode, false));
                                 }
                         } else { // 如果直接是顺序执行的容器节点
                                 Log.e(TAG, "contachLinkNode: is  view group node");
-                                contachLinkNode(getLinkNode(linkNode, true));
+                                contachLinkNode(getContainerFirstNode(linkNode, true));
                         }
-
                 } else { //如果是非容器型节点，直接执行
                         exeLinkNode(linkNode);
                 }
         }
 
         @NonNull
-        private LinkNode getLinkNode(LinkNode fatherNode, boolean isIf) {
-                List<VpJsonBean.NodeDataBase> nodeDataBaseList;
-                if (isIf) {
-
-                } else {
-                        nodeDataBaseList = fatherNode.getNodeDataBaseListElse();
-                        fatherNode.updateNodeDataBaseList(nodeDataBaseList);
+        private LinkNode getContainerFirstNode(LinkNode fatherNode, boolean isIf) {
+                if (!isIf) {
+                        fatherNode.updateNodeDataBaseList(fatherNode.getNodeDataBaseListElse());
                 }
-
                 VpJsonBean.NodeDataBase nextChildNode = fatherNode.getNextChildNode();
-                currentFatherLinkNode= new LinkNode(nextChildNode);
-                currentFatherLinkNode.setFatherNode(fatherNode);//更新当前的Father节点，同时将它和父节点串起来
-                return currentFatherLinkNode;
+                return new LinkNode(nextChildNode);
         }
 
-        private void exeLinkNode(LinkNode fatherNode) {
-                VpJsonBean.NodeDataBase nodeDataBase = fatherNode.getNextChildNode();
+        private void exeLinkNode(LinkNode node) {
+                VpJsonBean.NodeDataBase nodeDataBase = node.getNextChildNode();
                 dispatchNode(nodeDataBase);
                 mockNext();
         }
@@ -272,8 +256,8 @@ public class VisualEditActivity extends Activity {
                         currentFatherLinkNode.stop();
                         currentFatherLinkNode = null;
                 }
-                fatherNodeListYIndex = 0;
-                fatherNodeLists.clear();
+                rootNodeListYIndex = 0;
+                rootNodeLists.clear();
                 exeHandler.removeCallbacksAndMessages(null);
         }
 

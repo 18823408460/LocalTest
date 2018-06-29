@@ -5,7 +5,16 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/6/27.
  */
-
+/**
+ * TaskType : null
+ * TaskName : 我的第一个项目
+ * TaskIcon : project_figure00
+ * Tasks : null
+ * Interrupt : null
+ * TasksOth : null
+ * FuncName : []
+ * TasksOth2 : [{"HeadNodePos":{"X":"-201.1882","Y":"834.4784"},"TasksOther":[{"NodeID":33,"Type":"Perception","PrefabName":"PerceptionPrefab_RepeatUntilTouch","Event":"重复直到触摸","HeartInfo":null,"Args":[{"Content":"头部"}],"InputInits":null,"Colors":null,"Pictures":null,"Appendent":null,"Actions":[{"NodeID":32,"Type":"Basic","PrefabName":"BasicActionPrefab_GoSpeedSeconed","Event":"基础_方向速度时间","HeartInfo":null,"Args":[{"Content":"前进"}],"InputInits":[{"Number":"150"},{"Number":"1"}],"Colors":null,"Pictures":null,"Appendent":{"Append_A":null,"Append_B":null,"Append_C":null},"Actions":null,"Switch":null}],"Switch":null},{"NodeID":35,"Type":"Basic","PrefabName":"BasicActionPrefab_GoSpeedSeconed","Event":"基础_方向速度时间","HeartInfo":null,"Args":[{"Content":"前进"}],"InputInits":[{"Number":"150"},{"Number":"1"}],"Colors":null,"Pictures":null,"Appendent":{"Append_A":null,"Append_B":null,"Append_C":null},"Actions":null,"Switch":null},{"NodeID":37,"Type":"CombineAction","PrefabName":"CombineActionsPrefab_","Event":"欢迎欢迎","HeartInfo":null,"Args":null,"InputInits":null,"Colors":null,"Pictures":null,"Appendent":null,"Actions":null,"Switch":null},{"NodeID":39,"Type":"Language","PrefabName":"LanguagePrefab_Speak","Event":"说 \"","HeartInfo":null,"Args":[{"Content":"请输入文本"}],"InputInits":null,"Colors":null,"Pictures":null,"Appendent":null,"Actions":null,"Switch":null}]}]
+ */
 public class VpJsonBean {
 
         public String TaskType; // 整个数据包的类型，将 TaskJsonType
