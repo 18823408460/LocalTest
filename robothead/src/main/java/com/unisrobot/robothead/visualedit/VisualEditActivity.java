@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -13,7 +12,6 @@ import com.google.gson.JsonSyntaxException;
 import com.unisrobot.robothead.bluetooth.BluToothMgr;
 import com.unisrobot.robothead.bluetooth.IBluetoothLisenter;
 import com.unisrobot.robothead.visualedit.model.LinkNode;
-import com.unisrobot.robothead.visualedit.nodebean.common.AppendCData;
 import com.unisrobot.robothead.visualedit.nodebean.basic.JointBean;
 import com.unisrobot.robothead.visualedit.nodebean.basic.SpeedTimeBean;
 import com.unisrobot.robothead.visualedit.nodebean.basic.TurnAngleBean;
@@ -179,33 +177,15 @@ public class VisualEditActivity extends Activity {
                         if (currentFatherLinkNode == null){
                                 currentFatherLinkNode = linkNode ;
                         }else {
+                                currentFatherLinkNode.setChildContainerNode(linkNode);
                                 linkNode.setFatherNode(currentFatherLinkNode);
                                 currentFatherLinkNode = linkNode ;
                         }
-                        AppendCData appendCData = linkNode.getAppendCData();
-                        if (appendCData != null) { //如果是条件型容器节点
-                                Log.e(TAG, "contachLinkNode: is conditon view group node=");
-                                if (appendCData.logic) { //如果条件满足,执行if==============================容器节点判断位置
-                                        contachLinkNode(getContainerFirstNode(linkNode, true));
-                                } else {
-                                        contachLinkNode(getContainerFirstNode(linkNode, false));
-                                }
-                        } else { // 如果直接是顺序执行的容器节点
-                                Log.e(TAG, "contachLinkNode: is  view group node");
-                                contachLinkNode(getContainerFirstNode(linkNode, true));
-                        }
+                        VpJsonBean.NodeDataBase nextChildNode = linkNode.getNextChildNode();
+                        contachLinkNode(new LinkNode(nextChildNode));
                 } else { //如果是非容器型节点，直接执行
                         exeLinkNode(linkNode);
                 }
-        }
-
-        @NonNull
-        private LinkNode getContainerFirstNode(LinkNode fatherNode, boolean isIf) {
-                if (!isIf) {
-                        fatherNode.updateNodeDataBaseList(fatherNode.getNodeDataBaseListElse());
-                }
-                VpJsonBean.NodeDataBase nextChildNode = fatherNode.getNextChildNode();
-                return new LinkNode(nextChildNode);
         }
 
         private void exeLinkNode(LinkNode node) {
