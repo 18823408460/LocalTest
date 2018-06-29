@@ -47,7 +47,8 @@ public class VisualEditActivity extends Activity {
         private static final String TAG = VisualEditActivity.class.getSimpleName();
         private BluToothMgr bluToothMgr;
         private LinkedList<VpJsonBean.NodeDataBase> fatherNodeLists = new LinkedList<>();
-        private LinkNode currentLinkNode;
+        private LinkNode currentFatherLinkNode;
+        private LinkNode FatherLinkNode;
         private ExeHandler exeHandler;
         private int fatherNodeListYIndex = 0;  // x 方向的 链表索引
 
@@ -72,30 +73,40 @@ public class VisualEditActivity extends Activity {
         }
 
         private void exeNextNode() {
-                Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>fatherNodeListYIndex=" + fatherNodeListYIndex);
-                boolean hasNext = currentLinkNode.hasNextChildNode();
+                boolean hasNext = currentFatherLinkNode.hasNextChildNode();
                 if (hasNext) {
                         Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>> next child.......... ");
-                        VpJsonBean.NodeDataBase nextData = currentLinkNode.getNextChildNode();
-                        currentLinkNode = new LinkNode(nextData);
-                        contachLinkNode(currentLinkNode);
+                        VpJsonBean.NodeDataBase nextData = currentFatherLinkNode.getNextChildNode();
+                        contachLinkNode(new LinkNode(nextData));
                 } else { // 同一个Node中非包含型 Node 的执行
-                        LinkNode prevLinkNode = currentLinkNode.getFatherNode();
-                        Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>>>> next father child currentLinkNode="+currentLinkNode);
-                        Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>>>> next father child ="+prevLinkNode);
-                        if (prevLinkNode != null) {  // 这里进行回退
-                                if (prevLinkNode.hasNextChildNode()) {
+                        LinkNode prevLinkNode = currentFatherLinkNode.getFatherNode();
+                        Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>>>> next father child prevLinkNode=" + prevLinkNode);
+                        Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>>>> next father child currentFatherLinkNode=" + currentFatherLinkNode);
+                        if (prevLinkNode != null) {  // 如果存在父节点
+                                if (prevLinkNode.hasNextChildNode()) { // 如果父节点中 还有剩下的子节点
                                         VpJsonBean.NodeDataBase nextFatherNode = prevLinkNode.getNextChildNode();
-                                        currentLinkNode = new LinkNode(nextFatherNode);
-                                        contachLinkNode(currentLinkNode);
-                                } else {
-                                        exeNextNode();
+                                        contachLinkNode(new LinkNode(nextFatherNode));
+
+                                } else { // 这里回退有问题
+                                        currentFatherLinkNode = prevLinkNode.getFatherNode();
+                                        if (currentFatherLinkNode != null){
+                                                exeNextNode();
+                                        }else {
+                                                if (fatherNodeListYIndex < fatherNodeLists.size()) {
+                                                        VpJsonBean.NodeDataBase nodeDataBase = fatherNodeLists.get(fatherNodeListYIndex++);
+                                                        currentFatherLinkNode = new LinkNode(nodeDataBase);
+                                                        contachLinkNode(currentFatherLinkNode);
+
+                                                } else {
+                                                        Log.e(TAG, "exeNextNode: **********************end");
+                                                }
+                                        }
                                 }
                         } else {
                                 if (fatherNodeListYIndex < fatherNodeLists.size()) {
                                         VpJsonBean.NodeDataBase nodeDataBase = fatherNodeLists.get(fatherNodeListYIndex++);
-                                        currentLinkNode = new LinkNode(nodeDataBase);
-                                        contachLinkNode(currentLinkNode);
+                                        currentFatherLinkNode = new LinkNode(nodeDataBase);
+                                        contachLinkNode(currentFatherLinkNode);
 
                                 } else {
                                         Log.e(TAG, "exeNextNode: **********************end");
@@ -170,8 +181,8 @@ public class VisualEditActivity extends Activity {
                                 @Override
                                 public void run() {
                                         VpJsonBean.NodeDataBase nodeDataBase = fatherNodeLists.get(fatherNodeListYIndex++);
-                                        currentLinkNode = new LinkNode(nodeDataBase);
-                                        contachLinkNode(currentLinkNode);
+                                        FatherLinkNode = currentFatherLinkNode = new LinkNode(nodeDataBase);
+                                        contachLinkNode(currentFatherLinkNode);
                                 }
                         });
                 }
@@ -181,7 +192,7 @@ public class VisualEditActivity extends Activity {
                 if (linkNode.isContainerNode()) { //如果是容器节点,看是不是 条件型容器节点
                         AppendCData appendCData = linkNode.getAppendCData();
                         if (appendCData != null) { //如果是条件型容器节点
-                                Log.e(TAG, "contachLinkNode: is conditon view group node=" );
+                                Log.e(TAG, "contachLinkNode: is conditon view group node=");
                                 if (appendCData.logic) { //如果条件满足,执行if==============================容器节点判断位置
                                         contachLinkNode(getLinkNode(linkNode, true));
                                 } else {
@@ -201,21 +212,20 @@ public class VisualEditActivity extends Activity {
         private LinkNode getLinkNode(LinkNode fatherNode, boolean isIf) {
                 List<VpJsonBean.NodeDataBase> nodeDataBaseList;
                 if (isIf) {
-                        nodeDataBaseList = fatherNode.getNodeDataBaseList();
+
                 } else {
                         nodeDataBaseList = fatherNode.getNodeDataBaseListElse();
+                        fatherNode.updateNodeDataBaseList(nodeDataBaseList);
                 }
-                fatherNode.updateNodeDataBaseList(nodeDataBaseList);
 
                 VpJsonBean.NodeDataBase nextChildNode = fatherNode.getNextChildNode();
-                LinkNode childNode = new LinkNode(nextChildNode);
-                childNode.setFatherNode(fatherNode);
-                currentLinkNode = childNode;
-                return childNode;
+                currentFatherLinkNode= new LinkNode(nextChildNode);
+                currentFatherLinkNode.setFatherNode(fatherNode);//更新当前的Father节点，同时将它和父节点串起来
+                return currentFatherLinkNode;
         }
 
-        private void exeLinkNode(LinkNode node) {
-                VpJsonBean.NodeDataBase nodeDataBase = node.getNextChildNode();
+        private void exeLinkNode(LinkNode fatherNode) {
+                VpJsonBean.NodeDataBase nodeDataBase = fatherNode.getNextChildNode();
                 dispatchNode(nodeDataBase);
                 mockNext();
         }
@@ -258,9 +268,9 @@ public class VisualEditActivity extends Activity {
         }
 
         private void clean() {
-                if (currentLinkNode != null) {
-                        currentLinkNode.stop();
-                        currentLinkNode = null;
+                if (currentFatherLinkNode != null) {
+                        currentFatherLinkNode.stop();
+                        currentFatherLinkNode = null;
                 }
                 fatherNodeListYIndex = 0;
                 fatherNodeLists.clear();

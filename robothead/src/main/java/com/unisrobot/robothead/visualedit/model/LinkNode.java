@@ -24,26 +24,21 @@ public class LinkNode {
         private List<VpJsonBean.NodeDataBase> nodeDataBaseListElse; //暂存，判断条件后，付给nodeDataBaseList
         private AppendCData appendCData;
         private boolean ContainerNode = false;
-
+        private String Event ;
         private LinkNode fatherNode; //前一个node(父 node)
 
         public LinkNode(VpJsonBean.NodeDataBase nodeDataBase) {
+                Event = nodeDataBase.Event;
                 List<VpJsonBean.NodeDataBase> list = new ArrayList<>();
                 list.add(nodeDataBase);
-                addData(list);
-        }
-
-        public LinkNode(List<VpJsonBean.NodeDataBase> list) {
                 addData(list);
         }
 
         private void addData(List<VpJsonBean.NodeDataBase> list) {
                 VpJsonBean.NodeDataBase nodeDataBase = list.get(currentChildYIndex);
                 nodeType = RunTypeUtil.getRunType(nodeDataBase);
-                Log.e(TAG, "LinkNode: " + nodeDataBase.PrefabName + "   nodeType=" + nodeType);
                 boolean isViewGroupNode = RunTypeUtil.IsViewGroupNode(nodeDataBase);
                 if (isViewGroupNode) { // 这里会导致节点丢失
-                        Log.e(TAG, "LinkNode: isViewGroupNode");
                         this.ContainerNode = true;
                         List<VpJsonBean.NodeDataBase> actions = nodeDataBase.Actions;
                         if (actions != null && actions.size() > 0) { //这个是包含的内容(和 ifelse里面包含的区分)
@@ -56,7 +51,6 @@ public class LinkNode {
                         }
 
                 } else {
-                        Log.e(TAG, "LinkNode: not   ViewGroupNode");
                         this.ContainerNode = false;
                         this.nodeDataBaseList = list;
                 }
@@ -121,10 +115,7 @@ public class LinkNode {
                 return "LinkNode{" +
                         "currentChildYIndex=" + currentChildYIndex +
                         ", nodeType=" + nodeType +
-                        ", nodeDataBaseList=" + nodeDataBaseList +
-                        ", nodeDataBaseListElse=" + nodeDataBaseListElse +
-                        ", appendCData=" + appendCData +
-                        ", ContainerNode=" + ContainerNode +
+                        ", event=" + Event +
                         '}';
         }
 }
