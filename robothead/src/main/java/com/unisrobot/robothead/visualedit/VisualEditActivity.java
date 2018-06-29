@@ -73,36 +73,45 @@ public class VisualEditActivity extends Activity {
     }
 
     private void exeNextNode() {
-        Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>linkNodeListXIndex="+linkNodeListXIndex );
-        boolean hasNext = currentLinkNode.hasNext();
+        Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>linkNodeListXIndex="+linkNodeListXIndex );
+        boolean hasNext = currentLinkNode.hasNextChildNode();
         if (hasNext) {
-            VpJsonBean.NodeDataBase nextData = currentLinkNode.getNextData();
+            Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>> next child.......... " );
+            VpJsonBean.NodeDataBase nextData = currentLinkNode.getNextChildNode();
             currentLinkNode = new LinkNode(nextData);
             contachLinkNode(currentLinkNode);
         } else { // 同一个Node中非包含型 Node 的执行
-            //子节点个数默认是0（-1是为了和list索引保持一致）,如果是1个，不需要回退，剩下的 交给 linkFatherNode处理
-            // 如果 2个以上，则需要回退..
-            if (linkNodeListXIndex > 0) { // 如果 Y 方向上 还有Node，往下执行  XXXXXXX这里回退有问题？？
-                linkNodeListXIndex--;
-                currentLinkNode = linkNodeLinkedListX.get(linkNodeListXIndex);
-                hasNext = currentLinkNode.hasNext();
-                if (hasNext) {
-                    VpJsonBean.NodeDataBase nodeDataBase = currentLinkNode.getNextData();
-                    currentLinkNode= new LinkNode(nodeDataBase);
-                    contachLinkNode(currentLinkNode);
-                } else { // 继续回退。往前执行上一个节点 剩下的
-                    exeNextNode();
-                }
-            } else { // FatherNode Y 方向上的执行
-                linkNodeListXIndex = -1;
-                linkNodeLinkedListX.clear();
-                hasNext = linkFatherNode.hasNext();
-                if (hasNext) {
-                    VpJsonBean.NodeDataBase nodeDataBase = linkFatherNode.getNextData();
-                    currentLinkNode= new LinkNode(nodeDataBase);
-                    contachLinkNode(currentLinkNode);
-                } else {
-                    Log.e(TAG, "exeNextNode: **********************end");
+            Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>>>> next father child " );
+            hasNext = currentLinkNode.hasNextFatherNode();
+            if (hasNext){
+                VpJsonBean.NodeDataBase nextFatherNode = currentLinkNode.getNextFatherNode();
+                currentLinkNode = new LinkNode(nextFatherNode);
+                contachLinkNode(currentLinkNode);
+            }else {
+                //子节点个数默认是0（-1是为了和list索引保持一致）,如果是1个，不需要回退，剩下的 交给 linkFatherNode处理
+                // 如果 2个以上，则需要回退..
+                if (linkNodeListXIndex > 0) { // 如果 Y 方向上 还有Node，往下执行  XXXXXXX这里回退有问题？？
+                    linkNodeListXIndex--;
+                    currentLinkNode = linkNodeLinkedListX.get(linkNodeListXIndex);
+                    hasNext = currentLinkNode.hasNextChildNode();
+                    if (hasNext) {
+                        VpJsonBean.NodeDataBase nodeDataBase = currentLinkNode.getNextChildNode();
+                        currentLinkNode= new LinkNode(nodeDataBase);
+                        contachLinkNode(currentLinkNode);
+                    } else { // 继续回退。往前执行上一个节点 剩下的
+                        exeNextNode();
+                    }
+                } else { // FatherNode Y 方向上的执行
+                    linkNodeListXIndex = -1;
+                    linkNodeLinkedListX.clear();
+                    hasNext = linkFatherNode.hasNextChildNode();
+                    if (hasNext) {
+                        VpJsonBean.NodeDataBase nodeDataBase = linkFatherNode.getNextChildNode();
+                        currentLinkNode= new LinkNode(nodeDataBase);
+                        contachLinkNode(currentLinkNode);
+                    } else {
+                        Log.e(TAG, "exeNextNode: **********************end");
+                    }
                 }
             }
         }
@@ -172,7 +181,7 @@ public class VisualEditActivity extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    VpJsonBean.NodeDataBase nextData = linkFatherNode.getNextData();
+                    VpJsonBean.NodeDataBase nextData = linkFatherNode.getNextChildNode();
                     currentLinkNode = new LinkNode(nextData);
                     contachLinkNode(currentLinkNode);
                 }
@@ -182,17 +191,19 @@ public class VisualEditActivity extends Activity {
 
     private void contachLinkNode(LinkNode linkNode) {
         if (linkNode.isContanirNode()) { //如果是容器节点
+            VpJsonBean.NodeDataBase nextData = linkNode.getNextChildNode();
+            currentLinkNode = new LinkNode(nextData);
             AppendCData appendCData = linkNode.getAppendCData();
             if (appendCData != null) { //如果是条件型容器节点
                 Log.e(TAG, "contachLinkNode: is conditon view group node=");
                 if (appendCData.logic) { //如果条件满足,执行if==============================容器节点判断位置
-                    contachLinkNode(getLinkNode(linkNode, true));
+                    contachLinkNode(getLinkNode(currentLinkNode, true));
                 } else {
-                    contachLinkNode(getLinkNode(linkNode, false));
+                    contachLinkNode(getLinkNode(currentLinkNode, false));
                 }
             } else { // 如果直接是顺序执行的容器节点
                 Log.e(TAG, "contachLinkNode: is  view group node");
-                contachLinkNode(getLinkNode(linkNode, true));
+                contachLinkNode(getLinkNode(currentLinkNode, true));
             }
         } else {
             exeLinkNode(linkNode);
@@ -207,7 +218,7 @@ public class VisualEditActivity extends Activity {
         } else {
             nodeDataBaseList = fatherNode.getNodeDataBaseListElse();
         }
-        fatherNode.updateNodeDataBaseList(nodeDataBaseList);
+//      fatherNode.updateNodeDataBaseList(nodeDataBaseList);
         LinkNode childNode = new LinkNode(nodeDataBaseList);
         linkNodeLinkedListX.addLast(childNode);
         currentLinkNode = childNode;
@@ -216,7 +227,7 @@ public class VisualEditActivity extends Activity {
     }
 
     private void exeLinkNode(LinkNode node) {
-        VpJsonBean.NodeDataBase nodeDataBase = node.getNextData();
+        VpJsonBean.NodeDataBase nodeDataBase = node.getNextChildNode();
         dispatchNode(nodeDataBase);
         mockNext();
     }
