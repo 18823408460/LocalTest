@@ -1,9 +1,13 @@
 package com.unisrobot.robothead.visualedit.model;
 
+import android.os.Bundle;
+
+import com.unisrobot.robothead.visualedit.interfaces.IRobotMsgHandler;
 import com.unisrobot.robothead.visualedit.nodebean.common.AppendCData;
 import com.unisrobot.robothead.visualedit.nodebean.common.AppendUtil;
 import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
 import com.unisrobot.robothead.visualedit.type.NodeRunType;
+import com.unisrobot.robothead.visualedit.type.RobotMsgType;
 import com.unisrobot.robothead.visualedit.type.TypeUtil;
 
 import java.util.ArrayList;
@@ -13,7 +17,7 @@ import java.util.List;
  * Created by Administrator on 2018/6/28.
  */
 
-public class LinkNode {
+public class LinkNode implements IRobotMsgHandler{
     private static final String TAG = LinkNode.class.getSimpleName();
     private int currentChildYIndex = 0;  // y 方向的 链表索引
     private NodeRunType nodeType;
@@ -83,6 +87,10 @@ public class LinkNode {
         this.childContainerNode = childContainerNode;
     }
 
+    public LinkNode getChildContainerNode() {
+        return childContainerNode;
+    }
+
     public boolean isContainerNode() {
         return ContainerNode;
     }
@@ -100,5 +108,10 @@ public class LinkNode {
                 ", nodeType=" + nodeType +
                 ", event=" + Event +
                 '}';
+    }
+
+    @Override
+    public boolean handlerMsg(RobotMsgType robotMsgType, Bundle bundle) {
+        return false;
     }
 }

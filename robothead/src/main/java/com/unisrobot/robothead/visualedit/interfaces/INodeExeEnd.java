@@ -1,4 +1,4 @@
-package com.unisrobot.robothead.visualedit;
+package com.unisrobot.robothead.visualedit.interfaces;
 
 /**
  * Created by WEI on 2018/6/28.

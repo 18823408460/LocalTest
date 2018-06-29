@@ -3,7 +3,7 @@ package com.unisrobot.robothead.visualedit.nodebean.common;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.unisrobot.robothead.visualedit.INodeExeEnd;
+import com.unisrobot.robothead.visualedit.interfaces.INodeExeEnd;
 import com.unisrobot.robothead.visualedit.type.RobotMsgType;
 
 /**
