@@ -208,6 +208,7 @@ public class VisualEditActivity extends Activity {
                 }
                 //      fatherNode.updateNodeDataBaseList(nodeDataBaseList);
                 LinkNode childNode = new LinkNode(nodeDataBaseList);
+                childNode.setFatherNode(fatherNode);
                 currentLinkNode = childNode;
                 return childNode;
         }
