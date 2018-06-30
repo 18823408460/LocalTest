@@ -35,6 +35,7 @@ public enum NodeRunType {
 
         /**
          * 条件型，当满足了条件，执行XX，不满足，执行YY
+         *
          */
         CONDITION,
 }

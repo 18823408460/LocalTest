@@ -17,7 +17,7 @@ public class EyeLookAngle {
 
     public static EyeLookAngle getBean(VpJsonBean.NodeDataBase nodeDataBase) {
         EyeLookAngle eyeLookAngle = new EyeLookAngle();
-        String inputNumberAngle = AppendUtil.getInputNumber(nodeDataBase, 0);
+        String inputNumberAngle = AppendUtil.getInputNumberStatic(nodeDataBase, 0);
         eyeLookAngle.direction = nodeDataBase.Event;
         if (inputNumberAngle != null) {
             //eyeLookAngle.angle = Short.parseShort(inputNumberAngle);

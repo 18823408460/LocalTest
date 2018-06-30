@@ -15,7 +15,7 @@ public class LogicWaitSecondBean {
 
     public static LogicWaitSecondBean getBean(VpJsonBean.NodeDataBase nodeDataBase) {
         LogicWaitSecondBean logicWaitSecondBean = new LogicWaitSecondBean();
-        String inputNumber = AppendUtil.getInputNumber(nodeDataBase, 0);
+        String inputNumber = AppendUtil.getInputNumberStatic(nodeDataBase, 0);
         logicWaitSecondBean.time = (long) (Double.parseDouble(inputNumber) * 1000);
         return logicWaitSecondBean;
     }
