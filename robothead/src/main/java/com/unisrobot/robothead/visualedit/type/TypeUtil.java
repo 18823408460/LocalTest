@@ -46,7 +46,8 @@ public class TypeUtil {
     }
 
     /**
-     *  这个
+     * 这个
+     *
      * @param nodeDataBase
      * @return
      */
@@ -93,7 +94,7 @@ public class TypeUtil {
                 nodeRunType = NodeRunType.REPEAT_UNIT;
                 break;
             case NodeJsonType.Logic.LogicPrefab_RepeatCount:
-                nodeRunType = NodeRunType.COUNT;
+                nodeRunType = NodeRunType.REPEAT_COUNT;
                 break;
             case NodeJsonType.Logic.LogicPrefab_CallFunction:
                 String event = nodeDataBase.Event;
@@ -101,13 +102,15 @@ public class TypeUtil {
                     nodeRunType = NodeRunType.WAIT_NEXT;
 
                 } else if (NodeEvent.Logic.INVOKE_FUNCTION.equals(event)) {
-                    nodeRunType = NodeRunType.COUNT;
+                    nodeRunType = NodeRunType.REPEAT_COUNT;
                 }
                 break;
             case NodeJsonType.Logic.LogicPrefab_If:
             case NodeJsonType.Logic.LogicPrefab_IfElse:
-            case NodeJsonType.Logic.LogicPrefab_IfElseFace:
                 nodeRunType = NodeRunType.CONDITION;
+                break;
+            case NodeJsonType.Logic.LogicPrefab_IfElseFace:
+                nodeRunType = NodeRunType.FACE;
                 break;
             case NodeJsonType.Logic.LogicPrefab_RepeatCycle:
                 nodeRunType = NodeRunType.REPEAT_CYCLE;

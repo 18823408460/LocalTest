@@ -6,16 +6,20 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.unisrobot.robothead.R;
 import com.unisrobot.robothead.visualedit.bluetooth.BluToothMgr;
 import com.unisrobot.robothead.visualedit.bluetooth.IBluetoothLisenter;
+import com.unisrobot.robothead.visualedit.interfaces.IMsgCanHandler;
 import com.unisrobot.robothead.visualedit.model.LinkNode;
 import com.unisrobot.robothead.visualedit.nodebean.basic.JointBean;
 import com.unisrobot.robothead.visualedit.nodebean.basic.SpeedTimeBean;
 import com.unisrobot.robothead.visualedit.nodebean.basic.TurnAngleBean;
 import com.unisrobot.robothead.visualedit.nodebean.combineaction.CombineBean;
+import com.unisrobot.robothead.visualedit.nodebean.common.NodeParams;
 import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
 import com.unisrobot.robothead.visualedit.nodebean.ear.EarBean;
 import com.unisrobot.robothead.visualedit.nodebean.eye.EyeFeelingBean;
@@ -23,6 +27,7 @@ import com.unisrobot.robothead.visualedit.nodebean.eye.EyeLookAngle;
 import com.unisrobot.robothead.visualedit.nodebean.language.MusicBean;
 import com.unisrobot.robothead.visualedit.nodebean.language.TtsBean;
 import com.unisrobot.robothead.visualedit.type.NodeJsonType;
+import com.unisrobot.robothead.visualedit.type.NodeRunType;
 import com.unisrobot.robothead.visualedit.type.RobotMsgType;
 import com.unisrobot.robothead.visualedit.type.TaskJsonType;
 
@@ -41,18 +46,18 @@ import java.util.List;
  * 3.节点什么结束完毕,节点什么时候开始执行？？
  * --------------------------------------------------------
  * 难点： 参数节点 应该返回什么数据类型？？
- *
  */
 
-public class VisualEditActivity extends Activity {
+public class VisualEditActivity extends Activity implements IMsgCanHandler {
     private static final int NEXT = 1;
     private static final String TAG = VisualEditActivity.class.getSimpleName();
     private BluToothMgr bluToothMgr;
     private LinkedList<VpJsonBean.NodeDataBase> rootNodeLists = new LinkedList<>();
     private LinkNode currentFatherLinkNode;
-    private LinkNode currentExeLinkNode; //当前正在执行的node,这是为了消息分发能够收到
+    private LinkNode firstNode;
     private ExeHandler exeHandler;
     private int rootNodeListYIndex = 0;  // y 方向的 链表索引
+    private LinkNode currentExeLinkNode;
 
     private static class ExeHandler extends Handler {
         WeakReference<VisualEditActivity> weakReference;
@@ -74,10 +79,14 @@ public class VisualEditActivity extends Activity {
         }
     }
 
+    public void playEnd(View view) {
+        dispatchRobotMsg(RobotMsgType.PlayEnd, null);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_visualedit);
         exeHandler = new ExeHandler(this);
         initBlueTooth();
     }
@@ -141,7 +150,7 @@ public class VisualEditActivity extends Activity {
                 @Override
                 public void run() {
                     VpJsonBean.NodeDataBase nodeDataBase = rootNodeLists.get(rootNodeListYIndex++);
-                    contachLinkNode(new LinkNode(nodeDataBase));
+                    parseFatherNode(new LinkNode(nodeDataBase, VisualEditActivity.this));
                 }
             });
         }
@@ -153,7 +162,7 @@ public class VisualEditActivity extends Activity {
             if (hasNext) {
                 Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>> next child.......... ");
                 VpJsonBean.NodeDataBase nextData = currentFatherLinkNode.getNextChildNode();
-                contachLinkNode(new LinkNode(nextData));
+                parseFatherNode(new LinkNode(nextData, this));
             } else {
                 LinkNode prevFatherNode = currentFatherLinkNode.getFatherNode();
                 if (prevFatherNode != null) {
@@ -171,47 +180,115 @@ public class VisualEditActivity extends Activity {
     private void exeNextRootNode() {
         if (rootNodeListYIndex < rootNodeLists.size()) {
             VpJsonBean.NodeDataBase nodeDataBase = rootNodeLists.get(rootNodeListYIndex++);
-            contachLinkNode(new LinkNode(nodeDataBase));
+            parseFatherNode(new LinkNode(nodeDataBase, this));
         } else {
+            bluToothMgr.sendTaskExeEndMsg();
             Log.e(TAG, "exeNextNode: **********************end");
         }
     }
 
-    private void contachLinkNode(LinkNode linkNode) {
+    private void parseFatherNode(LinkNode linkNode) {
         if (linkNode.isContainerNode()) { //如果是容器节点,看是不是 条件型容器节点
             if (currentFatherLinkNode == null) {
-                currentFatherLinkNode = linkNode;
+                firstNode = currentFatherLinkNode = linkNode;
             } else {
                 currentFatherLinkNode.setChildContainerNode(linkNode);
                 linkNode.setFatherNode(currentFatherLinkNode);
                 currentFatherLinkNode = linkNode;
             }
-            Log.e(TAG, "contachLinkNode: father node event=="+linkNode.getEvent() );
-            if (linkNode.hasNextChildNode()){ // 如果里面为空，直接跳过，避免报错
-                // 首先判断 ViewGroupNode 是否可以执行.
-                VpJsonBean.NodeDataBase nextChildNode = linkNode.getNextChildNode();
-                contachLinkNode(new LinkNode(nextChildNode));
-            }else {
+            Log.e(TAG, "parseFatherNode: father node event==" + linkNode.getEvent());
+            if (linkNode.hasNextChildNode()) { // 如果里面为空，直接跳过，避免报错
+                exeFatherNode(linkNode);
+            } else {
                 exeNextNode();
             }
         } else { //如果是非容器型节点，直接执行
-            exeLinkNode(linkNode);
+            exeChildNode(linkNode);
         }
     }
 
-    private void exeLinkNode(LinkNode node) {
+    private void exeFatherNode(final LinkNode linkNode) {
+        // 首先判断 ViewGroupNode 是否可以执行.
+        NodeRunType nodeType = linkNode.getNodeType();
+        switch (nodeType) {
+            case REPEAT_UNIT: // 重复直到触摸,重复执行直到
+                break;
+            case REPEAT_COUNT: // 重复X次, 调用function(1次)
+                break;
+            case REPEAT_CYCLE: // 一直重复
+                break;
+            case CONDITION: //如果那么, 如果那么否则
+                break;
+            case FACE: //如果人脸
+                exeHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mockFaceInfo(linkNode);
+                    }
+                }, 2000);
+                return;
+        }
+        VpJsonBean.NodeDataBase nextChildNode = linkNode.getNextChildNode();
+        parseFatherNode(new LinkNode(nextChildNode, this));
+    }
+
+    private void mockFaceInfo(LinkNode linkNode) {
+        String temp[] = {"已注册", "未注册"};
+        int index = (int) (Math.random() * temp.length);
+        if (NodeParams.Logic.REGISTER.equals(linkNode.getFaceArgs())) {// if
+            if (NodeParams.Logic.REGISTER.equals(temp[index])) {
+                VpJsonBean.NodeDataBase nextChildNode = linkNode.getNextChildNode();
+                parseFatherNode(new LinkNode(nextChildNode, this));
+            } else {
+                linkNode.updateNodeDataBaseListFromElse();
+                VpJsonBean.NodeDataBase nextChildNode = linkNode.getNextChildNode();
+                parseFatherNode(new LinkNode(nextChildNode, this));
+            }
+        } else { //else
+            if (NodeParams.Logic.UNREGISTER.equals(temp[index])) {
+                VpJsonBean.NodeDataBase nextChildNode = linkNode.getNextChildNode();
+                parseFatherNode(new LinkNode(nextChildNode, this));
+            } else {
+                linkNode.updateNodeDataBaseListFromElse();
+                VpJsonBean.NodeDataBase nextChildNode = linkNode.getNextChildNode();
+                parseFatherNode(new LinkNode(nextChildNode, this));
+            }
+        }
+    }
+
+    private void exeChildNode(LinkNode node) {
         currentExeLinkNode = node;
         VpJsonBean.NodeDataBase nodeDataBase = node.getNextChildNode();
+        bluToothMgr.sendMsgToPad(TaskJsonType.Sender.NODE_MOTION_REQUEST, nodeDataBase.NodeID, nodeDataBase.Event);
         dispatchNode(nodeDataBase);
         mockNext();
     }
 
+    @Override
+    public void haveHandler(boolean isFatherNode, LinkNode linkNode) {
+        Log.e(TAG, "haveHandler: =========handler by isFatherNode = " + isFatherNode);
+        exeHandler.removeCallbacksAndMessages(null);
+        if (isFatherNode) {
+            currentFatherLinkNode = linkNode;
+            exeNextNode();
+        } else {
+            exeNextNode();
+        }
+    }
+
     private void dispatchRobotMsg(RobotMsgType robotMsgType, Bundle bundle) {
-        if (currentFatherLinkNode != null) {
-            //消息依次往下传递，如果处理了，返回true ，
-            boolean result = currentFatherLinkNode.handlerMsg(robotMsgType, bundle);
-            if (!result) {
-                Log.e(TAG, "dispatchRobotMsg: msg no handler.......................");
+        if (firstNode != null) {
+            boolean result = firstNode.handlerMsg(robotMsgType, null);
+            if (result) { //如果
+
+            } else {
+                if (currentExeLinkNode != null) {
+                    currentExeLinkNode.handlerMsg(robotMsgType, null);
+                }
+            }
+        } else {
+            if (currentExeLinkNode != null) {
+                currentExeLinkNode.handlerMsg(robotMsgType, null);
             }
         }
     }
@@ -255,11 +332,11 @@ public class VisualEditActivity extends Activity {
 
     private void clean() {
         if (currentFatherLinkNode != null) {
-            currentFatherLinkNode.stop();
             currentFatherLinkNode = null;
         }
         rootNodeListYIndex = 0;
         rootNodeLists.clear();
+        bluToothMgr.sendTaskExeEndMsg();
         exeHandler.removeCallbacksAndMessages(null);
     }
 
@@ -359,6 +436,7 @@ public class VisualEditActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         bluToothMgr.destroy();
     }
 }

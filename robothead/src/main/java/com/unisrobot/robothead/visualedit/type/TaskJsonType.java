@@ -29,4 +29,32 @@ public class TaskJsonType {
         public static final String MSG_ASK_MAPLIST = "MSG_ASK_MAPLIST";  //请求地图数据
 
         public static final String MSG_ASK_FACE_FILE_LIST = "MSG_ASK_FACEFILELIST"; // 请求人脸文件列表
+
+        public static class Sender{
+                /**
+                 * 任务执行结果.
+                 */
+                public static final int NODE_MOTION_REQUEST = 777;
+
+                /**
+                 * 播放课程音频(手动点击的提示语),播放完毕消息
+                 */
+                public static final int NODE_CUESOR_TIP_PLAY_END = 778;
+
+                /**
+                 * 向手机发送需要倾斜的方位.
+                 */
+                public static final int NODE_LEAN_REQUEST = 888;
+
+
+                /**
+                 * 向手机发送地图数据
+                 */
+                public static final int SEND_PAD_MAP_DATA = 8001;
+
+                /**
+                 * 向手机发送人脸数据
+                 */
+                public static final int SEND_PAD_FACE_DATA = 8002;
+        }
 }
