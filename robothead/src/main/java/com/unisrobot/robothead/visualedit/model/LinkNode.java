@@ -1,6 +1,7 @@
 package com.unisrobot.robothead.visualedit.model;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.unisrobot.robothead.visualedit.interfaces.IRobotMsgHandler;
 import com.unisrobot.robothead.visualedit.nodebean.common.AppendCdata;
@@ -67,12 +68,16 @@ public class LinkNode implements IRobotMsgHandler {
         }
         if (NodeRunType.CONDITION.equals(nodeType)) {
             nodeDataBaseCondition = AppendUtil.getAppendCData(nodeDataBase);
+            boolean booleanParams = AppendUtil.getBooleanParams(nodeDataBaseCondition);
+            Log.e(TAG, "addData: ========== " + booleanParams);
         }
     }
 
     public boolean hasNextChildNode() { // 这里不仅仅只判断 索引，还要优先根据nodeType来判断
-        if (currentChildYIndex < nodeDataBaseList.size()) {
-            return true;
+        if (nodeDataBaseList != null){
+            if (currentChildYIndex < nodeDataBaseList.size()) {
+                return true;
+            }
         }
         return false;
     }

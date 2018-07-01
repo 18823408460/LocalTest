@@ -36,7 +36,7 @@ public class AppendUtil {
             switch (nodeDataBase.PrefabName) {
                 case NodeJsonType.Mind.MindPrefab_CompareTwoNum: //比较两个数
                     String numberParams1 = getNumberParams(nodeDataBase, 0);
-                    String numberParams2 = getNumberParams(nodeDataBase, 0);
+                    String numberParams2 = getNumberParams(nodeDataBase, 1);
                     String operate = nodeDataBase.Pictures.get(0).Picture;
                     resultData = NumberUtil.compareTowNum(operate, numberParams1, numberParams2);
                     break;
@@ -199,7 +199,7 @@ public class AppendUtil {
         if (appendent != null) {
             List<VpJsonBean.NodeDataBase> append_c = appendent.Append_C;
             if (append_c != null && append_c.size() > 0) {
-                appcData = nodeDataBase;
+                appcData = append_c.get(0);
             }
         }
         return appcData;
