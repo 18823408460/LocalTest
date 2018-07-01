@@ -76,11 +76,15 @@ public final class NodeJsonType {
     public static final class Mind {
         public static final String MindPrefab_Set = "MindPrefab_Set";
         public static final String MindPrefab_UseChange = "MindPrefab_UseChange";
-        public static final String MindPrefab_CalculateSecond = "MindPrefab_CalculateSecond";
+        public static final String MindPrefab_CompareTwoNum= "MindPrefab_CalculateSecond";
         public static final String MindPrefab_AndOrRelation = "MindPrefab_AndOrRelation";
+        //一个具体数值 ,选择型
         public static final String MindPrefab_Num = "MindPrefab_Num";
         public static final String MindPrefab_NumberCanBeDone = "MindPrefab_NumberCanBeDone";
-        public static final String MindPrefab_CalculateNumber = "MindPrefab_CalculateNumber";
+        public static final String MindPrefab_NumberIs = "MindPrefab_NumberIs";
+
+        // 取整操作
+        public static final String MindPrefab_CalculateOneNumber = "MindPrefab_CalculateNumber";
         public static final String MindPrefab_Heart = "MindPrefab_Heart";
         public static final String MindPrefab_AcalculateBRemainder = "MindPrefab_AcalculateBRemainder";
         public static final String MindPrefab_Calculate = "MindPrefab_Calculate";
@@ -95,10 +99,20 @@ public final class NodeJsonType {
         public static final String PerceptionPrefab_LookAt = "PerceptionPrefab_LookAt";
         public static final String PerceptionPrefab_When = "PerceptionPrefab_When";
         public static final String PerceptionPrefab_FellSomething = "PerceptionPrefab_FellSomething";
+        /**
+         * Pos + 温湿度传感器
+         */
         public static final String PerceptionPrefab_SensorCTCT = "PerceptionPrefab_SensorCTCT";
         public static final String PerceptionPrefab_SensorAPIContext = "PerceptionPrefab_SensorAPIContext";
         public static final String PerceptionPrefab_SensorAPICC = "PerceptionPrefab_SensorAPICC";
         public static final String PerceptionPrefab_SensorTextContentAttach = "PerceptionPrefab_SensorTextContentAttach";
+
+        /**
+         * 光照传感器光照强度
+         人体传感器检测到人体
+         超声波传感器读数
+         温度传感器温度值
+         */
         public static final String PerceptionPrefab_SensorTextContent = "PerceptionPrefab_SensorTextContent";
     }
 }

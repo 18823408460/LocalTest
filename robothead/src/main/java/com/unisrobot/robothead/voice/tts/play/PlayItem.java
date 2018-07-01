@@ -43,7 +43,7 @@ public class PlayItem {
         public String toString() {
                 return "PlayItem{" +
                         "type=" + type +
-                        ", content='" + content + '\'' +
+                        ", contentPos='" + content + '\'' +
                         ", nextRun=" + nextRun +
                         '}';
         }

@@ -32,7 +32,7 @@ public class TurnAngleBean {
 
     public static TurnAngleBean getBean(VpJsonBean.NodeDataBase nodeData) {
         TurnAngleBean speedTimeBean = new TurnAngleBean();
-        String InputNumberAngle = AppendUtil.getInputNumberStatic(nodeData, 0);
+        String InputNumberAngle = AppendUtil.getNumberParams(nodeData, 0);
 //        String direction = nodeData.Args.get(0).Content;
         short speed = getAngle(InputNumberAngle);
      //   speedTimeBean.direction = direction;

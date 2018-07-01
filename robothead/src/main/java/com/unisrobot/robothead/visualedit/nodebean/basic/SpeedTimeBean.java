@@ -1,16 +1,18 @@
 package com.unisrobot.robothead.visualedit.nodebean.basic;
 
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.unisrobot.robothead.visualedit.nodebean.common.AppendUtil;
 import com.unisrobot.robothead.visualedit.nodebean.common.NodeParams;
 import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
-import com.unisrobot.robothead.visualedit.nodebean.common.AppendUtil;
 
 /**
  * Created by Administrator on 2018/6/27.
  */
 
 public class SpeedTimeBean {
+    private static final String TAG = SpeedTimeBean.class.getSimpleName();
     private short speed;
     private long xTime;
     private String direction;
@@ -38,8 +40,9 @@ public class SpeedTimeBean {
 
     public static SpeedTimeBean getBean(VpJsonBean.NodeDataBase nodeData) {
         SpeedTimeBean speedTimeBean = new SpeedTimeBean();
-        String InputNumberSpeed = AppendUtil.getInputNumberStatic(nodeData, 0);
-        String InputNumberTime = AppendUtil.getInputNumberStatic(nodeData, 1);
+        String InputNumberSpeed = AppendUtil.getNumberParams(nodeData, 0);
+        String InputNumberTime = AppendUtil.getNumberParams(nodeData, 1);
+        Log.e(TAG, "getBean: InputNumberSpeed=" + InputNumberSpeed + "  InputNumberTime=" + InputNumberTime);
         String direction = nodeData.Args.get(0).Content;
         short speed = getSpeed(InputNumberSpeed);
         long time = getTime(InputNumberTime);
@@ -50,14 +53,14 @@ public class SpeedTimeBean {
     }
 
     private static short getSpeed(String speed) {
-        short xSpeed = Short.parseShort(speed);
+        float xSpeed = Float.parseFloat(speed);
         if (xSpeed > 420) {
             xSpeed = 420;
         }
         if (xSpeed < 0) {
             xSpeed = 0;
         }
-        return xSpeed;
+        return (short) xSpeed;
     }
 
     private static long getTime(String time) {

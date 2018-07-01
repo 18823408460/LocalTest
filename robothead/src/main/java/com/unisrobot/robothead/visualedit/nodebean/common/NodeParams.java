@@ -116,6 +116,9 @@ public class NodeParams {
                 public static final String IS_ZHNEGSHU = "为整数";
                 public static final String IS_ZHNEG = "为正";
                 public static final String IS_FU = "为负";
+
+                public static final String Can_Be_Zhengchu = "可被整除";
+
         }
 
         //感知智能

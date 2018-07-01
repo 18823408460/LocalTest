@@ -234,7 +234,7 @@ public class UARTManager {
                                 }
 
                                 if (packetType == TouChuanMsgConstant.Request) {
-                                        Log.e(TAG, "onReceive: content===" + touChuanResponsePacket.getContent());
+                                        Log.e(TAG, "onReceive: contentPos===" + touChuanResponsePacket.getContent());
                                         addReceivePool(seqID);
                                         handlerTouChuanResquest(touChuanResponsePacket);
                                 } else {

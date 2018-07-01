@@ -116,9 +116,9 @@ public final class NodeEvent {
                 public static final String API_SEX = "API接口返回数据：性别";
                 public static final String API_AGE = "API接口返回数据：年龄";
                 public static final String TOUCH_SENSOR = "触碰传感器被触碰";
-                public static final String BRIGHT_SENSOR = "光照传感器光照强度";
+                public static final String LIGHT_SENSOR = "光照传感器光照强度";
                 public static final String PEOPLE_SENSOR = "人体传感器检测到人体";
                 public static final String CSB_SENSOR = "超声波传感器读数";
-                public static final String WNE_SU_SENSOR = "温度传感器温度值";
+                public static final String WEN_DU_SENSOR = "温度传感器温度值";
         }
 }

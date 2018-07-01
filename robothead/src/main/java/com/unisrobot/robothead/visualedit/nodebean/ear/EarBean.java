@@ -19,7 +19,7 @@ public class EarBean {
 
     public void exeNode() {
         if (!TextUtils.isEmpty(content)) {
-//            MsgSendUtils.sendStringMsg(MsgType.SEND_RECOGNITION_RESULT, content);
+//            MsgSendUtils.sendStringMsg(MsgType.SEND_RECOGNITION_RESULT, contentPos);
         }
     }
 }

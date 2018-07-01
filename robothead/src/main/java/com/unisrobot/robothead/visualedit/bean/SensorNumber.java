@@ -8,11 +8,54 @@ package com.unisrobot.robothead.visualedit.bean;
  * 如：
  * 左侧 温湿度传感器 的 温度 值
  * 右侧 超神波传感器的  值
+ *
+ * {
+ "NodeID":9,
+ "Type":"Perception",
+ "PrefabName":"PerceptionPrefab_SensorTextContent",
+ "Event":"光照传感器光照强度",
+ "HeartInfo":null,
+ "Args":[
+ {
+ "Content":"左侧",
+ "WordsStyle":null
+ }
+ ],
+ "InputInits":null,
+ "Colors":null,
+ "Pictures":null,
+ "Appendent":null,
+ "Actions":null,
+ "Switch":null
+ }
+ {
+ "NodeID":13,
+ "Type":"Perception",
+ "PrefabName":"PerceptionPrefab_SensorCTCT",
+ "Event":"温湿度传感器",
+ "HeartInfo":null,
+ "Args":[
+ {
+ "Content":"左侧",
+ "WordsStyle":null
+ },
+ {
+ "Content":"温度",
+ "WordsStyle":null
+ }
+ ],
+ "InputInits":null,
+ "Colors":null,
+ "Pictures":null,
+ "Appendent":null,
+ "Actions":null,
+ "Switch":null
+ }
+
  */
 
 public class SensorNumber {
-        public String postion;
-        public String name;
-        public String valueName; // 这里可以为空
-        public String value;
+    public String event;
+    public String contentPos;
+    public String contentName;
 }

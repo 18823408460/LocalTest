@@ -35,7 +35,7 @@ public abstract class McuSendPacket extends Packet {
         @Override
         public byte[] encodeBytes() {
                 byte[] content = getContent();
-               // Log.e(TAG, "encodeBytes: "+ PacketUtil.bytesToHex(content));
+               // Log.e(TAG, "encodeBytes: "+ PacketUtil.bytesToHex(contentPos));
                 int msgType = getMsgType();
                 byte[] datas = new byte[content.length + 1];
                 datas[0] = (byte) msgType;
