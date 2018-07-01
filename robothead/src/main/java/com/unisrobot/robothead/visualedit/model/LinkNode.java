@@ -93,7 +93,7 @@ public class LinkNode implements IRobotMsgHandler {
             Log.e(TAG, "parseRunType: REPEAT_UNIT === " + nodeDataBase.Event);
             if (NodeEvent.Perception.REPEAT_UNIT_TOUCH.equals(event)) {
                 String sensor = nodeDataBase.Args.get(0).Content;
-                robotMsgType = RobotMsgType.PlayEnd;
+                robotMsgType = RobotMsgType.SensorLocal;
             }
         }
     }

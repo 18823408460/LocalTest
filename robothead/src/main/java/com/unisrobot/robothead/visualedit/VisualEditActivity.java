@@ -83,6 +83,14 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
         dispatchRobotMsg(RobotMsgType.PlayEnd, null);
     }
 
+    public void sensor(View view) {
+        dispatchRobotMsg(RobotMsgType.SensorLocal, null);
+    }
+
+    public void timer(View view) {
+        dispatchRobotMsg(RobotMsgType.Timer, null);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
