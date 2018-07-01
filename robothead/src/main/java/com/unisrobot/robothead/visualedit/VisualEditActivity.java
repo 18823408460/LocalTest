@@ -187,11 +187,12 @@ public class VisualEditActivity extends Activity {
                 currentFatherLinkNode = linkNode;
             }
             Log.e(TAG, "contachLinkNode: father node event=="+linkNode.getEvent() );
-            if (linkNode.hasNextChildNode()){
+            if (linkNode.hasNextChildNode()){ // 如果里面为空，直接跳过，避免报错
+                // 首先判断 ViewGroupNode 是否可以执行.
                 VpJsonBean.NodeDataBase nextChildNode = linkNode.getNextChildNode();
                 contachLinkNode(new LinkNode(nextChildNode));
             }else {
-                mockNext();
+                exeNextNode();
             }
         } else { //如果是非容器型节点，直接执行
             exeLinkNode(linkNode);
