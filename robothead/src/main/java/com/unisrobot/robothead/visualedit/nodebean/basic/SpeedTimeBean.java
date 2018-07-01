@@ -1,23 +1,25 @@
 package com.unisrobot.robothead.visualedit.nodebean.basic;
 
-import android.text.TextUtils;
 import android.util.Log;
 
+import com.unisrobot.robothead.visualedit.nodebean.base.Node;
 import com.unisrobot.robothead.visualedit.nodebean.common.AppendUtil;
 import com.unisrobot.robothead.visualedit.nodebean.common.NodeParams;
 import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
+import com.unisrobot.robothead.visualedit.type.RobotMsgType;
 
 /**
  * Created by Administrator on 2018/6/27.
  */
 
-public class SpeedTimeBean {
+public class SpeedTimeBean extends Node<Long> {
     private static final String TAG = SpeedTimeBean.class.getSimpleName();
     private short speed;
     private long xTime;
     private String direction;
 
-    public void exeNode() {
+    @Override
+    public Long exeNode() {
         switch (direction) {
             case NodeParams.Basic.GO_AHEAD:
                 // SerialPortMgr.getInstance().openSportCtr_Direction(speed, (short) 0, (int) xTime);
@@ -36,6 +38,7 @@ public class SpeedTimeBean {
                 xTime += 2500;
                 break;
         }
+        return xTime;
     }
 
     public static SpeedTimeBean getBean(VpJsonBean.NodeDataBase nodeData) {
@@ -49,6 +52,7 @@ public class SpeedTimeBean {
         speedTimeBean.direction = direction;
         speedTimeBean.xTime = time;
         speedTimeBean.speed = speed;
+        speedTimeBean.setRobotMsgType(RobotMsgType.Timer);
         return speedTimeBean;
     }
 
@@ -61,13 +65,5 @@ public class SpeedTimeBean {
             xSpeed = 0;
         }
         return (short) xSpeed;
-    }
-
-    private static long getTime(String time) {
-        long xTime = 1000;
-        if (!TextUtils.isEmpty(time)) {
-            xTime = (long) (Double.parseDouble(time) * 1000);
-        }
-        return xTime;
     }
 }

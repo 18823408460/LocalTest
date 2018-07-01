@@ -1,24 +1,27 @@
 package com.unisrobot.robothead.visualedit.nodebean.basic;
 
+import com.unisrobot.robothead.visualedit.bean.Joint;
+import com.unisrobot.robothead.visualedit.nodebean.base.Node;
 import com.unisrobot.robothead.visualedit.nodebean.common.NodeEvent;
 import com.unisrobot.robothead.visualedit.nodebean.common.NodeParams;
 import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
-import com.unisrobot.robothead.visualedit.bean.Joint;
 
 /**
  * Created by Administrator on 2018/6/27.
  */
 
-public class JointBean {
+public class JointBean extends Node<Long> {
     private Joint[] joints = null;
     private long time;
 
-    public void exeNode() {
+    @Override
+    public Long exeNode() {
         if (joints != null) {
             for (Joint joint : joints) {
                 //SerialPortMgr.getInstance().sendSingleJointCmd((byte) joint.getIndex(), joint.getRotate(), joint.getTime());
             }
         }
+        return time;
     }
 
     public static JointBean getBean(VpJsonBean.NodeDataBase nodeData) {

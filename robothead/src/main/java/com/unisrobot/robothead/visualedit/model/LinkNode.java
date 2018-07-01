@@ -40,7 +40,7 @@ public class LinkNode implements IRobotMsgHandler {
     private int currentCount;
     private String faceArgs;
     private IMsgCanHandler iMsgCanHandler;
-    private RobotMsgType robotMsgType;
+    private List<RobotMsgType> robotMsgTypeList;
 
     public LinkNode(VpJsonBean.NodeDataBase nodeDataBase, IMsgCanHandler iMsgCanHandler) {
         this.iMsgCanHandler = iMsgCanHandler;
@@ -73,10 +73,28 @@ public class LinkNode implements IRobotMsgHandler {
         parseRobotMsgForExit(nodeDataBase);
     }
 
+    /**
+     * 只解析父容器的退出消息类型, 子类型的退出类型，交给具体的类型
+     *
+     * @param nodeDataBase
+     */
     private void parseRobotMsgForExit(VpJsonBean.NodeDataBase nodeDataBase) {
 
     }
 
+    public void setRobotMsgType(RobotMsgType robotMsgType) {
+        if (robotMsgTypeList == null) {
+            robotMsgTypeList = new ArrayList<>();
+        }
+        robotMsgTypeList.add(robotMsgType);
+    }
+    public void setRobotMsgType(List<RobotMsgType> robotMsgType) {
+        if (robotMsgTypeList == null) {
+            robotMsgTypeList = new ArrayList<>();
+        }
+        robotMsgTypeList.clear();
+        robotMsgTypeList.addAll(robotMsgType);
+    }
     private void parseRunType(VpJsonBean.NodeDataBase nodeDataBase) {
         if (NodeRunType.CONDITION.equals(nodeType)) {
             nodeDataBaseCondition = AppendUtil.getAppendCData(nodeDataBase);
@@ -93,7 +111,7 @@ public class LinkNode implements IRobotMsgHandler {
             Log.e(TAG, "parseRunType: REPEAT_UNIT === " + nodeDataBase.Event);
             if (NodeEvent.Perception.REPEAT_UNIT_TOUCH.equals(event)) {
                 String sensor = nodeDataBase.Args.get(0).Content;
-                robotMsgType = RobotMsgType.SensorLocal;
+                setRobotMsgType(RobotMsgType.SensorLocal);
             }
         }
     }
@@ -158,26 +176,27 @@ public class LinkNode implements IRobotMsgHandler {
 
     @Override
     public boolean handlerMsg(RobotMsgType robotMsgType, Bundle bundle) {
-        Log.e(TAG, "handlerMsg: robotMsgType=" + this.robotMsgType + "  msg=" + robotMsgType);
-        if (this.robotMsgType == robotMsgType) {
-            if (isContainerNode()) {
-                LinkNode fatherNode = this.getFatherNode();
-                iMsgCanHandler.haveHandler(true, fatherNode);
-            } else {
-                iMsgCanHandler.haveHandler(false, null);
-            }
-            return true;
-        } else {
-            if (childContainerNode != null) { //如果当前节点有 子容器节点,消息先派发给他处理
-                Log.e(TAG, "handlerMsg:  childContainerNode=" + childContainerNode.event);
-                boolean result = childContainerNode.handlerMsg(robotMsgType, bundle);
-                if (result) { // 如果返回true，说明被处理了，则应该进行回退
-                    //如果childContainerNode有父节点,则更新当前父节点,否则执行下一个rootNode
-                    LinkNode fatherNode = childContainerNode.getFatherNode();
+        Log.e(TAG, "handlerMsg: robotMsgType=" + robotMsgTypeList + "  msg=" + robotMsgType);
+        for (RobotMsgType msgType : robotMsgTypeList) {
+            if (msgType == robotMsgType) {
+                if (isContainerNode()) {
+                    LinkNode fatherNode = this.getFatherNode();
                     iMsgCanHandler.haveHandler(true, fatherNode);
+                } else {
+                    iMsgCanHandler.haveHandler(false, null);
                 }
-                return result;
+                return true;
             }
+        }
+        if (childContainerNode != null) { //如果当前节点有 子容器节点,消息先派发给他处理
+            Log.e(TAG, "handlerMsg:  childContainerNode=" + childContainerNode.event);
+            boolean result = childContainerNode.handlerMsg(robotMsgType, bundle);
+            if (result) { // 如果返回true，说明被处理了，则应该进行回退
+                //如果childContainerNode有父节点,则更新当前父节点,否则执行下一个rootNode
+                LinkNode fatherNode = childContainerNode.getFatherNode();
+                iMsgCanHandler.haveHandler(true, fatherNode);
+            }
+            return result;
         }
         return false;
     }

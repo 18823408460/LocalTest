@@ -17,8 +17,10 @@ import com.unisrobot.robothead.visualedit.interfaces.IMsgCanHandler;
 import com.unisrobot.robothead.visualedit.model.LinkNode;
 import com.unisrobot.robothead.visualedit.nodebean.basic.JointBean;
 import com.unisrobot.robothead.visualedit.nodebean.basic.SpeedTimeBean;
+import com.unisrobot.robothead.visualedit.nodebean.basic.StopMoveBean;
 import com.unisrobot.robothead.visualedit.nodebean.basic.TurnAngleBean;
 import com.unisrobot.robothead.visualedit.nodebean.combineaction.CombineBean;
+import com.unisrobot.robothead.visualedit.nodebean.common.NodeEvent;
 import com.unisrobot.robothead.visualedit.nodebean.common.NodeParams;
 import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
 import com.unisrobot.robothead.visualedit.nodebean.ear.EarBean;
@@ -50,6 +52,7 @@ import java.util.List;
 
 public class VisualEditActivity extends Activity implements IMsgCanHandler {
     private static final int NEXT = 1;
+    private static final int Timer = 2;
     private static final String TAG = VisualEditActivity.class.getSimpleName();
     private BluToothMgr bluToothMgr;
     private LinkedList<VpJsonBean.NodeDataBase> rootNodeLists = new LinkedList<>();
@@ -73,6 +76,9 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
                 switch (msg.what) {
                     case NEXT:
                         visualEditActivity.exeNextNode();
+                        break;
+                    case Timer:
+                        visualEditActivity.dispatchRobotMsg(RobotMsgType.Timer, null);
                         break;
                 }
             }
@@ -274,6 +280,7 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
 
     @Override
     public void haveHandler(boolean isFatherNode, LinkNode linkNode) {
+        exeHandler.removeCallbacksAndMessages(null);
         Log.e(TAG, "haveHandler: =========handler by isFatherNode = " + isFatherNode);
         exeHandler.removeCallbacksAndMessages(null);
         if (isFatherNode) {
@@ -285,6 +292,7 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
     }
 
     private void dispatchRobotMsg(RobotMsgType robotMsgType, Bundle bundle) {
+        exeHandler.removeCallbacksAndMessages(null);
         if (firstNode != null) {
             boolean result = firstNode.handlerMsg(robotMsgType, null);
             if (result) { //如果
@@ -303,7 +311,7 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
 
     private void mockNext() {
         //模拟下一个节点执行的条件到了, 具体什么时候执行下一个？？？
-        exeHandler.sendEmptyMessageDelayed(NEXT, 2000);
+        // exeHandler.sendEmptyMessageDelayed(NEXT, 2000);
     }
 
     /**
@@ -332,8 +340,44 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
                 exeLogicNode(node);
                 break;
             case NodeJsonType.MIND:
+                exeMindNode(node);
                 break;
             case NodeJsonType.PERCEPTION:
+                exePerceptionNode(node);
+                break;
+        }
+    }
+
+    private void exeMindNode(VpJsonBean.NodeDataBase node) {
+        switch (node.PrefabName) {
+            case NodeJsonType.Mind.MindPrefab_Set:
+                break;
+            case NodeJsonType.Mind.MindPrefab_UseChange:
+                break;
+        }
+    }
+
+    private void exePerceptionNode(VpJsonBean.NodeDataBase node) {
+        switch (node.PrefabName) {
+            case NodeJsonType.Perception.PerceptionPrefab_WaitTouch:
+                String event = node.Event;
+                if (NodeEvent.Perception.CLOSE.equals(event) || NodeEvent.Perception.OPEN.equals(event)) {
+
+                } else if (NodeEvent.Perception.WAIT_PHONE.equals(event)) {
+
+                } else if (NodeEvent.Perception.WAIT_TOUCH.equals(event)) {
+
+                } else if (NodeEvent.Perception.ADD.equals(event)) {
+
+                } else if (NodeEvent.Perception.SUB.equals(event)) {
+
+                }
+                break;
+            case NodeJsonType.Perception.PerceptionPrefab_LookAt:
+
+                break;
+            case NodeJsonType.Perception.PerceptionPrefab_When:
+
                 break;
         }
     }
@@ -351,25 +395,16 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
 
     private void exeLogicNode(VpJsonBean.NodeDataBase nodeData) {
         switch (nodeData.PrefabName) {
-            case NodeJsonType.Logic.LogicPrefab_:
-                break;
             case NodeJsonType.Logic.LogicPrefab_CallFunction:
-                break;
-            case NodeJsonType.Logic.LogicPrefab_RepeatCycle:
-                break;
-            case NodeJsonType.Logic.LogicPrefab_RepeatUntil:
-                break;
-            case NodeJsonType.Logic.LogicPrefab_If:
-                break;
-            case NodeJsonType.Logic.LogicPrefab_IfElse:
-                break;
-            case NodeJsonType.Logic.LogicPrefab_IfElseFace:
+                if (NodeEvent.Logic.GO_TO_MAP.equals(nodeData.Event)){
+
+                }
                 break;
             case NodeJsonType.Logic.LogicPrefab_MakeFunction:
                 break;
-            case NodeJsonType.Logic.LogicPrefab_RepeatCount:
+            case NodeJsonType.Logic.LogicPrefab_WaitSecond://等待几秒
                 break;
-            case NodeJsonType.Logic.LogicPrefab_WaitSecond:
+            case NodeJsonType.Logic.LogicPrefab_://打开盛开互动人脸识别
                 break;
         }
     }
@@ -378,9 +413,9 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
         switch (nodeData.PrefabName) {
             case NodeJsonType.Ears.EarsPrefab_: //要去云端获取答案然后才能执行下一个节点
                 EarBean earBean = EarBean.getBean(nodeData);
-                earBean.exeNode();
-                break;
-            case NodeJsonType.Ears.EarsPrefab_Hear:
+                long timer = earBean.exeNode();
+                exeHandler.sendEmptyMessageDelayed(Timer, timer);
+                currentExeLinkNode.setRobotMsgType(earBean.getRobotMsgTypeList());
                 break;
         }
     }
@@ -391,10 +426,16 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
             case NodeJsonType.Eyes.EyesPrefab_LookAngle:
                 EyeLookAngle eyeLookAngle = EyeLookAngle.getBean(nodeData);
                 eyeLookAngle.exeNode();
+                long timer = eyeLookAngle.exeNode();
+                exeHandler.sendEmptyMessageDelayed(Timer, timer);
+                currentExeLinkNode.setRobotMsgType(eyeLookAngle.getRobotMsgTypeList());
                 break;
             case NodeJsonType.Eyes.EyesPrefab_Feelings:
                 EyeFeelingBean eyeFeelingBean = EyeFeelingBean.getBean(nodeData);
                 eyeFeelingBean.exeNode();
+                timer = eyeFeelingBean.exeNode();
+                exeHandler.sendEmptyMessageDelayed(Timer, timer);
+                currentExeLinkNode.setRobotMsgType(eyeFeelingBean.getRobotMsgTypeList());
                 break;
         }
     }
@@ -402,19 +443,25 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
     private void exeLanguageNode(VpJsonBean.NodeDataBase node) {
         switch (node.PrefabName) {
             case NodeJsonType.Language.LanguagePrefab_Speak:// tts
-                TtsBean bean = TtsBean.getBean(node);
-                bean.exeNode();
+                TtsBean ttsBean = TtsBean.getBean(node);
+                long timer = ttsBean.exeNode();
+                exeHandler.sendEmptyMessageDelayed(Timer, timer);
+                currentExeLinkNode.setRobotMsgType(ttsBean.getRobotMsgTypeList());
                 break;
             case NodeJsonType.Language.LanguagePrefab_:// music
                 MusicBean musicBean = MusicBean.getBean(node);
-                musicBean.exeNode();
+                timer = musicBean.exeNode();
+                exeHandler.sendEmptyMessageDelayed(Timer, timer);
+                currentExeLinkNode.setRobotMsgType(musicBean.getRobotMsgTypeList());
                 break;
         }
     }
 
     private void exeCombineActionNode(VpJsonBean.NodeDataBase node) {
-        CombineBean bean = CombineBean.getBean(node);
-        bean.exeNode();
+        CombineBean combineBean = CombineBean.getBean(node);
+        long timer = combineBean.exeNode();
+        exeHandler.sendEmptyMessageDelayed(Timer, timer);
+        currentExeLinkNode.setRobotMsgType(combineBean.getRobotMsgTypeList());
     }
 
     /**
@@ -425,18 +472,28 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
     private void exeBasicNode(VpJsonBean.NodeDataBase nodeData) {
         switch (nodeData.PrefabName) {
             case NodeJsonType.Basic.BasicActionPrefab_GoSpeedSeconed:
-                SpeedTimeBean bean = SpeedTimeBean.getBean(nodeData);
-                bean.exeNode();
+                SpeedTimeBean speedTimeBean = SpeedTimeBean.getBean(nodeData);
+                long timer = speedTimeBean.exeNode();
+                exeHandler.sendEmptyMessageDelayed(Timer, timer);
+                currentExeLinkNode.setRobotMsgType(speedTimeBean.getRobotMsgTypeList());
                 break;
             case NodeJsonType.Basic.BasicActionPrefab_BasicJoint:
-                JointBean bean1 = JointBean.getBean(nodeData);
-                bean1.exeNode();
+                JointBean jointBean = JointBean.getBean(nodeData);
+                timer = jointBean.exeNode();
+                exeHandler.sendEmptyMessageDelayed(Timer, timer);
+                currentExeLinkNode.setRobotMsgType(jointBean.getRobotMsgTypeList());
                 break;
             case NodeJsonType.Basic.BasicActionPrefab_TrunAngle:
-                TurnAngleBean bean2 = TurnAngleBean.getBean(nodeData);
-                bean2.exeNode();
+                TurnAngleBean turnAngleBean = TurnAngleBean.getBean(nodeData);
+                timer = turnAngleBean.exeNode();
+                exeHandler.sendEmptyMessageDelayed(Timer, timer);
+                currentExeLinkNode.setRobotMsgType(turnAngleBean.getRobotMsgTypeList());
                 break;
             case NodeJsonType.Basic.BasicActionPrefab_Second:
+                StopMoveBean stopMoveBean = StopMoveBean.getBean(nodeData);
+                timer = stopMoveBean.exeNode();
+                exeHandler.sendEmptyMessageDelayed(Timer, timer);
+                currentExeLinkNode.setRobotMsgType(stopMoveBean.getRobotMsgTypeList());
                 break;
         }
     }

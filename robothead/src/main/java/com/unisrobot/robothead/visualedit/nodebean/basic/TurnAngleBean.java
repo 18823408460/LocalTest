@@ -1,21 +1,21 @@
 package com.unisrobot.robothead.visualedit.nodebean.basic;
 
-import android.text.TextUtils;
-
+import com.unisrobot.robothead.visualedit.nodebean.base.Node;
+import com.unisrobot.robothead.visualedit.nodebean.common.AppendUtil;
 import com.unisrobot.robothead.visualedit.nodebean.common.NodeEvent;
 import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
-import com.unisrobot.robothead.visualedit.nodebean.common.AppendUtil;
 
 /**
  * Created by Administrator on 2018/6/27.
  */
 
-public class TurnAngleBean {
+public class TurnAngleBean extends Node<Long> {
     private short angle;
     private long xTime;
-    private String direction ="";
+    private String direction = "";
 
-    public void exeNode() {
+    @Override
+    public Long exeNode() {
         switch (direction) {
             case NodeEvent.Basic.TRUN_LEFT_ANGLE:
                 //   SerialPortMgr.getInstance().sendDirectMotion((short) 0x0B, (short) 10, (short) -angle);
@@ -28,6 +28,7 @@ public class TurnAngleBean {
                 xTime += 1000;
                 break;
         }
+        return xTime;
     }
 
     public static TurnAngleBean getBean(VpJsonBean.NodeDataBase nodeData) {
@@ -35,7 +36,7 @@ public class TurnAngleBean {
         String InputNumberAngle = AppendUtil.getNumberParams(nodeData, 0);
 //        String direction = nodeData.Args.get(0).Content;
         short speed = getAngle(InputNumberAngle);
-     //   speedTimeBean.direction = direction;
+        //   speedTimeBean.direction = direction;
         speedTimeBean.xTime = getTime("");
         speedTimeBean.angle = speed;
         return speedTimeBean;
@@ -46,11 +47,5 @@ public class TurnAngleBean {
         return angle;
     }
 
-    private static long getTime(String time) {
-        long xTime = 1000;
-        if (!TextUtils.isEmpty(time)) {
-            xTime = (long) (Double.parseDouble(time) * 1000);
-        }
-        return xTime;
-    }
+
 }

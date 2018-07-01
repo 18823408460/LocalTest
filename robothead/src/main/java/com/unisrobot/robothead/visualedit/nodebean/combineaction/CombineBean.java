@@ -1,13 +1,15 @@
 package com.unisrobot.robothead.visualedit.nodebean.combineaction;
 
+import com.unisrobot.robothead.visualedit.nodebean.base.Node;
 import com.unisrobot.robothead.visualedit.nodebean.common.NodeEvent;
 import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
+import com.unisrobot.robothead.visualedit.type.RobotMsgType;
 
 /**
  * Created by WEI on 2018/6/27.
  */
 
-public class CombineBean {
+public class CombineBean extends Node<Long>{
     private int actionId = -1;
     private long time = 1000;
 
@@ -70,12 +72,15 @@ public class CombineBean {
         }
         combineBean.actionId = actionId;
         combineBean.time = time;
+        combineBean.setRobotMsgType(RobotMsgType.Timer);
         return combineBean;
     }
 
-    public void exeNode() {
+    @Override
+    public Long exeNode() {
         if (actionId != -1) {
             //SerialPortMgr.getInstance().sendActionCmd(actionId);
         }
+        return time;
     }
 }

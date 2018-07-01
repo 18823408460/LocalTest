@@ -6,7 +6,9 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 
+import com.unisrobot.robothead.visualedit.nodebean.base.Node;
 import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
+import com.unisrobot.robothead.visualedit.type.RobotMsgType;
 
 import java.util.Random;
 
@@ -14,7 +16,7 @@ import java.util.Random;
  * Created by WEI on 2018/6/27.
  */
 
-public class MusicBean {
+public class MusicBean extends Node<Long> {
     private static final String VISUAL_VOICE_DIR = "/ai/ai05res/a1/res/audio/visual/";
     @SuppressLint("NewApi")
     static ArrayMap<String, String> voiceMap = new ArrayMap<>();
@@ -54,6 +56,8 @@ public class MusicBean {
         String event = nodeData.Event;
         String voicePath = getVoicePath(event, content);
         musicBean.path = voicePath;
+        musicBean.setRobotMsgType(RobotMsgType.PlayEnd);
+        musicBean.setRobotMsgType(RobotMsgType.Timer);
         return musicBean;
     }
 
@@ -103,9 +107,11 @@ public class MusicBean {
         return voicePath;
     }
 
-    public void exeNode() {
+    @Override
+    public Long exeNode() {
         if (!TextUtils.isEmpty(path)) {
 //            MsgSendUtils.sendStringMsg(MsgType.PLAY_SOUND, voicePath);
         }
+        return time;
     }
 }

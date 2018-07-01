@@ -2,30 +2,39 @@ package com.unisrobot.robothead.visualedit.nodebean.eye;
 
 import android.text.TextUtils;
 
+import com.unisrobot.robothead.visualedit.nodebean.base.Node;
+import com.unisrobot.robothead.visualedit.nodebean.common.AppendUtil;
 import com.unisrobot.robothead.visualedit.nodebean.common.NodeEvent;
 import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
-import com.unisrobot.robothead.visualedit.nodebean.common.AppendUtil;
+import com.unisrobot.robothead.visualedit.type.RobotMsgType;
 
 /**
  * Created by WEI on 2018/6/27.
  */
 
-public class EyeLookAngle {
+public class EyeLookAngle extends Node<Long> {
     private String direction;
-    private short angle;
+    private Float angle;
     private long time;
 
     public static EyeLookAngle getBean(VpJsonBean.NodeDataBase nodeDataBase) {
         EyeLookAngle eyeLookAngle = new EyeLookAngle();
-        String inputNumberAngle = AppendUtil.getNumberParams(nodeDataBase, 0);
-        eyeLookAngle.direction = nodeDataBase.Event;
-        if (inputNumberAngle != null) {
-            //eyeLookAngle.angle = Short.parseShort(inputNumberAngle);
+        String event = nodeDataBase.Event;
+        if (NodeEvent.Eyes.LOOK_BROUNT.equals(event)) {
+
+        } else {
+            String inputNumberAngle = AppendUtil.getNumberParams(nodeDataBase, 0);
+            eyeLookAngle.direction = nodeDataBase.Event;
+            if (inputNumberAngle != null) {
+                eyeLookAngle.angle = Float.parseFloat(inputNumberAngle);
+            }
         }
+        eyeLookAngle.setRobotMsgType(RobotMsgType.PlayEnd);
         return eyeLookAngle;
     }
 
-    public void exeNode() {
+    @Override
+    public Long exeNode() {
         if (!TextUtils.isEmpty(direction)) {
             time = 1000;
             switch (direction) {
@@ -46,5 +55,6 @@ public class EyeLookAngle {
                     break;
             }
         }
+        return time;
     }
 }
