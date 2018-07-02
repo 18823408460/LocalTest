@@ -22,9 +22,9 @@ public class WaitPhoneBean extends Node {
         public static WaitPhoneBean getBean(VpJsonBean.NodeDataBase nodeDataBase) {
                 WaitPhoneBean waitTouchBean = new WaitPhoneBean();
                 waitTouchBean.state = nodeDataBase.Args.get(0).Content;
-                waitTouchBean.setRobotMsgType(RobotMsgType.SensorThreePart);
+                waitTouchBean.setRobotMsgType(RobotMsgType.WaitForPhone);
                 Bundle bundle = new Bundle();
-                bundle.putString(Bundle_SensorName, waitTouchBean.state);
+                bundle.putString(Bundle_PhoneState, waitTouchBean.state);
                 waitTouchBean.setBundle(bundle);
                 return waitTouchBean;
         }

@@ -20,7 +20,6 @@ import com.unisrobot.robothead.visualedit.nodebean.basic.SpeedTimeBean;
 import com.unisrobot.robothead.visualedit.nodebean.basic.StopMoveBean;
 import com.unisrobot.robothead.visualedit.nodebean.basic.TurnAngleBean;
 import com.unisrobot.robothead.visualedit.nodebean.combineaction.CombineBean;
-import com.unisrobot.robothead.visualedit.nodebean.common.AppendUtil;
 import com.unisrobot.robothead.visualedit.nodebean.common.NodeEvent;
 import com.unisrobot.robothead.visualedit.nodebean.common.NodeParams;
 import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
@@ -99,7 +98,7 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
         }
 
         public void sensor(View view) {
-                dispatchRobotMsg(RobotMsgType.SensorLocal, null);
+                dispatchRobotMsg(RobotMsgType.SensorTouch, null);
         }
 
         public void timer(View view) {

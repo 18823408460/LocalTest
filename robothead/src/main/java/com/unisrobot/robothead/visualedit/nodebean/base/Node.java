@@ -14,6 +14,7 @@ import java.util.List;
 
 public abstract class Node<R> {
         public static String Bundle_SensorName = "SensorName";
+        public static String Bundle_PhoneState = "PhoneState";
         //有可能可以接受多个消息，比如播放tts，可以是播放完毕，可以是播放超时
         protected List<RobotMsgType> robotMsgTypeList;
         protected Bundle bundle;

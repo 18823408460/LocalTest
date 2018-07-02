@@ -118,7 +118,7 @@ public class LinkNode implements IRobotMsgHandler {
                         Log.e(TAG, "parseRunType: REPEAT_UNIT === " + nodeDataBase.Event);
                         if (NodeEvent.Perception.REPEAT_UNIT_TOUCH.equals(event)) { //重复直到触摸
                                 String sensor = nodeDataBase.Args.get(0).Content;
-                                setRobotMsgType(RobotMsgType.SensorLocal);
+                                setRobotMsgType(RobotMsgType.SensorTouch);
 
                         } else if (NodeEvent.Logic.REPEAT_UNIT.equals(event)) {//重复执行直到，这里要进行细分
                                 // 对应这个节点，正确的做法 = 每隔xs 对nodeDataBaseCondition进行一次判断，

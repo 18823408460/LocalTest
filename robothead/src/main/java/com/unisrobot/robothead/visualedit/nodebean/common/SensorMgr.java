@@ -1,6 +1,12 @@
 package com.unisrobot.robothead.visualedit.nodebean.common;
 
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
+
+import com.unisrobot.robothead.visualedit.nodebean.base.SensorBooleanBean;
+import com.unisrobot.robothead.visualedit.nodebean.base.SensorNumBean;
 
 /**
  * Created by WEI on 2018/7/1.
@@ -11,15 +17,70 @@ import android.text.TextUtils;
  */
 
 public class SensorMgr {
+    // SparseArray是android里为<Interger,Object>这样的Hashmap而专门写的类
+//    private SparseArray sensorNumMap = new SparseArray();
+//    private SparseArray sensorBooleanMap = new SparseArray();
+    private static ArrayMap<String, SensorNumBean> sensorNumMap = new ArrayMap<>();
+    private static ArrayMap<String, SensorBooleanBean> sensorBooleanMap = new ArrayMap<>();
+    private static ArrayMap<String, Integer> sensorTouchMap = new ArrayMap<>();
+    private Handler handler;
 
-    /**
-     * @param name --- 传感器的名字
-     * @param pos  --- 哪个位置的传感器
-     * @return
-     */
-    public static boolean getSensorState(String name, String pos) {
+    public SensorMgr() {
+        //这些传感器数据每个 X s 获取一次，然后更新, 以及一些触摸传感器的触摸次数记录
+        // 传感器 = 系统触摸传感器 + 系统可插入传感器(这个数据需要主动去获取) + 外置传感器
+        //系统可插入传感器 = 人体+ 超神波（距离） +
+        initHandler();
+        updateSensorData();
+    }
 
-        return false;
+    public void updateBooleanSensor(String pos, String name, boolean value) {
+        SensorBooleanBean sensorBooleanBean = sensorBooleanMap.get(pos);
+        if (sensorBooleanBean == null) {
+            sensorBooleanBean = new SensorBooleanBean(name, value);
+        } else {
+            sensorBooleanBean.state = value;
+        }
+        sensorBooleanMap.put(pos, sensorBooleanBean);
+    }
+
+    public void updateTouchSensor(String pos) {
+        Integer integer = sensorTouchMap.get(pos);
+        sensorTouchMap.put(pos, ++integer);
+    }
+
+    public void updateNumSensor(String pos, String name, float value) {
+        SensorNumBean sensorNumBean = sensorNumMap.get(pos);
+        if (sensorNumBean == null) {
+            sensorNumBean = new SensorNumBean(name, value);
+        }
+        sensorNumBean.value = value;
+        sensorNumMap.put(pos, sensorNumBean);
+    }
+
+    private void initHandler() {
+        HandlerThread handlerThread = new HandlerThread("getSensorDataThread");
+        handlerThread.start();
+        handler = new Handler(handlerThread.getLooper());
+    }
+
+    private void updateSensorData() {
+        sensorNumMap.put(NodeParams.Perception.LEFT, new SensorNumBean("超神波", 1));
+        sensorNumMap.put(NodeParams.Perception.RIGHT, new SensorNumBean("超神波", 1));
+        sensorTouchMap.put(NodeParams.Perception.LEFT, 1);
+        sensorTouchMap.put(NodeParams.Perception.RIGHT, 3);
+        sensorBooleanMap.put(NodeParams.Perception.CHEST_DOWN, new SensorBooleanBean("人体", false));
+        sensorBooleanMap.put(NodeParams.Perception.CHEST_UP, new SensorBooleanBean("人体", false));
+    }
+
+    private static float getData(String event, String pos, float defaultValue) {
+        SensorNumBean sensorNumBean = sensorNumMap.get(pos);
+        float resultData;
+        if (event.equals(sensorNumBean.name)) { //如果当前位置的传感器名字 一致 ,
+            resultData = sensorNumBean.value;
+        } else {
+            resultData = defaultValue;
+        }
+        return resultData;
     }
 
     /**
@@ -31,21 +92,21 @@ public class SensorMgr {
     public static float getSensorData(String event, String pos, String params) {
         float resultData = -1;
         switch (event) {
-            case NodeEvent.Perception.LIGHT_SENSOR:
-                resultData = 100;
+            case NodeEvent.Perception.LIGHT_SENSOR://感知：光照强度
+                resultData = getData(event, pos, 100);
                 break;
-            case NodeEvent.Perception.CSB_SENSOR:
-                resultData = 65536;
+            case NodeEvent.Perception.CSB_SENSOR://感知：超神波度数
+                resultData = getData(event, pos, 65535);
                 break;
-            case NodeEvent.Perception.WEN_SHI_SENSOR:
+            case NodeEvent.Perception.WEN_SHI_SENSOR://感知：温湿度传感器度数
                 if (NodeParams.Perception.WNEDU.equals(params)) {
-                    resultData = 38;
+                    resultData = getData(event, pos, 38);
                 } else if (NodeParams.Perception.SHIDU.equals(params)) {
-                    resultData = 99;
+                    resultData = getData(event, pos, 99);
                 }
                 break;
-            case NodeEvent.Perception.WEN_DU_SENSOR:
-                resultData = 33;
+            case NodeEvent.Perception.WEN_DU_SENSOR://感知：温度传感器度数
+                resultData = getData(event, pos, 33);
                 break;
         }
         return resultData;
@@ -61,46 +122,34 @@ public class SensorMgr {
         boolean resultData = false;
         if (!TextUtils.isEmpty(condition)) {
             switch (condition) {
-                case NodeParams.Perception.AHEAD_BARRIER:
+                case NodeParams.Perception.AHEAD_BARRIER://感知：当前方有障碍
+                    // 需要查询超神波 + 人体
                     break;
-                case NodeParams.Perception.BACK_BARRIER:
+                case NodeParams.Perception.BACK_BARRIER://感知：当后方有障碍
                     break;
-                case NodeParams.Perception.VOICE_SHOU:
+                case NodeParams.Perception.VOICE_SHOU://感知：当听到拍手声音
+                    //但如果是多层嵌套，这里也不好实现
+                case NodeParams.Perception.VOICE://感知：当听到说话声音,这两个交给系统消息下发RobotMsgType
                     break;
-                case NodeParams.Perception.VOICE:
-                    break;
-                case NodeParams.Perception.PEOPEL:
+                case NodeParams.Perception.PEOPEL://感知：当感应到人体
                     break;
             }
         }
-        return false;
+        return resultData;
     }
 
     /**
      * 检测人体传感器
-     * @param content
+     *
+     * @param pos
      * @return
      */
-    public static boolean getPeopleSensor(String content) {
+    public static boolean getPeopleSensor(String pos) {
         boolean resultData = false;
-        if (!TextUtils.isEmpty(content)) {
-            switch (content) {
-                case NodeParams.Perception.LEFT:
-                    break;
-                case NodeParams.Perception.RIGHT:
-                    break;
-                case NodeParams.Perception.LEFT_AHEAD:
-                    break;
-                case NodeParams.Perception.RIGHT_AHEAD:
-                    break;
-                case NodeParams.Perception.CHEST_UP:
-                    break;
-                case NodeParams.Perception.CHEST_DOWN:
-                    break;
-                case NodeParams.Perception.BACK_LEFT:
-                    break;
-                case NodeParams.Perception.BACK_RIGHT:
-                    break;
+        if (!TextUtils.isEmpty(pos)) {
+            SensorBooleanBean sensorBooleanBean = sensorBooleanMap.get(pos);
+            if ("人体传感器".equals(sensorBooleanBean.name)) {
+                return sensorBooleanBean.state;
             }
         }
         return resultData;
@@ -117,24 +166,8 @@ public class SensorMgr {
         boolean resultData = false;
         int countInt = Integer.parseInt(count);
         if (!TextUtils.isEmpty(pos)) {
-            switch (pos) {
-                case NodeParams.Perception.LEFT:
-                    break;
-                case NodeParams.Perception.RIGHT:
-                    break;
-                case NodeParams.Perception.LEFT_AHEAD:
-                    break;
-                case NodeParams.Perception.RIGHT_AHEAD:
-                    break;
-                case NodeParams.Perception.CHEST_UP:
-                    break;
-                case NodeParams.Perception.CHEST_DOWN:
-                    break;
-                case NodeParams.Perception.BACK_LEFT:
-                    break;
-                case NodeParams.Perception.BACK_RIGHT:
-                    break;
-            }
+            Integer integer = sensorTouchMap.get(pos);
+            return integer == countInt;
         }
         return resultData;
     }
