@@ -1,6 +1,7 @@
 package com.unisrobot.robothead.visualedit.model;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import com.unisrobot.robothead.visualedit.interfaces.IMsgCanHandler;
@@ -8,7 +9,6 @@ import com.unisrobot.robothead.visualedit.interfaces.IRobotMsgHandler;
 import com.unisrobot.robothead.visualedit.nodebean.common.AppendUtil;
 import com.unisrobot.robothead.visualedit.nodebean.common.NodeEvent;
 import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
-import com.unisrobot.robothead.visualedit.type.NodeJsonType;
 import com.unisrobot.robothead.visualedit.type.NodeRunType;
 import com.unisrobot.robothead.visualedit.type.RobotMsgType;
 import com.unisrobot.robothead.visualedit.type.TypeUtil;
@@ -42,6 +42,7 @@ public class LinkNode implements IRobotMsgHandler {
         private String faceArgs;
         private IMsgCanHandler iMsgCanHandler;
         private List<RobotMsgType> robotMsgTypeList;
+        private Handler handler;
 
         public LinkNode(VpJsonBean.NodeDataBase nodeDataBase, IMsgCanHandler iMsgCanHandler) {
                 this.iMsgCanHandler = iMsgCanHandler;
@@ -118,11 +119,18 @@ public class LinkNode implements IRobotMsgHandler {
                         if (NodeEvent.Perception.REPEAT_UNIT_TOUCH.equals(event)) { //重复直到触摸
                                 String sensor = nodeDataBase.Args.get(0).Content;
                                 setRobotMsgType(RobotMsgType.SensorLocal);
-                        } else if (NodeJsonType.Logic.LogicPrefab_RepeatUntil.equals(event)) {//重复直到，这里要进行细分
+
+                        } else if (NodeEvent.Logic.REPEAT_UNIT.equals(event)) {//重复执行直到，这里要进行细分
+                                // 对应这个节点，正确的做法 = 每隔xs 对nodeDataBaseCondition进行一次判断，
+                                // 如果为true ，退出当前，然后往上一级执行
+                                // 这里分两种情况： 1-需要主动去查询的数据(传感器单点数据)； 2-有系统下发的消息
 
                         }
+                } else if (NodeRunType.REPEAT_CYCLE.equals(nodeType)) {
+
                 }
         }
+
 
         public boolean hasNextChildNode() { // 这里不仅仅只判断 索引，还要优先根据nodeType来判断
                 if (nodeDataBaseList != null) {
@@ -185,7 +193,8 @@ public class LinkNode implements IRobotMsgHandler {
 
         @Override
         public boolean handlerMsg(RobotMsgType robotMsgType, Bundle bundle) {
-                Log.e(TAG, "handlerMsg: robotMsgType=" + robotMsgTypeList + "  msg=" + robotMsgType);
+                Log.e(TAG, "handlerMsg: robotMsgType=" + robotMsgTypeList + "  msg=" + robotMsgType + "  event=" + event);
+
                 if (robotMsgTypeList != null) {
                         for (RobotMsgType msgType : robotMsgTypeList) {
                                 if (msgType == robotMsgType) {

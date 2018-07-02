@@ -36,8 +36,8 @@ public class EyeLookAngle extends Node<Long> {
 
     @Override
     public Long exeNode() {
+        time = 1000;
         if (!TextUtils.isEmpty(direction)) {
-            time = 1000;
             switch (direction) {
                 case NodeEvent.Eyes.LOOK_LEFT:
                     //SerialPortMgr.getInstance().sendHeadCmd((short) 0, (short) 0, angle,(short) 5000);

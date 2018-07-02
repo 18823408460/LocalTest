@@ -295,7 +295,6 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
         public void haveHandler(boolean isFatherNode, LinkNode linkNode) {
                 exeHandler.removeCallbacksAndMessages(null);
                 Log.e(TAG, "haveHandler: =========handler by isFatherNode = " + isFatherNode);
-                exeHandler.removeCallbacksAndMessages(null);
                 if (isFatherNode) {
                         currentFatherLinkNode = linkNode;
                         exeNextNode();
@@ -305,10 +304,10 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
         }
 
         private void dispatchRobotMsg(RobotMsgType robotMsgType, Bundle bundle) {
-                exeHandler.removeCallbacksAndMessages(null);
+                Log.e(TAG, "dispatchRobotMsg: ========== robotMsgType=" + robotMsgType);
                 if (firstFatherNode != null) {
                         boolean result = firstFatherNode.handlerMsg(robotMsgType, null);
-                        if (result) { //如果
+                        if (result) { //如果被处理了，就会回调
 
                         } else {
                                 if (currentExeLinkNode != null) {
@@ -416,6 +415,8 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
                 rootNodeListYIndex = 0;
                 rootNodeLists.clear();
                 bluToothMgr.sendTaskExeEndMsg();
+                firstFatherNode = null;
+                currentExeLinkNode = null;
                 exeHandler.removeCallbacksAndMessages(null);
         }
 
