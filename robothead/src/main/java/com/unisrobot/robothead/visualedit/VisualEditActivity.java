@@ -410,6 +410,9 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
                 if (currentFatherLinkNode != null) {
                         currentFatherLinkNode = null;
                 }
+                if (firstFatherNode != null){
+                        firstFatherNode.cleanCurrentAndChild();
+                }
                 heartSetBean = null;
                 rootNodeListYIndex = 0;
                 rootNodeLists.clear();

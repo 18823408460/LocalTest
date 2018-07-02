@@ -99,7 +99,7 @@ public class LinkNode implements IRobotMsgHandler {
                 robotMsgTypeList.addAll(robotMsgType);
         }
 
-        private void parseRunType(VpJsonBean.NodeDataBase nodeDataBase) {
+        private void parseRunType(final VpJsonBean.NodeDataBase nodeDataBase) {
                 if (NodeRunType.CONDITION.equals(nodeType)) {
                         nodeDataBaseCondition = AppendUtil.getAppendCData(nodeDataBase);
                         boolean booleanParams = AppendUtil.getBooleanParams(nodeDataBaseCondition);
@@ -124,11 +124,39 @@ public class LinkNode implements IRobotMsgHandler {
                                 // 对应这个节点，正确的做法 = 每隔xs 对nodeDataBaseCondition进行一次判断，
                                 // 如果为true ，退出当前，然后往上一级执行
                                 // 这里分两种情况： 1-需要主动去查询的数据(传感器单点数据)； 2-有系统下发的消息
-
+                                nodeDataBaseCondition = AppendUtil.getAppendCData(nodeDataBase);
+                                handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                                boolean appendCBooleanData = AppendUtil.getAppendCBooleanData(nodeDataBaseCondition);
+                                                if (appendCBooleanData) {
+                                                        cleanCurrentAndChild();
+                                                        iMsgCanHandler.haveHandler(true, getFatherNode());
+                                                } else {
+                                                        handler.postDelayed(this, 2000);
+                                                }
+                                                Log.e(TAG, "run: =======================post==================");
+                                        }
+                                }, 2000);
                         }
                 } else if (NodeRunType.REPEAT_CYCLE.equals(nodeType)) {
 
                 }
+        }
+
+        public void cleanCurrentAndChild() {
+                if (handler != null) {
+                        handler.removeCallbacksAndMessages(null);
+                }
+                if (childContainerNode != null) {
+                        childContainerNode.cleanCurrentAndChild();
+                }
+                LinkNode fatherNode = getFatherNode();
+                if (fatherNode != null){
+                        fatherNode.setChildContainerNode(null);
+                }
+                nodeDataBaseCondition = null;
         }
 
 
@@ -194,12 +222,21 @@ public class LinkNode implements IRobotMsgHandler {
         @Override
         public boolean handlerMsg(RobotMsgType robotMsgType, Bundle bundle) {
                 Log.e(TAG, "handlerMsg: robotMsgType=" + robotMsgTypeList + "  msg=" + robotMsgType + "  event=" + event);
+                if (nodeDataBaseCondition != null) {
+                        boolean appendCBooleanData = AppendUtil.getAppendCBooleanData(nodeDataBaseCondition);
+                        if (appendCBooleanData) {
+                                Log.e(TAG, "handlerMsg: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" );
+                                cleanCurrentAndChild();
+                                iMsgCanHandler.haveHandler(true, fatherNode);
+                                return true;
+                        }
+                }
+
                 if (robotMsgTypeList != null) {//如果当前容器节点需要处理
                         for (RobotMsgType msgType : robotMsgTypeList) {
                                 if (msgType == robotMsgType) {
                                         if (isContainerNode()) { //则更新当前父节点,否则执行下一个rootNode
-                                                LinkNode fatherNode = this.getFatherNode();
-                                                fatherNode.setChildContainerNode(null);
+                                                cleanCurrentAndChild();
                                                 iMsgCanHandler.haveHandler(true, fatherNode);
                                         } else {
                                                 iMsgCanHandler.haveHandler(false, null);
