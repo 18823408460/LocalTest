@@ -183,7 +183,6 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
                 if (currentFatherLinkNode != null) {
                         boolean hasNext = currentFatherLinkNode.hasNextChildNode();
                         if (hasNext) {
-                                Log.e(TAG, "exeNextNode: >>>>>>>>>>>>>>>> next child.......... ");
                                 VpJsonBean.NodeDataBase nextData = currentFatherLinkNode.getNextChildNode();
                                 parseFatherNode(new LinkNode(nextData, this));
                         } else {

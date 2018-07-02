@@ -194,7 +194,6 @@ public class LinkNode implements IRobotMsgHandler {
         @Override
         public boolean handlerMsg(RobotMsgType robotMsgType, Bundle bundle) {
                 Log.e(TAG, "handlerMsg: robotMsgType=" + robotMsgTypeList + "  msg=" + robotMsgType + "  event=" + event);
-
                 if (robotMsgTypeList != null) {
                         for (RobotMsgType msgType : robotMsgTypeList) {
                                 if (msgType == robotMsgType) {
@@ -214,6 +213,7 @@ public class LinkNode implements IRobotMsgHandler {
                         if (result) { // 如果返回true，说明被处理了，则应该进行回退
                                 //如果childContainerNode有父节点,则更新当前父节点,否则执行下一个rootNode
                                 LinkNode fatherNode = childContainerNode.getFatherNode();
+                                childContainerNode = null ;
                                 iMsgCanHandler.haveHandler(true, fatherNode);
                         }
                         return result;
