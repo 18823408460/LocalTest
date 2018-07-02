@@ -111,7 +111,7 @@ public class MusicBean extends Node<Long> {
         @Override
         public Long exeNode() {
                 if (!TextUtils.isEmpty(path)) {
-                        //            MsgSendUtils.sendStringMsg(MsgType.PLAY_SOUND, voicePath);
+                        // MsgSendUtils.sendStringMsg(MsgType.PLAY_SOUND, voicePath);
                 }
                 return time;
         }

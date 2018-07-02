@@ -194,10 +194,10 @@ public class LinkNode implements IRobotMsgHandler {
         @Override
         public boolean handlerMsg(RobotMsgType robotMsgType, Bundle bundle) {
                 Log.e(TAG, "handlerMsg: robotMsgType=" + robotMsgTypeList + "  msg=" + robotMsgType + "  event=" + event);
-                if (robotMsgTypeList != null) {
+                if (robotMsgTypeList != null) {//如果当前容器节点需要处理
                         for (RobotMsgType msgType : robotMsgTypeList) {
                                 if (msgType == robotMsgType) {
-                                        if (isContainerNode()) {
+                                        if (isContainerNode()) { //则更新当前父节点,否则执行下一个rootNode
                                                 LinkNode fatherNode = this.getFatherNode();
                                                 iMsgCanHandler.haveHandler(true, fatherNode);
                                         } else {
@@ -207,16 +207,10 @@ public class LinkNode implements IRobotMsgHandler {
                                 }
                         }
                 }
-                if (childContainerNode != null) { //如果当前节点有 子容器节点,消息先派发给他处理
+                if (childContainerNode != null) { //如果当前节点有子容器节点,消息派发给他处理
                         Log.e(TAG, "handlerMsg:  childContainerNode=" + childContainerNode.event);
-                        boolean result = childContainerNode.handlerMsg(robotMsgType, bundle);
-                        if (result) { // 如果返回true，说明被处理了，则应该进行回退
-                                //如果childContainerNode有父节点,则更新当前父节点,否则执行下一个rootNode
-                                LinkNode fatherNode = childContainerNode.getFatherNode();
-                                childContainerNode = null ;
-                                iMsgCanHandler.haveHandler(true, fatherNode);
-                        }
-                        return result;
+                        return childContainerNode.handlerMsg(robotMsgType, bundle);
+
                 }
                 return false;
         }
