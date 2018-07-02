@@ -10,20 +10,6 @@ import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
 public class TypeUtil {
 
     /**
-     * 获取节点退出的 消息类型
-     *
-     * @param nodeDataBase
-     * @return
-     */
-    public static RobotMsgType getExitMsg(VpJsonBean.NodeDataBase nodeDataBase) {
-        RobotMsgType robotMsgType = RobotMsgType.Timer;
-        String prefabName = nodeDataBase.PrefabName;
-        switch (prefabName) {
-        }
-        return robotMsgType;
-    }
-
-    /**
      * 这些节点是容器节点
      *
      * @param nodeDataBase

@@ -4,6 +4,7 @@ import com.unisrobot.robothead.visualedit.nodebean.base.Node;
 import com.unisrobot.robothead.visualedit.nodebean.common.AppendUtil;
 import com.unisrobot.robothead.visualedit.nodebean.common.NodeEvent;
 import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
+import com.unisrobot.robothead.visualedit.type.RobotMsgType;
 
 /**
  * Created by Administrator on 2018/6/27.
@@ -39,6 +40,7 @@ public class TurnAngleBean extends Node<Long> {
         //   speedTimeBean.direction = direction;
         speedTimeBean.xTime = getTime("");
         speedTimeBean.angle = speed;
+        speedTimeBean.setRobotMsgType(RobotMsgType.Timer);
         return speedTimeBean;
     }
 

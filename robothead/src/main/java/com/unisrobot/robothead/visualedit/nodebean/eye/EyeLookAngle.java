@@ -29,7 +29,8 @@ public class EyeLookAngle extends Node<Long> {
                 eyeLookAngle.angle = Float.parseFloat(inputNumberAngle);
             }
         }
-        eyeLookAngle.setRobotMsgType(RobotMsgType.PlayEnd);
+        eyeLookAngle.setRobotMsgType(RobotMsgType.Timer);
+
         return eyeLookAngle;
     }
 

@@ -119,6 +119,10 @@ public class NodeParams {
 
                 public static final String Can_Be_Zhengchu = "可被整除";
 
+                public static final String Shape_Color_Pink = "Pink";
+                public static final String Shape_Color_Yellow = "Yellow";
+                public static final String Shape_Color_Green = "Green";
+                public static final String Shape_Color_Orange = "Orange";
         }
 
         //感知智能
