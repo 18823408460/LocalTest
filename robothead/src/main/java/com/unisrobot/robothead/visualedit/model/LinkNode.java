@@ -199,6 +199,7 @@ public class LinkNode implements IRobotMsgHandler {
                                 if (msgType == robotMsgType) {
                                         if (isContainerNode()) { //则更新当前父节点,否则执行下一个rootNode
                                                 LinkNode fatherNode = this.getFatherNode();
+                                                fatherNode.setChildContainerNode(null);
                                                 iMsgCanHandler.haveHandler(true, fatherNode);
                                         } else {
                                                 iMsgCanHandler.haveHandler(false, null);
