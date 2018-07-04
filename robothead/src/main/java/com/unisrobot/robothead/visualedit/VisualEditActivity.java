@@ -395,6 +395,7 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
                                 } else {
                                         PercetionNormalBean percetionNormalBean = PercetionNormalBean.getBean(node);
                                         long timer = percetionNormalBean.exeNode();
+
                                         exeHandler.sendEmptyMessageDelayed(Timer, timer);
                                         currentExeLinkNode.setRobotMsgType(percetionNormalBean.getRobotMsgTypeList());
                                 }

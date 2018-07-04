@@ -1,6 +1,7 @@
 package com.unisrobot.javaread;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.unisrobot.javaread.compare.FileString;
 
@@ -8,12 +9,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Logger;
 
 /**
  * Created by Administrator on 2018/4/28.
@@ -23,9 +26,116 @@ public class ReadMain {
         public static final byte EVENT_CSB_RESPONSE = (byte) 0x96;
 
         public static void main(String[] args) {
-                testBurrfer();
+                //                testBurrfer();
 
                 //                test2();
+                List<String> strings = new ArrayList<>();
+                strings.add("111");
+                strings.add("222");
+                strings.add("333");
+
+                strings.add(1,"helllo1");
+                strings.add(2,"helllo2");
+                strings.add(3,"helllo3");
+
+                for (String list: strings
+                     ) {
+                        System.out.println("======="+list);
+                }
+        }
+
+        private static void getdata() {
+                StringBuffer stringBuffer = new StringBuffer();
+                for (int i = 0; i < 500; i++) {
+                        stringBuffer.append("A");
+                }
+                endCodeTouChuanDataHead(1, stringBuffer.toString());
+        }
+
+        private static void endCodeTouChuanDataHead(int msgType, String data) {
+                byte[] str = data.getBytes();
+                int len = str.length + 1 + 2;
+                byte buffer[] = new byte[len + 7];
+                int index = 0;
+                buffer[index++] = 0x44;
+                buffer[index++] = 0x4A;
+                buffer[index++] = (byte) (len >> 8);
+                buffer[index++] = (byte) (len & 0xff);
+
+                buffer[index++] = (byte) 0xdb;
+
+                buffer[index++] = (byte) (msgType >> 8);
+                buffer[index++] = (byte) (msgType & 0xff);
+
+                byte sum = (byte) (buffer[4] + buffer[5] + buffer[6]);
+
+                for (int i = 0; i < str.length; i++) {
+                        buffer[index++] = str[i];
+                        sum += str[i];
+                }
+
+                buffer[index++] = sum;
+                buffer[index++] = 0x0d;
+                buffer[index++] = 0x0a;
+                System.out.println("==" + bytesToHexString(buffer));
+        }
+
+        private static void endCodeTouChuanData(int msgType, String data) {
+                byte[] str = data.getBytes();
+                int len = str.length + 1 + 2;
+                byte buffer[] = new byte[len + 7];
+                int index = 0;
+                buffer[index++] = 0x08;
+                buffer[index++] = 0x06;
+                buffer[index++] = (byte) ((len >> 8) & 0xff);
+                buffer[index++] = (byte) (len & 0xff);
+
+
+                buffer[index++] = 0x13;
+                buffer[index++] = (byte) (msgType >> 8);
+                buffer[index++] = (byte) (msgType & 0xff);
+
+                byte sum = (byte) (0x13 + (byte) (msgType >> 8) + (byte) (msgType & 0xff));
+                for (int i = 0; i < (len - 3); i++) {
+                        buffer[index++] = str[i];
+                        sum += str[i];
+                }
+                buffer[index++] = sum;
+
+                buffer[index++] = 0x0d;
+                buffer[index++] = 0x0a;
+                System.out.println("==" + bytesToHexString(buffer));
+        }
+
+        public static String bytesToHexString(byte[] src) {
+                StringBuilder stringBuilder = new StringBuilder("");
+                if (src == null || src.length <= 0) {
+                        return null;
+                }
+                for (int i = 0; i < src.length; i++) {
+                        int v = src[i] & 0xFF;
+                        String hv = Integer.toHexString(v);
+                        stringBuilder.append("0x");
+                        if (hv.length() < 2) {
+                                stringBuilder.append(0);
+                        }
+                        stringBuilder.append(hv);
+                        stringBuilder.append(", ");
+                }
+                return stringBuilder.toString();
+        }
+
+        private static void testHashmap() {
+                HashMap<String, Integer> stringIntegerHashMap = new HashMap<>();
+
+                Integer integer = stringIntegerHashMap.get("hello");
+                System.out.println("int======= " + integer);
+                integer = new Integer(0);
+                stringIntegerHashMap.put("hello", ++integer);
+
+                Integer integer1 = stringIntegerHashMap.get("hello");
+                System.out.println("int1======= " + integer1);
+
         }
 
         private static void testBurrfer() {
@@ -61,8 +171,8 @@ public class ReadMain {
                 System.out.println(stringBuffer.length());
                 String data = stringBuffer.toString();
                 System.out.println("data=" + data);
-                stringBuffer.delete(0, stringBuffer.length() );
-                System.out.println(stringBuffer.capacity()+ "  "+stringBuffer.toString()+"  len="+stringBuffer.length());
+                stringBuffer.delete(0, stringBuffer.length());
+                System.out.println(stringBuffer.capacity() + "  " + stringBuffer.toString() + "  len=" + stringBuffer.length());
         }
 
         private static void testList() {
