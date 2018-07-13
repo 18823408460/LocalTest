@@ -22,6 +22,7 @@ import com.unisrobot.robothead.visualedit.nodebean.basic.TurnAngleBean;
 import com.unisrobot.robothead.visualedit.nodebean.combineaction.CombineBean;
 import com.unisrobot.robothead.visualedit.nodebean.common.NodeEvent;
 import com.unisrobot.robothead.visualedit.nodebean.common.NodeParams;
+import com.unisrobot.robothead.visualedit.nodebean.common.SensorMgr;
 import com.unisrobot.robothead.visualedit.nodebean.common.VpJsonBean;
 import com.unisrobot.robothead.visualedit.nodebean.ear.EarBean;
 import com.unisrobot.robothead.visualedit.nodebean.eye.EyeFeelingBean;
@@ -44,6 +45,8 @@ import com.unisrobot.robothead.visualedit.type.TaskJsonType;
 import java.lang.ref.WeakReference;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by Administrator on 2018/6/26.
@@ -58,7 +61,7 @@ import java.util.List;
  * 难点： 参数节点 应该返回什么数据类型？？
  */
 
-public class VisualEditActivity extends Activity implements IMsgCanHandler {
+public class VisualEditActivity extends Activity implements IMsgCanHandler, Observer {
         private static final int NEXT = 1;
         private static final int Timer = 2;
         private static final String TAG = VisualEditActivity.class.getSimpleName();
@@ -69,6 +72,12 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
         private ExeHandler exeHandler;
         private int rootNodeListYIndex = 0;  // y 方向的 链表索引
         private LinkNode currentExeLinkNode;
+        private SensorMgr sensorMgr;
+
+        @Override
+        public void update(Observable o, Object arg) {
+
+        }
 
         private static class ExeHandler extends Handler {
                 WeakReference<VisualEditActivity> weakReference;
@@ -109,6 +118,8 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
         protected void onCreate(@Nullable Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_visualedit);
+                sensorMgr = SensorMgr.getSensorMgr();
+                sensorMgr.addObserver(this);
                 exeHandler = new ExeHandler(this);
                 initBlueTooth();
         }
@@ -410,7 +421,7 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
                 if (currentFatherLinkNode != null) {
                         currentFatherLinkNode = null;
                 }
-                if (firstFatherNode != null){
+                if (firstFatherNode != null) {
                         firstFatherNode.cleanCurrentAndChild();
                 }
                 heartSetBean = null;
@@ -544,7 +555,7 @@ public class VisualEditActivity extends Activity implements IMsgCanHandler {
         @Override
         protected void onDestroy() {
                 super.onDestroy();
-
+                sensorMgr.deleteObserver(this);
                 bluToothMgr.destroy();
         }
 }

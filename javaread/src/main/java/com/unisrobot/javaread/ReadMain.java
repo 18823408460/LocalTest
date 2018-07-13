@@ -42,6 +42,24 @@ public class ReadMain {
                      ) {
                         System.out.println("======="+list);
                 }
+
+                System.out.println("===" +Character.toString((char) 51));
+
+                System.out.println("=="+ ascallToStr((byte) 33));
+
+                byte[] bytes = {0x33, 0x2e, 0x38, 0x31, 0x32, 0x76};
+                for (int i = 0; i < bytes.length; i++) {
+                        System.out.println("  ===  "+ascallToStr(bytes[i]));
+                }
+        }
+
+
+        private static String ascallToStr(byte data) {
+                return Character.toString((char) data);
+        }
+
+        private static int hexToInt(byte data) {
+                return Integer.parseInt(String.valueOf(data), 16);
         }
 
         private static void getdata() {

@@ -6,16 +6,13 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2018/6/22.
- *
+ * <p>
  * https://blog.csdn.net/yeqishi/article/details/7091617
- *
  */
 
 public class UDPTest {
@@ -23,29 +20,33 @@ public class UDPTest {
          * 0x01/2/3/4/5/6
          * 1:光照传感器;2:温湿度传感器;3:人体传感器;4:温度传感器;5:超声波传感器;6:按键传感器
          */
-        static byte devType = 0x05;
+        static byte devType = 0x04;
         static byte[] csb = {0x2D, (byte) 0xB2};
         static byte[] wenshidu = {0x2D, (byte) 0xd8};
-        static byte[] wendu = {(byte) 0xC2, (byte) 0x8a};
+        static byte[] wendu = {(byte) 0xA3, (byte) 0x9E};
         static byte[] guangzhao = {(byte) 0xab, (byte) 0x20};
         static byte[] anjian = {(byte) 0xa8, (byte) 0xd7};
         static byte[] renti = {(byte) 0xba, (byte) 0x02};
 
-        static byte devMacH = (byte) 0x2D;
-        static byte devMacL = (byte) 0xB2;
+        static byte devMacH = (byte) 0xA3;
+        static byte devMacL = (byte) 0x9E;
         static byte[] sendData = new byte[]{
                 (byte) 0xAA, 0x55, 0x00, 0x4D,
                 0x00, 0x12, 0x4B, 0x00, 0x19, (byte) 0x99, 0x50, 0x07,
                 0x00, 0x12, 0x4B, 0x00, 0x19, (byte) 0x99, devMacH, devMacL,
                 (byte) 0xC0, (byte) 0xA8, 0x0C, 0x0E,
                 (byte) 0xC9, (byte) 0xF0,
-                0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
-                (byte) 0x8A, 0x43,
+                0x00, 0x00, 0x01, 0x00, 0x00, 0x00, // 网络源MAC
+                (byte) 0x8A, 0x43, //SEQ标识
                 0x00, 0x01, 0x01, 0x00, 0x00,
-                0x51, devType, 0x01, 0x00, 0x1F, 0x00, 0x00,
-                0x51, 0x05, (byte) 0xFC,
-                0x00, 0x12, 0x4B, 0x00, 0x19, (byte) 0x99, 0x50, 0x07,
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+
+                0x51, devType, 0x01,
+                0x00, 0x1F, // 数据长度
+
+                0x00, 0x00,
+
+                0x51, 0x05, (byte) 0xFC, 0x00, 0x12, 0x4B, 0x00, 0x19, (byte) 0x99, 0x50, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
         };
 
         static byte[] getData = new byte[]{(byte) 0xAA, 0x55, 0x00, 0x2E, 0x00, 0x12, 0x4B, 0x00, 0x19, (byte) 0x99, 0x50, 0x07, 0x00
@@ -56,7 +57,7 @@ public class UDPTest {
                 System.out.println("--------------start-------------");
 
                 new Thread(new ReceiverRunnable()).start();
-//                new Thread(new SendRunnable()).start();
+                //                new Thread(new SendRunnable()).start();
         }
 
         private static class ReceiverRunnable implements Runnable {
@@ -69,9 +70,8 @@ public class UDPTest {
                 public void run() {
                         try {
                                 receiverSocket = new DatagramSocket(19999/*, InetAddress.getByName("192.168.12.254")*/);
-
                                 sendPkg = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("192.168.12.1"), 3000);
-                                 receiverSocket.send(sendPkg);
+                                receiverSocket.send(sendPkg);
                         } catch (SocketException e) {
                                 e.printStackTrace();
                                 System.out.println("e===" + e);
@@ -81,16 +81,13 @@ public class UDPTest {
                                 e.printStackTrace();
                         }
                         receiverPkg = new DatagramPacket(data, data.length);
-                        while (true) {
-                                try {
+                        try {
 
-                                        System.out.println("sever: wait receiver ");
-                                        receiverSocket.receive(receiverPkg);
-                                } catch (IOException e) {
-                                        e.printStackTrace();
-                                        System.out.println("ee=" + e);
-                                }
-                                parseData(receiverPkg.getData());
+                                System.out.println("sever: wait receiver ");
+                                receiverSocket.receive(receiverPkg);
+                        } catch (IOException e) {
+                                e.printStackTrace();
+                                System.out.println("ee=" + e);
                         }
                 }
         }

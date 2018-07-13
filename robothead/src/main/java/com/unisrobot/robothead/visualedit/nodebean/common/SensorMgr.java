@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import com.unisrobot.robothead.visualedit.nodebean.base.SensorBooleanBean;
 import com.unisrobot.robothead.visualedit.nodebean.base.SensorNumBean;
 
+import java.util.Observable;
+
 /**
  * Created by WEI on 2018/7/1.
  * <p>
@@ -16,7 +18,7 @@ import com.unisrobot.robothead.visualedit.nodebean.base.SensorNumBean;
  * 数值:
  */
 
-public class SensorMgr {
+public class SensorMgr extends Observable {
     // SparseArray是android里为<Interger,Object>这样的Hashmap而专门写的类
 //    private SparseArray sensorNumMap = new SparseArray();
 //    private SparseArray sensorBooleanMap = new SparseArray();
@@ -24,13 +26,28 @@ public class SensorMgr {
     private static ArrayMap<String, SensorBooleanBean> sensorBooleanMap = new ArrayMap<>();
     private static ArrayMap<String, Integer> sensorTouchMap = new ArrayMap<>();
     private Handler handler;
+    private static volatile SensorMgr sensorMgr;
 
-    public SensorMgr() {
+    public static SensorMgr getSensorMgr() {
+        if (sensorMgr == null) {
+            synchronized (SensorMgr.class) {
+                if (sensorMgr == null) {
+                    sensorMgr = new SensorMgr();
+                }
+            }
+        }
+        return sensorMgr;
+    }
+
+    private SensorMgr() {
         //这些传感器数据每个 X s 获取一次，然后更新, 以及一些触摸传感器的触摸次数记录
         // 传感器 = 系统触摸传感器 + 系统可插入传感器(这个数据需要主动去获取) + 外置传感器
         //系统可插入传感器 = 人体+ 超神波（距离） +
         initHandler();
         updateSensorData();
+
+        //所有 boolean 类型个数据，全部通过观察者发送出去
+        notifyObservers(new SensorBooleanBean());
     }
 
     public void updateBooleanSensor(String pos, String name, boolean value) {
@@ -80,6 +97,7 @@ public class SensorMgr {
         } else {
             resultData = defaultValue;
         }
+
         return resultData;
     }
 
