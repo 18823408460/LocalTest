@@ -4,6 +4,11 @@ package com.unisrobot.javaread.syn;
  * Created by Administrator on 2018/7/9.
  */
 
+/**
+ * 静态方法如果没有使用静态变量，则没有线程安全问题。
+ * 为什么呢？因为静态方法内声明的变量，每个线程调用时，都会新创建一份，而不会共用一个存储单元。比如这里的tmp,每个线程都会创建自己的一份，因此不会有线程安全问题。
+ * 注意:静态变量，由于是在类加载时占用一个存储区，每个线程都是共用这个存储区的，所以如果在静态方法里使用了静态变量，这就会有线程安全问题！
+ */
 public class SynMain {
         public static void main(String[] args) {
                 ReceiverRunnable receiverRunnable = new ReceiverRunnable();
@@ -25,9 +30,9 @@ public class SynMain {
                 public void run() {
                         while (count < 255) {
                                 byte[] send = EncodeUtils.send(count++);
-                                System.out.println("data="+ EncodeUtils.bytesToHexString(send) + "  name="+Thread.currentThread().getName());
+                                System.out.println("data=" + EncodeUtils.bytesToHexString(send) + "  name=" + Thread.currentThread().getName());
                                 try {
-                                        Thread.sleep(1500);
+                                        Thread.sleep(1000);
                                 } catch (InterruptedException e) {
                                         e.printStackTrace();
                                 }
