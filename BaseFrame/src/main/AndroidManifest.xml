@@ -7,10 +7,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".app.MainApp"
         android:theme="@style/AppBaseTheme">
-        <activity android:name=".dagger.news.DraggerNewsActivity">
+        <activity android:name=".activitys.SensorViewPagerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activitys.SmartDoctorActivity"
@@ -40,12 +44,7 @@
 
         <activity android:name=".socket.SocketActivity"></activity>
         <activity android:name=".dagger.news.activity.InjectActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
